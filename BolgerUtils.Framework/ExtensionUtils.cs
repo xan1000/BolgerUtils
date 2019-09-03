@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using RazorEngine.Templating;
+using RazorEngine.Text;
 
 namespace BolgerUtils.Framework
 {
@@ -59,6 +60,8 @@ namespace BolgerUtils.Framework
 
         public static SqlConnectionStringBuilder SqlConnectionStringBuilder(this string connectionString) =>
             new SqlConnectionStringBuilder(connectionString);
+
+        public static IEncodedString ToRawString(this string item) => new RawString(item);
 
         #endregion
     }

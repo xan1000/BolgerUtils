@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SendGrid.Helpers.Mail;
@@ -202,6 +203,8 @@ namespace BolgerUtils
 
             return digits.Length < 8 ? null : digits.Substring(digits.Length - 8);
         }
+
+        public static bool IsEmpty(this string value) => value.Length == 0;
         
         public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
         
@@ -215,6 +218,36 @@ namespace BolgerUtils
             $"<input type='checkbox' disabled {(value ? "checked" : string.Empty)} />";
 
         public static string RemoveDoubleQuotation(this string value) => value.Replace("\"", string.Empty);
+
+        // https://stackoverflow.com/a/37592018/9798310
+        public static string RemoveRedundantWhitespace(this string item)
+        {
+            var length = item.Length;
+            var array = item.ToCharArray();
+            var arrayIndex = 0;
+            var skip = false;
+            for(var i = 0; i < length; i++)
+            {
+                var character = array[i];
+                switch(character)
+                {
+                    case ' ':
+                    case '\t':
+                    case '\n':
+                        if(skip)
+                            continue;
+                        array[arrayIndex++] = character;
+                        skip = true;
+                        break;
+                    default:
+                        array[arrayIndex++] = character;
+                        skip = false;
+                        break;
+                }
+            }
+
+            return new string(array, 0, arrayIndex);
+        }
 
         public static string RemoveSpaceAndApostrophe(this string value) =>
             value.Replace(" ", string.Empty).Replace("'", string.Empty);
@@ -244,11 +277,13 @@ namespace BolgerUtils
         public static string ToEmptyIfNullOrWhiteSpace(this string value) =>
             value.IsNullOrWhiteSpace() ? string.Empty : value;
 
+        public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
+
         public static string ToNullIfNullOrWhiteSpace(this string value) => value.IsNullOrWhiteSpace() ? null : value;
 
         public static string Truncate(this string value, int length) =>
             value.Length <= length ? value : value.Substring(0, Math.Min(value.Length, length));
-        
+
         public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string value)
         {
             var stringBuilder = new StringBuilder(value);
