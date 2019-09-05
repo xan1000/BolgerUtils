@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BolgerUtils.EnumDisplay\BolgerUtils.EnumDisplay.csproj" />
-    <ProjectReference Include="..\BolgerUtils\BolgerUtils.csproj" />
   </ItemGroup>
 
 </Project>
