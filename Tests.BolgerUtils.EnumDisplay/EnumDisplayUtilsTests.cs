@@ -39,7 +39,7 @@ namespace Tests.BolgerUtils.EnumDisplay
             _enumDisplayUtils.Add(key);
 
             Assert.True(_enumDisplayUtils.ContainsKey(key));
-            Assert.Equal(_enumDisplayUtils.Display(key), EnumDisplayUtils.DefaultDisplay(key));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(key), _enumDisplayUtils.Display(key));
         }
 
         [Theory]
@@ -49,7 +49,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             _enumDisplayUtils.Add(key, value);
 
-            Assert.Equal(_enumDisplayUtils.Display(key), value);
+            Assert.Equal(value, _enumDisplayUtils.Display(key));
         }
 
         [Theory]
@@ -58,16 +58,16 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             _enumDisplayUtils.Add(testType);
 
-            Assert.Equal(_enumDisplayUtils.Display(testType), value);
-            Assert.Equal(_enumDisplayUtils.Display(testType), EnumDisplayUtils.DefaultDisplay(testType));
+            Assert.Equal(value, _enumDisplayUtils.Display(testType));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), _enumDisplayUtils.Display(testType));
         }
 
         [Theory]
         [InlineData(TestType.TestCustomValueWithAttribute, CustomAttributeValue)]
         public void DisplayAttributeValueTest(TestType testType, string value)
         {
-            Assert.Equal(_enumDisplayUtils.Display(testType), value);
-            Assert.Equal(_enumDisplayUtils.Display(testType), EnumDisplayUtils.DefaultDisplay(testType));
+            Assert.Equal(value, _enumDisplayUtils.Display(testType));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), _enumDisplayUtils.Display(testType));
         }
 
         [Theory]
@@ -86,10 +86,10 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             var enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
             enumDisplayUtils.Add(key);
-            Assert.Equal(enumDisplayUtils.Display(key), defaultDisplay(key));
+            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
 
             enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
-            Assert.Equal(enumDisplayUtils.Display(key), defaultDisplay(key));
+            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
         }
 
         [Theory]
@@ -213,7 +213,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         private void CacheValueOnDisplayTestImplementation(
             Enum key, Enum otherKey, EnumDisplayUtils enumDisplayUtils, bool cacheValueOnDisplay)
         {
-            Assert.Equal(enumDisplayUtils.CacheValueOnDisplay, cacheValueOnDisplay);
+            Assert.Equal(cacheValueOnDisplay, enumDisplayUtils.CacheValueOnDisplay);
             Assert.False(enumDisplayUtils.ContainsKey(key));
             Assert.False(enumDisplayUtils.ContainsKey(otherKey));
 
@@ -221,11 +221,11 @@ namespace Tests.BolgerUtils.EnumDisplay
             Assert.True(enumDisplayUtils.ContainsKey(key));
             Assert.False(enumDisplayUtils.ContainsKey(otherKey));
 
-            Assert.Equal(enumDisplayUtils.Display(key), EnumDisplayUtils.DefaultDisplay(key));
-            Assert.Equal(enumDisplayUtils.Display(otherKey), EnumDisplayUtils.DefaultDisplay(otherKey));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(key), enumDisplayUtils.Display(key));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(otherKey), enumDisplayUtils.Display(otherKey));
 
             Assert.True(enumDisplayUtils.ContainsKey(key));
-            Assert.Equal(enumDisplayUtils.ContainsKey(otherKey), enumDisplayUtils.CacheValueOnDisplay);
+            Assert.Equal(enumDisplayUtils.CacheValueOnDisplay, enumDisplayUtils.ContainsKey(otherKey));
         }
     }
 
@@ -244,7 +244,7 @@ namespace Tests.BolgerUtils.EnumDisplay
             key.Add();
 
             Assert.True(key.ContainsKey());
-            Assert.Equal(key.Display(), EnumDisplayUtils.DefaultDisplay(key));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(key), key.Display());
         }
 
         [Theory]
@@ -254,7 +254,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             key.Add(value);
 
-            Assert.Equal(key.Display(), value);
+            Assert.Equal(value, key.Display());
         }
 
         [Theory]
@@ -263,16 +263,16 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             testType.Add();
 
-            Assert.Equal(testType.Display(), value);
-            Assert.Equal(testType.Display(), EnumDisplayUtils.DefaultDisplay(testType));
+            Assert.Equal(value, testType.Display());
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), testType.Display());
         }
 
         [Theory]
         [InlineData(TestType.TestCustomValueWithAttribute, EnumDisplayUtilsTests.CustomAttributeValue)]
         public void DisplayAttributeValueTest(TestType testType, string value)
         {
-            Assert.Equal(testType.Display(), value);
-            Assert.Equal(testType.Display(), EnumDisplayUtils.DefaultDisplay(testType));
+            Assert.Equal(value, testType.Display());
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), testType.Display());
         }
 
         [Theory]

@@ -6,14 +6,14 @@ using System.Text;
 namespace BolgerUtils.Framework.EnumDisplay
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class AddAttribute : Attribute
+    public sealed class AddAttribute : Attribute
     {
         public string Value { get; }
 
         public AddAttribute(string value) => Value = value;
     }
 
-    public class EnumDisplayUtils
+    public sealed class EnumDisplayUtils
     {
         public static string DefaultDisplay(Enum key)
         {

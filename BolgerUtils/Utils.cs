@@ -21,12 +21,12 @@ namespace BolgerUtils
 
         public static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
         
-        public static bool IsInvalidEmail(string emailAddress)
+        public static bool IsInvalidEmail(string email)
         {
             MailAddress mailAddress = null;
             try
             {
-                mailAddress = new MailAddress(emailAddress);
+                mailAddress = new MailAddress(email);
             }
             // ReSharper disable once EmptyGeneralCatchClause
             catch

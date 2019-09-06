@@ -4,7 +4,7 @@ using System.IO;
 
 namespace BolgerUtils.FileToObjectMapping
 {
-    public class FileToObject
+    public sealed class FileToObject
     {
         private readonly Dictionary<string, Func<string, object>> _fileContentToObjectDictionary =
             new Dictionary<string, Func<string, object>>();
