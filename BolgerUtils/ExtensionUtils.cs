@@ -18,17 +18,14 @@ namespace BolgerUtils
         
         public static string Disabled(this bool value) => value ? "disabled" : string.Empty;
         
-        public static string Display(this bool value, string trueValue, string falseValue = "") =>
-            value ? trueValue : falseValue;
-
-        public static string GreenTickImage(this bool value) =>
-            value ? "<img src='/Images/green_tick_45x45.png' alt='Tick' class='tick' />" : string.Empty;
+        public static string Display(this bool value, string trueDisplay, string falseDisplay = "") =>
+            value ? trueDisplay : falseDisplay;
 
         public static string HasError(this bool value) => value ? "has-error" : string.Empty;
 
         public static string Selected(this bool value) => value ? "selected" : string.Empty;
         
-        public static string YesOrNoLabel(this bool value) => value ? "Yes" : "No";
+        public static string YesOrNo(this bool value) => value ? "Yes" : "No";
 
         #endregion
 
