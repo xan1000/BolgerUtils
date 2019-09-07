@@ -31,7 +31,7 @@ namespace BolgerUtils
 
         #region Byte
 
-        public static string HexString(this byte[] bytes)
+        public static string ToHexString(this byte[] bytes)
         {
             const int hexadecimalCharactersPerByte = 2;
 

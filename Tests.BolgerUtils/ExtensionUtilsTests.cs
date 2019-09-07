@@ -49,6 +49,13 @@ namespace Tests.BolgerUtils
 
         #region Byte
         
+        [Theory]
+        [InlineData("", new byte[0])]
+        [InlineData("0123456789ABCDEF", new byte[] { 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF })]
+        [InlineData("05", new byte[] { 0x5 })]
+        [InlineData("0102300456", new byte[] { 0x1, 0x02, 0x30, 0x4, 0x56 })]
+        public void HexStringTest(string expected, byte[] bytes) => Assert.Equal(expected, bytes.ToHexString());
+
         #endregion
 
         #region DateTime
