@@ -163,13 +163,13 @@ namespace BolgerUtils
 
         #region Object
 
-        public static dynamic ToDynamic(this object value)
+        public static dynamic ToDynamic(this object item)
         {
             IDictionary<string, object> expando = new ExpandoObject();
 
-            foreach(PropertyDescriptor property in TypeDescriptor.GetProperties(value.GetType()))
+            foreach(PropertyDescriptor property in TypeDescriptor.GetProperties(item.GetType()))
             {
-                expando.Add(property.Name, property.GetValue(value));
+                expando.Add(property.Name, property.GetValue(item));
             }
 
             return (ExpandoObject) expando;

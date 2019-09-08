@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BolgerUtils;
+using SendGrid.Helpers.Mail;
 using Xunit;
 
 namespace Tests.BolgerUtils
@@ -81,9 +83,16 @@ namespace Tests.BolgerUtils
 
         #region EmailAddress
 
-        //public static string ToEmailAndNameString(this EmailAddress emailAddress) =>
-        //    !emailAddress.Name.IsNullOrWhiteSpace() ?
-        //        $"{emailAddress.Name} <{emailAddress.Email}>" : emailAddress.Email;
+        [Fact]
+        public void ToEmailAndNameStringTest()
+        {
+            ToEmailAndNameStringTestImplementation(null, new EmailAddress());
+            ToEmailAndNameStringTestImplementation("test@gmail.com", new EmailAddress("test@gmail.com"));
+            ToEmailAndNameStringTestImplementation("Test <test@gmail.com>", new EmailAddress("test@gmail.com", "Test"));
+        }
+
+        private void ToEmailAndNameStringTestImplementation(string expected, EmailAddress emailAddress) =>
+            Assert.Equal(expected, emailAddress.ToEmailAndNameString());
 
         #endregion
 
@@ -151,9 +160,29 @@ namespace Tests.BolgerUtils
 
         #region List
 
+        [Fact]
+        public void ToHashSetTest()
+        {
+            Assert.IsType<HashSet<int>>(new List<int>().ToHashSet());
+            Assert.IsType<HashSet<string>>(new List<string>().ToHashSet());
+            Assert.IsType<HashSet<ExtensionUtilsTests>>(new List<ExtensionUtilsTests>().ToHashSet());
+        }
+
         #endregion
 
         #region Object
+
+        [Fact]
+        public void ToDynamicTest()
+        {
+            var item = new { Name = "Test", X = 5, Y = 10 };
+            var itemDynamic = item.ToDynamic();
+
+            Assert.IsAssignableFrom<dynamic>(itemDynamic);
+            Assert.Equal(item.Name, itemDynamic.Name);
+            Assert.Equal(item.X, itemDynamic.X);
+            Assert.Equal(item.Y, itemDynamic.Y);
+        }
 
         #endregion
 
@@ -162,8 +191,6 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region TimeSpan
-
-
 
         //public static string ToTimeString(this TimeSpan value, string format = "h:mm tt") =>
         //    DateTime.MinValue.Add(value).ToString(format);
