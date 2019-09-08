@@ -72,24 +72,24 @@ namespace BolgerUtils
 
         #region DayOfWeek
 
-        public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> daysOfWeek) =>
-            daysOfWeek.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
+        public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> daysOfWeek)
+            => daysOfWeek.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
 
         #endregion
 
         #region EmailAddress
 
         public static string ToEmailAndNameString(this EmailAddress emailAddress) =>
-            !emailAddress.Name.IsNullOrWhiteSpace() ? $"{emailAddress.Name} <{emailAddress.Email}>" :
-                emailAddress.Email;
+            !emailAddress.Name.IsNullOrWhiteSpace() ?
+                $"{emailAddress.Name} <{emailAddress.Email}>" : emailAddress.Email;
 
         #endregion
 
         #region Enum
         
-        public static int ToInt(this Enum value) => Convert.ToInt32(value);
+        public static int ToInt(this Enum item) => Convert.ToInt32(item);
 
-        public static string ToValueString(this Enum value) => value.ToInt().ToString();
+        public static string ToValueString(this Enum item) => item.ToInt().ToString();
 
         #endregion
 

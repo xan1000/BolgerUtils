@@ -1,4 +1,6 @@
-﻿using BolgerUtils;
+﻿using System;
+using System.Linq;
+using BolgerUtils;
 using Xunit;
 
 namespace Tests.BolgerUtils
@@ -64,14 +66,75 @@ namespace Tests.BolgerUtils
 
         #region DayOfWeek
 
+        [Fact]
+        public void OrderByDayOfWeekStartingOnMondayTest()
+        {
+            var daysOfWeek = Utils.GetEnumValues<DayOfWeek>().OrderByDayOfWeekStartingOnMonday().ToArray();
+
+            Assert.Equal(DayOfWeek.Monday, daysOfWeek[0]);
+            Assert.Equal(DayOfWeek.Sunday, daysOfWeek[daysOfWeek.Length - 1]);
+            Assert.Equal(new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday,
+                DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday }, daysOfWeek);
+        }
+
         #endregion
 
         #region EmailAddress
 
+        //public static string ToEmailAndNameString(this EmailAddress emailAddress) =>
+        //    !emailAddress.Name.IsNullOrWhiteSpace() ?
+        //        $"{emailAddress.Name} <{emailAddress.Email}>" : emailAddress.Email;
+
         #endregion
 
         #region Enum
-        
+
+        [Fact]
+        public void ToIntTestFact()
+        {
+            foreach(var x in Utils.GetEnumValues<TestType>())
+            {
+                Assert.Equal((int) x, x.ToInt());
+            }
+            foreach(var x in Utils.GetEnumValues<TestAnotherType>())
+            {
+                Assert.Equal((int) x, x.ToInt());
+            }
+        }
+
+        [Theory]
+        [InlineData(0, TestType.Test1)]
+        [InlineData(1, TestType.Test2)]
+        [InlineData(2, TestType.Test3)]
+        [InlineData(10, TestAnotherType.Test1)]
+        [InlineData(20, TestAnotherType.Test2)]
+        [InlineData(30, TestAnotherType.Test3)]
+        public void ToIntTest(int expected, Enum item) => Assert.Equal(expected, item.ToInt());
+
+        [Fact]
+        public void ToValueStringTestFact()
+        {
+            foreach(var x in Utils.GetEnumValues<TestType>())
+            {
+                Assert.Equal(((int) x).ToString(), x.ToValueString());
+                Assert.Equal(x.ToInt().ToString(), x.ToValueString());
+            }
+            foreach(var x in Utils.GetEnumValues<TestAnotherType>())
+            {
+                Assert.Equal(((int) x).ToString(), x.ToValueString());
+                Assert.Equal(x.ToInt().ToString(), x.ToValueString());
+            }
+        }
+
+        [Theory]
+        [InlineData("0", TestType.Test1)]
+        [InlineData("1", TestType.Test2)]
+        [InlineData("2", TestType.Test3)]
+        [InlineData("10", TestAnotherType.Test1)]
+        [InlineData("20", TestAnotherType.Test2)]
+        [InlineData("30", TestAnotherType.Test3)]
+        public void ToValueStringTest(string expected, Enum item) => Assert.Equal(expected, item.ToValueString());
+
         #endregion
 
         #region Generic
@@ -99,6 +162,11 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region TimeSpan
+
+
+
+        //public static string ToTimeString(this TimeSpan value, string format = "h:mm tt") =>
+        //    DateTime.MinValue.Add(value).ToString(format);
 
         #endregion
     }
