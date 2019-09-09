@@ -33,12 +33,12 @@ namespace BolgerUtils
 
         #region Byte
 
-        public static string ToHexString(this byte[] bytes)
+        public static string ToHexString(this byte[] item)
         {
             const int hexadecimalCharactersPerByte = 2;
 
-            var hexString = new StringBuilder(bytes.Length * hexadecimalCharactersPerByte);
-            foreach(var x in bytes)
+            var hexString = new StringBuilder(item.Length * hexadecimalCharactersPerByte);
+            foreach(var x in item)
             {
                 hexString.AppendFormat("{0:X2}", x);
             }
@@ -50,40 +50,39 @@ namespace BolgerUtils
 
         #region DateTime
         
-        public static DateTime AddWeeks(this DateTime value, double weeks) => value.AddDays(weeks * Utils.DaysPerWeek);
+        public static DateTime AddWeeks(this DateTime item, double weeks) => item.AddDays(weeks * Utils.DaysPerWeek);
 
-        private static DateTime FindDayOfWeek(this DateTime value, DayOfWeek dayOfWeek, bool forward)
+        private static DateTime FindDayOfWeek(this DateTime item, DayOfWeek dayOfWeek, bool forward)
         {
             var days = forward ? 1 : -1;
-            while(value.DayOfWeek != dayOfWeek)
+            while(item.DayOfWeek != dayOfWeek)
             {
-                value = value.AddDays(days);
+                item = item.AddDays(days);
             }
-            return value;
+            return item;
         }
         
-        public static DateTime FindDayOfWeekBackward(this DateTime value, DayOfWeek dayOfWeek) =>
-            value.FindDayOfWeek(dayOfWeek, false);
+        public static DateTime FindDayOfWeekBackward(this DateTime item, DayOfWeek dayOfWeek) =>
+            item.FindDayOfWeek(dayOfWeek, false);
         
-        public static DateTime FindDayOfWeekForward(this DateTime value, DayOfWeek dayOfWeek) =>
-            value.FindDayOfWeek(dayOfWeek, true);
+        public static DateTime FindDayOfWeekForward(this DateTime item, DayOfWeek dayOfWeek) =>
+            item.FindDayOfWeek(dayOfWeek, true);
 
-        public static DateTime Yesterday(this DateTime value) => value.AddDays(-1);
+        public static DateTime Yesterday(this DateTime item) => item.AddDays(-1);
 
         #endregion
 
         #region DayOfWeek
 
-        public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> daysOfWeek)
-            => daysOfWeek.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
+        public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> source) =>
+            source.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
 
         #endregion
 
         #region EmailAddress
 
-        public static string ToEmailAndNameString(this EmailAddress emailAddress) =>
-            !emailAddress.Name.IsNullOrWhiteSpace() ?
-                $"{emailAddress.Name} <{emailAddress.Email}>" : emailAddress.Email;
+        public static string ToEmailAndNameString(this EmailAddress item) =>
+            !item.Name.IsNullOrWhiteSpace() ? $"{item.Name} <{item.Email}>" : item.Email;
 
         #endregion
 
@@ -97,41 +96,41 @@ namespace BolgerUtils
 
         #region Generic
 
-        public static bool IsContainedIn<T>(this T value, params T[] values) => values.Contains(value);
+        public static bool IsContainedIn<T>(this T item, params T[] values) => values.Contains(item);
         
-        public static List<T> ScalarToList<T>(this T t) => new List<T>(1) { t };
+        public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
         #endregion
 
         #region ICollection
 
-        public static void AddAll<T>(this ICollection<T> collection, IEnumerable<T> objects)
+        public static void AddAll<T>(this ICollection<T> item, IEnumerable<T> objects)
         {
             foreach(var x in objects)
             {
-                collection.Add(x);
+                item.Add(x);
             }
         }
 
-        public static bool RemoveAll<T>(this ICollection<T> collection, IEnumerable<T> objects)
+        public static bool RemoveAll<T>(this ICollection<T> item, IEnumerable<T> objects)
         {
             var success = true;
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach(var x in objects)
             {
-                success &= collection.Remove(x);
+                success &= item.Remove(x);
             }
 
             return success;
         }
 
         // Note this extension method is usually used in conjunction with EF.
-        public static bool RemoveAll<T>(this ICollection<T> collection, Func<T, bool> predicate)
+        public static bool RemoveAll<T>(this ICollection<T> item, Func<T, bool> predicate)
         {
             var success = true;
-            foreach(var x in collection.Where(predicate).ToList())
+            foreach(var x in item.Where(predicate).ToList())
             {
-                success &= collection.Remove(x);
+                success &= item.Remove(x);
             }
 
             return success;
@@ -153,13 +152,13 @@ namespace BolgerUtils
             source.Where(x => !predicate(x));
 
         // Note this extension method is usually used in conjunction with EF.
-        public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> objects) => objects.ToList().ToHashSet();
+        public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> source) => source.ToList().ToHashSet();
 
         #endregion
 
         #region List
 
-        public static HashSet<T> ToHashSet<T>(this List<T> list) => new HashSet<T>(list);
+        public static HashSet<T> ToHashSet<T>(this List<T> item) => new HashSet<T>(item);
 
         #endregion
 
@@ -181,29 +180,29 @@ namespace BolgerUtils
 
         #region String
 
-        public static string Abbreviate(this string value, int length)
+        public static string Abbreviate(this string item, int length)
         {
-            if(value.Length <= length)
-                return value;
+            if(item.Length <= length)
+                return item;
 
             const string abbreviation = "...";
             if(length <= abbreviation.Length)
                 throw new Exception();
 
-            return value.Truncate(length - abbreviation.Length) + abbreviation;
+            return item.Truncate(length - abbreviation.Length) + abbreviation;
         }
 
-        public static DbConnectionStringBuilder DbConnectionStringBuilder(this string connectionString) =>
-            new DbConnectionStringBuilder { ConnectionString = connectionString };
+        public static DbConnectionStringBuilder DbConnectionStringBuilder(this string item) =>
+            new DbConnectionStringBuilder { ConnectionString = item };
 
-        public static string GetLast8Digits(this string mobile)
+        public static string GetLast8Digits(this string item)
         {
-            var digits = new string(mobile.Where(char.IsDigit).ToArray());
+            var digits = new string(item.Where(char.IsDigit).ToArray());
 
             return digits.Length < 8 ? null : digits.Substring(digits.Length - 8);
         }
 
-        public static bool IsEmpty(this string value) => value.Length == 0;
+        public static bool IsEmpty(this string item) => item.Length == 0;
         
         public static bool IsInvalidEmail(this string item)
         {
@@ -224,18 +223,15 @@ namespace BolgerUtils
         private static readonly Regex _moneyRegex = new Regex(@"^((\d+)|(\d+\.\d{1,2}))$");
         public static bool IsInvalidMoney(this string item) => !_moneyRegex.IsMatch(item) || decimal.Parse(item) < 0;
 
-        public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+        public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
         
-        public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
+        public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
 
-        public static string Join(this IEnumerable<string> values, string separator) => string.Join(separator, values);
+        public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
 
-        public static string NewLineToBr(this string value) => value.Replace("\n", "<br />");
+        public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
 
-        public static string ReadOnlyCheckbox(this bool value) =>
-            $"<input type='checkbox' disabled {(value ? "checked" : string.Empty)} />";
-
-        public static string RemoveDoubleQuotation(this string value) => value.Replace("\"", string.Empty);
+        public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
 
         // https://stackoverflow.com/a/37592018/9798310
         public static string RemoveRedundantWhitespace(this string item)
@@ -267,44 +263,44 @@ namespace BolgerUtils
             return new string(array, 0, arrayIndex);
         }
 
-        public static string RemoveSpaceAndApostrophe(this string value) =>
-            value.Replace(" ", string.Empty).Replace("'", string.Empty);
+        public static string RemoveSpaceAndApostrophe(this string item) =>
+            item.Replace(" ", string.Empty).Replace("'", string.Empty);
 
-        public static string SpaceToNbsp(this string value) => value.Replace(" ", "&nbsp;");
+        public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");
 
-        public static string ToAustralianMobileNumber(this string mobile)
+        public static string ToAustralianMobileNumber(this string item)
         {
-            if(mobile.IsNullOrWhiteSpace())
-                return mobile;
+            if(item.IsNullOrWhiteSpace())
+                return item;
 
             // Remove everything except for numbers.
-            mobile = new string(mobile.Where(char.IsDigit).ToArray());
+            item = new string(item.Where(char.IsDigit).ToArray());
 
-            if(mobile.Length < 8 || mobile.Length > 11)
-                return "INVALID " + mobile;
+            if(item.Length < 8 || item.Length > 11)
+                return "INVALID " + item;
             // Standard mobile number format.
-            if(mobile[0] == '0' && mobile.Length == 10)
-                return long.Parse(mobile).ToString("0### ### ###");
+            if(item[0] == '0' && item.Length == 10)
+                return long.Parse(item).ToString("0### ### ###");
             // Country code format.
-            if(mobile[0] == '6' && mobile.Length == 11)
-                return long.Parse(mobile).ToString("+## ### ### ###");
+            if(item[0] == '6' && item.Length == 11)
+                return long.Parse(item).ToString("+## ### ### ###");
 
-            return mobile.Insert(2, " ");
+            return item.Insert(2, " ");
         }
 
-        public static string ToEmptyIfNullOrWhiteSpace(this string value) =>
-            value.IsNullOrWhiteSpace() ? string.Empty : value;
+        public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
+            item.IsNullOrWhiteSpace() ? string.Empty : item;
 
         public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
 
-        public static string ToNullIfNullOrWhiteSpace(this string value) => value.IsNullOrWhiteSpace() ? null : value;
+        public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
 
-        public static string Truncate(this string value, int length) =>
-            value.Length <= length ? value : value.Substring(0, Math.Min(value.Length, length));
+        public static string Truncate(this string item, int length) =>
+            item.Length <= length ? item : item.Substring(0, Math.Min(item.Length, length));
 
-        public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string value)
+        public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string item)
         {
-            var stringBuilder = new StringBuilder(value);
+            var stringBuilder = new StringBuilder(item);
 
             if(char.IsLower(stringBuilder[0]))
                 stringBuilder[0] = char.ToUpper(stringBuilder[0]);

@@ -58,12 +58,23 @@ namespace Tests.BolgerUtils
         [InlineData("0123456789ABCDEF", new byte[] { 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF })]
         [InlineData("05", new byte[] { 0x5 })]
         [InlineData("0102300456", new byte[] { 0x1, 0x02, 0x30, 0x4, 0x56 })]
-        public void HexStringTest(string expected, byte[] bytes) => Assert.Equal(expected, bytes.ToHexString());
+        public void HexStringTest(string expected, byte[] item) => Assert.Equal(expected, item.ToHexString());
 
         #endregion
 
         #region DateTime
-        
+
+        [Fact]
+        public void AddWeeksTest()
+        {
+            var date = DateTime.Today;
+            for(var i = -10; i < 10; i++)
+            {
+                Assert.Equal(date.AddDays(i * Utils.DaysPerWeek), date.AddWeeks(i));
+                Assert.Equal(date.AddDays(i * 7), date.AddWeeks(i));
+            }
+        }
+
         #endregion
 
         #region DayOfWeek
@@ -91,8 +102,8 @@ namespace Tests.BolgerUtils
             ToEmailAndNameStringTestImplementation("Test <test@gmail.com>", new EmailAddress("test@gmail.com", "Test"));
         }
 
-        private void ToEmailAndNameStringTestImplementation(string expected, EmailAddress emailAddress) =>
-            Assert.Equal(expected, emailAddress.ToEmailAndNameString());
+        private void ToEmailAndNameStringTestImplementation(string expected, EmailAddress item) =>
+            Assert.Equal(expected, item.ToEmailAndNameString());
 
         #endregion
 

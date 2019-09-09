@@ -15,12 +15,12 @@ namespace BolgerUtils.Framework
         #region DbContext
 
         // Note this extension method is usually used in conjunction with EF.
-        public static void LogSql(this DbContext context) => context.Database.Log = s => Debug.WriteLine(s);
+        public static void LogSql(this DbContext item) => item.Database.Log = s => Debug.WriteLine(s);
 
         // Note this extension method is usually used in conjunction with EF.
-        public static int PropertyMaximumLength(this DbContext context, string entitySet, string property)
+        public static int PropertyMaximumLength(this DbContext item, string entitySet, string property)
         {
-            var objectContext = ((IObjectContextAdapter) context).ObjectContext;
+            var objectContext = ((IObjectContextAdapter) item).ObjectContext;
             var container = objectContext.MetadataWorkspace.GetEntityContainer(objectContext.DefaultContainerName,
                 DataSpace.CSpace);
 
@@ -32,11 +32,11 @@ namespace BolgerUtils.Framework
 
         #region IRazorEngineService
 
-        public static string Parse<T>(this IRazorEngineService service, FileInfo templateFileInfo, T model = null,
+        public static string Parse<T>(this IRazorEngineService item, FileInfo templateFileInfo, T model = null,
             DynamicViewBag viewBag = null) where T : class =>
-            service.Parse(templateFileInfo, model.GetType(), model, viewBag);
+            item.Parse(templateFileInfo, model.GetType(), model, viewBag);
 
-        public static string Parse(this IRazorEngineService service, FileInfo templateFileInfo,
+        public static string Parse(this IRazorEngineService item, FileInfo templateFileInfo,
             Type modelType = null, object model = null, DynamicViewBag viewBag = null)
         {
             // A bit of magic is required with how templates are complied and re-complied due to memory release issues
@@ -49,17 +49,17 @@ namespace BolgerUtils.Framework
             // Note that when the Application Pool naturally refreshes all memory leaks will then be taken care of.
             var templateKey = templateFileInfo.Name + templateFileInfo.LastWriteTimeUtc.ToBinary();
 
-            return service.IsTemplateCached(templateKey, modelType) ?
-                service.Run(templateKey, modelType, model, viewBag) :
-                service.RunCompile(File.ReadAllText(templateFileInfo.FullName), templateKey, modelType, model, viewBag);
+            return item.IsTemplateCached(templateKey, modelType) ?
+                item.Run(templateKey, modelType, model, viewBag) :
+                item.RunCompile(File.ReadAllText(templateFileInfo.FullName), templateKey, modelType, model, viewBag);
         }
 
         #endregion
 
         #region String
 
-        public static SqlConnectionStringBuilder SqlConnectionStringBuilder(this string connectionString) =>
-            new SqlConnectionStringBuilder(connectionString);
+        public static SqlConnectionStringBuilder SqlConnectionStringBuilder(this string item) =>
+            new SqlConnectionStringBuilder(item);
 
         public static IEncodedString ToRawString(this string item) => new RawString(item);
 

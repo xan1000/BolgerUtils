@@ -10,73 +10,77 @@ namespace BolgerUtils.Framework.WebForms
 {
     public static class ExtensionUtils
     {
+        #region Boolean
+
+        public static string ReadOnlyCheckbox(this bool item) =>
+            $"<input type=checkbox disabled {(item ? "checked" : string.Empty)} />";
+
+        #endregion
+
         #region DropDownList
 
-        public static DayOfWeek? SelectedDayOfWeekOrNull(this DropDownList dropDownList)
+        public static DayOfWeek? SelectedDayOfWeekOrNull(this DropDownList item)
         {
-            var value = dropDownList.SelectedValueToIntOrNull();
+            var value = item.SelectedValueToIntOrNull();
 
             return value.HasValue ? (DayOfWeek?) Utils.GetEnumValue<DayOfWeek>(value.Value) : null;
         }
 
-        public static int? SelectedValueToIntOrNull(this DropDownList dropDownList) =>
-            int.TryParse(dropDownList.SelectedValue, out var value) ? (int?) value : null;
+        public static int? SelectedValueToIntOrNull(this DropDownList item) =>
+            int.TryParse(item.SelectedValue, out var value) ? (int?) value : null;
 
         #endregion
 
         #region HttpRequest
 
-        public static string BeginUrl(this HttpRequest request) =>
-            $"{request.Url.Scheme}://{request.ServerVariables["Http_Host"]}/";
+        public static string BeginUrl(this HttpRequest item) =>
+            $"{item.Url.Scheme}://{item.ServerVariables["Http_Host"]}/";
 
-        public static int? GetFormIntOrNull(this HttpRequest request, string name) =>
-            int.TryParse(request.GetFormValue(name), out var value) ? (int?) value : null;
+        public static int? GetFormIntOrNull(this HttpRequest item, string name) =>
+            int.TryParse(item.GetFormValue(name), out var value) ? (int?) value : null;
 
-        public static string GetFormValue(this HttpRequest request, string name) => request.Form[name];
+        public static string GetFormValue(this HttpRequest item, string name) => item.Form[name];
         
-        public static string GetFormValueNotNull(this HttpRequest request, string name) =>
-            request.GetFormValue(name) ?? string.Empty;
+        public static string GetFormValueNotNull(this HttpRequest item, string name) =>
+            item.GetFormValue(name) ?? string.Empty;
 
         #endregion
 
         #region Label
 
-        public static void HasError(this Label label, out bool isFormInvalid, string text = null)
+        public static void HasError(this Label item, out bool isFormInvalid, string text = null)
         {
             if(text != null)
-                label.Text = text;
-            label.Visible = isFormInvalid = true;
+                item.Text = text;
+            item.Visible = isFormInvalid = true;
         }
 
         #endregion
 
         #region Session
         
-        public static T Get<T>(this HttpSessionState session, string key) =>
-            session[key] != null ? (T) session[key] : default(T);
+        public static T Get<T>(this HttpSessionState item, string key) => item[key] != null ? (T) item[key] : default;
 
-        public static void Set<T>(this HttpSessionState session, string key, T value) => session[key] = value;
+        public static void Set<T>(this HttpSessionState item, string key, T value) => item[key] = value;
 
         #endregion
 
         #region String
         
-        public static string ConnectionString(this string connectionStringName) =>
-            connectionStringName.ConnectionStringSettings().ConnectionString;
+        public static string ConnectionString(this string item) => item.ConnectionStringSettings().ConnectionString;
 
-        public static ConnectionStringSettings ConnectionStringSettings(this string connectionStringName) =>
-            WebConfigurationManager.ConnectionStrings[connectionStringName];
+        public static ConnectionStringSettings ConnectionStringSettings(this string item) =>
+            WebConfigurationManager.ConnectionStrings[item];
 
         #endregion
 
         #region TextBox
         
-        public static int? ToIntOrNull(this TextBox textBox) =>
-            int.TryParse(textBox.Text, out var value) ? (int?) value : null;
+        public static int? ToIntOrNull(this TextBox item) =>
+            int.TryParse(item.Text, out var value) ? (int?) value : null;
 
-        // Note the format parameter works out the box with the bootstrap timepicker used in this project.
-        public static TimeSpan? ToTimeSpanOrNull(this TextBox textBox, string format = "h:mm tt") =>
-            DateTime.TryParseExact(textBox.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None,
+        public static TimeSpan? ToTimeSpanOrNull(this TextBox item, string format = "h:mm tt") =>
+            DateTime.TryParseExact(item.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None,
                 out var dateTime) ? (TimeSpan?) dateTime.TimeOfDay : null;
 
         #endregion
