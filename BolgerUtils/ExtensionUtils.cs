@@ -5,7 +5,9 @@ using System.Data.Common;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using SendGrid.Helpers.Mail;
 
 namespace BolgerUtils
@@ -14,18 +16,18 @@ namespace BolgerUtils
     {
         #region Boolean
         
-        public static string Checked(this bool value) => value ? "checked" : string.Empty;
+        public static string Checked(this bool item) => item ? "checked" : string.Empty;
         
-        public static string Disabled(this bool value) => value ? "disabled" : string.Empty;
+        public static string Disabled(this bool item) => item ? "disabled" : string.Empty;
         
-        public static string Display(this bool value, string trueDisplay, string falseDisplay = "") =>
-            value ? trueDisplay : falseDisplay;
+        public static string Display(this bool item, string trueDisplay, string falseDisplay = "") =>
+            item ? trueDisplay : falseDisplay;
 
-        public static string HasError(this bool value) => value ? "has-error" : string.Empty;
+        public static string HasError(this bool item) => item ? "has-error" : string.Empty;
 
-        public static string Selected(this bool value) => value ? "selected" : string.Empty;
+        public static string Selected(this bool item) => item ? "selected" : string.Empty;
         
-        public static string YesOrNo(this bool value) => value ? "Yes" : "No";
+        public static string YesOrNo(this bool item) => item ? "Yes" : "No";
 
         #endregion
 
@@ -203,6 +205,25 @@ namespace BolgerUtils
 
         public static bool IsEmpty(this string value) => value.Length == 0;
         
+        public static bool IsInvalidEmail(this string item)
+        {
+            MailAddress mailAddress = null;
+            try
+            {
+                mailAddress = new MailAddress(item);
+            }
+            // ReSharper disable once EmptyGeneralCatchClause
+            catch
+            { }
+
+            return mailAddress == null;
+        }
+
+        public static bool IsInvalidInt(this string item) => !int.TryParse(item, out _);
+
+        private static readonly Regex _moneyRegex = new Regex(@"^((\d+)|(\d+\.\d{1,2}))$");
+        public static bool IsInvalidMoney(this string item) => !_moneyRegex.IsMatch(item) || decimal.Parse(item) < 0;
+
         public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
         
         public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
@@ -305,8 +326,8 @@ namespace BolgerUtils
 
         #region TimeSpan
 
-        public static string ToTimeString(this TimeSpan value, string format = "h:mm tt") =>
-            DateTime.MinValue.Add(value).ToString(format);
+        public static string ToTimeString(this TimeSpan item, string format = "h:mm tt") =>
+            DateTime.MinValue.Add(item).ToString(format);
 
         #endregion
     }

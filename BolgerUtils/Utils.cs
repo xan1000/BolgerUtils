@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
 
 namespace BolgerUtils
 {
@@ -20,29 +18,6 @@ namespace BolgerUtils
         }
 
         public static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
-        
-        public static bool IsInvalidEmail(string email)
-        {
-            MailAddress mailAddress = null;
-            try
-            {
-                mailAddress = new MailAddress(email);
-            }
-            // ReSharper disable once EmptyGeneralCatchClause
-            catch
-            { }
-
-            return mailAddress == null;
-        }
-
-        public static bool IsInvalidInt(string value) => !int.TryParse(value, out _);
-
-        private static readonly Regex _moneyRegex = new Regex(@"^((\d+)|(\d+\.\d{1,2}))$");
-        public static bool IsInvalidMoney(string value)
-        {
-            value = value.Trim();
-            return !_moneyRegex.IsMatch(value) || decimal.Parse(value) < 0;
-        }
 
         public static DateTime Max(DateTime date, DateTime otherDate) => date > otherDate ? date : otherDate;
         

@@ -14,12 +14,12 @@ namespace Tests.BolgerUtils
         [Theory]
         [InlineData("checked", true)]
         [InlineData("", false)]
-        public void CheckedTest(string expected, bool value) => Assert.Equal(expected, value.Checked());
+        public void CheckedTest(string expected, bool item) => Assert.Equal(expected, item.Checked());
 
         [Theory]
         [InlineData("disabled", true)]
         [InlineData("", false)]
-        public void DisabledTest(string expected, bool value) => Assert.Equal(expected, value.Disabled());
+        public void DisabledTest(string expected, bool item) => Assert.Equal(expected, item.Disabled());
 
         [Fact]
         public void DisplayFactTest()
@@ -31,23 +31,23 @@ namespace Tests.BolgerUtils
         [Theory]
         [InlineData("Hello", true, "Hello", "World")]
         [InlineData("World", false, "Hello", "World")]
-        public void DisplayTest(string expected, bool value, string trueDisplay, string falseDisplay) =>
-            Assert.Equal(expected, value.Display(trueDisplay, falseDisplay));
+        public void DisplayTest(string expected, bool item, string trueDisplay, string falseDisplay) =>
+            Assert.Equal(expected, item.Display(trueDisplay, falseDisplay));
 
         [Theory]
         [InlineData("has-error", true)]
         [InlineData("", false)]
-        public void HasErrorTest(string expected, bool value) => Assert.Equal(expected, value.HasError());
+        public void HasErrorTest(string expected, bool item) => Assert.Equal(expected, item.HasError());
 
         [Theory]
         [InlineData("selected", true)]
         [InlineData("", false)]
-        public void SelectedTest(string expected, bool value) => Assert.Equal(expected, value.Selected());
+        public void SelectedTest(string expected, bool item) => Assert.Equal(expected, item.Selected());
 
         [Theory]
         [InlineData("Yes", true)]
         [InlineData("No", false)]
-        public void YesOrNoTest(string expected, bool value) => Assert.Equal(expected, value.YesOrNo());
+        public void YesOrNoTest(string expected, bool item) => Assert.Equal(expected, item.YesOrNo());
 
         #endregion
 
@@ -188,12 +188,56 @@ namespace Tests.BolgerUtils
 
         #region String
 
+        [Theory]
+        [InlineData("test", true)]
+        [InlineData("test@gmail.com", false)]
+        public void IsInvalidEmailTest(string item, bool isInvalidEmail) =>
+            Assert.Equal(isInvalidEmail, item.IsInvalidEmail());
+
+        [Theory]
+        [InlineData("test", true)]
+        [InlineData("5", false)]
+        public void IsInvalidIntTest(string item, bool isInvalidInt) =>
+            Assert.Equal(isInvalidInt, item.IsInvalidInt());
+        
+        [Theory]
+        [InlineData("test", true)]
+        [InlineData("-1", true)]
+        [InlineData("1.951", true)]
+        [InlineData(".5", true)]
+        [InlineData("1", false)]
+        [InlineData("0.5", false)]
+        [InlineData("1.5", false)]
+        [InlineData("1.95", false)]
+        [InlineData("250", false)]
+        [InlineData("250.95", false)]
+        public void IsInvalidMoneyTest(string item, bool isInvalidMoney) =>
+            Assert.Equal(isInvalidMoney, item.IsInvalidMoney());
+
         #endregion
 
         #region TimeSpan
 
-        //public static string ToTimeString(this TimeSpan value, string format = "h:mm tt") =>
-        //    DateTime.MinValue.Add(value).ToString(format);
+        [Fact]
+        public void ToTimeStringTest()
+        {
+            ToTimeStringTestImplementation("12:00 AM", TimeSpan.Zero);
+            ToTimeStringTestImplementation("00:00", TimeSpan.Zero, "HH:mm");
+            ToTimeStringTestImplementation("1:00 PM", TimeSpan.FromHours(13));
+            ToTimeStringTestImplementation("13", TimeSpan.FromHours(13), "HH");
+            ToTimeStringTestImplementation("12:00 AM", TimeSpan.FromDays(1));
+            ToTimeStringTestImplementation("00:00", TimeSpan.FromDays(1), "HH:mm");
+            ToTimeStringTestImplementation("11:59 PM", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
+            ToTimeStringTestImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)), "HH:mm");
+            ToTimeStringTestImplementation("10:30 AM", new TimeSpan(10, 30, 0));
+            ToTimeStringTestImplementation("8:15 PM", new TimeSpan(20, 15, 0));
+        }
+
+        private void ToTimeStringTestImplementation(string expected, TimeSpan item) =>
+            Assert.Equal(expected, item.ToTimeString());
+
+        private void ToTimeStringTestImplementation(string expected, TimeSpan item, string format) =>
+            Assert.Equal(expected, item.ToTimeString(format));
 
         #endregion
     }

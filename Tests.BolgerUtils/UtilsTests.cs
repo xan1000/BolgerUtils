@@ -57,32 +57,6 @@ namespace Tests.BolgerUtils
                 Utils.GetEnumValues<TestAnotherType>());
         }
 
-        [Theory]
-        [InlineData("test", true)]
-        [InlineData("test@gmail.com", false)]
-        public void IsInvalidEmailTest(string email, bool isInvalidEmail) =>
-            Assert.Equal(isInvalidEmail, Utils.IsInvalidEmail(email));
-
-        [Theory]
-        [InlineData("test", true)]
-        [InlineData("5", false)]
-        public void IsInvalidIntTest(string value, bool isInvalidInt) =>
-            Assert.Equal(isInvalidInt, Utils.IsInvalidInt(value));
-        
-        [Theory]
-        [InlineData("test", true)]
-        [InlineData("-1", true)]
-        [InlineData("1.951", true)]
-        [InlineData(".5", true)]
-        [InlineData("1", false)]
-        [InlineData("0.5", false)]
-        [InlineData("1.5", false)]
-        [InlineData("1.95", false)]
-        [InlineData("250", false)]
-        [InlineData("250.95", false)]
-        public void IsInvalidMoneyTest(string value, bool isInvalidMoney) =>
-            Assert.Equal(isInvalidMoney, Utils.IsInvalidMoney(value));
-
         [Fact]
         public void MaxTest()
         {
