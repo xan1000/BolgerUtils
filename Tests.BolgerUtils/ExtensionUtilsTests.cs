@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BolgerUtils;
-using SendGrid.Helpers.Mail;
 using Xunit;
 
 namespace Tests.BolgerUtils
@@ -89,21 +88,6 @@ namespace Tests.BolgerUtils
             Assert.Equal(new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday,
                 DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday }, daysOfWeek);
         }
-
-        #endregion
-
-        #region EmailAddress
-
-        [Fact]
-        public void ToEmailAndNameStringTest()
-        {
-            ToEmailAndNameStringTestImplementation(null, new EmailAddress());
-            ToEmailAndNameStringTestImplementation("test@gmail.com", new EmailAddress("test@gmail.com"));
-            ToEmailAndNameStringTestImplementation("Test <test@gmail.com>", new EmailAddress("test@gmail.com", "Test"));
-        }
-
-        private void ToEmailAndNameStringTestImplementation(string expected, EmailAddress item) =>
-            Assert.Equal(expected, item.ToEmailAndNameString());
 
         #endregion
 

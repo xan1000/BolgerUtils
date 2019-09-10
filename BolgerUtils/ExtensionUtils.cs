@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
-using SendGrid.Helpers.Mail;
 
 namespace BolgerUtils
 {
@@ -76,13 +75,6 @@ namespace BolgerUtils
 
         public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> source) =>
             source.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
-
-        #endregion
-
-        #region EmailAddress
-
-        public static string ToEmailAndNameString(this EmailAddress item) =>
-            !item.Name.IsNullOrWhiteSpace() ? $"{item.Name} <{item.Email}>" : item.Email;
 
         #endregion
 

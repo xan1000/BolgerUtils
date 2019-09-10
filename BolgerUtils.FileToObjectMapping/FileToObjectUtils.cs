@@ -21,7 +21,7 @@ namespace BolgerUtils.FileToObjectMapping
         
         public T Map<T>(string path, Func<string, T> fileContentToObject)
         {
-            var fileInfo = new FileInfo(path);
+            var fileInfo = path.ToFileInfo();
             if(!fileInfo.Exists)
                 throw new Exception();
 
@@ -30,10 +30,8 @@ namespace BolgerUtils.FileToObjectMapping
             // ReSharper disable once InvertIf
             if(!_fileInfoAndValueDictionary.TryGetValue(key, out var tuple) ||
                 tuple.fileInfo.LastWriteTimeUtc != fileInfo.LastWriteTimeUtc)
-            {
                 // Add new key+value OR update existing value.
                 _fileInfoAndValueDictionary[key] = (fileInfo, fileContentToObject(File.ReadAllText(fileInfo.FullName)));
-            }
 
             return (T) _fileInfoAndValueDictionary[key].value;
         }
