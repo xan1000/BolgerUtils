@@ -74,6 +74,44 @@ namespace Tests.BolgerUtils
             }
         }
 
+        [Fact]
+        public void FindDayOfWeekBackwardTest()
+        {
+            // 2019 September Monday the 16th.
+            var date = new DateTime(2019, 9, 16);
+            Assert.Equal(date, date.FindDayOfWeekBackward(DayOfWeek.Monday));
+            Assert.Equal(date.AddDays(-1), date.FindDayOfWeekBackward(DayOfWeek.Sunday));
+            Assert.Equal(date.AddDays(-2), date.FindDayOfWeekBackward(DayOfWeek.Saturday));
+            Assert.Equal(date.AddDays(-3), date.FindDayOfWeekBackward(DayOfWeek.Friday));
+            Assert.Equal(date.AddDays(-4), date.FindDayOfWeekBackward(DayOfWeek.Thursday));
+            Assert.Equal(date.AddDays(-5), date.FindDayOfWeekBackward(DayOfWeek.Wednesday));
+            Assert.Equal(date.AddDays(-6), date.FindDayOfWeekBackward(DayOfWeek.Tuesday));
+        }
+
+        [Fact]
+        public void FindDayOfWeekForwardTest()
+        {
+            // 2019 September Monday the 16th.
+            var date = new DateTime(2019, 9, 16);
+            Assert.Equal(date, date.FindDayOfWeekBackward(DayOfWeek.Monday));
+            Assert.Equal(date.AddDays(1), date.FindDayOfWeekForward(DayOfWeek.Tuesday));
+            Assert.Equal(date.AddDays(2), date.FindDayOfWeekForward(DayOfWeek.Wednesday));
+            Assert.Equal(date.AddDays(3), date.FindDayOfWeekForward(DayOfWeek.Thursday));
+            Assert.Equal(date.AddDays(4), date.FindDayOfWeekForward(DayOfWeek.Friday));
+            Assert.Equal(date.AddDays(5), date.FindDayOfWeekForward(DayOfWeek.Saturday));
+            Assert.Equal(date.AddDays(6), date.FindDayOfWeekForward(DayOfWeek.Sunday));
+        }
+
+        [Fact]
+        public void YesterdayTest()
+        {
+            var date = DateTime.Today;
+            for(var i = 0; i < 10; i++, date = date.AddDays(1))
+            {
+                Assert.Equal(date.AddDays(-1), date.Yesterday());
+            }
+        }
+
         #endregion
 
         #region DayOfWeek
@@ -142,6 +180,59 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region Generic
+
+        [Fact]
+        public void IsContainedInTest()
+        {
+            var intValues = new[] { 2, 5, 6, 9 };
+            foreach(var item in intValues)
+            {
+                IsContainedInTestImplementation(true, item, intValues);
+            }
+            IsContainedInTestImplementation(false, 1, intValues);
+            IsContainedInTestImplementation(true, 2, intValues);
+            IsContainedInTestImplementation(false, 3, intValues);
+            IsContainedInTestImplementation(false, 4, intValues);
+            IsContainedInTestImplementation(true, 5, intValues);
+            IsContainedInTestImplementation(true, 6, intValues);
+            IsContainedInTestImplementation(false, 7, intValues);
+            IsContainedInTestImplementation(false, 8, intValues);
+            IsContainedInTestImplementation(true, 9, intValues);
+            IsContainedInTestImplementation(false, 10, intValues);
+
+            Assert.True(4.IsContainedIn(1, 2, 4));
+            Assert.False(3.IsContainedIn(1, 2, 4));
+
+            var stringValues = new[] { "Test", "Hello", "World" };
+            foreach(var item in stringValues)
+            {
+                IsContainedInTestImplementation(true, item, stringValues);
+            }
+            IsContainedInTestImplementation(true, "Test", stringValues);
+            IsContainedInTestImplementation(true, "Hello", stringValues);
+            IsContainedInTestImplementation(true, "World", stringValues);
+            IsContainedInTestImplementation(false, "Bye", stringValues);
+
+            Assert.True("World".IsContainedIn("Test", "Hello", "World"));
+            Assert.False("Bye".IsContainedIn("Test", "Hello", "World"));
+        }
+
+        private void IsContainedInTestImplementation<T>(bool expected, T item, T[] values)
+        {
+            Assert.Equal(expected, item.IsContainedIn(values));
+            if(expected)
+                Assert.Contains(item, values);
+            else
+                Assert.DoesNotContain(item, values);
+        }
+
+        [Fact]
+        public void ScalarToListTest()
+        {
+            Assert.IsType<List<int>>(10.ScalarToList());
+            Assert.IsType<List<string>>("Test".ScalarToList());
+            Assert.IsType<List<ExtensionUtilsTests>>(new ExtensionUtilsTests().ScalarToList());
+        }
 
         #endregion
 
