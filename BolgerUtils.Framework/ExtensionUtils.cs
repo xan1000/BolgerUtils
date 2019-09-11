@@ -58,10 +58,14 @@ namespace BolgerUtils.Framework
 
         #region String
 
-        public static SqlConnectionStringBuilder SqlConnectionStringBuilder(this string item) =>
-            new SqlConnectionStringBuilder(item);
-
+        // http://stackoverflow.com/a/16533897
+        // https://github.com/Antaris/RazorEngine/pull/105
+        // https://github.com/todthomson/RazorEngine/commit/ac66247674ac6405feac421ee972bb96a574ff19
+        /// <summary>The same Raw method that is in TemplateBase.</summary>
         public static IEncodedString ToRawString(this string item) => new RawString(item);
+
+        public static SqlConnectionStringBuilder ToSqlConnectionStringBuilder(this string item) =>
+            new SqlConnectionStringBuilder(item);
 
         #endregion
     }

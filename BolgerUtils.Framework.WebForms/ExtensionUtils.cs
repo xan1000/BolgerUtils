@@ -10,13 +10,6 @@ namespace BolgerUtils.Framework.WebForms
 {
     public static class ExtensionUtils
     {
-        #region Boolean
-
-        public static string ReadOnlyCheckbox(this bool item) =>
-            $"<input type=checkbox disabled {(item ? "checked" : string.Empty)} />";
-
-        #endregion
-
         #region DropDownList
 
         public static DayOfWeek? SelectedDayOfWeekOrNull(this DropDownList item)

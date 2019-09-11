@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.IO;
 using System.Linq;
 using BolgerUtils;
 using Xunit;
@@ -37,6 +39,12 @@ namespace Tests.BolgerUtils
         [InlineData("has-error", true)]
         [InlineData("", false)]
         public void HasErrorTest(string expected, bool item) => Assert.Equal(expected, item.HasError());
+
+        [Theory]
+        [InlineData("<input type=checkbox disabled checked />", true)]
+        [InlineData("<input type=checkbox disabled  />", false)]
+        public void ReadOnlyCheckboxTest(string expected, bool item) =>
+            Assert.Equal(expected, item.ReadOnlyCheckbox());
 
         [Theory]
         [InlineData("selected", true)]
@@ -275,7 +283,6 @@ namespace Tests.BolgerUtils
         #region String
 
         //public static string Abbreviate(this string item, int length)
-        //public static DbConnectionStringBuilder DbConnectionStringBuilder(this string item) =>
         //public static string GetLast8Digits(this string item)
 
         [Fact]
@@ -309,8 +316,32 @@ namespace Tests.BolgerUtils
         [InlineData(false, "250.95")]
         public void IsInvalidMoneyTest(bool expected, string item) => Assert.Equal(expected, item.IsInvalidMoney());
 
-        //public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
-        //public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
+        [Theory]
+        [InlineData(true, "")]
+        [InlineData(false, "   ")]
+        [InlineData(false, "\n")]
+        [InlineData(true, null)]
+        [InlineData(false, "Test")]
+        [InlineData(false, " Test ")]
+        public void IsNullOrEmptyTest(bool expected, string item)
+        {
+            Assert.Equal(expected, item.IsNullOrEmpty());
+            Assert.Equal(string.IsNullOrEmpty(item), item.IsNullOrEmpty());
+        }
+
+        [Theory]
+        [InlineData(true, "")]
+        [InlineData(true, "   ")]
+        [InlineData(true, "\n")]
+        [InlineData(true, null)]
+        [InlineData(false, "Test")]
+        [InlineData(false, " Test ")]
+        public void IsNullOrWhiteSpaceTest(bool expected, string item)
+        {
+            Assert.Equal(expected, item.IsNullOrWhiteSpace());
+            Assert.Equal(string.IsNullOrWhiteSpace(item), item.IsNullOrWhiteSpace());
+        }
+
         //public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
         //public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
         //public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
@@ -318,10 +349,48 @@ namespace Tests.BolgerUtils
         //public static string RemoveSpaceAndApostrophe(this string item) =>
         //public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");
         //public static string ToAustralianMobileNumber(this string item)
-        //public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
-        //public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
-        //public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
-        //public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string item)
+
+        [Theory]
+        [InlineData("Server=server;Database=database;User Id=username;Password=password")]
+        [InlineData("Server=server;Database=database;Trusted_Connection=True")]
+        public void ToDbConnectionStringBuilderTest(string item) =>
+            Assert.IsType<DbConnectionStringBuilder>(item.ToDbConnectionStringBuilder());
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("", "   ")]
+        [InlineData("", "\n")]
+        [InlineData("", null)]
+        [InlineData("Test", "Test")]
+        [InlineData(" Test ", " Test ")]
+        public void ToEmptyIfNullOrWhiteSpaceTest(string expected, string item) =>
+            Assert.Equal(expected, item.ToEmptyIfNullOrWhiteSpace());
+
+        [Theory]
+        [InlineData("Test.txt")]
+        [InlineData("Directory/Test.txt")]
+        public void ToFileInfoTest(string item) => Assert.IsType<FileInfo>(item.ToFileInfo());
+
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData(null, "   ")]
+        [InlineData(null, "\n")]
+        [InlineData(null, null)]
+        [InlineData("Test", "Test")]
+        [InlineData(" Test ", " Test ")]
+        public void ToNullIfNullOrWhiteSpaceTest(string expected, string item) =>
+            Assert.Equal(expected, item.ToNullIfNullOrWhiteSpace());
+
+        [Theory]
+        [InlineData("Hello", "hello")]
+        [InlineData("Hello", "Hello")]
+        [InlineData("Hello World", "helloWorld")]
+        [InlineData("Hello World Test", "helloWorldTest")]
+        [InlineData("Hello World Test", "HelloWorldTest")]
+        [InlineData(" hello ", " hello ")]
+        public void UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetterTest(
+            string expected, string item) =>
+            Assert.Equal(expected, item.UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter());
 
         #endregion
 

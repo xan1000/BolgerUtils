@@ -24,6 +24,9 @@ namespace BolgerUtils
 
         public static string HasError(this bool item) => item ? "has-error" : string.Empty;
 
+        public static string ReadOnlyCheckbox(this bool item) =>
+            $"<input type=checkbox disabled {(item ? "checked" : string.Empty)} />";
+
         public static string Selected(this bool item) => item ? "selected" : string.Empty;
         
         public static string YesOrNo(this bool item) => item ? "Yes" : "No";
@@ -184,9 +187,6 @@ namespace BolgerUtils
             return item.Truncate(length - abbreviation.Length) + abbreviation;
         }
 
-        public static DbConnectionStringBuilder DbConnectionStringBuilder(this string item) =>
-            new DbConnectionStringBuilder { ConnectionString = item };
-
         public static string GetLast8Digits(this string item)
         {
             var digits = new string(item.Where(char.IsDigit).ToArray());
@@ -280,6 +280,9 @@ namespace BolgerUtils
             return item.Insert(2, " ");
         }
 
+        public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item) =>
+            new DbConnectionStringBuilder { ConnectionString = item };
+
         public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
             item.IsNullOrWhiteSpace() ? string.Empty : item;
 
@@ -290,7 +293,7 @@ namespace BolgerUtils
         public static string Truncate(this string item, int length) =>
             item.Length <= length ? item : item.Substring(0, Math.Min(item.Length, length));
 
-        public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string item)
+        public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(this string item)
         {
             var stringBuilder = new StringBuilder(item);
 
