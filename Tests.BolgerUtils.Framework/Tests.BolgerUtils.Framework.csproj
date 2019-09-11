@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionUtilsTests.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\TestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

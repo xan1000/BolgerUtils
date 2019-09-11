@@ -1,5 +1,10 @@
 ﻿using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using BolgerUtils.Framework;
+using RazorEngine.Text;
+using Tests.BolgerUtils.Framework.Models;
 using Xunit;
 
 namespace Tests.BolgerUtils.Framework
@@ -8,9 +13,60 @@ namespace Tests.BolgerUtils.Framework
     {
         #region DbContext
 
-        //public static void LogSql(this DbContext item) => item.Database.Log = s => Debug.WriteLine(s);
+        private bool IsUnableConnectToDatabase()
+        {
+            try
+            {
+                using(var database = new TestContext())
+                {
+                    database.Database.Connection.Open();
+                    return false;
+                }
+            }
+            catch(SqlException e)
+            {
+                if(e.ErrorCode == -2146232060)
+                    return true;
+                throw;
+            }
+        }
 
-        //public static int PropertyMaximumLength(this DbContext item, string entitySet, string property)
+        [Fact]
+        public void LogSqlTest()
+        {
+            if(IsUnableConnectToDatabase())
+                return;
+
+            using(var database = new TestContext())
+            using(var log = new StringWriter())
+            {
+                Debug.Listeners.Add(new TextWriterTraceListener(log));
+
+                foreach(var _ in database.People.ToList())
+                { }
+
+                Assert.Equal(string.Empty, log.ToString());
+
+                database.LogSql();
+
+                foreach(var _ in database.People.ToList())
+                { }
+
+                Assert.Contains("SELECT", log.ToString());
+            }
+        }
+
+        [Fact]
+        public void PropertyMaximumLengthTest()
+        {
+            if(IsUnableConnectToDatabase())
+                return;
+
+            using(var database = new TestContext())
+            {
+                Assert.Equal(60, database.PropertyMaximumLength(nameof(database.People), nameof(Person.Name)));
+            }
+        }
 
         #endregion
 
@@ -26,7 +82,15 @@ namespace Tests.BolgerUtils.Framework
 
         #region String
 
-        //public static IEncodedString ToRawString(this string item) => new RawString(item);
+        [Theory]
+        [InlineData("")]
+        [InlineData("Hello World")]
+        [InlineData("<div>Hello World</div>")]
+        public void ToRawStringTest(string item)
+        {
+            Assert.IsType<RawString>(item.ToRawString());
+            Assert.Equal(item, item.ToRawString().ToString());
+        }
 
         [Theory]
         [InlineData("Server=server;Database=database;User Id=username;Password=password")]
