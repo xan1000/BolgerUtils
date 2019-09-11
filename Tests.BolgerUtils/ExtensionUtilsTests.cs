@@ -274,31 +274,54 @@ namespace Tests.BolgerUtils
 
         #region String
 
-        [Theory]
-        [InlineData("test", true)]
-        [InlineData("test@gmail.com", false)]
-        public void IsInvalidEmailTest(string item, bool isInvalidEmail) =>
-            Assert.Equal(isInvalidEmail, item.IsInvalidEmail());
+        //public static string Abbreviate(this string item, int length)
+        //public static DbConnectionStringBuilder DbConnectionStringBuilder(this string item) =>
+        //public static string GetLast8Digits(this string item)
+
+        [Fact]
+        public void IsEmptyTestFact() => Assert.Throws<NullReferenceException>(() => ((string) null).IsEmpty());
 
         [Theory]
-        [InlineData("test", true)]
-        [InlineData("5", false)]
-        public void IsInvalidIntTest(string item, bool isInvalidInt) =>
-            Assert.Equal(isInvalidInt, item.IsInvalidInt());
+        [InlineData(true, "")]
+        [InlineData(false, "Test")]
+        public void IsEmptyTest(bool expected, string item) => Assert.Equal(expected, item.IsEmpty());
+
+        [Theory]
+        [InlineData(true, "test")]
+        [InlineData(false, "test@gmail.com")]
+        public void IsInvalidEmailTest(bool expected, string item) => Assert.Equal(expected, item.IsInvalidEmail());
+
+        [Theory]
+        [InlineData(true, "test")]
+        [InlineData(false, "5")]
+        public void IsInvalidIntTest(bool expected, string item) => Assert.Equal(expected, item.IsInvalidInt());
         
         [Theory]
-        [InlineData("test", true)]
-        [InlineData("-1", true)]
-        [InlineData("1.951", true)]
-        [InlineData(".5", true)]
-        [InlineData("1", false)]
-        [InlineData("0.5", false)]
-        [InlineData("1.5", false)]
-        [InlineData("1.95", false)]
-        [InlineData("250", false)]
-        [InlineData("250.95", false)]
-        public void IsInvalidMoneyTest(string item, bool isInvalidMoney) =>
-            Assert.Equal(isInvalidMoney, item.IsInvalidMoney());
+        [InlineData(true, "test")]
+        [InlineData(true, "-1")]
+        [InlineData(true, "1.951")]
+        [InlineData(true, ".5")]
+        [InlineData(false, "1")]
+        [InlineData(false, "0.5")]
+        [InlineData(false, "1.5")]
+        [InlineData(false, "1.95")]
+        [InlineData(false, "250")]
+        [InlineData(false, "250.95")]
+        public void IsInvalidMoneyTest(bool expected, string item) => Assert.Equal(expected, item.IsInvalidMoney());
+
+        //public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
+        //public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
+        //public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
+        //public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
+        //public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
+        //public static string RemoveRedundantWhitespace(this string item)
+        //public static string RemoveSpaceAndApostrophe(this string item) =>
+        //public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");
+        //public static string ToAustralianMobileNumber(this string item)
+        //public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
+        //public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
+        //public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
+        //public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter(this string item)
 
         #endregion
 
