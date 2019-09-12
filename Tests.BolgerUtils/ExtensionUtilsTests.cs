@@ -139,6 +139,15 @@ namespace Tests.BolgerUtils
 
         #region Enum
 
+        [Theory]
+        [InlineData(0, TestType.Test1)]
+        [InlineData(1, TestType.Test2)]
+        [InlineData(2, TestType.Test3)]
+        [InlineData(10, TestAnotherType.Test1)]
+        [InlineData(20, TestAnotherType.Test2)]
+        [InlineData(30, TestAnotherType.Test3)]
+        public void ToIntTest(int expected, Enum item) => Assert.Equal(expected, item.ToInt());
+
         [Fact]
         public void ToIntTestFact()
         {
@@ -153,13 +162,13 @@ namespace Tests.BolgerUtils
         }
 
         [Theory]
-        [InlineData(0, TestType.Test1)]
-        [InlineData(1, TestType.Test2)]
-        [InlineData(2, TestType.Test3)]
-        [InlineData(10, TestAnotherType.Test1)]
-        [InlineData(20, TestAnotherType.Test2)]
-        [InlineData(30, TestAnotherType.Test3)]
-        public void ToIntTest(int expected, Enum item) => Assert.Equal(expected, item.ToInt());
+        [InlineData("0", TestType.Test1)]
+        [InlineData("1", TestType.Test2)]
+        [InlineData("2", TestType.Test3)]
+        [InlineData("10", TestAnotherType.Test1)]
+        [InlineData("20", TestAnotherType.Test2)]
+        [InlineData("30", TestAnotherType.Test3)]
+        public void ToValueStringTest(string expected, Enum item) => Assert.Equal(expected, item.ToValueString());
 
         [Fact]
         public void ToValueStringTestFact()
@@ -175,15 +184,6 @@ namespace Tests.BolgerUtils
                 Assert.Equal(x.ToInt().ToString(), x.ToValueString());
             }
         }
-
-        [Theory]
-        [InlineData("0", TestType.Test1)]
-        [InlineData("1", TestType.Test2)]
-        [InlineData("2", TestType.Test3)]
-        [InlineData("10", TestAnotherType.Test1)]
-        [InlineData("20", TestAnotherType.Test2)]
-        [InlineData("30", TestAnotherType.Test3)]
-        public void ToValueStringTest(string expected, Enum item) => Assert.Equal(expected, item.ToValueString());
 
         #endregion
 
@@ -246,9 +246,19 @@ namespace Tests.BolgerUtils
 
         #region ICollection
 
+        //public static void AddAll<T>(this ICollection<T> item, IEnumerable<T> objects)
+        //public static bool RemoveAll<T>(this ICollection<T> item, IEnumerable<T> objects)
+        //public static bool RemoveAll<T>(this ICollection<T> item, Func<T, bool> predicate)
+
         #endregion
 
         #region IEnumerable
+
+        //public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
+        //public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any();
+        //public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
+        //public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
+        //public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> source) => source.ToList().ToHashSet();
 
         #endregion
 
@@ -282,6 +292,15 @@ namespace Tests.BolgerUtils
 
         #region String
 
+        [Theory]
+        [InlineData("", "", 0)]
+        [InlineData("Hello", "Hello", 10)]
+        [InlineData("Hello W...", "Hello World", 10)]
+        [InlineData("HelloWo...", "HelloWorldTest", 10)]
+        [InlineData("Hello World", "Hello World", 11)]
+        public void AbbreviateTest(string expected, string item, int length) =>
+            Assert.Equal(expected, item.Abbreviate(length));
+
         [Fact]
         public void AbbreviateTestFact()
         {
@@ -295,15 +314,6 @@ namespace Tests.BolgerUtils
         }
 
         [Theory]
-        [InlineData("", "", 0)]
-        [InlineData("Hello", "Hello", 10)]
-        [InlineData("Hello W...", "Hello World", 10)]
-        [InlineData("HelloWo...", "HelloWorldTest", 10)]
-        [InlineData("Hello World", "Hello World", 11)]
-        public void AbbreviateTest(string expected, string item, int length) =>
-            Assert.Equal(expected, item.Abbreviate(length));
-
-        [Theory]
         [InlineData(null, "Test")]
         [InlineData(null, "1234")]
         [InlineData("12345678", "12345678")]
@@ -314,13 +324,13 @@ namespace Tests.BolgerUtils
         [InlineData(null, "A 1 B 2 C 3 D 4 E 5 F 6 G 7 H")]
         public void GetLast8DigitsTest(string expected, string item) => Assert.Equal(expected, item.GetLast8Digits());
 
-        [Fact]
-        public void IsEmptyTestFact() => Assert.Throws<NullReferenceException>(() => ((string) null).IsEmpty());
-
         [Theory]
         [InlineData(true, "")]
         [InlineData(false, "Test")]
         public void IsEmptyTest(bool expected, string item) => Assert.Equal(expected, item.IsEmpty());
+
+        [Fact]
+        public void IsEmptyTestFact() => Assert.Throws<NullReferenceException>(() => ((string) null).IsEmpty());
 
         [Theory]
         [InlineData(true, "test")]
@@ -371,9 +381,21 @@ namespace Tests.BolgerUtils
             Assert.Equal(string.IsNullOrWhiteSpace(item), item.IsNullOrWhiteSpace());
         }
 
-        //public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
-        //public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
-        //public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
+        //public static string Join(this IEnumerable<string> source, string separator)
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("Hello", "Hello")]
+        [InlineData("Hello World", "Hello World")]
+        [InlineData("Hello World<br />", "Hello World\n")]
+        [InlineData("Hello World <br />", "Hello World \n")]
+        [InlineData("Hello<br />World<br />", "Hello\nWorld\n")]
+        [InlineData("Hello <br /> World <br />", "Hello \n World \n")]
+        [InlineData("<br />Hello<br />World<br />", "\nHello\nWorld\n")]
+        [InlineData("<br /> Hello <br /> World <br />", "\n Hello \n World \n")]
+        [InlineData("Hello World <br /><br /><br />", "Hello World \n\n\n")]
+        [InlineData("Hello <br /> World <br />", "Hello \n World <br />")]
+        public void NewLineToBrTest(string expected, string item) => Assert.Equal(expected, item.NewLineToBr());
 
         [Theory]
         [InlineData("Hello", "Hello")]
@@ -389,8 +411,15 @@ namespace Tests.BolgerUtils
             Assert.Equal(expected, item.RemoveDoubleQuotation());
 
         //public static string RemoveRedundantWhitespace(this string item)
-        //public static string RemoveSpaceAndApostrophe(this string item) =>
-        //public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");
+        //public static string RemoveSpaceAndApostrophe(this string item)
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData("Hello&nbsp;World", "Hello World")]
+        [InlineData("Hello&nbsp;World&nbsp;Test", "Hello World Test")]
+        [InlineData("&nbsp;&nbsp;&nbsp;Hello&nbsp;&nbsp;&nbsp;World&nbsp;Test&nbsp;", "   Hello   World Test ")]
+        public void SpaceToNbsp(string expected, string item) => Assert.Equal(expected, item.SpaceToNbsp());
+
         //public static string ToAustralianMobileNumber(this string item)
 
         [Theory]

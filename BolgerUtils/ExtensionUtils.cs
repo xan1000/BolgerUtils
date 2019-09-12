@@ -123,6 +123,7 @@ namespace BolgerUtils
         public static bool RemoveAll<T>(this ICollection<T> item, Func<T, bool> predicate)
         {
             var success = true;
+            // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
             foreach(var x in item.Where(predicate).ToList())
             {
                 success &= item.Remove(x);
@@ -221,9 +222,9 @@ namespace BolgerUtils
 
         public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
 
-        public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
+        public static string NewLineToBr(this string item) => item.Replace(Utils.NewLine, Utils.BrElement);
 
-        public static string RemoveDoubleQuotation(this string item) => item.Replace(@"""", string.Empty);
+        public static string RemoveDoubleQuotation(this string item) => item.Replace(Utils.DoubleQuote, string.Empty);
 
         // https://stackoverflow.com/a/37592018/9798310
         public static string RemoveRedundantWhitespace(this string item)
@@ -256,9 +257,9 @@ namespace BolgerUtils
         }
 
         public static string RemoveSpaceAndApostrophe(this string item) =>
-            item.Replace(" ", string.Empty).Replace("'", string.Empty);
+            item.Replace(Utils.Space, string.Empty).Replace(Utils.SingleQuote, string.Empty);
 
-        public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");
+        public static string SpaceToNbsp(this string item) => item.Replace(Utils.Space, Utils.NonBreakingSpace);
 
         public static string ToAustralianMobileNumber(this string item)
         {

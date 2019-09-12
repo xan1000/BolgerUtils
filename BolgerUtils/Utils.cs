@@ -6,7 +6,22 @@ namespace BolgerUtils
 {
     public static class Utils
     {
+        #region Constants
+
+        public const string BrElement = "<br />";
         public const int DaysPerWeek = 7;
+        public const string DoubleQuote = @"""";
+        public const char DoubleQuoteChar = '"';
+        public const string Empty = "";
+        public const string NewLine = "\n";
+        public const char NewLineChar = '\n';
+        public const string NonBreakingSpace = "&nbsp;";
+        public const string SingleQuote = "'";
+        public const char SingleQuoteChar = '\'';
+        public const string Space = " ";
+        public const char SpaceChar = ' ';
+
+        #endregion
 
         public static T GetEnumValue<T>(int value) where T : Enum
         {

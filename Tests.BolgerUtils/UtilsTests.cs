@@ -21,8 +21,45 @@ namespace Tests.BolgerUtils
 
     public class UtilsTests
     {
+        #region Constants
+
+        [Fact]
+        public void BrElementTest() => Assert.Equal("<br />", Utils.BrElement);
+
         [Fact]
         public void DaysPerWeekTest() => Assert.Equal(7, Utils.DaysPerWeek);
+
+        [Fact]
+        public void DoubleQuoteTest() => Assert.Equal(@"""", Utils.DoubleQuote);
+
+        [Fact]
+        public void DoubleQuoteCharTest() => Assert.Equal('"', Utils.DoubleQuoteChar);
+
+        [Fact]
+        public void EmptyTest() => Assert.Equal(string.Empty, Utils.Empty);
+
+        [Fact]
+        public void NewLineTest() => Assert.Equal("\n", Utils.NewLine);
+
+        [Fact]
+        public void NewLineCharTest() => Assert.Equal('\n', Utils.NewLineChar);
+
+        [Fact]
+        public void NonBreakingSpaceTest() => Assert.Equal("&nbsp;", Utils.NonBreakingSpace);
+
+        [Fact]
+        public void SingleQuoteTest() => Assert.Equal("'", Utils.SingleQuote);
+
+        [Fact]
+        public void SingleQuoteCharTest() => Assert.Equal('\'', Utils.SingleQuoteChar);
+
+        [Fact]
+        public void SpaceTest() => Assert.Equal(" ", Utils.Space);
+
+        [Fact]
+        public void SpaceCharTest() => Assert.Equal(' ', Utils.SpaceChar);
+
+        #endregion
 
         [Fact]
         public void GetEnumValueTest()
