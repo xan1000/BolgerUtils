@@ -374,6 +374,20 @@ namespace Tests.BolgerUtils
         //public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
         //public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
         //public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData("Hello", @"""Hello""")]
+        [InlineData("Hello World", "Hello World")]
+        [InlineData("Hello World", @"""Hello"" ""World""")]
+        [InlineData(" Hello  World ", @""" ""Hello"" "" ""World"" """)]
+        [InlineData("", "")]
+        [InlineData("", @"""")]
+        [InlineData("'Hello'", "'Hello'")]
+        [InlineData("'Hello'", @"""'Hello'""")]
+        public void RemoveDoubleQuotationTest(string expected, string item) =>
+            Assert.Equal(expected, item.RemoveDoubleQuotation());
+
         //public static string RemoveRedundantWhitespace(this string item)
         //public static string RemoveSpaceAndApostrophe(this string item) =>
         //public static string SpaceToNbsp(this string item) => item.Replace(" ", "&nbsp;");

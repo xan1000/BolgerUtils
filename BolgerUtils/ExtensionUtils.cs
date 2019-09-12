@@ -223,7 +223,7 @@ namespace BolgerUtils
 
         public static string NewLineToBr(this string item) => item.Replace("\n", "<br />");
 
-        public static string RemoveDoubleQuotation(this string item) => item.Replace(@"\", string.Empty);
+        public static string RemoveDoubleQuotation(this string item) => item.Replace(@"""", string.Empty);
 
         // https://stackoverflow.com/a/37592018/9798310
         public static string RemoveRedundantWhitespace(this string item)
