@@ -177,10 +177,10 @@ namespace BolgerUtils
 
         public static string Abbreviate(this string item, int length)
         {
+            const string abbreviation = "...";
+
             if(item.Length <= length)
                 return item;
-
-            const string abbreviation = "...";
             if(length <= abbreviation.Length)
                 throw new Exception();
 

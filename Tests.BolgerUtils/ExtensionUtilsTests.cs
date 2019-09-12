@@ -282,8 +282,37 @@ namespace Tests.BolgerUtils
 
         #region String
 
-        //public static string Abbreviate(this string item, int length)
-        //public static string GetLast8Digits(this string item)
+        [Fact]
+        public void AbbreviateTestFact()
+        {
+            const string item = "Hello";
+            Assert.Equal(item, item.Abbreviate(5));
+            Assert.Equal("H...", item.Abbreviate(4));
+            Assert.Throws<Exception>(() => item.Abbreviate(3));
+            Assert.Throws<Exception>(() => item.Abbreviate(2));
+            Assert.Throws<Exception>(() => item.Abbreviate(1));
+            Assert.Throws<Exception>(() => item.Abbreviate(0));
+        }
+
+        [Theory]
+        [InlineData("", "", 0)]
+        [InlineData("Hello", "Hello", 10)]
+        [InlineData("Hello W...", "Hello World", 10)]
+        [InlineData("HelloWo...", "HelloWorldTest", 10)]
+        [InlineData("Hello World", "Hello World", 11)]
+        public void AbbreviateTest(string expected, string item, int length) =>
+            Assert.Equal(expected, item.Abbreviate(length));
+
+        [Theory]
+        [InlineData(null, "Test")]
+        [InlineData(null, "1234")]
+        [InlineData("12345678", "12345678")]
+        [InlineData("12345678", "0412345678")]
+        [InlineData("12345678", "A 1 B 2 C 3 D 4 E 5 F 6 G 7 H 8")]
+        [InlineData("12345678", "A 12 B 34 C 56 D 78 E")]
+        [InlineData("12345678", "A 0 B 4 C 1 D 2 E 3 F 4 G 5 H 6 I 7 J 8")]
+        [InlineData(null, "A 1 B 2 C 3 D 4 E 5 F 6 G 7 H")]
+        public void GetLast8DigitsTest(string expected, string item) => Assert.Equal(expected, item.GetLast8Digits());
 
         [Fact]
         public void IsEmptyTestFact() => Assert.Throws<NullReferenceException>(() => ((string) null).IsEmpty());
