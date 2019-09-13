@@ -224,7 +224,11 @@ namespace BolgerUtils
 
         public static string NewLineToBr(this string item) => item.Replace(Utils.NewLine, Utils.BrElement);
 
-        public static string RemoveDoubleQuotation(this string item) => item.Replace(Utils.DoubleQuote, string.Empty);
+        public static string Remove(this string item, string value) => item.Replace(value, string.Empty);
+
+        public static string RemoveCarriageReturn(this string item) => item.Remove(Utils.CarriageReturn);
+
+        public static string RemoveDoubleQuotation(this string item) => item.Remove(Utils.DoubleQuote);
 
         // https://stackoverflow.com/a/37592018/9798310
         public static string RemoveRedundantWhitespace(this string item)
@@ -259,9 +263,11 @@ namespace BolgerUtils
             return new string(array, 0, arrayIndex);
         }
 
-        public static string RemoveSingleQuotation(this string item) => item.Replace(Utils.SingleQuote, string.Empty);
+        public static string RemoveNewLine(this string item) => item.Remove(Utils.NewLine);
 
-        public static string RemoveSpace(this string item) => item.Replace(Utils.Space, string.Empty);
+        public static string RemoveSingleQuotation(this string item) => item.Remove(Utils.SingleQuote);
+
+        public static string RemoveSpace(this string item) => item.Remove(Utils.Space);
 
         public static string RemoveSpaceAndSingleQuotation(this string item) =>
             item.RemoveSpace().RemoveSingleQuotation();

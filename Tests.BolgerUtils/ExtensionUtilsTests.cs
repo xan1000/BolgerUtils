@@ -399,6 +399,19 @@ namespace Tests.BolgerUtils
 
         [Theory]
         [InlineData("Hello", "Hello")]
+        [InlineData("\nHello\n", "\nHello\n")]
+        [InlineData("Hello", "\rHello\r")]
+        [InlineData("\nHello\n", "\n\rHello\r\n")]
+        [InlineData("Hello World\n", "Hello World\r\n")]
+        [InlineData("", "")]
+        [InlineData(@"""", @"""")]
+        [InlineData("'", "'")]
+        [InlineData(" ", " ")]
+        public void RemoveCarriageReturnTest(string expected, string item) =>
+            Assert.Equal(expected, item.RemoveCarriageReturn());
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
         [InlineData("Hello", @"""Hello""")]
         [InlineData("'Hello'", "'Hello'")]
         [InlineData("'Hello'", @"""'Hello'""")]
@@ -411,6 +424,18 @@ namespace Tests.BolgerUtils
         [InlineData(" ", " ")]
         public void RemoveDoubleQuotationTest(string expected, string item) =>
             Assert.Equal(expected, item.RemoveDoubleQuotation());
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData("Hello", "\nHello\n")]
+        [InlineData("\rHello\r", "\rHello\r")]
+        [InlineData("\rHello\r", "\n\rHello\r\n")]
+        [InlineData("Hello World\r", "Hello World\r\n")]
+        [InlineData("", "")]
+        [InlineData(@"""", @"""")]
+        [InlineData("'", "'")]
+        [InlineData(" ", " ")]
+        public void RemoveNewLineTest(string expected, string item) => Assert.Equal(expected, item.RemoveNewLine());
 
         [Fact]
         public void RemoveRedundantWhitespaceTest()
@@ -509,7 +534,7 @@ Amazon
 
             Assert.Equal(expected, item.RemoveRedundantWhitespace());
         }
-
+        
         [Theory]
         [InlineData("Hello", "Hello")]
         [InlineData(@"""Hello""", @"""Hello""")]
@@ -552,6 +577,16 @@ Amazon
         [InlineData(" ", " ")]
         public void RemoveSingleQuotationTest(string expected, string item) =>
             Assert.Equal(expected, item.RemoveSingleQuotation());
+
+        [Theory]
+        [InlineData("", "Hello", "Hello")]
+        [InlineData(" World", "Hello World", "Hello")]
+        [InlineData("Hello ", "Hello World", "World")]
+        [InlineData("HelloTest", "Hello World Test", " World ")]
+        [InlineData("Test", "Hello World Test", "Hello World ")]
+        [InlineData("Hello World Test", "Hello World Test", "Not Found")]
+        public void RemoveTest(string expected, string item, string value) =>
+            Assert.Equal(expected, item.Remove(value));
 
         [Theory]
         [InlineData("Hello", "Hello")]

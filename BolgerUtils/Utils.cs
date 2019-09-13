@@ -9,6 +9,8 @@ namespace BolgerUtils
         #region Constants
 
         public const string BrElement = "<br />";
+        public const string CarriageReturn = "\r";
+        public const char CarriageReturnChar = '\r';
         public const int DaysPerWeek = 7;
         public const string DoubleQuote = @"""";
         public const char DoubleQuoteChar = '"';

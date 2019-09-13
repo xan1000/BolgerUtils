@@ -27,6 +27,12 @@ namespace Tests.BolgerUtils
         public void BrElementTest() => Assert.Equal("<br />", Utils.BrElement);
 
         [Fact]
+        public void CarriageReturnTest() => Assert.Equal("\r", Utils.CarriageReturn);
+
+        [Fact]
+        public void CarriageReturnCharTest() => Assert.Equal('\r', Utils.CarriageReturnChar);
+
+        [Fact]
         public void DaysPerWeekTest() => Assert.Equal(7, Utils.DaysPerWeek);
 
         [Fact]
