@@ -238,6 +238,9 @@ namespace BolgerUtils
                 var character = array[i];
                 switch(character)
                 {
+                    case '\r':
+                        // Remove all \r.
+                        continue;
                     case ' ':
                     case '\t':
                     case '\n':
@@ -256,30 +259,14 @@ namespace BolgerUtils
             return new string(array, 0, arrayIndex);
         }
 
-        public static string RemoveSpaceAndApostrophe(this string item) =>
-            item.Replace(Utils.Space, string.Empty).Replace(Utils.SingleQuote, string.Empty);
+        public static string RemoveSingleQuotation(this string item) => item.Replace(Utils.SingleQuote, string.Empty);
+
+        public static string RemoveSpace(this string item) => item.Replace(Utils.Space, string.Empty);
+
+        public static string RemoveSpaceAndSingleQuotation(this string item) =>
+            item.RemoveSpace().RemoveSingleQuotation();
 
         public static string SpaceToNbsp(this string item) => item.Replace(Utils.Space, Utils.NonBreakingSpace);
-
-        public static string ToAustralianMobileNumber(this string item)
-        {
-            if(item.IsNullOrWhiteSpace())
-                return item;
-
-            // Remove everything except for numbers.
-            item = new string(item.Where(char.IsDigit).ToArray());
-
-            if(item.Length < 8 || item.Length > 11)
-                return "INVALID " + item;
-            // Standard mobile number format.
-            if(item[0] == '0' && item.Length == 10)
-                return long.Parse(item).ToString("0### ### ###");
-            // Country code format.
-            if(item[0] == '6' && item.Length == 11)
-                return long.Parse(item).ToString("+## ### ### ###");
-
-            return item.Insert(2, " ");
-        }
 
         public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item) =>
             new DbConnectionStringBuilder { ConnectionString = item };

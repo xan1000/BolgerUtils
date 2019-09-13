@@ -254,11 +254,11 @@ namespace Tests.BolgerUtils
 
         #region IEnumerable
 
-        //public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-        //public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any();
-        //public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-        //public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-        //public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> source) => source.ToList().ToHashSet();
+        //public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        //public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any()
+        //public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        //public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        //public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> source)
 
         #endregion
 
@@ -400,27 +400,165 @@ namespace Tests.BolgerUtils
         [Theory]
         [InlineData("Hello", "Hello")]
         [InlineData("Hello", @"""Hello""")]
+        [InlineData("'Hello'", "'Hello'")]
+        [InlineData("'Hello'", @"""'Hello'""")]
         [InlineData("Hello World", "Hello World")]
         [InlineData("Hello World", @"""Hello"" ""World""")]
         [InlineData(" Hello  World ", @""" ""Hello"" "" ""World"" """)]
         [InlineData("", "")]
         [InlineData("", @"""")]
-        [InlineData("'Hello'", "'Hello'")]
-        [InlineData("'Hello'", @"""'Hello'""")]
+        [InlineData("'", "'")]
+        [InlineData(" ", " ")]
         public void RemoveDoubleQuotationTest(string expected, string item) =>
             Assert.Equal(expected, item.RemoveDoubleQuotation());
 
-        //public static string RemoveRedundantWhitespace(this string item)
-        //public static string RemoveSpaceAndApostrophe(this string item)
+        [Fact]
+        public void RemoveRedundantWhitespaceTest()
+        {
+            // ReSharper disable StringLiteralTypo
+            const string item =
+@"<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Favourite Books</title>
+    </head>
+    <body>
+        <header id='header'
+            class='header'
+            style='background-color: lightgrey; text-align: right;
+            font-size: 125%;'>
+            <h1>My Favourite Books</h1>
+            <h2><em>A list of fictional books.</em></h2>
+            <strong>   by   John   Smith   </strong>
+        </header>
+        
+        <div id='content'>
+            <img src='books.gif' alt='Book'   />
+            
+            <p>
+                List of book series:
+            </p>
+            
+            <ol>
+                <li>Lord of the Rings</li>
+                <li>Harry Potter</li>
+                <li>
+                    Twilight
+                </li>
+            </ol>
+        </div>
+        
+        <footer>
+            <p>
+                Find these books on
+                <strong>
+                    <em>
+                        <a href='http://www.amazon.com' title='Search Amazon'>
+                            Amazon
+                        </a>.
+                    </em>
+                </strong>
+            </p>
+        </footer>
+    </body>
+</html>";
+
+            var expected =
+@"<!DOCTYPE html>
+<html>
+<head>
+<title>My Favourite Books</title>
+</head>
+<body>
+<header id='header'
+class='header'
+style='background-color: lightgrey; text-align: right;
+font-size: 125%;'>
+<h1>My Favourite Books</h1>
+<h2><em>A list of fictional books.</em></h2>
+<strong> by John Smith </strong>
+</header>
+<div id='content'>
+<img src='books.gif' alt='Book' />
+<p>
+List of book series:
+</p>
+<ol>
+<li>Lord of the Rings</li>
+<li>Harry Potter</li>
+<li>
+Twilight
+</li>
+</ol>
+</div>
+<footer>
+<p>
+Find these books on
+<strong>
+<em>
+<a href='http://www.amazon.com' title='Search Amazon'>
+Amazon
+</a>.
+</em>
+</strong>
+</p>
+</footer>
+</body>
+</html>".Replace("\r", string.Empty);
+            // ReSharper restore StringLiteralTypo
+
+            Assert.Equal(expected, item.RemoveRedundantWhitespace());
+        }
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData(@"""Hello""", @"""Hello""")]
+        [InlineData("Hello", "'Hello'")]
+        [InlineData(@"""Hello""", @"""'Hello'""")]
+        [InlineData("HelloWorld", "Hello World")]
+        [InlineData("HelloWorld", "'Hello' 'World'")]
+        [InlineData("HelloWorld", "' 'Hello' ' 'World' '")]
+        [InlineData("", "")]
+        [InlineData(@"""", @"""")]
+        [InlineData("", "'")]
+        [InlineData("", " ")]
+        public void RemoveSpaceAndSingleQuotationTest(string expected, string item) =>
+            Assert.Equal(expected, item.RemoveSpaceAndSingleQuotation());
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData(@"""Hello""", @"""Hello""")]
+        [InlineData("'Hello'", "'Hello'")]
+        [InlineData(@"""'Hello'""", @"""'Hello'""")]
+        [InlineData("HelloWorld", "Hello World")]
+        [InlineData("HelloWorld", "  Hello   World   ")]
+        [InlineData("", "")]
+        [InlineData(@"""", @"""")]
+        [InlineData("'", "'")]
+        [InlineData("", " ")]
+        public void RemoveSpaceTest(string expected, string item) => Assert.Equal(expected, item.RemoveSpace());
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData(@"""Hello""", @"""Hello""")]
+        [InlineData("Hello", "'Hello'")]
+        [InlineData(@"""Hello""", @"""'Hello'""")]
+        [InlineData("Hello World", "Hello World")]
+        [InlineData("Hello World", "'Hello' 'World'")]
+        [InlineData(" Hello  World ", "' 'Hello' ' 'World' '")]
+        [InlineData("", "")]
+        [InlineData(@"""", @"""")]
+        [InlineData("", "'")]
+        [InlineData(" ", " ")]
+        public void RemoveSingleQuotationTest(string expected, string item) =>
+            Assert.Equal(expected, item.RemoveSingleQuotation());
 
         [Theory]
         [InlineData("Hello", "Hello")]
         [InlineData("Hello&nbsp;World", "Hello World")]
         [InlineData("Hello&nbsp;World&nbsp;Test", "Hello World Test")]
         [InlineData("&nbsp;&nbsp;&nbsp;Hello&nbsp;&nbsp;&nbsp;World&nbsp;Test&nbsp;", "   Hello   World Test ")]
-        public void SpaceToNbsp(string expected, string item) => Assert.Equal(expected, item.SpaceToNbsp());
-
-        //public static string ToAustralianMobileNumber(this string item)
+        public void SpaceToNbspTest(string expected, string item) => Assert.Equal(expected, item.SpaceToNbsp());
 
         [Theory]
         [InlineData("Server=server;Database=database;User Id=username;Password=password")]
@@ -452,6 +590,31 @@ namespace Tests.BolgerUtils
         [InlineData(" Test ", " Test ")]
         public void ToNullIfNullOrWhiteSpaceTest(string expected, string item) =>
             Assert.Equal(expected, item.ToNullIfNullOrWhiteSpace());
+
+        [Theory]
+        [InlineData("", "", 0)]
+        [InlineData("Hello", "Hello", 5)]
+        [InlineData("Hell", "Hello", 4)]
+        [InlineData("Hel", "Hello", 3)]
+        [InlineData("He", "Hello", 2)]
+        [InlineData("H", "Hello", 1)]
+        [InlineData("", "Hello", 0)]
+        [InlineData("Hello World", "Hello World", 12)]
+        [InlineData("Hello World", "Hello World", 11)]
+        // ReSharper disable once StringLiteralTypo
+        [InlineData("Hello Worl", "Hello World", 10)]
+        [InlineData("Hello Wor", "Hello World", 9)]
+        [InlineData("Hello Wo", "Hello World", 8)]
+        [InlineData("Hello W", "Hello World", 7)]
+        [InlineData("Hello ", "Hello World", 6)]
+        [InlineData("Hello", "Hello World", 5)]
+        [InlineData("Hell", "Hello World", 4)]
+        [InlineData("Hel", "Hello World", 3)]
+        [InlineData("He", "Hello World", 2)]
+        [InlineData("H", "Hello World", 1)]
+        [InlineData("", "Hello World", 0)]
+        public void TruncateTest(string expected, string item, int length) =>
+            Assert.Equal(expected, item.Truncate(length));
 
         [Theory]
         [InlineData("Hello", "hello")]
