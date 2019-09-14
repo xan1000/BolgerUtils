@@ -42,6 +42,7 @@
       <HintPath>..\packages\Microsoft.CodeCoverage.16.2.0\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.InteropServices" />
@@ -72,6 +73,7 @@
     <Compile Include="UtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

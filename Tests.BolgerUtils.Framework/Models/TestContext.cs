@@ -4,7 +4,8 @@ namespace Tests.BolgerUtils.Framework.Models
 {
     public class TestContext: DbContext
     {
-        public TestContext() : base(@"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True")
+        public TestContext() : base(@"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True;" +
+            "MultipleActiveResultSets=True;App=EntityFramework")
         { }
 
         // ReSharper disable once MemberCanBePrivate.Global
