@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Matthew Bolger</Authors>
-    <Version>1.9.1</Version>
+    <Version>1.9.2</Version>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>File Object Mapping</PackageTags>
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="1.9.1" />
+    <PackageReference Include="BolgerUtils" Version="1.9.2" />
   </ItemGroup>
 
 </Project>
