@@ -19,7 +19,7 @@ namespace BolgerUtils.EnumDisplay
             var addAttribute = key.GetAttributeOfType<AddAttribute>();
 
             return addAttribute != null ? addAttribute.Value :
-                key.ToString().UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter();
+                key.ToString().UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter();
         }
 
         public bool CacheValueOnDisplay { get; }
