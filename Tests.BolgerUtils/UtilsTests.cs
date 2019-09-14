@@ -65,6 +65,9 @@ namespace Tests.BolgerUtils
         [Fact]
         public void SpaceCharTest() => Assert.Equal(' ', Utils.SpaceChar);
 
+        [Fact]
+        public void ZeroTest() => Assert.Equal(0, Utils.Zero);
+
         #endregion
 
         [Fact]

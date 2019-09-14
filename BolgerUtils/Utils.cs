@@ -22,6 +22,7 @@ namespace BolgerUtils
         public const char SingleQuoteChar = '\'';
         public const string Space = " ";
         public const char SpaceChar = ' ';
+        public const int Zero = 0;
 
         #endregion
 

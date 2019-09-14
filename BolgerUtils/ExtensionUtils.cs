@@ -222,6 +222,9 @@ namespace BolgerUtils
 
         public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
 
+        public static string Join(this IEnumerable<string> source, char separator) =>
+            source.Join(separator.ToString());
+
         public static string NewLineToBr(this string item) => item.Replace(Utils.NewLine, Utils.BrElement);
 
         public static string Remove(this string item, string value) => item.Replace(value, string.Empty);

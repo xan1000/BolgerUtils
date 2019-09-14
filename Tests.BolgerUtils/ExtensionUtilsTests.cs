@@ -381,7 +381,31 @@ namespace Tests.BolgerUtils
             Assert.Equal(string.IsNullOrWhiteSpace(item), item.IsNullOrWhiteSpace());
         }
 
-        //public static string Join(this IEnumerable<string> source, string separator)
+        [Theory]
+        [InlineData("", new string[0], ' ')]
+        [InlineData("Hello", new[] { "Hello" }, ' ')]
+        [InlineData("Hello World", new[] { "Hello", "World" }, ' ')]
+        [InlineData("Hello World Test", new[] { "Hello", "World", "Test" }, ' ')]
+        [InlineData("Hello,World,Test", new[] { "Hello", "World", "Test" }, ',')]
+        [InlineData("Hello-World-Test", new[] { "Hello", "World", "Test" }, '-')]
+        [InlineData("Hello\nWorld\nTest", new[] { "Hello", "World", "Test" }, '\n')]
+        public void JoinCharTest(string expected, IEnumerable<string> source, char separator) =>
+            Assert.Equal(expected, source.Join(separator));
+
+        [Theory]
+        [InlineData("", new string[0], " ")]
+        [InlineData("Hello", new[] { "Hello" }, " ")]
+        [InlineData("Hello World", new[] { "Hello", "World" }, " ")]
+        [InlineData("Hello World Test", new[] { "Hello", "World", "Test" }, " ")]
+        [InlineData("Hello,World,Test", new[] { "Hello", "World", "Test" }, ",")]
+        [InlineData("Hello, World, Test", new[] { "Hello", "World", "Test" }, ", ")]
+        [InlineData("Hello-World-Test", new[] { "Hello", "World", "Test" }, "-")]
+        [InlineData("Hello\nWorld\nTest", new[] { "Hello", "World", "Test" }, "\n")]
+        [InlineData("HelloTestWorld", new[] { "Hello", "World" }, "Test")]
+        [InlineData("HelloWorld", new[] { "Hello", "World" }, "")]
+        [InlineData("HelloWorldTest", new[] { "Hello", "World", "Test" }, "")]
+        public void JoinTest(string expected, IEnumerable<string> source, string separator) =>
+            Assert.Equal(expected, source.Join(separator));
 
         [Theory]
         [InlineData("", "")]
@@ -529,7 +553,7 @@ Amazon
 </p>
 </footer>
 </body>
-</html>".Replace("\r", string.Empty);
+</html>".RemoveCarriageReturn();
             // ReSharper restore StringLiteralTypo
 
             Assert.Equal(expected, item.RemoveRedundantWhitespace());
