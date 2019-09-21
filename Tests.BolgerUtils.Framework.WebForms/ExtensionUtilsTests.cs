@@ -12,7 +12,7 @@ namespace Tests.BolgerUtils.Framework.WebForms
         #region DropDownList
 
         [Fact]
-        public void SelectedDayOfWeekOrNullTest()
+        public void Test_SelectedDayOfWeekOrNull()
         {
             var dropDownList = new DropDownList();
 
@@ -58,7 +58,7 @@ namespace Tests.BolgerUtils.Framework.WebForms
         }
 
         [Fact]
-        public void SelectedValueToIntOrNullTest()
+        public void Test_SelectedValueToIntOrNull()
         {
             var dropDownList = new DropDownList();
 
@@ -90,31 +90,31 @@ namespace Tests.BolgerUtils.Framework.WebForms
         #region HttpRequest
 
         [Fact]
-        public void BeginUrlTest() =>
+        public void Test_BeginUrl() =>
             // Its pretty hard to test HttpRequest - this is a fake test.
             Assert.Throws<NullReferenceException>(() => HttpContext.Current.Request.BeginUrl());
 
         [Fact]
-        public void GetFormIntOrNullTest() =>
+        public void Test_GetFormIntOrNull() =>
             // Its pretty hard to test HttpRequest - this is a fake test.
             Assert.Throws<NullReferenceException>(() => HttpContext.Current.Request.GetFormIntOrNull("ID"));
 
         [Fact]
-        public void GetFormValueNotNullTest() =>
-            // Its pretty hard to test HttpRequest - this is a fake test.
-            Assert.Throws<NullReferenceException>(() => HttpContext.Current.Request.GetFormValueNotNull("ID"));
-
-        [Fact]
-        public void GetFormValueTest() =>
+        public void Test_GetFormValue() =>
             // Its pretty hard to test HttpRequest - this is a fake test.
             Assert.Throws<NullReferenceException>(() => HttpContext.Current.Request.GetFormValue("ID"));
+
+        [Fact]
+        public void Test_GetFormValueNotNull() =>
+            // Its pretty hard to test HttpRequest - this is a fake test.
+            Assert.Throws<NullReferenceException>(() => HttpContext.Current.Request.GetFormValueNotNull("ID"));
 
         #endregion
 
         #region Label
 
         [Fact]
-        public void HasErrorTest()
+        public void Test_HasError()
         {
             var label = new Label();
             Assert.True(label.Visible);
@@ -142,12 +142,12 @@ namespace Tests.BolgerUtils.Framework.WebForms
         #region Session
 
         [Fact]
-        public void GetTest() =>
+        public void Test_Get() =>
             // Its pretty hard to test HttpSessionState - this is a fake test.
             Assert.Throws<NullReferenceException>(() => HttpContext.Current.Session.Get<int>("ID"));
 
         [Fact]
-        public void SetTest() =>
+        public void Test_Set() =>
             // Its pretty hard to test HttpSessionState - this is a fake test.
             Assert.Throws<NullReferenceException>(() => HttpContext.Current.Session.Set("ID", 1));
 
@@ -156,19 +156,19 @@ namespace Tests.BolgerUtils.Framework.WebForms
         #region String
 
         [Fact]
-        public void ConnectionStringSettingsTest() =>
-            Assert.IsType<ConnectionStringSettings>("Test".ConnectionStringSettings());
+        public void Test_ConnectionString() =>
+            Assert.Equal(@"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True;", "Test".ConnectionString());
 
         [Fact]
-        public void ConnectionStringTest() =>
-            Assert.Equal(@"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True;", "Test".ConnectionString());
+        public void Test_ConnectionStringSettings() =>
+            Assert.IsType<ConnectionStringSettings>("Test".ConnectionStringSettings());
 
         #endregion
 
         #region TextBox
 
         [Fact]
-        public void ToIntOrNullTest()
+        public void Test_ToIntOrNull()
         {
             var textBox = new TextBox();
             Assert.Null(textBox.ToIntOrNull());
@@ -193,7 +193,7 @@ namespace Tests.BolgerUtils.Framework.WebForms
         }
 
         [Fact]
-        public void ToTimeSpanOrNullTest()
+        public void Test_ToTimeSpanOrNull()
         {
             var textBox = new TextBox();
             Assert.Null(textBox.ToTimeSpanOrNull());

@@ -28,11 +28,28 @@ namespace Tests.BolgerUtils.EnumDisplay
 
         private readonly EnumDisplayUtils _enumDisplayUtils = new EnumDisplayUtils();
 
+        [Fact]
+        public void Test_AddAll()
+        {
+            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.True(Utils.GetEnumValues<TestAnotherType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+
+            _enumDisplayUtils.AddAll<TestType>();
+
+            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.True(Utils.GetEnumValues<TestAnotherType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+
+            _enumDisplayUtils.AddAll<TestAnotherType>();
+
+            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.True(Utils.GetEnumValues<TestAnotherType>().All(x => _enumDisplayUtils.ContainsKey(x)));
+        }
+
         [Theory]
         [InlineData(TestType.Test)]
         [InlineData(TestType.TestWithManyWords)]
         [InlineData(TestAnotherType.Test)]
-        public void AddAndContainsKeyAndDisplayTest(Enum key)
+        public void Test_AddAndContainsKeyAndDisplay(Enum key)
         {
             Assert.False(_enumDisplayUtils.ContainsKey(key));
 
@@ -43,18 +60,8 @@ namespace Tests.BolgerUtils.EnumDisplay
         }
 
         [Theory]
-        [InlineData(TestType.TestCustomValue, "Custom Value")]
-        [InlineData(TestAnotherType.TestAnotherCustomValue, "Another Custom Value")]
-        public void AddAndDisplayCustomValueTest(Enum key, string value)
-        {
-            _enumDisplayUtils.Add(key, value);
-
-            Assert.Equal(value, _enumDisplayUtils.Display(key));
-        }
-
-        [Theory]
         [InlineData(TestType.TestCustomValueWithAttribute, CustomAttributeValue)]
-        public void AddAndDisplayAttributeValueTest(TestType testType, string value)
+        public void Test_AddAndDisplayAttributeValue(TestType testType, string value)
         {
             _enumDisplayUtils.Add(testType);
 
@@ -63,54 +70,13 @@ namespace Tests.BolgerUtils.EnumDisplay
         }
 
         [Theory]
-        [InlineData(TestType.TestCustomValueWithAttribute, CustomAttributeValue)]
-        public void DisplayAttributeValueTest(TestType testType, string value)
+        [InlineData(TestType.TestCustomValue, "Custom Value")]
+        [InlineData(TestAnotherType.TestAnotherCustomValue, "Another Custom Value")]
+        public void Test_AddAndDisplayCustomValue(Enum key, string value)
         {
-            Assert.Equal(value, _enumDisplayUtils.Display(testType));
-            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), _enumDisplayUtils.Display(testType));
-        }
+            _enumDisplayUtils.Add(key, value);
 
-        [Theory]
-        [InlineData(TestType.Test)]
-        [InlineData(TestAnotherType.Test)]
-        public void DisplayCustomDefaultTest(Enum key)
-        {
-            DisplayCustomDefaultTestImplementation(key, x => x.ToString().ToLower());
-            DisplayCustomDefaultTestImplementation(key, x => x.ToString().ToUpper());
-            DisplayCustomDefaultTestImplementation(key, x => "Constant");
-            DisplayCustomDefaultTestImplementation(key, x => string.Empty);
-            DisplayCustomDefaultTestImplementation(key, x => null);
-        }
-
-        private void DisplayCustomDefaultTestImplementation(Enum key, Func<Enum, string> defaultDisplay)
-        {
-            var enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
-            enumDisplayUtils.Add(key);
-            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
-
-            enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
-            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
-        }
-
-        [Theory]
-        [InlineData(TestType.Test, TestType.TestWithManyWords)]
-        [InlineData(TestType.Test, TestAnotherType.Test)]
-        [InlineData(TestAnotherType.Test, TestType.Test)]
-        [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
-        public void AddManyTest(Enum key, Enum otherKey)
-        {
-            Assert.False(_enumDisplayUtils.ContainsKey(key));
-            Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
-
-            _enumDisplayUtils.Add(key);
-
-            Assert.True(_enumDisplayUtils.ContainsKey(key));
-            Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
-
-            _enumDisplayUtils.Add(otherKey);
-
-            Assert.True(_enumDisplayUtils.ContainsKey(key));
-            Assert.True(_enumDisplayUtils.ContainsKey(otherKey));
+            Assert.Equal(value, _enumDisplayUtils.Display(key));
         }
 
         [Theory]
@@ -118,7 +84,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestType.TestWithManyWords, TestType.Test)]
         [InlineData(TestType.Test, TestAnotherType.Test)]
         [InlineData(TestAnotherType.TestAnother, TestType.TestWithManyWords)]
-        public void AddDuplicateTest(Enum key, Enum otherKey)
+        public void Test_AddDuplicate(Enum key, Enum otherKey)
         {
             Assert.False(_enumDisplayUtils.ContainsKey(key));
             Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
@@ -136,21 +102,25 @@ namespace Tests.BolgerUtils.EnumDisplay
             Assert.True(_enumDisplayUtils.ContainsKey(otherKey));
         }
 
-        [Fact]
-        public void AddAllTest()
+        [Theory]
+        [InlineData(TestType.Test, TestType.TestWithManyWords)]
+        [InlineData(TestType.Test, TestAnotherType.Test)]
+        [InlineData(TestAnotherType.Test, TestType.Test)]
+        [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
+        public void Test_AddMany(Enum key, Enum otherKey)
         {
-            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
-            Assert.True(Utils.GetEnumValues<TestAnotherType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.False(_enumDisplayUtils.ContainsKey(key));
+            Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
 
-            _enumDisplayUtils.AddAll<TestType>();
+            _enumDisplayUtils.Add(key);
 
-            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
-            Assert.True(Utils.GetEnumValues<TestAnotherType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.True(_enumDisplayUtils.ContainsKey(key));
+            Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
 
-            _enumDisplayUtils.AddAll<TestAnotherType>();
+            _enumDisplayUtils.Add(otherKey);
 
-            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
-            Assert.True(Utils.GetEnumValues<TestAnotherType>().All(x => _enumDisplayUtils.ContainsKey(x)));
+            Assert.True(_enumDisplayUtils.ContainsKey(key));
+            Assert.True(_enumDisplayUtils.ContainsKey(otherKey));
         }
 
         [Theory]
@@ -158,7 +128,88 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestType.Test, TestAnotherType.Test)]
         [InlineData(TestAnotherType.Test, TestType.Test)]
         [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
-        public void RemoveTest(Enum key, Enum otherKey)
+        public void Test_CacheValueOnDisplay(Enum key, Enum otherKey)
+        {
+            Test_CacheValueOnDisplayImplementation(key, otherKey, true);
+            Test_CacheValueOnDisplayImplementation(key, otherKey, false);
+
+            // Ensure CacheValueOnDisplay is true by default.
+            Test_CacheValueOnDisplayImplementation(key, otherKey, _enumDisplayUtils, true);
+        }
+
+        private void Test_CacheValueOnDisplayImplementation(Enum key, Enum otherKey, bool cacheValueOnDisplay) =>
+            Test_CacheValueOnDisplayImplementation(key, otherKey, new EnumDisplayUtils(cacheValueOnDisplay),
+                cacheValueOnDisplay);
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void Test_CacheValueOnDisplayImplementation(
+            Enum key, Enum otherKey, EnumDisplayUtils enumDisplayUtils, bool cacheValueOnDisplay)
+        {
+            Assert.Equal(cacheValueOnDisplay, enumDisplayUtils.CacheValueOnDisplay);
+            Assert.False(enumDisplayUtils.ContainsKey(key));
+            Assert.False(enumDisplayUtils.ContainsKey(otherKey));
+
+            enumDisplayUtils.Add(key);
+            Assert.True(enumDisplayUtils.ContainsKey(key));
+            Assert.False(enumDisplayUtils.ContainsKey(otherKey));
+
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(key), enumDisplayUtils.Display(key));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(otherKey), enumDisplayUtils.Display(otherKey));
+
+            Assert.True(enumDisplayUtils.ContainsKey(key));
+            Assert.Equal(enumDisplayUtils.CacheValueOnDisplay, enumDisplayUtils.ContainsKey(otherKey));
+        }
+
+        [Fact]
+        public void Test_Clear()
+        {
+            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+
+            _enumDisplayUtils.AddAll<TestType>();
+
+            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
+
+            _enumDisplayUtils.Clear();
+
+            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
+        }
+
+        [Theory]
+        [InlineData(TestType.TestCustomValueWithAttribute, CustomAttributeValue)]
+        public void Test_DisplayAttributeValue(TestType testType, string value)
+        {
+            Assert.Equal(value, _enumDisplayUtils.Display(testType));
+            Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), _enumDisplayUtils.Display(testType));
+        }
+
+        [Theory]
+        [InlineData(TestType.Test)]
+        [InlineData(TestAnotherType.Test)]
+        public void Test_DisplayCustomDefault(Enum key)
+        {
+            Test_DisplayCustomDefaultImplementation(key, x => x.ToString().ToLower());
+            Test_DisplayCustomDefaultImplementation(key, x => x.ToString().ToUpper());
+            Test_DisplayCustomDefaultImplementation(key, x => "Constant");
+            Test_DisplayCustomDefaultImplementation(key, x => string.Empty);
+            Test_DisplayCustomDefaultImplementation(key, x => null);
+        }
+
+        private void Test_DisplayCustomDefaultImplementation(Enum key, Func<Enum, string> defaultDisplay)
+        {
+            var enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
+            enumDisplayUtils.Add(key);
+            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
+
+            enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
+            Assert.Equal(defaultDisplay(key), enumDisplayUtils.Display(key));
+        }
+
+        [Theory]
+        [InlineData(TestType.Test, TestType.TestWithManyWords)]
+        [InlineData(TestType.Test, TestAnotherType.Test)]
+        [InlineData(TestAnotherType.Test, TestType.Test)]
+        [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
+        public void Test_Remove(Enum key, Enum otherKey)
         {
             _enumDisplayUtils.Add(key);
             _enumDisplayUtils.Add(otherKey);
@@ -176,57 +227,6 @@ namespace Tests.BolgerUtils.EnumDisplay
             Assert.False(_enumDisplayUtils.ContainsKey(key));
             Assert.False(_enumDisplayUtils.ContainsKey(otherKey));
         }
-
-        [Fact]
-        public void ClearTest()
-        {
-            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
-
-            _enumDisplayUtils.AddAll<TestType>();
-
-            Assert.True(Utils.GetEnumValues<TestType>().All(x => _enumDisplayUtils.ContainsKey(x)));
-
-            _enumDisplayUtils.Clear();
-
-            Assert.True(Utils.GetEnumValues<TestType>().NotAll(x => _enumDisplayUtils.ContainsKey(x)));
-        }
-
-        [Theory]
-        [InlineData(TestType.Test, TestType.TestWithManyWords)]
-        [InlineData(TestType.Test, TestAnotherType.Test)]
-        [InlineData(TestAnotherType.Test, TestType.Test)]
-        [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
-        public void CacheValueOnDisplayTest(Enum key, Enum otherKey)
-        {
-            CacheValueOnDisplayTestImplementation(key, otherKey, true);
-            CacheValueOnDisplayTestImplementation(key, otherKey, false);
-
-            // Ensure CacheValueOnDisplay is true by default.
-            CacheValueOnDisplayTestImplementation(key, otherKey, _enumDisplayUtils, true);
-        }
-
-        private void CacheValueOnDisplayTestImplementation(Enum key, Enum otherKey, bool cacheValueOnDisplay) =>
-            CacheValueOnDisplayTestImplementation(key, otherKey, new EnumDisplayUtils(cacheValueOnDisplay),
-                cacheValueOnDisplay);
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void CacheValueOnDisplayTestImplementation(
-            Enum key, Enum otherKey, EnumDisplayUtils enumDisplayUtils, bool cacheValueOnDisplay)
-        {
-            Assert.Equal(cacheValueOnDisplay, enumDisplayUtils.CacheValueOnDisplay);
-            Assert.False(enumDisplayUtils.ContainsKey(key));
-            Assert.False(enumDisplayUtils.ContainsKey(otherKey));
-
-            enumDisplayUtils.Add(key);
-            Assert.True(enumDisplayUtils.ContainsKey(key));
-            Assert.False(enumDisplayUtils.ContainsKey(otherKey));
-
-            Assert.Equal(EnumDisplayUtils.DefaultDisplay(key), enumDisplayUtils.Display(key));
-            Assert.Equal(EnumDisplayUtils.DefaultDisplay(otherKey), enumDisplayUtils.Display(otherKey));
-
-            Assert.True(enumDisplayUtils.ContainsKey(key));
-            Assert.Equal(enumDisplayUtils.CacheValueOnDisplay, enumDisplayUtils.ContainsKey(otherKey));
-        }
     }
 
     public class EnumDisplayExtensionUtilsTests
@@ -237,7 +237,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestType.Test)]
         [InlineData(TestType.TestWithManyWords)]
         [InlineData(TestAnotherType.Test)]
-        public void AddAndContainsKeyAndDisplayTest(Enum key)
+        public void Test_AddAndContainsKeyAndDisplay(Enum key)
         {
             Assert.False(key.ContainsKey());
 
@@ -248,18 +248,8 @@ namespace Tests.BolgerUtils.EnumDisplay
         }
 
         [Theory]
-        [InlineData(TestType.TestCustomValue, "Custom Value")]
-        [InlineData(TestAnotherType.TestAnotherCustomValue, "Another Custom Value")]
-        public void AddAndDisplayCustomValueTest(Enum key, string value)
-        {
-            key.Add(value);
-
-            Assert.Equal(value, key.Display());
-        }
-
-        [Theory]
         [InlineData(TestType.TestCustomValueWithAttribute, EnumDisplayUtilsTests.CustomAttributeValue)]
-        public void AddAndDisplayAttributeValueTest(TestType testType, string value)
+        public void Test_AddAndDisplayAttributeValue(TestType testType, string value)
         {
             testType.Add();
 
@@ -268,8 +258,22 @@ namespace Tests.BolgerUtils.EnumDisplay
         }
 
         [Theory]
+        [InlineData(TestType.TestCustomValue, "Custom Value")]
+        [InlineData(TestAnotherType.TestAnotherCustomValue, "Another Custom Value")]
+        public void Test_AddAndDisplayCustomValue(Enum key, string value)
+        {
+            key.Add(value);
+
+            Assert.Equal(value, key.Display());
+        }
+
+        [Fact]
+        public void Test_CacheValueOnDisplayIsTrue() =>
+            Assert.True(EnumDisplayExtensionUtils.EnumDisplayUtils.CacheValueOnDisplay);
+
+        [Theory]
         [InlineData(TestType.TestCustomValueWithAttribute, EnumDisplayUtilsTests.CustomAttributeValue)]
-        public void DisplayAttributeValueTest(TestType testType, string value)
+        public void Test_DisplayAttributeValue(TestType testType, string value)
         {
             Assert.Equal(value, testType.Display());
             Assert.Equal(EnumDisplayUtils.DefaultDisplay(testType), testType.Display());
@@ -280,7 +284,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestType.Test, TestAnotherType.Test)]
         [InlineData(TestAnotherType.Test, TestType.Test)]
         [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
-        public void RemoveTest(Enum key, Enum otherKey)
+        public void Test_Remove(Enum key, Enum otherKey)
         {
             key.Add();
             otherKey.Add();
@@ -298,9 +302,5 @@ namespace Tests.BolgerUtils.EnumDisplay
             Assert.False(key.ContainsKey());
             Assert.False(otherKey.ContainsKey());
         }
-
-        [Fact]
-        public void CacheValueOnDisplayIsTrueTest() =>
-            Assert.True(EnumDisplayExtensionUtils.EnumDisplayUtils.CacheValueOnDisplay);
     }
 }

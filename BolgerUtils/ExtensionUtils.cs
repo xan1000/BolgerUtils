@@ -14,22 +14,22 @@ namespace BolgerUtils
     public static class ExtensionUtils
     {
         #region Boolean
+
+        public static string Checked(this bool item) => item.Display("checked");
+
+        public static string Disabled(this bool item) => item.Display("disabled");
         
-        public static string Checked(this bool item) => item ? "checked" : string.Empty;
-        
-        public static string Disabled(this bool item) => item ? "disabled" : string.Empty;
-        
-        public static string Display(this bool item, string trueDisplay, string falseDisplay = "") =>
+        public static string Display(this bool item, string trueDisplay, string falseDisplay = Utils.Empty) =>
             item ? trueDisplay : falseDisplay;
 
-        public static string HasError(this bool item) => item ? "has-error" : string.Empty;
+        public static string HasError(this bool item) => item.Display("has-error");
 
         public static string ReadOnlyCheckbox(this bool item) =>
             $"<input type=checkbox disabled {(item ? "checked" : string.Empty)} />";
 
-        public static string Selected(this bool item) => item ? "selected" : string.Empty;
-        
-        public static string YesOrNo(this bool item) => item ? "Yes" : "No";
+        public static string Selected(this bool item) => item.Display("selected");
+
+        public static string YesOrNo(this bool item) => item.Display("Yes", "No");
 
         #endregion
 
@@ -136,6 +136,8 @@ namespace BolgerUtils
 
         #region IEnumerable
 
+        public static bool IsEmpty<T>(this IEnumerable<T> source) => source.NotAny();
+
         public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
             source.All(x => !predicate(x));
         
@@ -159,6 +161,8 @@ namespace BolgerUtils
         #endregion
 
         #region Object
+
+        public static bool IsNull(this object item) => item == null;
 
         public static dynamic ToDynamic(this object item)
         {
@@ -233,6 +237,8 @@ namespace BolgerUtils
 
         public static string RemoveDoubleQuotation(this string item) => item.Remove(Utils.DoubleQuote);
 
+        public static string RemoveNewLine(this string item) => item.Remove(Utils.NewLine);
+
         // https://stackoverflow.com/a/37592018/9798310
         public static string RemoveRedundantWhitespace(this string item)
         {
@@ -265,8 +271,6 @@ namespace BolgerUtils
 
             return new string(array, 0, arrayIndex);
         }
-
-        public static string RemoveNewLine(this string item) => item.Remove(Utils.NewLine);
 
         public static string RemoveSingleQuotation(this string item) => item.Remove(Utils.SingleQuote);
 

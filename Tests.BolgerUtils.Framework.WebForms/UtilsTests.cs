@@ -7,7 +7,7 @@ namespace Tests.BolgerUtils.Framework.WebForms
     public class UtilsTests
     {
         [Fact]
-        public void TrimTextTest()
+        public void Test_TrimText()
         {
             const string text1 = "Hello", text2 = "World   ", text3 = "   Test", text4 = "   Hello World Test   ";
 

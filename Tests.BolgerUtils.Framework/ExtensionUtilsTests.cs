@@ -32,7 +32,7 @@ namespace Tests.BolgerUtils.Framework
         }
 
         [Fact]
-        public void LogSqlTest()
+        public void Test_LogSql()
         {
             if(IsUnableConnectToDatabase())
                 return;
@@ -57,7 +57,7 @@ namespace Tests.BolgerUtils.Framework
         }
 
         [Fact]
-        public void PropertyMaximumLengthTest()
+        public void Test_PropertyMaximumLength()
         {
             if(IsUnableConnectToDatabase())
                 return;
@@ -86,7 +86,7 @@ namespace Tests.BolgerUtils.Framework
         [InlineData("")]
         [InlineData("Hello World")]
         [InlineData("<div>Hello World</div>")]
-        public void ToRawStringTest(string item)
+        public void Test_ToRawString(string item)
         {
             Assert.IsType<RawString>(item.ToRawString());
             Assert.Equal(item, item.ToRawString().ToString());
@@ -95,7 +95,7 @@ namespace Tests.BolgerUtils.Framework
         [Theory]
         [InlineData("Server=server;Database=database;User Id=username;Password=password")]
         [InlineData("Server=server;Database=database;Trusted_Connection=True")]
-        public void ToSqlConnectionStringBuilderTest(string item) =>
+        public void Test_ToSqlConnectionStringBuilder(string item) =>
             Assert.IsType<SqlConnectionStringBuilder>(item.ToSqlConnectionStringBuilder());
 
         #endregion

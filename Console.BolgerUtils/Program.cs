@@ -7,7 +7,7 @@ using BolgerUtils;
 using BolgerUtils.EnumDisplay;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
-using static System.Console; 
+using static System.Console;
 
 namespace Console.BolgerUtils
 {
@@ -41,12 +41,12 @@ namespace Console.BolgerUtils
     {
         public static void Run()
         {
-            EnumDisplayTest();
-            //PerformanceTest();
+            Test();
+            //Test_Performance();
         }
 
         // ReSharper disable once UnusedMember.Local
-        private static void EnumDisplayTest()
+        private static void Test()
         {
             ShapeType.Square.Add("Square (Custom)");
             AccountType.RegularAccount.Add("Account (Custom)");
@@ -66,7 +66,7 @@ namespace Console.BolgerUtils
         }
 
         // ReSharper disable once UnusedMember.Local
-        private static void EnumDisplayPerformanceTest()
+        private static void Test_Performance()
         {
             var stopWatch = Stopwatch.StartNew();
 
@@ -75,7 +75,7 @@ namespace Console.BolgerUtils
             var accountTypes = Utils.GetEnumValues<AccountType>().ToArray();
 
             const int loopCount = 1000000;
-            for(int i = 0; i < loopCount; i++)
+            for(var i = 0; i < loopCount; i++)
             {
                 foreach(var x in shapeTypes)
                 {
@@ -131,12 +131,12 @@ namespace Console.BolgerUtils
             FileToObjectUtils.Register(AccountPath, JsonConvert.DeserializeObject<List<Account>>);
 
             Test();
-            //FileToObjectMappingPerformanceTest();
+            //Test_Performance();
         }
 
         private static void Test()
         {
-            for(int i = 0; i < 5; i++)
+            for(var i = 0; i < 5; i++)
             {
                 PrintPeople();
                 PrintAccounts();
@@ -145,12 +145,12 @@ namespace Console.BolgerUtils
         }
 
         // ReSharper disable once UnusedMember.Local
-        private static void FileToObjectMappingPerformanceTest()
+        private static void Test_Performance()
         {
             var stopWatch = Stopwatch.StartNew();
 
             const int loopCount = 100000;
-            for(int i = 0; i < loopCount; i++)
+            for(var i = 0; i < loopCount; i++)
             {
                 WriteLine(i);
 

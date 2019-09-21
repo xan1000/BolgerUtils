@@ -24,54 +24,54 @@ namespace Tests.BolgerUtils
         #region Constants
 
         [Fact]
-        public void BrElementTest() => Assert.Equal("<br />", Utils.BrElement);
+        public void Test_BrElement() => Assert.Equal("<br />", Utils.BrElement);
 
         [Fact]
-        public void CarriageReturnTest() => Assert.Equal("\r", Utils.CarriageReturn);
+        public void Test_CarriageReturn() => Assert.Equal("\r", Utils.CarriageReturn);
 
         [Fact]
-        public void CarriageReturnCharTest() => Assert.Equal('\r', Utils.CarriageReturnChar);
+        public void Test_CarriageReturnChar() => Assert.Equal('\r', Utils.CarriageReturnChar);
 
         [Fact]
-        public void DaysPerWeekTest() => Assert.Equal(7, Utils.DaysPerWeek);
+        public void Test_DaysPerWeek() => Assert.Equal(7, Utils.DaysPerWeek);
 
         [Fact]
-        public void DoubleQuoteTest() => Assert.Equal(@"""", Utils.DoubleQuote);
+        public void Test_DoubleQuote() => Assert.Equal(@"""", Utils.DoubleQuote);
 
         [Fact]
-        public void DoubleQuoteCharTest() => Assert.Equal('"', Utils.DoubleQuoteChar);
+        public void Test_DoubleQuoteChar() => Assert.Equal('"', Utils.DoubleQuoteChar);
 
         [Fact]
-        public void EmptyTest() => Assert.Equal(string.Empty, Utils.Empty);
+        public void Test_Empty() => Assert.Equal(string.Empty, Utils.Empty);
 
         [Fact]
-        public void NewLineTest() => Assert.Equal("\n", Utils.NewLine);
+        public void Test_NewLine() => Assert.Equal("\n", Utils.NewLine);
 
         [Fact]
-        public void NewLineCharTest() => Assert.Equal('\n', Utils.NewLineChar);
+        public void Test_NewLineChar() => Assert.Equal('\n', Utils.NewLineChar);
 
         [Fact]
-        public void NonBreakingSpaceTest() => Assert.Equal("&nbsp;", Utils.NonBreakingSpace);
+        public void Test_NonBreakingSpace() => Assert.Equal("&nbsp;", Utils.NonBreakingSpace);
 
         [Fact]
-        public void SingleQuoteTest() => Assert.Equal("'", Utils.SingleQuote);
+        public void Test_SingleQuote() => Assert.Equal("'", Utils.SingleQuote);
 
         [Fact]
-        public void SingleQuoteCharTest() => Assert.Equal('\'', Utils.SingleQuoteChar);
+        public void Test_SingleQuoteChar() => Assert.Equal('\'', Utils.SingleQuoteChar);
 
         [Fact]
-        public void SpaceTest() => Assert.Equal(" ", Utils.Space);
+        public void Test_Space() => Assert.Equal(" ", Utils.Space);
 
         [Fact]
-        public void SpaceCharTest() => Assert.Equal(' ', Utils.SpaceChar);
+        public void Test_SpaceChar() => Assert.Equal(' ', Utils.SpaceChar);
 
         [Fact]
-        public void ZeroTest() => Assert.Equal(0, Utils.Zero);
+        public void Test_Zero() => Assert.Equal(0, Utils.Zero);
 
         #endregion
 
         [Fact]
-        public void GetEnumValueTest()
+        public void Test_GetEnumValue()
         {
             Assert.Equal(TestType.Test1, Utils.GetEnumValue<TestType>(TestType.Test1.ToInt()));
             Assert.Equal(TestType.Test2, Utils.GetEnumValue<TestType>(TestType.Test2.ToInt()));
@@ -91,7 +91,7 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
-        public void GetEnumValuesTest()
+        public void Test_GetEnumValues()
         {
             var testTypeList = new[] { TestType.Test1, TestType.Test2, TestType.Test3 }.ToList();
             Assert.Equal(testTypeList, Utils.GetEnumValues<TestType>());
@@ -104,11 +104,11 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
-        public void MaxTest()
+        public void Test_Max()
         {
             DateTime dateSmaller, dateBigger;
 
-            void MaxDateSmallerAndDateBiggerTest()
+            void Test_MaxDateSmallerAndDateBigger()
             {
                 Assert.True(dateSmaller <= dateBigger);
 
@@ -122,40 +122,40 @@ namespace Tests.BolgerUtils
 
             dateSmaller = DateTime.MinValue;
             dateBigger = DateTime.MaxValue;
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             var date = DateTime.Now;
             dateSmaller = date;
             dateBigger = date.AddDays(1);
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(-1);
             dateBigger = date;
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date.Add(TimeSpan.FromHours(12));
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date;
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.AddHours(24);
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.Add(TimeSpan.FromDays(1));
-            MaxDateSmallerAndDateBiggerTest();
+            Test_MaxDateSmallerAndDateBigger();
         }
 
         [Fact]
-        public void MinTest()
+        public void Test_Min()
         {
             DateTime dateSmaller, dateBigger;
 
-            void MinDateSmallerAndDateBiggerTest()
+            void Test_MinDateSmallerAndDateBigger()
             {
                 Assert.True(dateSmaller <= dateBigger);
 
@@ -169,38 +169,38 @@ namespace Tests.BolgerUtils
 
             dateSmaller = DateTime.MinValue;
             dateBigger = DateTime.MaxValue;
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             var date = DateTime.Now;
             dateSmaller = date;
             dateBigger = date.AddDays(1);
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(-1);
             dateBigger = date;
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date.Add(TimeSpan.FromHours(12));
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date;
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.AddHours(24);
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.Add(TimeSpan.FromDays(1));
-            MinDateSmallerAndDateBiggerTest();
+            Test_MinDateSmallerAndDateBigger();
         }
 
         [Theory]
         [InlineData(5)]
         [InlineData(10)]
-        public void RandomStringTest(int length)
+        public void Test_RandomString(int length)
         {
             for(var i = 0; i < 10; i++)
             {
