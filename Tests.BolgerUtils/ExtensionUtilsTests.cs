@@ -254,8 +254,65 @@ namespace Tests.BolgerUtils
 
         #region IEnumerable
 
-        //public static bool IsEmpty<T>(this IEnumerable<T> source)
+        [Fact]
+        public void Test_IEnumerable_IsEmpty()
+        {
+            Test_IEnumerable_IsEmptyImplementation(false, new[] { 4, 5, 6 });
+            Test_IEnumerable_IsEmptyImplementation(true, new int[0]);
+
+            var list = new List<string> { "Hello", "World", "Test" };
+            Test_IEnumerable_IsEmptyImplementation(false, list);
+
+            list.RemoveAt(0);
+            Test_IEnumerable_IsEmptyImplementation(false, list);
+
+            list.Clear();
+            Test_IEnumerable_IsEmptyImplementation(true, list);
+
+            Test_IEnumerable_IsEmptyImplementation(false, new ExtensionUtilsTests().ScalarToList());
+            Test_IEnumerable_IsEmptyImplementation(true, new ExtensionUtilsTests[0]);
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void Test_IEnumerable_IsEmptyImplementation<T>(bool expected, IEnumerable<T> source)
+        {
+            // ReSharper disable PossibleMultipleEnumeration
+            Assert.Equal(expected, source.IsEmpty());
+            Assert.Equal(!source.Any(), source.IsEmpty());
+            // ReSharper restore PossibleMultipleEnumeration
+        }
+
         //public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+
+        [Fact]
+        public void Test_NotAny()
+        {
+            Test_NotAnyImplementation(false, new[] { 4, 5, 6 });
+            Test_NotAnyImplementation(true, new int[0]);
+
+            var list = new List<string> { "Hello", "World", "Test" };
+            Test_NotAnyImplementation(false, list);
+
+            list.RemoveAt(0);
+            Test_NotAnyImplementation(false, list);
+
+            list.Clear();
+            Test_NotAnyImplementation(true, list);
+
+            Test_NotAnyImplementation(false, new ExtensionUtilsTests().ScalarToList());
+            Test_NotAnyImplementation(true, new ExtensionUtilsTests[0]);
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void Test_NotAnyImplementation<T>(bool expected, IEnumerable<T> source)
+        {
+            // ReSharper disable PossibleMultipleEnumeration
+            Assert.Equal(expected, source.NotAny());
+            Assert.Equal(!source.Any(), source.NotAny());
+            // ReSharper restore PossibleMultipleEnumeration
+        }
+
+
         //public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any()
         //public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         //public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
