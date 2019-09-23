@@ -138,13 +138,11 @@ namespace BolgerUtils
 
         public static bool IsEmpty<T>(this IEnumerable<T> source) => source.NotAny();
 
-        public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-            source.All(x => !predicate(x));
+        public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.All(predicate);
         
         public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any();
 
-        public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-            source.Any(x => !predicate(x));
+        public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
 
         public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
             source.Where(x => !predicate(x));

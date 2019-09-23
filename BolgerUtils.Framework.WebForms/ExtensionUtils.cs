@@ -26,8 +26,8 @@ namespace BolgerUtils.Framework.WebForms
 
         #region HttpRequest
 
-        public static string BeginUrl(this HttpRequest item) =>
-            $"{item.Url.Scheme}://{item.ServerVariables["Http_Host"]}/";
+        public static string BeginUrl(this HttpRequest item, bool appendForwardSlash = true) =>
+            $"{item.Url.Scheme}://{item.ServerVariables["Http_Host"]}{(appendForwardSlash ? "/" : string.Empty)}";
 
         public static int? GetFormIntOrNull(this HttpRequest item, string name) =>
             int.TryParse(item.GetFormValue(name), out var value) ? (int?) value : null;

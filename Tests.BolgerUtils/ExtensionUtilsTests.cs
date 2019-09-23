@@ -273,16 +273,45 @@ namespace Tests.BolgerUtils
             Test_IEnumerable_IsEmptyImplementation(true, new ExtensionUtilsTests[0]);
         }
 
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void Test_IEnumerable_IsEmptyImplementation<T>(bool expected, IEnumerable<T> source)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            Assert.Equal(expected, source.IsEmpty());
-            Assert.Equal(!source.Any(), source.IsEmpty());
-            // ReSharper restore PossibleMultipleEnumeration
+            var array = source.ToArray();
+            Assert.Equal(expected, array.IsEmpty());
+            Assert.Equal(!array.Any(), array.IsEmpty());
         }
 
-        //public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        [Fact]
+        public void Test_NotAll()
+        {
+            Test_NotAllImplementation(true, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotAllImplementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotAllImplementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotAllImplementation(false, new int[0], x => x % 2 == 0);
+
+            var list = new List<string> { "Hello", "World", "Test" };
+            Test_NotAllImplementation(true, list, x => x == "Hello");
+            Test_NotAllImplementation(true, list, x => x != "Hello");
+            Test_NotAllImplementation(false, list, x => x != "Hello World");
+
+            list.RemoveAt(0);
+            Test_NotAllImplementation(true, list, x => x == "Hello");
+            Test_NotAllImplementation(false, list, x => x != "Hello");
+            Test_NotAllImplementation(false, list, x => x != "Hello World");
+
+            list.Clear();
+            Test_NotAllImplementation(false, list, x => x == "Hello");
+
+            list.AddRange(new[] { "Hello", "Hello", "Hello" });
+            Test_NotAllImplementation(false, list, x => x == "Hello");
+            Test_NotAllImplementation(true, list, x => x != "Hello");
+        }
+
+        private void Test_NotAllImplementation<T>(bool expected, IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            var array = source.ToArray();
+            Assert.Equal(expected, array.NotAll(predicate));
+            Assert.Equal(!array.All(predicate), array.NotAll(predicate));
+        }
 
         [Fact]
         public void Test_NotAny()
@@ -303,19 +332,80 @@ namespace Tests.BolgerUtils
             Test_NotAnyImplementation(true, new ExtensionUtilsTests[0]);
         }
 
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void Test_NotAnyImplementation<T>(bool expected, IEnumerable<T> source)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            Assert.Equal(expected, source.NotAny());
-            Assert.Equal(!source.Any(), source.NotAny());
-            // ReSharper restore PossibleMultipleEnumeration
+            var array = source.ToArray();
+            Assert.Equal(expected, array.NotAny());
+            Assert.Equal(!array.Any(), array.NotAny());
         }
 
+        [Fact]
+        public void Test_NotAnyPredicate()
+        {
+            Test_NotAnyPredicateImplementation(false, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotAnyPredicateImplementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotAnyPredicateImplementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotAnyPredicateImplementation(true, new int[0], x => x % 2 == 0);
 
-        //public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any()
-        //public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate)
-        //public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+            var list = new List<string> { "Hello", "World", "Test" };
+            Test_NotAnyPredicateImplementation(false, list, x => x == "Hello");
+            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello");
+            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello World");
+
+            list.RemoveAt(0);
+            Test_NotAnyPredicateImplementation(true, list, x => x == "Hello");
+            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello");
+            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello World");
+
+            list.Clear();
+            Test_NotAnyPredicateImplementation(true, list, x => x == "Hello");
+
+            list.AddRange(new[] { "Hello", "Hello", "Hello" });
+            Test_NotAnyPredicateImplementation(false, list, x => x == "Hello");
+            Test_NotAnyPredicateImplementation(true, list, x => x != "Hello");
+        }
+
+        private void Test_NotAnyPredicateImplementation<T>(
+            bool expected, IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            var array = source.ToArray();
+            Assert.Equal(expected, array.NotAny(predicate));
+            Assert.Equal(!array.Any(predicate), array.NotAny(predicate));
+        }
+
+        [Fact]
+        public void Test_NotWhere()
+        {
+            Test_NotWhereImplementation(new[] { 5 }, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotWhereImplementation(new[] { 3, 5, 7 }, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotWhereImplementation(new int[0], new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotWhereImplementation(new int[0], new int[0], x => x % 2 == 0);
+
+            var list = new List<string> { "Hello", "World", "Test" };
+            Test_NotWhereImplementation(new[] { "World", "Test" }, list, x => x == "Hello");
+            Test_NotWhereImplementation(new[] { "Hello" }, list, x => x != "Hello");
+            Test_NotWhereImplementation(new string[0], list, x => x != "Hello World");
+
+            list.RemoveAt(0);
+            Test_NotWhereImplementation(new[] { "World", "Test" }, list, x => x == "Hello");
+            Test_NotWhereImplementation(new string[0], list, x => x != "Hello");
+            Test_NotWhereImplementation(new string[0], list, x => x != "Hello World");
+
+            list.Clear();
+            Test_NotWhereImplementation(new string[0], list, x => x == "Hello");
+
+            list.AddRange(new[] { "Hello", "Hello", "Hello" });
+            Test_NotWhereImplementation(new string[0], list, x => x == "Hello");
+            Test_NotWhereImplementation(new[] { "Hello", "Hello", "Hello" }, list, x => x != "Hello");
+        }
+
+        private void Test_NotWhereImplementation<T>(
+            IEnumerable<T> expected, IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            var array = source.ToArray();
+            Assert.Equal(expected, array.NotWhere(predicate));
+            Assert.Equal(array.Where(x => !predicate(x)), array.NotWhere(predicate));
+        }
 
         [Fact]
         public void Test_ToListToHashSet()
