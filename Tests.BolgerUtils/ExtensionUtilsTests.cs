@@ -249,18 +249,27 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_AddAll()
         {
-            Test_AddAllImplementation(new List<int>(), new[] { 4, 5, 6 });
-            Test_AddAllImplementation(new List<int> { 1, 2, 3, 7, 8, 9 }, new[] { 4, 5, 6 });
-            Test_AddAllImplementation(new List<int>(), new int[0]);
-            Test_AddAllImplementation(new List<string>(), new[] { "Hello" });
-            Test_AddAllImplementation(new List<string>(), new[] { "Hello", "World" });
-            Test_AddAllImplementation(new List<string> { "Test", "AnotherTest" }, new[] { "Hello", "World" });
-            Test_AddAllImplementation(new List<UtilsTests>(), new[] { new UtilsTests(), new UtilsTests() });
-            Test_AddAllImplementation(new List<UtilsTests> { new UtilsTests() },
-                new[] { new UtilsTests(), new UtilsTests() });
+            Test_AddAllImplementation(new[] { 4, 5, 6 }, new List<int>(), new[] { 4, 5, 6 });
+            Test_AddAllImplementation(new[] { 1, 2, 3, 7, 8, 9, 4, 5, 6 }, new List<int> { 1, 2, 3, 7, 8, 9 },
+                new[] { 4, 5, 6 });
+            Test_AddAllImplementation(new int[0], new List<int>(), new int[0]);
+
+            Test_AddAllImplementation(new[] { "Hello" }, new List<string>(), new[] { "Hello" });
+            Test_AddAllImplementation(new[] { "Hello", "World" }, new List<string>(), new[] { "Hello", "World" });
+            Test_AddAllImplementation(new[] { "Test", "AnotherTest", "Hello", "World" },
+                new List<string> { "Test", "AnotherTest" }, new[] { "Hello", "World" });
+
+            var utilsTests1 = new UtilsTests();
+            var utilsTests2 = new UtilsTests();
+            Test_AddAllImplementation(new[] { utilsTests1, utilsTests2 }, new List<UtilsTests>(),
+                new[] { utilsTests1, utilsTests2 });
+
+            var utilsTests3 = new UtilsTests();
+            Test_AddAllImplementation(new[] { utilsTests3, utilsTests1, utilsTests2 },
+                new List<UtilsTests> { utilsTests3 }, new[] { utilsTests1, utilsTests2 });
         }
 
-        private void Test_AddAllImplementation<T>(ICollection<T> item, IEnumerable<T> objects)
+        private void Test_AddAllImplementation<T>(IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects)
         {
             var array = objects.ToArray();
             foreach(var x in array)
@@ -276,30 +285,44 @@ namespace Tests.BolgerUtils
             {
                 Assert.Contains(x, item);
             }
+
+            Assert.Equal(expected, item);
         }
 
         [Fact]
         public void Test_RemoveAll()
         {
-            Test_RemoveAllImplementation(new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
-            Test_RemoveAllImplementation(new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 4, 5, 6 });
-            Test_RemoveAllImplementation(new List<int>(), new int[0]);
-            Test_RemoveAllImplementation(new List<string> { "Hello" }, new[] { "Hello" });
-            Test_RemoveAllImplementation(new List<string> { "Hello", "World" }, new[] { "Hello" });
-            Test_RemoveAllImplementation(new List<string> { "Hello", "World" }, new[] { "Hello", "World" });
-            Test_RemoveAllImplementation(new List<string> { "Hello", "Test", "World" }, new[] { "Hello", "World" });
+            Test_RemoveAllImplementation(new int[0], new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
+            Test_RemoveAllImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 4, 5, 6 });
+            Test_RemoveAllImplementation(new[] { 1, 3, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 2, 4, 5 });
+            Test_RemoveAllImplementation(new[] { 2 }, new List<int> { 1, 2, 3 }, new[] { 1, 3 });
+            Test_RemoveAllImplementation(new int[0], new List<int>(), new int[0]);
+
+            Test_RemoveAllImplementation(new string[0], new List<string> { "Hello" }, new[] { "Hello" });
+            Test_RemoveAllImplementation(new[] { "World" }, new List<string> { "Hello", "World" }, new[] { "Hello" });
+            Test_RemoveAllImplementation(new string[0], new List<string> { "Hello", "World" },
+                new[] { "Hello", "World" });
+            Test_RemoveAllImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+                new[] { "Hello", "World" });
+            Test_RemoveAllImplementation(new string[0], new List<string>(), new string[0]);
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_RemoveAllImplementation(new List<UtilsTests> { utilsTests1 }, new[] { utilsTests1 });
-            Test_RemoveAllImplementation(new List<UtilsTests> { utilsTests1, utilsTests2 }, new[] { utilsTests1 });
-            Test_RemoveAllImplementation(new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+                new[] { utilsTests1 });
+            Test_RemoveAllImplementation(new[] { utilsTests2 }, new List<UtilsTests> { utilsTests1, utilsTests2 },
+                new[] { utilsTests1 });
+            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
                 new[] { utilsTests1, utilsTests2 });
-            Test_RemoveAllImplementation(new List<UtilsTests> { utilsTests1, new UtilsTests(), utilsTests2 },
-                new[] { utilsTests1, utilsTests2 });
+
+            var utilsTests3 = new UtilsTests();
+            Test_RemoveAllImplementation(new[] { utilsTests2 },
+                new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 }, new[] { utilsTests1, utilsTests3 });
+            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests>(), new UtilsTests[0]);
         }
 
-        private void Test_RemoveAllImplementation<T>(ICollection<T> item, IEnumerable<T> objects)
+        private void Test_RemoveAllImplementation<T>(
+            IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects)
         {
             var array = objects.ToArray();
             foreach(var x in array)
@@ -315,9 +338,80 @@ namespace Tests.BolgerUtils
             {
                 Assert.DoesNotContain(x, item);
             }
+
+            Assert.Equal(expected, item);
         }
 
-        //public static bool RemoveAll<T>(this ICollection<T> item, Func<T, bool> predicate)
+        [Fact]
+        public void Test_RemoveAllPredicate()
+        {
+            Test_RemoveAllPredicateImplementation(new int[0], new List<int> { 4, 5, 6 }, x => true);
+            Test_RemoveAllPredicateImplementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, x => false);
+            Test_RemoveAllPredicateImplementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
+            Test_RemoveAllPredicateImplementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
+            Test_RemoveAllPredicateImplementation(new[] { 1, 3, 5 }, new List<int> { 1, 2, 3, 4, 5, 6 },
+                x => x % 2 == 0);
+            Test_RemoveAllPredicateImplementation(new[] { 2, 4, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 },
+                x => x % 2 == 1);
+            Test_RemoveAllPredicateImplementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x == 1 || x == 3);
+            Test_RemoveAllPredicateImplementation(new int[0], new List<int>(), x => x == 0);
+
+            Test_RemoveAllPredicateImplementation(new string[0], new List<string> { "Hello" }, x => true);
+            Test_RemoveAllPredicateImplementation(new[] { "Hello" }, new List<string> { "Hello" }, x => false);
+            Test_RemoveAllPredicateImplementation(new[] { "World" }, new List<string> { "Hello", "World" },
+                x => x == "Hello");
+            Test_RemoveAllPredicateImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+                x => x.Length == 5);
+            Test_RemoveAllPredicateImplementation(new[] { "Hello", "World" },
+                new List<string> { "", "Hello", "", "", "World", "" }, x => x.IsEmpty());
+            Test_RemoveAllPredicateImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+                x => x == "Hello" || x == "World");
+            Test_RemoveAllPredicateImplementation(new string[0], new List<string>(), x => x.IsEmpty());
+
+            var utilsTests1 = new UtilsTests();
+            var utilsTests2 = new UtilsTests();
+            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+                x => true);
+            Test_RemoveAllPredicateImplementation(new[] { utilsTests1 }, new List<UtilsTests> { utilsTests1 },
+                x => false);
+            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+                // ReSharper disable once ImplicitlyCapturedClosure
+                x => x == utilsTests1);
+            Test_RemoveAllPredicateImplementation(new[] { utilsTests2 },
+                // ReSharper disable once ImplicitlyCapturedClosure
+                new List<UtilsTests> { utilsTests1, utilsTests2 }, x => x == utilsTests1);
+            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
+                x => x == utilsTests1 || x == utilsTests2);
+
+            var utilsTests3 = new UtilsTests();
+            Test_RemoveAllPredicateImplementation(new[] { utilsTests2 },
+                new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 },
+                // ReSharper disable once ImplicitlyCapturedClosure
+                x => x == utilsTests1 || x == utilsTests3);
+            // ReSharper disable once ImplicitlyCapturedClosure
+            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests>(), x => x == utilsTests1);
+        }
+
+        private void Test_RemoveAllPredicateImplementation<T>(
+            IEnumerable<T> expected, ICollection<T> item,  Func<T, bool> predicate)
+        {
+            var list = item.Where(predicate).ToList();
+            foreach(var x in list)
+            {
+                Assert.Contains(x, item);
+            }
+
+            var expectedCount = item.Count - list.Count;
+            item.RemoveAll(predicate);
+
+            Assert.Equal(expectedCount, item.Count);
+            foreach(var x in list)
+            {
+                Assert.DoesNotContain(x, item);
+            }
+
+            Assert.Equal(expected, item);
+        }
 
         #endregion
 
