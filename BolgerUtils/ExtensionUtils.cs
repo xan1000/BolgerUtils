@@ -198,8 +198,22 @@ namespace BolgerUtils
         }
 
         public static bool IsEmpty(this string item) => item.Length == 0;
+
+        public static bool IsInvalidEmail(this string item) => !item.IsValidEmail();
+
+        public static bool IsInvalidInt(this string item) => !item.IsValidInt();
+
+        public static bool IsInvalidDecimal(this string item) => !item.IsValidDecimal();
+
+        public static bool IsInvalidDouble(this string item) => !item.IsValidDouble();
+
+        public static bool IsInvalidMoney(this string item) => !item.IsValidMoney();
+
+        public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
         
-        public static bool IsInvalidEmail(this string item)
+        public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
+
+        public static bool IsValidEmail(this string item)
         {
             MailAddress mailAddress = null;
             try
@@ -210,17 +224,17 @@ namespace BolgerUtils
             catch
             { }
 
-            return mailAddress == null;
+            return mailAddress != null;
         }
 
-        public static bool IsInvalidInt(this string item) => !int.TryParse(item, out _);
+        public static bool IsValidInt(this string item) => int.TryParse(item, out _);
 
-        private static readonly Regex _moneyRegex = new Regex(@"^((\d+)|(\d+\.\d{1,2}))$");
-        public static bool IsInvalidMoney(this string item) => !_moneyRegex.IsMatch(item) || decimal.Parse(item) < 0;
+        public static bool IsValidDecimal(this string item) => double.TryParse(item, out _);
 
-        public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
-        
-        public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
+        public static bool IsValidDouble(this string item) => decimal.TryParse(item, out _);
+
+        private static readonly Regex _moneyRegex = new Regex(@"^\d+(\.\d{1,2})?$");
+        public static bool IsValidMoney(this string item) => _moneyRegex.IsMatch(item) && decimal.Parse(item) >= 0;
 
         public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
 
@@ -278,6 +292,8 @@ namespace BolgerUtils
             item.RemoveSpace().RemoveSingleQuotation();
 
         public static string SpaceToNbsp(this string item) => item.Replace(Utils.Space, Utils.NonBreakingSpace);
+
+        public static bool ToBoolean(this string item) => bool.Parse(item);
 
         public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item) =>
             new DbConnectionStringBuilder { ConnectionString = item };

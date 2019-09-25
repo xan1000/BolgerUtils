@@ -663,8 +663,46 @@ namespace Tests.BolgerUtils
         [Theory]
         [InlineData(true, "test")]
         [InlineData(false, "5")]
+        [InlineData(false, "-5")]
+        [InlineData(true, "5.5")]
+        [InlineData(true, "-5.5")]
+        [InlineData(true, "0.95")]
+        [InlineData(true, ".95")]
+        [InlineData(false, "100")]
+        [InlineData(true, "100.1")]
+        [InlineData(false, "0")]
+        [InlineData(true, "0.0")]
         public void Test_IsInvalidInt(bool expected, string item) => Assert.Equal(expected, item.IsInvalidInt());
         
+        [Theory]
+        [InlineData(true, "test")]
+        [InlineData(false, "5")]
+        [InlineData(false, "-5")]
+        [InlineData(false, "5.5")]
+        [InlineData(false, "-5.5")]
+        [InlineData(false, "0.95")]
+        [InlineData(false, ".95")]
+        [InlineData(false, "100")]
+        [InlineData(false, "100.1")]
+        [InlineData(false, "0")]
+        [InlineData(false, "0.0")]
+        public void Test_IsInvalidDecimal(bool expected, string item) =>
+            Assert.Equal(expected, item.IsInvalidDecimal());
+        
+        [Theory]
+        [InlineData(true, "test")]
+        [InlineData(false, "5")]
+        [InlineData(false, "-5")]
+        [InlineData(false, "5.5")]
+        [InlineData(false, "-5.5")]
+        [InlineData(false, "0.95")]
+        [InlineData(false, ".95")]
+        [InlineData(false, "100")]
+        [InlineData(false, "100.1")]
+        [InlineData(false, "0")]
+        [InlineData(false, "0.0")]
+        public void Test_IsInvalidDouble(bool expected, string item) => Assert.Equal(expected, item.IsInvalidDouble());
+
         [Theory]
         [InlineData(true, "test")]
         [InlineData(true, "-1")]
@@ -676,6 +714,9 @@ namespace Tests.BolgerUtils
         [InlineData(false, "1.95")]
         [InlineData(false, "250")]
         [InlineData(false, "250.95")]
+        [InlineData(true, "-250.95")]
+        [InlineData(true, "250.95 ")]
+        [InlineData(true, " 250.95")]
         public void Test_IsInvalidMoney(bool expected, string item) => Assert.Equal(expected, item.IsInvalidMoney());
 
         [Theory]
@@ -703,6 +744,69 @@ namespace Tests.BolgerUtils
             Assert.Equal(expected, item.IsNullOrWhiteSpace());
             Assert.Equal(string.IsNullOrWhiteSpace(item), item.IsNullOrWhiteSpace());
         }
+
+        [Theory]
+        [InlineData(false, "test")]
+        [InlineData(true, "test@gmail.com")]
+        public void Test_IsValidEmail(bool expected, string item) => Assert.Equal(expected, item.IsValidEmail());
+
+        [Theory]
+        [InlineData(false, "test")]
+        [InlineData(true, "5")]
+        [InlineData(true, "-5")]
+        [InlineData(false, "5.5")]
+        [InlineData(false, "-5.5")]
+        [InlineData(false, "0.95")]
+        [InlineData(false, ".95")]
+        [InlineData(true, "100")]
+        [InlineData(false, "100.1")]
+        [InlineData(true, "0")]
+        [InlineData(false, "0.0")]
+        public void Test_IsValidInt(bool expected, string item) => Assert.Equal(expected, item.IsValidInt());
+        
+        [Theory]
+        [InlineData(false , "test")]
+        [InlineData(true, "5")]
+        [InlineData(true, "-5")]
+        [InlineData(true, "5.5")]
+        [InlineData(true, "-5.5")]
+        [InlineData(true, "0.95")]
+        [InlineData(true, ".95")]
+        [InlineData(true, "100")]
+        [InlineData(true, "100.1")]
+        [InlineData(true, "0")]
+        [InlineData(true, "0.0")]
+        public void Test_IsValidDecimal(bool expected, string item) => Assert.Equal(expected, item.IsValidDecimal());
+        
+        [Theory]
+        [InlineData(false, "test")]
+        [InlineData(true, "5")]
+        [InlineData(true, "-5")]
+        [InlineData(true, "5.5")]
+        [InlineData(true, "-5.5")]
+        [InlineData(true, "0.95")]
+        [InlineData(true, ".95")]
+        [InlineData(true, "100")]
+        [InlineData(true, "100.1")]
+        [InlineData(true, "0")]
+        [InlineData(true, "0.0")]
+        public void Test_IsValidDouble(bool expected, string item) => Assert.Equal(expected, item.IsValidDouble());
+
+        [Theory]
+        [InlineData(false, "test")]
+        [InlineData(false, "-1")]
+        [InlineData(false, "1.951")]
+        [InlineData(false, ".5")]
+        [InlineData(true, "1")]
+        [InlineData(true, "0.5")]
+        [InlineData(true, "1.5")]
+        [InlineData(true, "1.95")]
+        [InlineData(true, "250")]
+        [InlineData(true, "250.95")]
+        [InlineData(false, "-250.95")]
+        [InlineData(false, "250.95 ")]
+        [InlineData(false, " 250.95")]
+        public void Test_IsValidMoney(bool expected, string item) => Assert.Equal(expected, item.IsValidMoney());
 
         [Theory]
         [InlineData("", new string[0], " ")]
@@ -941,6 +1045,22 @@ Amazon
         [InlineData("Hello&nbsp;World&nbsp;Test", "Hello World Test")]
         [InlineData("&nbsp;&nbsp;&nbsp;Hello&nbsp;&nbsp;&nbsp;World&nbsp;Test&nbsp;", "   Hello   World Test ")]
         public void Test_SpaceToNbsp(string expected, string item) => Assert.Equal(expected, item.SpaceToNbsp());
+
+        [Theory]
+        [InlineData(true, "true")]
+        [InlineData(true, "True")]
+        [InlineData(true, "TRUE")]
+        [InlineData(false, "false")]
+        [InlineData(false, "False")]
+        [InlineData(false, "FALSE")]
+        public void Test_ToBoolean(bool expected, string item) => Assert.Equal(expected, item.ToBoolean());
+
+        [Fact]
+        public void Test_ToBooleanFact()
+        {
+            Assert.Throws<FormatException>(() => "abc".ToBoolean());
+            Assert.Throws<ArgumentNullException>(() => ((string) null).ToBoolean());
+        }
 
         [Theory]
         [InlineData("Server=server;Database=database;User Id=username;Password=password")]
