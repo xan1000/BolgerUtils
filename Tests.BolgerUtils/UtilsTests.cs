@@ -212,5 +212,65 @@ namespace Tests.BolgerUtils
                 Assert.NotEqual(randomString1, randomString2);
             }
         }
+
+        [Fact]
+        public void Test_Swap()
+        {
+            Test_SwapImplementation(5, 10);
+            Test_SwapImplementation(5.5, 10.10);
+            Test_SwapImplementation(5.5m, 10.10m);
+            Test_SwapImplementation("Hello", "World");
+            Test_SwapImplementation("Hello", null);
+            Test_SwapImplementation(null, "World");
+            Test_SwapImplementation("Hello", new string(new[] { 'H', 'e', 'l', 'l', 'o' } ));
+            Test_SwapImplementation(new UtilsTests(), new UtilsTests());
+        }
+
+        private void Test_SwapImplementation<T>(T a, T b)
+        {
+            var isValueType = typeof(T).IsValueType;
+            // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
+            void AssertNotEqual(T x, T y)
+            // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
+            {
+                if(isValueType)
+                    Assert.NotEqual(x, y);
+                else
+                {
+                    // ReSharper disable RedundantCast
+                    Assert.NotSame((object) x, (object) y);
+                    // ReSharper restore RedundantCast
+                }
+            }
+            // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
+            void AssertEqual(T x, T y)
+            // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
+            {
+                if(isValueType)
+                    Assert.Equal(x, y);
+                else
+                {
+                    // ReSharper disable RedundantCast
+                    Assert.Same((object) x, (object) y);
+                    // ReSharper restore RedundantCast
+                }
+            }
+
+            var originalA = a;
+            var originalB = b;
+            AssertNotEqual(a, b);
+            AssertEqual(a, originalA);
+            AssertNotEqual(a, originalB);
+            AssertEqual(b, originalB);
+            AssertNotEqual(b, originalA);
+
+            Utils.Swap(ref a, ref b);
+
+            AssertNotEqual(a, b);
+            AssertNotEqual(a, originalA);
+            AssertEqual(a, originalB);
+            AssertNotEqual(b, originalB);
+            AssertEqual(b, originalA);
+        }
     }
 }
