@@ -298,10 +298,24 @@ namespace BolgerUtils
         public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item) =>
             new DbConnectionStringBuilder { ConnectionString = item };
 
+        public static decimal ToDecimal(this string item) => decimal.Parse(item);
+
+        public static decimal? ToDecimalOrNull(this string item) =>
+            decimal.TryParse(item, out var x) ? x : (decimal?) null;
+
+        public static double ToDouble(this string item) => double.Parse(item);
+
+        public static double? ToDoubleOrNull(this string item) =>
+            double.TryParse(item, out var x) ? x : (double?) null;
+
         public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
             item.IsNullOrWhiteSpace() ? string.Empty : item;
 
         public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
+
+        public static int ToInt(this string item) => int.Parse(item);
+
+        public static int? ToIntOrNull(this string item) => int.TryParse(item, out var x) ? x : (int?) null;
 
         public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
 

@@ -146,10 +146,10 @@ namespace Tests.BolgerUtils
         [InlineData(10, TestAnotherType.Test1)]
         [InlineData(20, TestAnotherType.Test2)]
         [InlineData(30, TestAnotherType.Test3)]
-        public void Test_ToInt(int expected, Enum item) => Assert.Equal(expected, item.ToInt());
+        public void Test_Enum_ToInt(int expected, Enum item) => Assert.Equal(expected, item.ToInt());
 
         [Fact]
-        public void TestFact_ToInt()
+        public void TestFact_Enum_ToInt()
         {
             foreach(var x in Utils.GetEnumValues<TestType>())
             {
@@ -319,21 +319,28 @@ namespace Tests.BolgerUtils
             Test_RemoveAllImplementation(new[] { utilsTests2 },
                 new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 }, new[] { utilsTests1, utilsTests3 });
             Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests>(), new UtilsTests[0]);
+
+            Test_RemoveAllImplementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, new[] { 2, 4 }, false);
+            Test_RemoveAllImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, new[] { 4, 5, 6 }, false);
         }
 
         private void Test_RemoveAllImplementation<T>(
-            IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects)
+            IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects, bool containsAll = true)
         {
             var array = objects.ToArray();
-            foreach(var x in array)
+            if(containsAll)
             {
-                Assert.Contains(x, item);
+                foreach(var x in array)
+                {
+                    Assert.Contains(x, item);
+                }
             }
 
             var expectedCount = item.Count - array.Length;
-            item.RemoveAll(array);
+            Assert.Equal(containsAll, item.RemoveAll(array));
+            if(containsAll)
+                Assert.Equal(expectedCount, item.Count);
 
-            Assert.Equal(expectedCount, item.Count);
             foreach(var x in array)
             {
                 Assert.DoesNotContain(x, item);
@@ -390,6 +397,9 @@ namespace Tests.BolgerUtils
                 x => x == utilsTests1 || x == utilsTests3);
             // ReSharper disable once ImplicitlyCapturedClosure
             Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests>(), x => x == utilsTests1);
+
+            Test_RemoveAllPredicateImplementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, x => x == 2 || x == 4);
+            Test_RemoveAllPredicateImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, x => x > 3);
         }
 
         private void Test_RemoveAllPredicateImplementation<T>(
@@ -402,9 +412,9 @@ namespace Tests.BolgerUtils
             }
 
             var expectedCount = item.Count - list.Count;
-            item.RemoveAll(predicate);
-
+            Assert.True(item.RemoveAll(predicate));
             Assert.Equal(expectedCount, item.Count);
+
             foreach(var x in list)
             {
                 Assert.DoesNotContain(x, item);
@@ -672,6 +682,10 @@ namespace Tests.BolgerUtils
         [InlineData(true, "100.1")]
         [InlineData(false, "0")]
         [InlineData(true, "0.0")]
+        [InlineData(true, "a5")]
+        [InlineData(true, "5a")]
+        [InlineData(false, " 5")]
+        [InlineData(false, "5 ")]
         public void Test_IsInvalidInt(bool expected, string item) => Assert.Equal(expected, item.IsInvalidInt());
         
         [Theory]
@@ -686,6 +700,10 @@ namespace Tests.BolgerUtils
         [InlineData(false, "100.1")]
         [InlineData(false, "0")]
         [InlineData(false, "0.0")]
+        [InlineData(true, "a5")]
+        [InlineData(true, "5a")]
+        [InlineData(false, " 5")]
+        [InlineData(false, "5 ")]
         public void Test_IsInvalidDecimal(bool expected, string item) =>
             Assert.Equal(expected, item.IsInvalidDecimal());
         
@@ -701,6 +719,10 @@ namespace Tests.BolgerUtils
         [InlineData(false, "100.1")]
         [InlineData(false, "0")]
         [InlineData(false, "0.0")]
+        [InlineData(true, "a5")]
+        [InlineData(true, "5a")]
+        [InlineData(false, " 5")]
+        [InlineData(false, "5 ")]
         public void Test_IsInvalidDouble(bool expected, string item) => Assert.Equal(expected, item.IsInvalidDouble());
 
         [Theory]
@@ -717,6 +739,8 @@ namespace Tests.BolgerUtils
         [InlineData(true, "-250.95")]
         [InlineData(true, "250.95 ")]
         [InlineData(true, " 250.95")]
+        [InlineData(true, "a5")]
+        [InlineData(true, "5a")]
         public void Test_IsInvalidMoney(bool expected, string item) => Assert.Equal(expected, item.IsInvalidMoney());
 
         [Theory]
@@ -762,6 +786,10 @@ namespace Tests.BolgerUtils
         [InlineData(false, "100.1")]
         [InlineData(true, "0")]
         [InlineData(false, "0.0")]
+        [InlineData(false, "a5")]
+        [InlineData(false, "5a")]
+        [InlineData(true, " 5")]
+        [InlineData(true, "5 ")]
         public void Test_IsValidInt(bool expected, string item) => Assert.Equal(expected, item.IsValidInt());
         
         [Theory]
@@ -776,6 +804,10 @@ namespace Tests.BolgerUtils
         [InlineData(true, "100.1")]
         [InlineData(true, "0")]
         [InlineData(true, "0.0")]
+        [InlineData(false, "a5")]
+        [InlineData(false, "5a")]
+        [InlineData(true, " 5")]
+        [InlineData(true, "5 ")]
         public void Test_IsValidDecimal(bool expected, string item) => Assert.Equal(expected, item.IsValidDecimal());
         
         [Theory]
@@ -790,6 +822,10 @@ namespace Tests.BolgerUtils
         [InlineData(true, "100.1")]
         [InlineData(true, "0")]
         [InlineData(true, "0.0")]
+        [InlineData(false, "a5")]
+        [InlineData(false, "5a")]
+        [InlineData(true, " 5")]
+        [InlineData(true, "5 ")]
         public void Test_IsValidDouble(bool expected, string item) => Assert.Equal(expected, item.IsValidDouble());
 
         [Theory]
@@ -806,6 +842,8 @@ namespace Tests.BolgerUtils
         [InlineData(false, "-250.95")]
         [InlineData(false, "250.95 ")]
         [InlineData(false, " 250.95")]
+        [InlineData(false, "a5")]
+        [InlineData(false, "5a")]
         public void Test_IsValidMoney(bool expected, string item) => Assert.Equal(expected, item.IsValidMoney());
 
         [Theory]
@@ -1056,7 +1094,7 @@ Amazon
         public void Test_ToBoolean(bool expected, string item) => Assert.Equal(expected, item.ToBoolean());
 
         [Fact]
-        public void Test_ToBooleanFact()
+        public void TestFact_ToBoolean()
         {
             Assert.Throws<FormatException>(() => "abc".ToBoolean());
             Assert.Throws<ArgumentNullException>(() => ((string) null).ToBoolean());
@@ -1067,6 +1105,100 @@ Amazon
         [InlineData("Server=server;Database=database;Trusted_Connection=True")]
         public void Test_ToDbConnectionStringBuilder(string item) =>
             Assert.IsType<DbConnectionStringBuilder>(item.ToDbConnectionStringBuilder());
+
+        [Fact]
+        public void Test_ToDecimal()
+        {
+            Test_ToDecimalImplementation(5, "5");
+            Test_ToDecimalImplementation(-5, "-5");
+            Test_ToDecimalImplementation(5.5m, "5.5");
+            Test_ToDecimalImplementation(-5.5m, "-5.5");
+            Test_ToDecimalImplementation(0.95m, "0.95");
+            Test_ToDecimalImplementation(.95m, ".95");
+            Test_ToDecimalImplementation(100, "100");
+            Test_ToDecimalImplementation(100.1m, "100.1");
+            Test_ToDecimalImplementation(0, "0");
+            Test_ToDecimalImplementation(0.0m, "0.0");
+            Test_ToDecimalImplementation(null, "a5");
+            Test_ToDecimalImplementation(null, "5a");
+            Test_ToDecimalImplementation(5, " 5");
+            Test_ToDecimalImplementation(5, "5 ");
+        }
+
+        private void Test_ToDecimalImplementation(decimal? expected, string item)
+        {
+            if(expected.HasValue)
+                Assert.Equal(expected.Value, item.ToDecimal());
+            else if(item.IsNull())
+                Assert.Throws<ArgumentNullException>(() => item.ToDecimal());
+            else
+                Assert.Throws<FormatException>(() => item.ToDecimal());
+        }
+
+        [Fact]
+        public void Test_ToDecimalOrNull()
+        {
+            Test_ToDecimalOrNullImplementation(5, "5");
+            Test_ToDecimalOrNullImplementation(-5, "-5");
+            Test_ToDecimalOrNullImplementation(5.5m, "5.5");
+            Test_ToDecimalOrNullImplementation(-5.5m, "-5.5");
+            Test_ToDecimalOrNullImplementation(0.95m, "0.95");
+            Test_ToDecimalOrNullImplementation(.95m, ".95");
+            Test_ToDecimalOrNullImplementation(100, "100");
+            Test_ToDecimalOrNullImplementation(100.1m, "100.1");
+            Test_ToDecimalOrNullImplementation(0, "0");
+            Test_ToDecimalOrNullImplementation(0.0m, "0.0");
+            Test_ToDecimalOrNullImplementation(null, "a5");
+            Test_ToDecimalOrNullImplementation(null, "5a");
+            Test_ToDecimalOrNullImplementation(5, " 5");
+            Test_ToDecimalOrNullImplementation(5, "5 ");
+        }
+
+        private void Test_ToDecimalOrNullImplementation(decimal? expected, string item) =>
+            Assert.Equal(expected, item.ToDecimalOrNull());
+
+        [Theory]
+        [InlineData(5, "5")]
+        [InlineData(-5, "-5")]
+        [InlineData(5.5, "5.5")]
+        [InlineData(-5.5, "-5.5")]
+        [InlineData(0.95, "0.95")]
+        [InlineData(.95, ".95")]
+        [InlineData(100, "100")]
+        [InlineData(100.1, "100.1")]
+        [InlineData(0, "0")]
+        [InlineData(0.0, "0.0")]
+        [InlineData(null, "a5")]
+        [InlineData(null, "5a")]
+        [InlineData(5, " 5")]
+        [InlineData(5, "5 ")]
+        public void Test_ToDouble(double? expected, string item)
+        {
+            if(expected.HasValue)
+                Assert.Equal(expected.Value, item.ToDouble());
+            else if(item.IsNull())
+                Assert.Throws<ArgumentNullException>(() => item.ToDouble());
+            else
+                Assert.Throws<FormatException>(() => item.ToDouble());
+        }
+
+        [Theory]
+        [InlineData(5, "5")]
+        [InlineData(-5, "-5")]
+        [InlineData(5.5, "5.5")]
+        [InlineData(-5.5, "-5.5")]
+        [InlineData(0.95, "0.95")]
+        [InlineData(.95, ".95")]
+        [InlineData(100, "100")]
+        [InlineData(100.1, "100.1")]
+        [InlineData(0, "0")]
+        [InlineData(0.0, "0.0")]
+        [InlineData(null, "a5")]
+        [InlineData(null, "5a")]
+        [InlineData(5, " 5")]
+        [InlineData(5, "5 ")]
+        public void Test_ToDoubleOrNull(double? expected, string item) =>
+            Assert.Equal(expected, item.ToDoubleOrNull());
 
         [Theory]
         [InlineData("", "")]
@@ -1082,6 +1214,48 @@ Amazon
         [InlineData("Test.txt")]
         [InlineData("Directory/Test.txt")]
         public void Test_ToFileInfo(string item) => Assert.IsType<FileInfo>(item.ToFileInfo());
+
+        [Theory]
+        [InlineData(5, "5")]
+        [InlineData(-5, "-5")]
+        [InlineData(null, "5.5")]
+        [InlineData(null, "-5.5")]
+        [InlineData(null, "0.95")]
+        [InlineData(null, ".95")]
+        [InlineData(100, "100")]
+        [InlineData(null, "100.1")]
+        [InlineData(0, "0")]
+        [InlineData(null, "0.0")]
+        [InlineData(null, "a5")]
+        [InlineData(null, "5a")]
+        [InlineData(5, " 5")]
+        [InlineData(5, "5 ")]
+        public void Test_ToInt(int? expected, string item)
+        {
+            if(expected.HasValue)
+                Assert.Equal(expected.Value, item.ToInt());
+            else if(item.IsNull())
+                Assert.Throws<ArgumentNullException>(() => item.ToInt());
+            else
+                Assert.Throws<FormatException>(() => item.ToInt());
+        }
+
+        [Theory]
+        [InlineData(5, "5")]
+        [InlineData(-5, "-5")]
+        [InlineData(null, "5.5")]
+        [InlineData(null, "-5.5")]
+        [InlineData(null, "0.95")]
+        [InlineData(null, ".95")]
+        [InlineData(100, "100")]
+        [InlineData(null, "100.1")]
+        [InlineData(0, "0")]
+        [InlineData(null, "0.0")]
+        [InlineData(null, "a5")]
+        [InlineData(null, "5a")]
+        [InlineData(5, " 5")]
+        [InlineData(5, "5 ")]
+        public void Test_ToIntOrNull(int? expected, string item) => Assert.Equal(expected, item.ToIntOrNull());
 
         [Theory]
         [InlineData(null, "")]
