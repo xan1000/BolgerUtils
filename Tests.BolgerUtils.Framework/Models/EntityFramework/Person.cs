@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Tests.BolgerUtils.Framework.Models
+namespace Tests.BolgerUtils.Framework.Models.EntityFramework
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Person

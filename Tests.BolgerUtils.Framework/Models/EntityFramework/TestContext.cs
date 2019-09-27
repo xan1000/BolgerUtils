@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace Tests.BolgerUtils.Framework.Models
+namespace Tests.BolgerUtils.Framework.Models.EntityFramework
 {
     public class TestContext: DbContext
     {

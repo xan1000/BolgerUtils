@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using BolgerUtils.Framework;
 using RazorEngine.Text;
-using Tests.BolgerUtils.Framework.Models;
+using Tests.BolgerUtils.Framework.Models.EntityFramework;
 using Xunit;
 
 namespace Tests.BolgerUtils.Framework
