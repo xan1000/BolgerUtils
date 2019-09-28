@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using BolgerUtils;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
 using Xunit;
+using Xunit.Abstractions;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace Tests.BolgerUtils.FileToObjectMapping
@@ -35,11 +37,18 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         public const string JsonFilePath = "accounts.json";
 
         private readonly FileToObject _fileToObject = new FileToObject();
-        public string _textFileContent { get; private set; }
-        public List<Account> _jsonFileContent { get; private set; }
 
-        public FileToObjectTests()
+        public Func<string, string> TextFileToObject { get; } = x => x;
+        public Func<string, List<Account>> JsonFileToObject { get; }= JsonConvert.DeserializeObject<List<Account>>;
+
+        public string TextFileContent { get; private set; }
+        public List<Account> JsonFileContent { get; private set; }
+
+        private readonly ITestOutputHelper _output;
+
+        public FileToObjectTests(ITestOutputHelper output = null)
         {
+            _output = output;
             CreateTextFile();
             CreateJsonFile();
         }
@@ -64,14 +73,14 @@ namespace Tests.BolgerUtils.FileToObjectMapping
 
         private void UpdateJsonFileContent(List<Account> content)
         {
-            _jsonFileContent = content;
-            File.WriteAllText(JsonFilePath, JsonConvert.SerializeObject(_jsonFileContent));
+            JsonFileContent = content;
+            File.WriteAllText(JsonFilePath, JsonConvert.SerializeObject(JsonFileContent));
         }
 
         private void UpdateTextFileContent(string content)
         {
-            _textFileContent = content;
-            File.WriteAllText(TextFilePath, _textFileContent);
+            TextFileContent = content;
+            File.WriteAllText(TextFilePath, TextFileContent);
         }
 
         [Fact]
@@ -79,22 +88,20 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         {
             _fileToObject.Clear();
 
-            _fileToObject.Register(TextFilePath, x => x);
+            _fileToObject.Register(TextFilePath, TextFileToObject);
             Assert.True(_fileToObject.IsRegistered(TextFilePath));
-            Assert.Equal(_textFileContent, _fileToObject.Load<string>(TextFilePath));
-            Assert.Equal(_jsonFileContent,
-                _fileToObject.Map(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
 
             _fileToObject.Clear();
             Assert.False(_fileToObject.IsRegistered(TextFilePath));
             Assert.Throws<KeyNotFoundException>(() => _fileToObject.Load<string>(TextFilePath));
             Assert.False(_fileToObject.UnMap(JsonFilePath));
 
-            _fileToObject.Register(TextFilePath, x => x);
+            _fileToObject.Register(TextFilePath, TextFileToObject);
             Assert.True(_fileToObject.IsRegistered(TextFilePath));
-            Assert.Equal(_textFileContent, _fileToObject.Load<string>(TextFilePath));
-            Assert.Equal(_jsonFileContent,
-                _fileToObject.Map(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
         }
 
         [Fact]
@@ -103,25 +110,24 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.False(_fileToObject.IsRegistered(TextFilePath));
             Assert.False(_fileToObject.IsRegistered(JsonFilePath));
 
-            _fileToObject.Register(TextFilePath, x => x);
+            _fileToObject.Register(TextFilePath, TextFileToObject);
             Assert.True(_fileToObject.IsRegistered(TextFilePath));
             Assert.False(_fileToObject.IsRegistered(JsonFilePath));
 
-            Assert.Throws<ArgumentException>(() => _fileToObject.Register(TextFilePath, x => x));
+            Assert.Throws<ArgumentException>(() => _fileToObject.Register(TextFilePath, TextFileToObject));
 
-            _fileToObject.Register(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>);
+            _fileToObject.Register(JsonFilePath, JsonFileToObject);
             Assert.True(_fileToObject.IsRegistered(TextFilePath));
             Assert.True(_fileToObject.IsRegistered(JsonFilePath));
 
-            Assert.Throws<ArgumentException>(() =>
-                _fileToObject.Register(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Throws<ArgumentException>(() => _fileToObject.Register(JsonFilePath, JsonFileToObject));
 
             Assert.True(_fileToObject.UnRegister(TextFilePath));
             Assert.False(_fileToObject.UnRegister(TextFilePath));
             Assert.False(_fileToObject.IsRegistered(TextFilePath));
             Assert.True(_fileToObject.IsRegistered(JsonFilePath));
 
-            _fileToObject.Register(TextFilePath, x => x);
+            _fileToObject.Register(TextFilePath, TextFileToObject);
             Assert.True(_fileToObject.IsRegistered(TextFilePath));
             Assert.True(_fileToObject.IsRegistered(JsonFilePath));
 
@@ -134,28 +140,144 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         [Fact]
         public void Test_Map()
         {
-            // ReSharper disable once ConvertToLocalFunction
-            Func<string, string> textFileToObject = x => x;
-            Func<string, List<Account>> jsonFileToObject = JsonConvert.DeserializeObject<List<Account>>;
+            Assert.Equal(TextFileContent, _fileToObject.Map(TextFilePath, TextFileToObject));
+            Assert.IsType<string>(_fileToObject.Map(TextFilePath, TextFileToObject));
 
-            Assert.Equal(_textFileContent, _fileToObject.Map(TextFilePath, textFileToObject));
-            Assert.IsType<string>(_fileToObject.Map(TextFilePath, textFileToObject));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+            Assert.IsType<List<Account>>(_fileToObject.Map(JsonFilePath, JsonFileToObject));
 
-            Assert.Equal(_jsonFileContent, _fileToObject.Map(JsonFilePath, jsonFileToObject));
-            Assert.IsType<List<Account>>(_fileToObject.Map(JsonFilePath, jsonFileToObject));
+            Assert.Equal(TextFileContent, _fileToObject.Map(TextFilePath, TextFileToObject));
+            Assert.IsType<string>(_fileToObject.Map(TextFilePath, TextFileToObject));
 
-            Assert.Equal(_textFileContent, _fileToObject.Map(TextFilePath, textFileToObject));
-            Assert.IsType<string>(_fileToObject.Map(TextFilePath, textFileToObject));
+            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
+            Assert.NotEqual(content, _fileToObject.Map(TextFilePath, TextFileToObject));
 
-            var content = _textFileContent.Substring(_textFileContent.IndexOf(Utils.NewLineChar));
-            Assert.NotEqual(content, _fileToObject.Map(TextFilePath, textFileToObject));
-
-            var list = _jsonFileContent.ToList();
+            var list = JsonFileContent.ToList();
             list.RemoveAt(0);
-            Assert.NotEqual(list, _fileToObject.Map(JsonFilePath, jsonFileToObject));
+            Assert.NotEqual(list, _fileToObject.Map(JsonFilePath, JsonFileToObject));
 
-            Assert.Throws<InvalidCastException>(() => _fileToObject.Map(TextFilePath, jsonFileToObject));
-            Assert.Throws<InvalidCastException>(() => _fileToObject.Map(JsonFilePath, textFileToObject));
+            Assert.Throws<InvalidCastException>(() => _fileToObject.Map(TextFilePath, JsonFileToObject));
+            Assert.Throws<InvalidCastException>(() => _fileToObject.Map(JsonFilePath, TextFileToObject));
+        }
+
+        [Fact]
+        public void Test_ModifyingFiles()
+        {
+            _fileToObject.Register(TextFilePath, TextFileToObject);
+            _fileToObject.Register(JsonFilePath, JsonFileToObject);
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+
+            var content = TextFileContent + "\nTest\n";
+            Assert.NotEqual(content, _fileToObject.Load<string>(TextFilePath));
+            Assert.NotEqual(content, TextFileContent);
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+
+            UpdateTextFileContent(content);
+            Assert.Equal(content, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(content, TextFileContent);
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+
+            var list = JsonFileContent.ToList();
+            list.Add(new Account("5555 5555", "Test 4", -500.95m));
+            Assert.NotEqual(list, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+            Assert.NotEqual(list, JsonFileContent);
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+
+            UpdateJsonFileContent(list);
+            Assert.Equal(list, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+            Assert.Equal(list, JsonFileContent);
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+
+            content = TextFileContent.Split(Utils.NewLineChar)[0];
+            Assert.NotEqual(content, _fileToObject.Load<string>(TextFilePath));
+            Assert.NotEqual(content, TextFileContent);
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+
+            UpdateTextFileContent(content);
+            Assert.Equal(content, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(content, TextFileContent);
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+
+            list = JsonFileContent.ToList();
+            list.RemoveAll(list.Skip(1));
+            Assert.NotEqual(list, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+            Assert.NotEqual(list, JsonFileContent);
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+
+            UpdateJsonFileContent(list);
+            Assert.Equal(list, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+            Assert.Equal(list, JsonFileContent);
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(50)]
+        public void Test_Performance(int fileContentMultiplier)
+        {
+            const int loopCount = 10000;
+
+            var content = TextFileContent;
+            var list = JsonFileContent.ToList();
+            for(var i = 0; i < fileContentMultiplier; i++)
+            {
+                content += TextFileContent;
+                list.AddRange(JsonFileContent);
+            }
+            UpdateTextFileContent(content);
+            UpdateJsonFileContent(list);
+
+            var stopwatch = new Stopwatch();
+            for(var i = 0; i < loopCount; i++)
+            {
+                stopwatch.Start();
+                content = File.ReadAllText(TextFilePath);
+                list = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(JsonFilePath));
+                stopwatch.Stop();
+
+                Assert.Equal(TextFileContent, content);
+                Assert.Equal(JsonFileContent, list);
+            }
+
+            var rawTimeSpan = stopwatch.Elapsed;
+
+            _fileToObject.Register(TextFilePath, TextFileToObject);
+            _fileToObject.Register(JsonFilePath, JsonFileToObject);
+            stopwatch.Reset();
+            for(var i = 0; i < loopCount; i++)
+            {
+                stopwatch.Start();
+                content = _fileToObject.Load<string>(TextFilePath);
+                list = _fileToObject.Load<List<Account>>(JsonFilePath);
+                stopwatch.Stop();
+
+                Assert.Equal(TextFileContent, content);
+                Assert.Equal(JsonFileContent, list);
+            }
+
+            var fileToObjectTimeSpan = stopwatch.Elapsed;
+
+            const int columnLength = -19;
+            string ToString(double value) => $"{Math.Round(value, 2):N}";
+            void Display(string title, TimeSpan timeSpan) =>
+                _output.WriteLine($"{title,columnLength}: {ToString(timeSpan.TotalSeconds)}s");
+
+
+            Display("Raw Time", rawTimeSpan);
+            Display("File to Object Time", fileToObjectTimeSpan);
+
+            Assert.True(fileToObjectTimeSpan < rawTimeSpan);
+
+            Display("Difference", rawTimeSpan.Subtract(fileToObjectTimeSpan));
+
+            var percentage = fileToObjectTimeSpan.TotalSeconds / rawTimeSpan.TotalSeconds * 100;
+            _output.WriteLine($"{"Percentage Runtime",columnLength}: {ToString(percentage)}%");
+            _output.WriteLine($"{"Percentage Faster",columnLength}: {ToString(100 / percentage * 100)}%");
         }
 
         [Fact]
@@ -164,25 +286,25 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Throws<KeyNotFoundException>(() => _fileToObject.Load<string>(TextFilePath));
             Assert.Throws<KeyNotFoundException>(() => _fileToObject.Load<string>(JsonFilePath));
 
-            _fileToObject.Register(TextFilePath, x => x);
+            _fileToObject.Register(TextFilePath, TextFileToObject);
 
-            Assert.Equal(_textFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
             Assert.IsType<string>(_fileToObject.Load<string>(TextFilePath));
 
             Assert.Throws<KeyNotFoundException>(() => _fileToObject.Load<string>(JsonFilePath));
 
-            _fileToObject.Register(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>);
+            _fileToObject.Register(JsonFilePath, JsonFileToObject);
 
-            Assert.Equal(_jsonFileContent, _fileToObject.Load<List<Account>>(JsonFilePath));
+            Assert.Equal(JsonFileContent, _fileToObject.Load<List<Account>>(JsonFilePath));
             Assert.IsType<List<Account>>(_fileToObject.Load<List<Account>>(JsonFilePath));
 
-            Assert.Equal(_textFileContent, _fileToObject.Load<string>(TextFilePath));
+            Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
             Assert.IsType<string>(_fileToObject.Load<string>(TextFilePath));
 
-            var content = _textFileContent.Substring(_textFileContent.IndexOf(Utils.NewLineChar));
+            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
             Assert.NotEqual(content, _fileToObject.Load<string>(TextFilePath));
 
-            var list = _jsonFileContent.ToList();
+            var list = JsonFileContent.ToList();
             list.RemoveAt(0);
             Assert.NotEqual(list, _fileToObject.Load<List<Account>>(JsonFilePath));
 
@@ -196,11 +318,10 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.False(_fileToObject.UnMap(TextFilePath));
             Assert.False(_fileToObject.UnMap(JsonFilePath));
 
-            Assert.Equal(_textFileContent, _fileToObject.Map(TextFilePath, x => x));
+            Assert.Equal(TextFileContent, _fileToObject.Map(TextFilePath, TextFileToObject));
             Assert.False(_fileToObject.UnMap(JsonFilePath));
 
-            Assert.Equal(_jsonFileContent,
-                _fileToObject.Map(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Equal(JsonFileContent, _fileToObject.Map(JsonFilePath, JsonFileToObject));
 
             Assert.True(_fileToObject.UnMap(TextFilePath));
             Assert.False(_fileToObject.UnMap(TextFilePath));
@@ -215,10 +336,19 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         private const string JsonFilePath = FileToObjectTests.JsonFilePath;
 
         private readonly FileToObjectTests _fileToObjectTests = new FileToObjectTests();
-        private string TextFileContent => _fileToObjectTests._textFileContent;
-        private List<Account> JsonFileContent => _fileToObjectTests._jsonFileContent;
 
-        public FileToObjectUtilsTests() => FileToObjectUtils.FileToObject.Clear();
+        private Func<string, string> TextFileToObject { get; }
+        private Func<string, List<Account>> JsonFileToObject { get; }
+
+        private string TextFileContent => _fileToObjectTests.TextFileContent;
+        private List<Account> JsonFileContent => _fileToObjectTests.JsonFileContent;
+
+        public FileToObjectUtilsTests()
+        {
+            TextFileToObject = _fileToObjectTests.TextFileToObject;
+            JsonFileToObject = _fileToObjectTests.JsonFileToObject;
+            FileToObjectUtils.FileToObject.Clear();
+        }
 
         [Fact]
         public void Test_IsRegisteredAndRegisterAndUnRegister()
@@ -226,25 +356,24 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.False(FileToObjectUtils.IsRegistered(TextFilePath));
             Assert.False(FileToObjectUtils.IsRegistered(JsonFilePath));
 
-            FileToObjectUtils.Register(TextFilePath, x => x);
+            FileToObjectUtils.Register(TextFilePath, TextFileToObject);
             Assert.True(FileToObjectUtils.IsRegistered(TextFilePath));
             Assert.False(FileToObjectUtils.IsRegistered(JsonFilePath));
 
-            Assert.Throws<ArgumentException>(() => FileToObjectUtils.Register(TextFilePath, x => x));
+            Assert.Throws<ArgumentException>(() => FileToObjectUtils.Register(TextFilePath, TextFileToObject));
 
-            FileToObjectUtils.Register(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>);
+            FileToObjectUtils.Register(JsonFilePath, JsonFileToObject);
             Assert.True(FileToObjectUtils.IsRegistered(TextFilePath));
             Assert.True(FileToObjectUtils.IsRegistered(JsonFilePath));
 
-            Assert.Throws<ArgumentException>(() => FileToObjectUtils.Register(
-                JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Throws<ArgumentException>(() => FileToObjectUtils.Register(JsonFilePath, JsonFileToObject));
 
             Assert.True(FileToObjectUtils.UnRegister(TextFilePath));
             Assert.False(FileToObjectUtils.UnRegister(TextFilePath));
             Assert.False(FileToObjectUtils.IsRegistered(TextFilePath));
             Assert.True(FileToObjectUtils.IsRegistered(JsonFilePath));
 
-            FileToObjectUtils.Register(TextFilePath, x => x);
+            FileToObjectUtils.Register(TextFilePath, TextFileToObject);
             Assert.True(FileToObjectUtils.IsRegistered(TextFilePath));
             Assert.True(FileToObjectUtils.IsRegistered(JsonFilePath));
 
@@ -257,28 +386,24 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         [Fact]
         public void Test_Map()
         {
-            // ReSharper disable once ConvertToLocalFunction
-            Func<string, string> textFileToObject = x => x;
-            Func<string, List<Account>> jsonFileToObject = JsonConvert.DeserializeObject<List<Account>>;
+            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
+            Assert.IsType<string>(FileToObjectUtils.Map(TextFilePath, TextFileToObject));
 
-            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, textFileToObject));
-            Assert.IsType<string>(FileToObjectUtils.Map(TextFilePath, textFileToObject));
+            Assert.Equal(JsonFileContent, FileToObjectUtils.Map(JsonFilePath, JsonFileToObject));
+            Assert.IsType<List<Account>>(FileToObjectUtils.Map(JsonFilePath, JsonFileToObject));
 
-            Assert.Equal(JsonFileContent, FileToObjectUtils.Map(JsonFilePath, jsonFileToObject));
-            Assert.IsType<List<Account>>(FileToObjectUtils.Map(JsonFilePath, jsonFileToObject));
-
-            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, textFileToObject));
-            Assert.IsType<string>(FileToObjectUtils.Map(TextFilePath, textFileToObject));
+            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
+            Assert.IsType<string>(FileToObjectUtils.Map(TextFilePath, TextFileToObject));
 
             var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
-            Assert.NotEqual(content, FileToObjectUtils.Map(TextFilePath, textFileToObject));
+            Assert.NotEqual(content, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
 
             var list = JsonFileContent.ToList();
             list.RemoveAt(0);
-            Assert.NotEqual(list, FileToObjectUtils.Map(JsonFilePath, jsonFileToObject));
+            Assert.NotEqual(list, FileToObjectUtils.Map(JsonFilePath, JsonFileToObject));
 
-            Assert.Throws<InvalidCastException>(() => FileToObjectUtils.Map(TextFilePath, jsonFileToObject));
-            Assert.Throws<InvalidCastException>(() => FileToObjectUtils.Map(JsonFilePath, textFileToObject));
+            Assert.Throws<InvalidCastException>(() => FileToObjectUtils.Map(TextFilePath, JsonFileToObject));
+            Assert.Throws<InvalidCastException>(() => FileToObjectUtils.Map(JsonFilePath, TextFileToObject));
         }
 
         [Fact]
@@ -287,14 +412,14 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Throws<KeyNotFoundException>(() => FileToObjectUtils.Load<string>(TextFilePath));
             Assert.Throws<KeyNotFoundException>(() => FileToObjectUtils.Load<string>(JsonFilePath));
 
-            FileToObjectUtils.Register(TextFilePath, x => x);
+            FileToObjectUtils.Register(TextFilePath, TextFileToObject);
 
             Assert.Equal(TextFileContent, FileToObjectUtils.Load<string>(TextFilePath));
             Assert.IsType<string>(FileToObjectUtils.Load<string>(TextFilePath));
 
             Assert.Throws<KeyNotFoundException>(() => FileToObjectUtils.Load<string>(JsonFilePath));
 
-            FileToObjectUtils.Register(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>);
+            FileToObjectUtils.Register(JsonFilePath, JsonFileToObject);
 
             Assert.Equal(JsonFileContent, FileToObjectUtils.Load<List<Account>>(JsonFilePath));
             Assert.IsType<List<Account>>(FileToObjectUtils.Load<List<Account>>(JsonFilePath));
@@ -319,11 +444,10 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.False(FileToObjectUtils.UnMap(TextFilePath));
             Assert.False(FileToObjectUtils.UnMap(JsonFilePath));
 
-            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, x => x));
+            Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
             Assert.False(FileToObjectUtils.UnMap(JsonFilePath));
 
-            Assert.Equal(JsonFileContent,
-                FileToObjectUtils.Map(JsonFilePath, JsonConvert.DeserializeObject<List<Account>>));
+            Assert.Equal(JsonFileContent, FileToObjectUtils.Map(JsonFilePath, JsonFileToObject));
 
             Assert.True(FileToObjectUtils.UnMap(TextFilePath));
             Assert.False(FileToObjectUtils.UnMap(TextFilePath));
