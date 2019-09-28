@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.WebForms", "Tests.BolgerUtils.Framework.WebForms\Tests.BolgerUtils.Framework.WebForms.csproj", "{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.FileToObjectMapping", "Tests.BolgerUtils.FileToObjectMapping\Tests.BolgerUtils.FileToObjectMapping.csproj", "{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

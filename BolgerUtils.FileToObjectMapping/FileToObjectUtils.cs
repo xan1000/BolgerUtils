@@ -11,7 +11,13 @@ namespace BolgerUtils.FileToObjectMapping
         private readonly Dictionary<string, (FileInfo fileInfo, object value)> _fileInfoAndValueDictionary =
             new Dictionary<string, (FileInfo, object)>();
 
-        private string GetKey(string path) => GetKey(new FileInfo(path));
+        public void Clear()
+        {
+            _fileInfoAndValueDictionary.Clear();
+            _fileContentToObjectDictionary.Clear();
+        }
+
+        private string GetKey(string path) => GetKey(path.ToFileInfo());
 
         private string GetKey(FileInfo fileInfo) => fileInfo.FullName.ToLower();
 
@@ -23,7 +29,7 @@ namespace BolgerUtils.FileToObjectMapping
         {
             var fileInfo = path.ToFileInfo();
             if(!fileInfo.Exists)
-                throw new Exception();
+                throw new FileNotFoundException();
 
             var key = GetKey(fileInfo);
             
@@ -38,6 +44,15 @@ namespace BolgerUtils.FileToObjectMapping
 
         public void Register<T>(string path, Func<string, T> fileContentToObject) where T : class =>
             _fileContentToObjectDictionary.Add(GetKey(path), fileContentToObject);
+
+        public bool UnMap(string path) => _fileInfoAndValueDictionary.Remove(GetKey(path));
+
+        public bool UnRegister(string path)
+        {
+            UnMap(path);
+
+            return _fileContentToObjectDictionary.Remove(GetKey(path));
+        }
     }
 
     public static class FileToObjectUtils
@@ -53,5 +68,8 @@ namespace BolgerUtils.FileToObjectMapping
         
         public static void Register<T>(string path, Func<string, T> fileContentToObject) where T : class =>
             FileToObject.Register(path, fileContentToObject);
+
+        public static bool UnMap(string path) => FileToObject.UnMap(path);
+        public static bool UnRegister(string path) => FileToObject.UnRegister(path);
     }
 }
