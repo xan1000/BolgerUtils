@@ -64,11 +64,93 @@ namespace Tests.BolgerUtils
 
         [Fact]
         public void Test_SpaceChar() => Assert.Equal(' ', Utils.SpaceChar);
+        
+        #region Numbers
 
         [Fact]
         public void Test_Zero() => Assert.Equal(0, Utils.Zero);
 
+        [Fact]
+        public void Test_Ten() => Assert.Equal(10, Utils.Ten);
+
+        [Fact]
+        public void Test_Hundred() => Assert.Equal(100, Utils.Hundred);
+
+        [Fact]
+        public void Test_Thousand() => Assert.Equal(1000, Utils.Thousand);
+
+        [Fact]
+        public void Test_Million() => Assert.Equal(1000000, Utils.Million);
+
+        [Fact]
+        public void Test_Billion() => Assert.Equal(1000000000, Utils.Billion);
+
         #endregion
+
+        #endregion
+
+        [Theory]
+        [InlineData(0, 0, 0)]
+        [InlineData(0, 0, 10)]
+        [InlineData(0, 10, 0)]
+        [InlineData(10, 10, 1)]
+        [InlineData(15, 10, 1.5)]
+        [InlineData(500, 100, 5)]
+        [InlineData(9000, 1000, 9)]
+        [InlineData(15000000, 1000000, 15)]
+        [InlineData(15250000, 1000000, 15.25)]
+        [InlineData(2000000000, 1000000000, 2)]
+        [InlineData(-2000000000, 1000000000, -2)]
+        [InlineData(-2500000000, 1000000000, -2.5)]
+        public void Test_From(double expected, int constant, double value) =>
+            Assert.Equal(expected, Utils.From(constant, value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(10, 1)]
+        [InlineData(50, 5)]
+        [InlineData(90, 9)]
+        [InlineData(100, 10)]
+        [InlineData(150, 15)]
+        [InlineData(-150, -15)]
+        public void Test_FromTens(int expected, int value) => Assert.Equal(expected, Utils.FromTens(value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(100, 1)]
+        [InlineData(500, 5)]
+        [InlineData(900, 9)]
+        [InlineData(1000, 10)]
+        [InlineData(1500, 15)]
+        [InlineData(-1500, -15)]
+        public void FromHundreds(int expected, int value) => Assert.Equal(expected, Utils.FromHundreds(value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1000, 1)]
+        [InlineData(5000, 5)]
+        [InlineData(9000, 9)]
+        [InlineData(10000, 10)]
+        [InlineData(15000, 15)]
+        [InlineData(-15000, -15)]
+        public void FromThousands(int expected, int value) => Assert.Equal(expected, Utils.FromThousands(value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1000000, 1)]
+        [InlineData(5000000, 5)]
+        [InlineData(9000000, 9)]
+        [InlineData(10000000, 10)]
+        [InlineData(15000000, 15)]
+        [InlineData(-15000000, -15)]
+        public void FromMillions(int expected, int value) => Assert.Equal(expected, Utils.FromMillions(value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1000000000, 1)]
+        [InlineData(2000000000, 2)]
+        [InlineData(-2000000000, -2)]
+        public void FromBillions(int expected, int value) => Assert.Equal(expected, Utils.FromBillions(value));
 
         [Fact]
         public void Test_GetEnumValue()

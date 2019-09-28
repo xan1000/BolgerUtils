@@ -22,9 +22,26 @@ namespace BolgerUtils
         public const char SingleQuoteChar = '\'';
         public const string Space = " ";
         public const char SpaceChar = ' ';
+
+        #region Numbers
+
         public const int Zero = 0;
+        public const int Ten = 10;
+        public const int Hundred = 100;
+        public const int Thousand = 1000;
+        public const int Million = 1000000;
+        public const int Billion = 1000000000;
 
         #endregion
+
+        #endregion
+
+        public static double From(int constant, double value) => constant * value;
+        public static int FromTens(int value) => Ten * value;
+        public static int FromHundreds(int value) => Hundred * value;
+        public static int FromThousands(int value) => Thousand * value;
+        public static int FromMillions(int value) => Million * value;
+        public static int FromBillions(int value) => Billion * value;
 
         public static T GetEnumValue<T>(int value) where T : Enum
         {
