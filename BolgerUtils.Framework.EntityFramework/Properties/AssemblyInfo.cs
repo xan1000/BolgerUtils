@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BolgerUtils.Framework")]
-[assembly: AssemblyDescription("BolgerUtils.Framework")]
+[assembly: AssemblyTitle("BolgerUtils.Framework.EntityFramework")]
+[assembly: AssemblyDescription("BolgerUtils.Framework.EntityFramework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BolgerUtils.Framework")]
+[assembly: AssemblyProduct("BolgerUtils.Framework.EntityFramework")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dc426100-5581-493c-8691-24cad3b7047e")]
+[assembly: Guid("b7e35f94-8b32-4098-8acc-b3af68a8e209")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.9.1.0")]
+[assembly: AssemblyVersion("1.9.3.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

@@ -2,12 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using BolgerUtils.Framework;
-using RazorEngine.Text;
-using Tests.BolgerUtils.Framework.Models.EntityFramework;
+using BolgerUtils.Framework.EntityFramework;
+using Tests.BolgerUtils.Framework.EntityFramework.Models;
 using Xunit;
 
-namespace Tests.BolgerUtils.Framework
+namespace Tests.BolgerUtils.Framework.EntityFramework
 {
     public class ExtensionUtilsTests
     {
@@ -70,27 +69,7 @@ namespace Tests.BolgerUtils.Framework
 
         #endregion
 
-        #region IRazorEngineService
-
-        //public static string Parse<T>(this IRazorEngineService item, FileInfo templateFileInfo, T model = null,
-        //    DynamicViewBag viewBag = null) where T : class
-
-        //public static string Parse(this IRazorEngineService item, FileInfo templateFileInfo,
-        //    Type modelType = null, object model = null, DynamicViewBag viewBag = null)
-
-        #endregion
-
         #region String
-
-        [Theory]
-        [InlineData("")]
-        [InlineData("Hello World")]
-        [InlineData("<div>Hello World</div>")]
-        public void Test_ToRawString(string item)
-        {
-            Assert.IsType<RawString>(item.ToRawString());
-            Assert.Equal(item, item.ToRawString().ToString());
-        }
 
         [Theory]
         [InlineData("Server=server;Database=database;User Id=username;Password=password")]

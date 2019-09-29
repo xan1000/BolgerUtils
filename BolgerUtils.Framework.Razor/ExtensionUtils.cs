@@ -1,35 +1,12 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using RazorEngine.Templating;
 using RazorEngine.Text;
 
-namespace BolgerUtils.Framework
+namespace BolgerUtils.Framework.Razor
 {
     public static class ExtensionUtils
     {
-        #region DbContext
-
-        // Note this extension method is usually used in conjunction with EF.
-        public static void LogSql(this DbContext item) => item.Database.Log = s => Debug.WriteLine(s);
-
-        // Note this extension method is usually used in conjunction with EF.
-        public static int PropertyMaximumLength(this DbContext item, string entitySet, string property)
-        {
-            var objectContext = ((IObjectContextAdapter) item).ObjectContext;
-            var container = objectContext.MetadataWorkspace.GetEntityContainer(objectContext.DefaultContainerName,
-                DataSpace.CSpace);
-
-            // ReSharper disable once PossibleInvalidOperationException
-            return container.EntitySets[entitySet].ElementType.Properties[property].MaxLength.Value;
-        }
-
-        #endregion
-
         #region IRazorEngineService
 
         public static string Parse<T>(this IRazorEngineService item, FileInfo templateFileInfo, T model = null,
@@ -63,9 +40,6 @@ namespace BolgerUtils.Framework
         // https://github.com/todthomson/RazorEngine/commit/ac66247674ac6405feac421ee972bb96a574ff19
         /// <summary>The same Raw method that is in TemplateBase.</summary>
         public static IEncodedString ToRawString(this string item) => new RawString(item);
-
-        public static SqlConnectionStringBuilder ToSqlConnectionStringBuilder(this string item) =>
-            new SqlConnectionStringBuilder(item);
 
         #endregion
     }

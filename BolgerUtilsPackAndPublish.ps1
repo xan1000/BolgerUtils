@@ -6,8 +6,9 @@ Set-Variable Options -Option Constant -Value @(
     "BolgerUtils",
     "BolgerUtils.EnumDisplay",
     "BolgerUtils.FileToObjectMapping",
-    "BolgerUtils.Framework",
+    "BolgerUtils.Framework.EntityFramework",
     "BolgerUtils.Framework.EnumDisplay",
+    "BolgerUtils.Framework.Razor",
     "BolgerUtils.Framework.WebForms"
 )
 
@@ -38,7 +39,7 @@ function Main
         
         $index--
         $option = $Options[$index]
-        MenuOption $option $option.Contains("Framework")
+        MenuOption $option $option.Contains(".Framework.")
     }
 }
 

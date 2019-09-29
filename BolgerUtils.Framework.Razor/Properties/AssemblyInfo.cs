@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BolgerUtils.Framework.WebForms")]
-[assembly: AssemblyDescription("BolgerUtils.Framework.WebForms")]
+[assembly: AssemblyTitle("BolgerUtils.Framework.Razor")]
+[assembly: AssemblyDescription("BolgerUtils.Framework.Razor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BolgerUtils.Framework.WebForms")]
+[assembly: AssemblyProduct("BolgerUtils.Framework.Razor")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d8487e8c-e435-4e4a-be27-9e9fd5b6d7a7")]
+[assembly: Guid("a5c7794c-7675-4c1b-b18c-c8b23bdb5f87")]
 
 // Version information for an assembly consists of the following four values:
 //

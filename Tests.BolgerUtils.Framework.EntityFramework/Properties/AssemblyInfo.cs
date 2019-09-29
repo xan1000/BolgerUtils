@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Tests.BolgerUtils.Framework")]
+[assembly: AssemblyTitle("Tests.BolgerUtils.Framework.EntityFramework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Tests.BolgerUtils.Framework")]
+[assembly: AssemblyProduct("Tests.BolgerUtils.Framework.EntityFramework")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e4ab9a49-89b8-4de8-bb0a-03120f0ebd04")]
+[assembly: Guid("c5e1fa8c-d538-4d91-9115-a3f8167f74aa")]
 
 // Version information for an assembly consists of the following four values:
 //
