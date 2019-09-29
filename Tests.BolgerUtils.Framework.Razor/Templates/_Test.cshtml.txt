@@ -1,0 +1,33 @@
+﻿@using BolgerUtils.Framework.Razor
+@using Tests.BolgerUtils.Framework.Razor.Models
+@{
+    TestModel m = Model;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <div>
+        <header>
+            <h1>Test</h1>
+        </header>
+        
+        <main>
+            @if(m.IsDisplayed) {
+                <ul>
+                    @for(var i = 0; i < m.LoopCount; i++) {
+                        <li>@if(m.IsRawString) { @m.Text.ToRawString() } else { @m.Text }</li>
+                    }
+                </ul>
+            }
+        </main>
+        
+        <footer>
+            &copy; Copyright 2019, Matthew Bolger
+        </footer>
+    </div>
+</body>
+</html>
