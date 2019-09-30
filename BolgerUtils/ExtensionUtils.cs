@@ -186,6 +186,14 @@ namespace BolgerUtils
             return item >= min && item <= max;
         }
 
+        public static bool IsInRange(this DateTime item, DateTime min, DateTime max)
+        {
+            if(min > max)
+                throw new ArgumentException("min cannot be greater than max");
+
+            return item >= min && item <= max;
+        }
+
         public static bool IsInRange<T>(this T item, T min, T max) where T : struct, IComparable<T>
         {
             if(min.CompareTo(max) > 0)

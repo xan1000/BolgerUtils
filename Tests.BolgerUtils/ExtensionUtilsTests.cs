@@ -651,6 +651,135 @@ namespace Tests.BolgerUtils
                 Assert.Equal(expected.Value, item.IsInRange(min, max));
         }
 
+        [Fact]
+        public void Test_Decimal_IsInRange()
+        {
+            // TODO
+        }
+
+        [Theory]
+        // Zero min & max.
+        [InlineData(true, 0d, 0d, 0d)]
+        [InlineData(false, 1d, 0d, 0d)]
+        [InlineData(false, -1d, 0d, 0d)]
+        // Positive max.
+        [InlineData(true, 0d, 0d, 10d)]
+        [InlineData(true, 1d, 0d, 10d)]
+        [InlineData(true, 5d, 0d, 10d)]
+        [InlineData(true, 10d, 0d, 10d)]
+        [InlineData(false, 11d, 0d, 10d)]
+        [InlineData(false, -1d, 0d, 10d)]
+        // Negative min.
+        [InlineData(true, 0d, -10d, 0d)]
+        [InlineData(true, -1d, -10d, 0d)]
+        [InlineData(true, -5d, -10d, 0d)]
+        [InlineData(true, -10d, -10d, 0d)]
+        [InlineData(false, -11d, -10d, 0d)]
+        [InlineData(false, 1d, -10d, 0d)]
+        // Negative min & max.
+        [InlineData(true, -5d, -10d, -5d)]
+        [InlineData(true, -10d, -10d, -5d)]
+        [InlineData(false, -11d, -10d, -5d)]
+        [InlineData(false, -4d, -10d, -5d)]
+        // Negative min & positive max.
+        [InlineData(true, -10d, -10d, 10d)]
+        [InlineData(true, 0d, -10d, 10d)]
+        [InlineData(true, 10d, -10d, 10d)]
+        [InlineData(false, 11d, -10d, 10d)]
+        [InlineData(false, -11d, -10d, 10d)]
+        // Min is greater than max.
+        [InlineData(null, 0d, 10d, 0d)]
+        [InlineData(null, 0d, 0d, -10d)]
+        [InlineData(null, 0d, 10d, -10d)]
+        // Decimal places.
+        [InlineData(true, 0d, -10.5, 10.5)]
+        [InlineData(true, 0.1, -10.5, 10.5)]
+        [InlineData(true, -0.1, -10.5, 10.5)]
+        [InlineData(true, 10d, -10.5, 10.5)]
+        [InlineData(true, 10.1, -10.5, 10.5)]
+        [InlineData(true, 10.5, -10.5, 10.5)]
+        [InlineData(false, 10.6, -10.5, 10.5)]
+        [InlineData(false, 11d, -10.5, 10.5)]
+        [InlineData(true, -10d, -10.5, 10.5)]
+        [InlineData(true, -10.1, -10.5, 10.5)]
+        [InlineData(true, -10.5, -10.5, 10.5)]
+        [InlineData(false, -10.6, -10.5, 10.5)]
+        [InlineData(false, -11d, -10.5, 10.5)]
+        public void Test_Double_IsInRange(bool? expected, double item, double min, double max)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentException>(() => item.IsInRange(min, max));
+            else
+                Assert.Equal(expected.Value, item.IsInRange(min, max));
+        }
+
+        [Fact]
+        public void Test_DateTime_InInRange()
+        {
+            var today = DateTime.Today;
+            var backwards10Days = today.AddDays(-10);
+            var forward10Days = today.AddDays(10);
+
+            Assert.True(today.IsInRange(backwards10Days, forward10Days));
+            // TODO
+        }
+
+        [Theory]
+        // Zero min & max.
+        [InlineData(true, 0f, 0f, 0f)]
+        [InlineData(false, 1f, 0f, 0f)]
+        [InlineData(false, -1f, 0f, 0f)]
+        // Positive max.
+        [InlineData(true, 0f, 0f, 10f)]
+        [InlineData(true, 1f, 0f, 10f)]
+        [InlineData(true, 5f, 0f, 10f)]
+        [InlineData(true, 10f, 0f, 10f)]
+        [InlineData(false, 11f, 0f, 10f)]
+        [InlineData(false, -1f, 0f, 10f)]
+        // Negative min.
+        [InlineData(true, 0f, -10f, 0f)]
+        [InlineData(true, -1f, -10f, 0f)]
+        [InlineData(true, -5f, -10f, 0f)]
+        [InlineData(true, -10f, -10f, 0f)]
+        [InlineData(false, -11f, -10f, 0f)]
+        [InlineData(false, 1f, -10f, 0f)]
+        // Negative min & max.
+        [InlineData(true, -5f, -10f, -5f)]
+        [InlineData(true, -10f, -10f, -5f)]
+        [InlineData(false, -11f, -10f, -5f)]
+        [InlineData(false, -4f, -10f, -5f)]
+        // Negative min & positive max.
+        [InlineData(true, -10f, -10f, 10f)]
+        [InlineData(true, 0f, -10f, 10f)]
+        [InlineData(true, 10f, -10f, 10f)]
+        [InlineData(false, 11f, -10f, 10f)]
+        [InlineData(false, -11f, -10f, 10f)]
+        // Min is greater than max.
+        [InlineData(null, 0f, 10f, 0f)]
+        [InlineData(null, 0f, 0f, -10f)]
+        [InlineData(null, 0f, 10f, -10f)]
+        // Decimal places.
+        [InlineData(true, 0f, -10.5f, 10.5f)]
+        [InlineData(true, 0.1f, -10.5f, 10.5f)]
+        [InlineData(true, -0.1f, -10.5f, 10.5f)]
+        [InlineData(true, 10f, -10.5f, 10.5f)]
+        [InlineData(true, 10.1f, -10.5f, 10.5f)]
+        [InlineData(true, 10.5f, -10.5f, 10.5f)]
+        [InlineData(false, 10.6f, -10.5f, 10.5f)]
+        [InlineData(false, 11f, -10.5f, 10.5f)]
+        [InlineData(true, -10f, -10.5f, 10.5f)]
+        [InlineData(true, -10.1f, -10.5f, 10.5f)]
+        [InlineData(true, -10.5f, -10.5f, 10.5f)]
+        [InlineData(false, -10.6f, -10.5f, 10.5f)]
+        [InlineData(false, -11f, -10.5f, 10.5f)]
+        public void Test_IsInRange(bool? expected, float item, float min, float max)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentException>(() => item.IsInRange(min, max));
+            else
+                Assert.Equal(expected.Value, item.IsInRange(min, max));
+        }
+
         [Theory]
         [InlineData(false, 0)]
         [InlineData(false, 1)]
