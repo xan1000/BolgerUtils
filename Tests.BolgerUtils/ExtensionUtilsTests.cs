@@ -654,7 +654,79 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_Decimal_IsInRange()
         {
-            // TODO
+            // Zero min & max.
+            var min = 0m;
+            var max = 0m;
+            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 1, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -1, min, max);
+
+            // Positive max.
+            min = 0;
+            max = 10;
+            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 1, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 5, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -1, min, max);
+
+            // Negative min.
+            min = -10;
+            max = 0;
+            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -1, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -5, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 1, min, max);
+
+            // Negative min & max.
+            min = -10;
+            max = -5;
+            Test_Decimal_IsInRangeImplementation(true, -5, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -4, min, max);
+
+            // Negative min & positive max.
+            min = -10;
+            max = 10;
+            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+
+            // Min is greater than max.
+            Test_Decimal_IsInRangeImplementation(null, 0, 10, 0);
+            Test_Decimal_IsInRangeImplementation(null, 0, 0, -10);
+            Test_Decimal_IsInRangeImplementation(null, 0, 10, -10);
+
+            // Decimal places.
+            min = -10.5m;
+            max = 10.5m;
+            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 0.1m, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -0.1m, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 10.1m, min, max);
+            Test_Decimal_IsInRangeImplementation(true, 10.5m, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 10.6m, min, max);
+            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -10.1m, min, max);
+            Test_Decimal_IsInRangeImplementation(true, -10.5m, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -10.6m, min, max);
+            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+        }
+
+        private void Test_Decimal_IsInRangeImplementation(bool? expected, decimal item, decimal min, decimal max)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentException>(() => item.IsInRange(min, max));
+            else
+                Assert.Equal(expected.Value, item.IsInRange(min, max));
         }
 
         [Theory]
@@ -717,11 +789,25 @@ namespace Tests.BolgerUtils
         public void Test_DateTime_InInRange()
         {
             var today = DateTime.Today;
-            var backwards10Days = today.AddDays(-10);
-            var forward10Days = today.AddDays(10);
+            var min = today.AddDays(-10);
+            var max = today.AddDays(20);
+            Assert.True(today.IsInRange(min, max));
+            Assert.True(today.AddDays(1).IsInRange(min, max));
+            Assert.True(today.AddDays(5).IsInRange(min, max));
+            Assert.True(today.AddDays(10).IsInRange(min, max));
+            Assert.True(today.AddDays(15).IsInRange(min, max));
+            Assert.True(today.AddDays(20).IsInRange(min, max));
+            Assert.False(today.AddDays(21).IsInRange(min, max));
+            Assert.True(today.AddDays(-1).IsInRange(min, max));
+            Assert.True(today.AddDays(-5).IsInRange(min, max));
+            Assert.True(today.AddDays(-10).IsInRange(min, max));
+            Assert.False(today.AddDays(-11).IsInRange(min, max));
 
-            Assert.True(today.IsInRange(backwards10Days, forward10Days));
-            // TODO
+            Assert.True(today.IsInRange(today, today));
+            Assert.False(today.AddDays(1).IsInRange(today, today));
+            Assert.False(today.AddDays(-1).IsInRange(today, today));
+
+            Assert.Throws<ArgumentException>(() => today.IsInRange(max, min));
         }
 
         [Theory]
