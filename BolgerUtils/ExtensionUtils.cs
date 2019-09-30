@@ -6,7 +6,6 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -191,7 +190,9 @@ namespace BolgerUtils
             return item.CompareTo(min) >= 0 && item.CompareTo(max) <= 0;
         }
 
+        // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
         private static void ThrowIfMinGreaterThanMax<T>(T min, T max) where T : struct, IComparable<T>
+        // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
         {
             if(min.CompareTo(max) > 0)
                 throw new ArgumentException("min cannot be greater than max");
