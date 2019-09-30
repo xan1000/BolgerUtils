@@ -93,6 +93,8 @@ namespace BolgerUtils
 
         public static bool IsContainedIn<T>(this T item, params T[] values) => values.Contains(item);
         
+        public static bool IsNull<T>(this T item) where T : class  => item == null;
+
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
         #endregion
@@ -152,6 +154,14 @@ namespace BolgerUtils
 
         #endregion
 
+        #region Int
+
+        public static bool IsZero(this int item) => item == 0;
+
+        public static bool IsZero<T>(this T item) => item.Equals(default(T));
+
+        #endregion
+
         #region List
 
         public static HashSet<T> ToHashSet<T>(this List<T> item) => new HashSet<T>(item);
@@ -159,8 +169,6 @@ namespace BolgerUtils
         #endregion
 
         #region Object
-
-        public static bool IsNull(this object item) => item == null;
 
         public static dynamic ToDynamic(this object item)
         {

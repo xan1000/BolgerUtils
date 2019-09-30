@@ -234,6 +234,11 @@ namespace Tests.BolgerUtils
                 Assert.DoesNotContain(item, values);
         }
 
+        [Theory]
+        [InlineData(true, null)]
+        [InlineData(false, "Test")]
+        public void Test_IsNull<T>(bool expected, T item) where T : class => Assert.Equal(expected, item.IsNull());
+
         [Fact]
         public void Test_ScalarToList()
         {
@@ -603,11 +608,6 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region Object
-
-        [Theory]
-        [InlineData(true, null)]
-        [InlineData(false, "Test")]
-        public void Test_IsNull(bool expected, object item) => Assert.Equal(expected, item.IsNull());
 
         [Fact]
         public void Test_ToDynamic()

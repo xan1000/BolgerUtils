@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.Razor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.Razor", "Tests.BolgerUtils.Framework.Razor\Tests.BolgerUtils.Framework.Razor.csproj", "{4866E5C0-6AE0-4022-B585-5314086D0A7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping", "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping\Console.BolgerUtils.EnumDisplayAndFileToObjectMapping.csproj", "{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

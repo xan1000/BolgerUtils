@@ -11,17 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BolgerUtils.EnumDisplay\BolgerUtils.EnumDisplay.csproj" />
-    <ProjectReference Include="..\BolgerUtils.FileToObjectMapping\BolgerUtils.FileToObjectMapping.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Data\accounts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\people.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\BolgerUtils\BolgerUtils.csproj" />
   </ItemGroup>
 
 </Project>
