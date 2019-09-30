@@ -164,62 +164,58 @@ namespace BolgerUtils
 
         public static bool IsInRange(this int item, int min, int max)
         {
-            ThrowIfMinGreaterThanMax(min, max);
-
-            return item >= min && item <= max;
-        }
-
-        public static bool IsInRange(this double item, double min, double max)
-        {
-            ThrowIfMinGreaterThanMax(min, max);
+            if(min > max)
+                throw new ArgumentException("min cannot be greater than max");
 
             return item >= min && item <= max;
         }
 
         public static bool IsInRange(this decimal item, decimal min, decimal max)
         {
-            ThrowIfMinGreaterThanMax(min, max);
+            if(min > max)
+                throw new ArgumentException("min cannot be greater than max");
+
+            return item >= min && item <= max;
+        }
+
+        public static bool IsInRange(this double item, double min, double max)
+        {
+            if(min > max)
+                throw new ArgumentException("min cannot be greater than max");
 
             return item >= min && item <= max;
         }
 
         public static bool IsInRange<T>(this T item, T min, T max) where T : struct, IComparable<T>
         {
-            ThrowIfMinGreaterThanMax(min, max);
+            if(min.CompareTo(max) > 0)
+                throw new ArgumentException("min cannot be greater than max");
 
             return item.CompareTo(min) >= 0 && item.CompareTo(max) <= 0;
         }
 
-        // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
-        private static void ThrowIfMinGreaterThanMax<T>(T min, T max) where T : struct, IComparable<T>
-        // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
-        {
-            if(min.CompareTo(max) > 0)
-                throw new ArgumentException("min cannot be greater than max");
-        }
-
         public static bool IsNegative(this int item) => item < 0;
 
-        public static bool IsNegative(this double item) => item < 0d;
-
         public static bool IsNegative(this decimal item) => item < 0m;
+
+        public static bool IsNegative(this double item) => item < 0d;
 
         public static bool IsNegative<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) < 0;
 
         public static bool IsPositive(this int item) => item > 0;
 
-        public static bool IsPositive(this double item) => item > 0d;
-
         public static bool IsPositive(this decimal item) => item > 0m;
+
+        public static bool IsPositive(this double item) => item > 0d;
 
         public static bool IsPositive<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) > 0;
 
         public static bool IsZero(this int item) => item == 0;
 
+        public static bool IsZero(this decimal item) => item == 0m;
+
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         public static bool IsZero(this double item) => item == 0d;
-
-        public static bool IsZero(this decimal item) => item == 0m;
 
         public static bool IsZero<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) == 0;
 

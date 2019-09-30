@@ -607,6 +607,184 @@ namespace Tests.BolgerUtils
 
         #endregion
 
+        #region Numbers
+
+        [Theory]
+        // Zero min & max.
+        [InlineData(true, 0, 0, 0)]
+        [InlineData(false, 1, 0, 0)]
+        [InlineData(false, -1, 0, 0)]
+        // Positive max.
+        [InlineData(true, 0, 0, 10)]
+        [InlineData(true, 1, 0, 10)]
+        [InlineData(true, 5, 0, 10)]
+        [InlineData(true, 10, 0, 10)]
+        [InlineData(false, 11, 0, 10)]
+        [InlineData(false, -1, 0, 10)]
+        // Negative min.
+        [InlineData(true, 0, -10, 0)]
+        [InlineData(true, -1, -10, 0)]
+        [InlineData(true, -5, -10, 0)]
+        [InlineData(true, -10, -10, 0)]
+        [InlineData(false, -11, -10, 0)]
+        [InlineData(false, 1, -10, 0)]
+        // Negative min & max.
+        [InlineData(true, -5, -10, -5)]
+        [InlineData(true, -10, -10, -5)]
+        [InlineData(false, -11, -10, -5)]
+        [InlineData(false, -4, -10, -5)]
+        // Negative min & positive max.
+        [InlineData(true, -10, -10, 10)]
+        [InlineData(true, 0, -10, 10)]
+        [InlineData(true, 10, -10, 10)]
+        [InlineData(false, 11, -10, 10)]
+        [InlineData(false, -11, -10, 10)]
+        // Min is greater than max.
+        [InlineData(null, 0, 10, 0)]
+        [InlineData(null, 0, 0, -10)]
+        [InlineData(null, 0, 10, -10)]
+        public void Test_Int_IsInRange(bool? expected, int item, int min, int max)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentException>(() => item.IsInRange(min, max));
+            else
+                Assert.Equal(expected.Value, item.IsInRange(min, max));
+        }
+
+        [Theory]
+        [InlineData(false, 0)]
+        [InlineData(false, 1)]
+        [InlineData(true, -1)]
+        [InlineData(false, int.MaxValue)]
+        [InlineData(true, int.MinValue)]
+        public void Test_Int_IsNegative(bool expected, int item) => Assert.Equal(expected, item.IsNegative());
+
+        [Fact]
+        public void Test_Decimal_IsNegative()
+        {
+            Assert.False(0m.IsNegative());
+            Assert.False(0.1m.IsNegative());
+            Assert.True((-0.1m).IsNegative());
+            Assert.False(decimal.Zero.IsNegative());
+            Assert.False(decimal.MaxValue.IsNegative());
+            Assert.True(decimal.MinValue.IsNegative());
+        }
+
+        [Theory]
+        [InlineData(false, 0d)]
+        [InlineData(false, 0.1)]
+        [InlineData(true, -0.1)]
+        [InlineData(false, double.MaxValue)]
+        [InlineData(true, double.MinValue)]
+        public void Test_Double_IsNegative(bool expected, double item) => Assert.Equal(expected, item.IsNegative());
+
+        [Theory]
+        [InlineData(false, 0f)]
+        [InlineData(false, 0.1f)]
+        [InlineData(true, -0.1f)]
+        [InlineData(false , float.MaxValue)]
+        [InlineData(true, float.MinValue)]
+        public void Test_IsNegative(bool expected, float item) => Assert.Equal(expected, item.IsNegative());
+
+        [Fact]
+        public void TestFact_IsNegative()
+        {
+            Assert.False(new DateTime().IsNegative());
+            Assert.False(DateTime.MaxValue.IsNegative());
+            Assert.False(DateTime.MinValue.IsNegative());
+            Assert.False(DateTime.Today.IsNegative());
+        }
+
+        [Theory]
+        [InlineData(false, 0)]
+        [InlineData(true, 1)]
+        [InlineData(false, -1)]
+        [InlineData(true, int.MaxValue)]
+        [InlineData(false, int.MinValue)]
+        public void Test_Int_IsPositive(bool expected, int item) => Assert.Equal(expected, item.IsPositive());
+
+        [Fact]
+        public void Test_Decimal_IsPositive()
+        {
+            Assert.False(0m.IsPositive());
+            Assert.True(0.1m.IsPositive());
+            Assert.False((-0.1m).IsPositive());
+            Assert.False(decimal.Zero.IsPositive());
+            Assert.True(decimal.MaxValue.IsPositive());
+            Assert.False(decimal.MinValue.IsPositive());
+        }
+
+        [Theory]
+        [InlineData(false, 0d)]
+        [InlineData(true, 0.1)]
+        [InlineData(false, -0.1)]
+        [InlineData(true, double.MaxValue)]
+        [InlineData(false, double.MinValue)]
+        public void Test_Double_IsPositive(bool expected, double item) => Assert.Equal(expected, item.IsPositive());
+
+        [Theory]
+        [InlineData(false, 0f)]
+        [InlineData(true, 0.1f)]
+        [InlineData(false, -0.1f)]
+        [InlineData(true, float.MaxValue)]
+        [InlineData(false, float.MinValue)]
+        public void Test_IsPositive(bool expected, float item) => Assert.Equal(expected, item.IsPositive());
+
+        [Fact]
+        public void TestFact_IsPositive()
+        {
+            Assert.False(new DateTime().IsPositive());
+            Assert.True(DateTime.MaxValue.IsPositive());
+            Assert.False(DateTime.MinValue.IsPositive());
+            Assert.True(DateTime.Today.IsPositive());
+        }
+
+        [Theory]
+        [InlineData(true, 0)]
+        [InlineData(false, 1)]
+        [InlineData(false, -1)]
+        [InlineData(false, int.MaxValue)]
+        [InlineData(false, int.MinValue)]
+        public void Test_Int_IsZero(bool expected, int item) => Assert.Equal(expected, item.IsZero());
+
+        [Fact]
+        public void Test_Decimal_IsZero()
+        {
+            Assert.True(0m.IsZero());
+            Assert.False(0.1m.IsZero());
+            Assert.False((-0.1m).IsZero());
+            Assert.True(decimal.Zero.IsZero());
+            Assert.False(decimal.MaxValue.IsZero());
+            Assert.False(decimal.MinValue.IsZero());
+        }
+
+        [Theory]
+        [InlineData(true, 0d)]
+        [InlineData(false, 0.1)]
+        [InlineData(false, -0.1)]
+        [InlineData(false, double.MaxValue)]
+        [InlineData(false, double.MinValue)]
+        public void Test_Double_IsZero(bool expected, double item) => Assert.Equal(expected, item.IsZero());
+
+        [Theory]
+        [InlineData(true, 0f)]
+        [InlineData(false, 0.1f)]
+        [InlineData(false, -0.1f)]
+        [InlineData(false, float.MaxValue)]
+        [InlineData(false, float.MinValue)]
+        public void Test_IsZero(bool expected, float item) => Assert.Equal(expected, item.IsZero());
+
+        [Fact]
+        public void TestFact_IsZero()
+        {
+            Assert.True(new DateTime().IsZero());
+            Assert.False(DateTime.MaxValue.IsZero());
+            Assert.True(DateTime.MinValue.IsZero());
+            Assert.False(DateTime.Today.IsZero());
+        }
+
+        #endregion
+
         #region Object
 
         [Fact]
