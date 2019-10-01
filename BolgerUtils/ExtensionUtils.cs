@@ -203,28 +203,19 @@ namespace BolgerUtils
         }
 
         public static bool IsNegative(this int item) => item < 0;
-
         public static bool IsNegative(this decimal item) => item < 0m;
-
         public static bool IsNegative(this double item) => item < 0d;
-
         public static bool IsNegative<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) < 0;
 
         public static bool IsPositive(this int item) => item > 0;
-
         public static bool IsPositive(this decimal item) => item > 0m;
-
         public static bool IsPositive(this double item) => item > 0d;
-
         public static bool IsPositive<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) > 0;
 
         public static bool IsZero(this int item) => item == 0;
-
         public static bool IsZero(this decimal item) => item == 0m;
-
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         public static bool IsZero(this double item) => item == 0d;
-
         public static bool IsZero<T>(this T item) where T : struct, IComparable<T> => item.CompareTo(default) == 0;
 
         #endregion
