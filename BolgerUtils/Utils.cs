@@ -54,15 +54,9 @@ namespace BolgerUtils
 
         public static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
 
-        public static int Max(int a, int b) => a > b ? a : b;
-        public static decimal Max(decimal a, decimal b) => a > b ? a : b;
-        public static double Max(double a, double b) => a > b ? a : b;
         public static DateTime Max(DateTime a, DateTime b) => a > b ? a : b;
         public static T Max<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) > 0 ? a : b;
         
-        public static int Min(int a, int b) => a < b ? a : b;
-        public static decimal Min(decimal a, decimal b) => a < b ? a : b;
-        public static double Min(double a, double b) => a < b ? a : b;
         public static DateTime Min(DateTime a, DateTime b) => a < b ? a : b;
         public static T Min<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) < 0 ? a : b;
         
