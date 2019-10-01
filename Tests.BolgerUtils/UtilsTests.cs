@@ -185,12 +185,83 @@ namespace Tests.BolgerUtils
                 Utils.GetEnumValues<TestAnotherType>());
         }
 
+        [Theory]
+        [InlineData(0, 0, 0)]
+        [InlineData(10, 0, 10)]
+        [InlineData(10, 10, 0)]
+        [InlineData(10, 5, 10)]
+        [InlineData(10, 10, 5)]
+        [InlineData(15, 10, 15)]
+        [InlineData(15, 15, 10)]
+        [InlineData(0, -10, 0)]
+        [InlineData(0, 0, -10)]
+        [InlineData(1, 1, -10)]
+        [InlineData(1, -10, 1)]
+        [InlineData(-10, -10, -20)]
+        [InlineData(-10, -20, -10)]
+        [InlineData(int.MaxValue, int.MaxValue, int.MinValue)]
+        [InlineData(int.MaxValue, int.MinValue, int.MaxValue)]
+        public void Test_Int_Max(int expected, int a, int b) => Assert.Equal(expected, Utils.Max(a, b));
+
         [Fact]
-        public void Test_Max()
+        public void Test_Decimal_Max()
+        {
+            Test_Decimal_MaxImplementation(0m, 0m, 0m);
+            Test_Decimal_MaxImplementation(10m, 0m, 10m);
+            Test_Decimal_MaxImplementation(10m, 10m, 0m);
+            Test_Decimal_MaxImplementation(10m, 5m, 10m);
+            Test_Decimal_MaxImplementation(10m, 10m, 5m);
+            Test_Decimal_MaxImplementation(15m, 10m, 15m);
+            Test_Decimal_MaxImplementation(15m, 15m, 10m);
+            Test_Decimal_MaxImplementation(0m, -10m, 0m);
+            Test_Decimal_MaxImplementation(0m, 0m, -10m);
+            Test_Decimal_MaxImplementation(1m, 1m, -10m);
+            Test_Decimal_MaxImplementation(1m, -10m, 1m);
+            Test_Decimal_MaxImplementation(-10m, -10m, -20m);
+            Test_Decimal_MaxImplementation(-10m, -20m, -10m);
+            Test_Decimal_MaxImplementation(decimal.MaxValue, decimal.MaxValue, decimal.MinValue);
+            Test_Decimal_MaxImplementation(decimal.MaxValue, decimal.MinValue, decimal.MaxValue);
+            Test_Decimal_MaxImplementation(2.5m, 1.5m, 2.5m);
+            Test_Decimal_MaxImplementation(2.5m, 2.5m, 1.5m);
+            Test_Decimal_MaxImplementation(-1.5m, -1.5m, -2.5m);
+            Test_Decimal_MaxImplementation(-1.5m, -2.5m, -1.5m);
+            Test_Decimal_MaxImplementation(1.75m, 1.25m, 1.75m);
+            Test_Decimal_MaxImplementation(1.75m, 1.75m, 1.25m);
+        }
+
+        private void Test_Decimal_MaxImplementation(decimal expected, decimal a, decimal b) =>
+            Assert.Equal(expected, Utils.Max(a, b));
+
+        [Theory]
+        [InlineData(0d, 0d, 0d)]
+        [InlineData(10d, 0d, 10d)]
+        [InlineData(10d, 10d, 0d)]
+        [InlineData(10d, 5d, 10d)]
+        [InlineData(10d, 10d, 5d)]
+        [InlineData(15d, 10d, 15d)]
+        [InlineData(15d, 15d, 10d)]
+        [InlineData(0d, -10d, 0d)]
+        [InlineData(0d, 0d, -10d)]
+        [InlineData(1d, 1d, -10d)]
+        [InlineData(1d, -10d, 1d)]
+        [InlineData(-10d, -10d, -20d)]
+        [InlineData(-10d, -20d, -10d)]
+        [InlineData(double.MaxValue, double.MaxValue, double.MinValue)]
+        [InlineData(double.MaxValue, double.MinValue, double.MaxValue)]
+        [InlineData(2.5d, 1.5d, 2.5d)]
+        [InlineData(2.5d, 2.5d, 1.5d)]
+        [InlineData(-1.5d, -1.5d, -2.5d)]
+        [InlineData(-1.5d, -2.5d, -1.5d)]
+        [InlineData(1.75d, 1.25d, 1.75d)]
+        [InlineData(1.75d, 1.75d, 1.25d)]
+        public void Test_Double_Max(double expected, double a, double b) => Assert.Equal(expected, Utils.Max(a, b));
+
+        [Fact]
+        public void Test_DateTime_Max()
         {
             DateTime dateSmaller, dateBigger;
 
-            void Test_MaxDateSmallerAndDateBigger()
+            void Test_DateTime_MaxDateSmallerAndDateBigger()
             {
                 Assert.True(dateSmaller <= dateBigger);
 
@@ -204,40 +275,135 @@ namespace Tests.BolgerUtils
 
             dateSmaller = DateTime.MinValue;
             dateBigger = DateTime.MaxValue;
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             var date = DateTime.Now;
             dateSmaller = date;
             dateBigger = date.AddDays(1);
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(-1);
             dateBigger = date;
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date.Add(TimeSpan.FromHours(12));
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date;
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.AddHours(24);
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.Add(TimeSpan.FromDays(1));
-            Test_MaxDateSmallerAndDateBigger();
+            Test_DateTime_MaxDateSmallerAndDateBigger();
         }
 
+        [Theory]
+        [InlineData(0f, 0f, 0f)]
+        [InlineData(10f, 0f, 10f)]
+        [InlineData(10f, 10f, 0f)]
+        [InlineData(10f, 5f, 10f)]
+        [InlineData(10f, 10f, 5f)]
+        [InlineData(15f, 10f, 15f)]
+        [InlineData(15f, 15f, 10f)]
+        [InlineData(0f, -10f, 0f)]
+        [InlineData(0f, 0f, -10f)]
+        [InlineData(1f, 1f, -10f)]
+        [InlineData(1f, -10f, 1f)]
+        [InlineData(-10f, -10f, -20f)]
+        [InlineData(-10f, -20f, -10f)]
+        [InlineData(float.MaxValue, float.MaxValue, float.MinValue)]
+        [InlineData(float.MaxValue, float.MinValue, float.MaxValue)]
+        [InlineData(2.5f, 1.5f, 2.5f)]
+        [InlineData(2.5f, 2.5f, 1.5f)]
+        [InlineData(-1.5f, -1.5f, -2.5f)]
+        [InlineData(-1.5f, -2.5f, -1.5f)]
+        [InlineData(1.75f, 1.25f, 1.75f)]
+        [InlineData(1.75f, 1.75f, 1.25f)]
+        public void Test_Max(float expected, float a, float b) => Assert.Equal(expected, Utils.Max(a, b));
+
+        [Theory]
+        [InlineData(0, 0, 0)]
+        [InlineData(0, 0, 10)]
+        [InlineData(0, 10, 0)]
+        [InlineData(5, 5, 10)]
+        [InlineData(5, 10, 5)]
+        [InlineData(10, 10, 15)]
+        [InlineData(10, 15, 10)]
+        [InlineData(-10, -10, 0)]
+        [InlineData(-10, 0, -10)]
+        [InlineData(-10, 1, -10)]
+        [InlineData(-10, -10, 1)]
+        [InlineData(-20, -10, -20)]
+        [InlineData(-20, -20, -10)]
+        [InlineData(int.MinValue, int.MaxValue, int.MinValue)]
+        [InlineData(int.MinValue, int.MinValue, int.MaxValue)]
+        public void Test_Int_Min(int expected, int a, int b) => Assert.Equal(expected, Utils.Min(a, b));
+
         [Fact]
-        public void Test_Min()
+        public void Test_Decimal_Min()
+        {
+            Test_Decimal_MinImplementation(0m, 0m, 0m);
+            Test_Decimal_MinImplementation(0m, 0m, 10m);
+            Test_Decimal_MinImplementation(0m, 10m, 0m);
+            Test_Decimal_MinImplementation(5m, 5m, 10m);
+            Test_Decimal_MinImplementation(5m, 10m, 5m);
+            Test_Decimal_MinImplementation(10m, 10m, 15m);
+            Test_Decimal_MinImplementation(10m, 15m, 10m);
+            Test_Decimal_MinImplementation(-10m, -10m, 0m);
+            Test_Decimal_MinImplementation(-10m, 0m, -10m);
+            Test_Decimal_MinImplementation(-10m, 1m, -10m);
+            Test_Decimal_MinImplementation(-10m, -10m, 1m);
+            Test_Decimal_MinImplementation(-20m, -10m, -20m);
+            Test_Decimal_MinImplementation(-20m, -20m, -10m);
+            Test_Decimal_MinImplementation(decimal.MinValue, decimal.MaxValue, decimal.MinValue);
+            Test_Decimal_MinImplementation(decimal.MinValue, decimal.MinValue, decimal.MaxValue);
+            Test_Decimal_MinImplementation(1.5m, 1.5m, 2.5m);
+            Test_Decimal_MinImplementation(1.5m, 2.5m, 1.5m);
+            Test_Decimal_MinImplementation(-2.5m, -1.5m, -2.5m);
+            Test_Decimal_MinImplementation(-2.5m, -2.5m, -1.5m);
+            Test_Decimal_MinImplementation(1.25m, 1.25m, 1.75m);
+            Test_Decimal_MinImplementation(1.25m, 1.75m, 1.25m);
+        }
+
+        private void Test_Decimal_MinImplementation(decimal expected, decimal a, decimal b) =>
+            Assert.Equal(expected, Utils.Min(a, b));
+
+        [Theory]
+        [InlineData(0d, 0d, 0d)]
+        [InlineData(0d, 0d, 10d)]
+        [InlineData(0d, 10d, 0d)]
+        [InlineData(5d, 5d, 10d)]
+        [InlineData(5d, 10d, 5d)]
+        [InlineData(10d, 10d, 15d)]
+        [InlineData(10d, 15d, 10d)]
+        [InlineData(-10d, -10d, 0d)]
+        [InlineData(-10d, 0d, -10d)]
+        [InlineData(-10d, 1d, -10d)]
+        [InlineData(-10d, -10d, 1d)]
+        [InlineData(-20d, -10d, -20d)]
+        [InlineData(-20d, -20d, -10d)]
+        [InlineData(double.MinValue, double.MaxValue, double.MinValue)]
+        [InlineData(double.MinValue, double.MinValue, double.MaxValue)]
+        [InlineData(1.5d, 1.5d, 2.5d)]
+        [InlineData(1.5d, 2.5d, 1.5d)]
+        [InlineData(-2.5d, -1.5d, -2.5d)]
+        [InlineData(-2.5d, -2.5d, -1.5d)]
+        [InlineData(1.25d, 1.25d, 1.75d)]
+        [InlineData(1.25d, 1.75d, 1.25d)]
+        public void Test_Double_Min(double expected, double a, double b) => Assert.Equal(expected, Utils.Min(a, b));
+
+        [Fact]
+        public void Test_DateTime_Min()
         {
             DateTime dateSmaller, dateBigger;
 
-            void Test_MinDateSmallerAndDateBigger()
+            void Test_DateTime_MinDateSmallerAndDateBigger()
             {
                 Assert.True(dateSmaller <= dateBigger);
 
@@ -251,33 +417,57 @@ namespace Tests.BolgerUtils
 
             dateSmaller = DateTime.MinValue;
             dateBigger = DateTime.MaxValue;
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             var date = DateTime.Now;
             dateSmaller = date;
             dateBigger = date.AddDays(1);
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(-1);
             dateBigger = date;
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date.Add(TimeSpan.FromHours(12));
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             dateSmaller = date;
             dateBigger = date;
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.AddHours(24);
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
 
             dateSmaller = date.AddDays(1);
             dateBigger = date.Add(TimeSpan.FromDays(1));
-            Test_MinDateSmallerAndDateBigger();
+            Test_DateTime_MinDateSmallerAndDateBigger();
         }
+
+        [Theory]
+        [InlineData(0f, 0f, 0f)]
+        [InlineData(0f, 0f, 10f)]
+        [InlineData(0f, 10f, 0f)]
+        [InlineData(5f, 5f, 10f)]
+        [InlineData(5f, 10f, 5f)]
+        [InlineData(10f, 10f, 15f)]
+        [InlineData(10f, 15f, 10f)]
+        [InlineData(-10f, -10f, 0f)]
+        [InlineData(-10f, 0f, -10f)]
+        [InlineData(-10f, 1f, -10f)]
+        [InlineData(-10f, -10f, 1f)]
+        [InlineData(-20f, -10f, -20f)]
+        [InlineData(-20f, -20f, -10f)]
+        [InlineData(float.MinValue, float.MaxValue, float.MinValue)]
+        [InlineData(float.MinValue, float.MinValue, float.MaxValue)]
+        [InlineData(1.5f, 1.5f, 2.5f)]
+        [InlineData(1.5f, 2.5f, 1.5f)]
+        [InlineData(-2.5f, -1.5f, -2.5f)]
+        [InlineData(-2.5f, -2.5f, -1.5f)]
+        [InlineData(1.25f, 1.25f, 1.75f)]
+        [InlineData(1.25f, 1.75f, 1.25f)]
+        public void Test_Min(float expected, float a, float b) => Assert.Equal(expected, Utils.Min(a, b));
 
         [Theory]
         [InlineData(5)]
