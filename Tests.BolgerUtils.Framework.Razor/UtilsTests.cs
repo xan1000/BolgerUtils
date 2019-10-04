@@ -180,7 +180,7 @@ namespace Tests.BolgerUtils.Framework.Razor
         }
 
         private void Test_ParseImplementation(string expected, TestModel model) =>
-            Assert.Equal(ExtensionUtils.RemoveRedundantWhitespace(expected), ExtensionUtils.RemoveRedundantWhitespace(
-                Utils.Parse(new FileInfo("Templates/_Test.cshtml.txt"), model).Trim()));
+            Assert.Equal(ExtensionUtils.RemoveRedundantWhitespace(expected),
+                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(new FileInfo("Templates/_Test.cshtml"), model)));
     }
 }

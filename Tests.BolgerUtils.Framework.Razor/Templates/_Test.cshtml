@@ -1,9 +1,7 @@
 ﻿@using BolgerUtils.Framework.Razor
 @using Tests.BolgerUtils.Framework.Razor.Models
-@{
-    TestModel m = Model;
-}
-
+@using RazorEngine.Templating
+@inherits TemplateBase<TestModel>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +14,10 @@
         </header>
         
         <main>
-            @if(m.IsDisplayed) {
+            @if(Model.IsDisplayed) {
                 <ul>
-                    @for(var i = 0; i < m.LoopCount; i++) {
-                        <li>@if(m.IsRawString) { @m.Text.ToRawString() } else { @m.Text }</li>
+                    @for(var i = 0; i < Model.LoopCount; i++) {
+                        <li>@if(Model.IsRawString) { @Model.Text.ToRawString() } else { @Model.Text }</li>
                     }
                 </ul>
             }
