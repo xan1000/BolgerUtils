@@ -11,7 +11,7 @@ namespace BolgerUtils.Framework.Razor
 
         public static string Parse<T>(this IRazorEngineService item, FileInfo fileInfo,
             T model = null, DynamicViewBag viewBag = null) where T : class =>
-            item.Parse(fileInfo, model.GetType(), model, viewBag);
+            item.Parse(fileInfo, typeof(T), model, viewBag);
 
         private static string Parse(this IRazorEngineService item, FileInfo fileInfo,
             Type modelType, object model, DynamicViewBag viewBag)
