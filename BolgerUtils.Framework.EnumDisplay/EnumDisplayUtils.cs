@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace BolgerUtils.Framework.EnumDisplay
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class AddAttribute : Attribute
     {

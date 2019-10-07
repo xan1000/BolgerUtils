@@ -220,7 +220,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         [InlineData(50)]
         public void Test_Performance(int fileContentMultiplier)
         {
-            const int loopCount = 10000;
+            const int loopCount = 10 * Utils.Thousand;
 
             var content = TextFileContent;
             var list = JsonFileContent.ToList();

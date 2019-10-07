@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using BolgerUtils;
 using BolgerUtils.EnumDisplay;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
@@ -43,10 +40,8 @@ namespace Console.BolgerUtils.EnumDisplayAndFileToObjectMapping
         public static void Run()
         {
             Test();
-            //Test_Performance();
         }
 
-        // ReSharper disable once UnusedMember.Local
         private static void Test()
         {
             ShapeType.Square.Add("Square (Custom)");
@@ -64,32 +59,6 @@ namespace Console.BolgerUtils.EnumDisplayAndFileToObjectMapping
             WriteLine(AccountType.CheckingAccount.Display());
 
             WriteLine();
-        }
-
-        // ReSharper disable once UnusedMember.Local
-        private static void Test_Performance()
-        {
-            var stopWatch = Stopwatch.StartNew();
-
-            var enumDisplayUtils = new EnumDisplayUtils(false);
-            var shapeTypes = Utils.GetEnumValues<ShapeType>().ToArray();
-            var accountTypes = Utils.GetEnumValues<AccountType>().ToArray();
-
-            const int loopCount = 1000000;
-            for(var i = 0; i < loopCount; i++)
-            {
-                foreach(var x in shapeTypes)
-                {
-                    enumDisplayUtils.Display(x);
-                }
-                foreach(var x in accountTypes)
-                {
-                    enumDisplayUtils.Display(x);
-                }
-            }
-
-            stopWatch.Stop();
-            WriteLine(stopWatch.Elapsed);
         }
     }
 
@@ -120,19 +89,18 @@ namespace Console.BolgerUtils.EnumDisplayAndFileToObjectMapping
         private const string PeoplePath = "Data/people.json";
         private const string AccountPath = "Data/accounts.json";
 
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Local
         private static List<Person> People =>
             FileToObjectUtils.Map(PeoplePath, JsonConvert.DeserializeObject<List<Person>>);
-        //JsonConvert.DeserializeObject<List<Person>>(File.ReadAllText(PeoplePath));
 
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Local
         private static List<Account> Accounts => FileToObjectUtils.Load<List<Account>>(AccountPath);
-        //JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(AccountPath));
 
         public static void Run()
         {
             FileToObjectUtils.Register(AccountPath, JsonConvert.DeserializeObject<List<Account>>);
 
             Test();
-            //Test_Performance();
         }
 
         private static void Test()
@@ -143,31 +111,6 @@ namespace Console.BolgerUtils.EnumDisplayAndFileToObjectMapping
                 PrintAccounts();
                 Thread.Sleep(TimeSpan.FromSeconds(10));
             }
-        }
-
-        // ReSharper disable once UnusedMember.Local
-        private static void Test_Performance()
-        {
-            var stopWatch = Stopwatch.StartNew();
-
-            const int loopCount = 100000;
-            for(var i = 0; i < loopCount; i++)
-            {
-                WriteLine(i);
-
-                // ReSharper disable once UnusedVariable
-                foreach(var x in People)
-                {
-                }
-
-                // ReSharper disable once UnusedVariable
-                foreach(var x in Accounts)
-                {
-                }
-            }
-
-            stopWatch.Stop();
-            WriteLine(stopWatch.Elapsed);
         }
 
         private static void PrintPeople()
