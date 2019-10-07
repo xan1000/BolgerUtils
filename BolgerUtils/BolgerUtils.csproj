@@ -7,7 +7,7 @@
     <Description>BolgerUtils</Description>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</PackageProjectUrl>
+    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils/</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
     <PackageTags>utils</PackageTags>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>

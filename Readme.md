@@ -12,8 +12,9 @@ The packages available are:
 
 ### .NET Framework 4.8
 
-* [BolgerUtils.Framework](BolgerUtils.Framework/Readme.md)
+* [BolgerUtils.Framework.EntityFramework](BolgerUtils.Framework.EntityFramework/Readme.md)
 * [BolgerUtils.Framework.EnumDisplay](BolgerUtils.Framework.EnumDisplay/Readme.md)
+* [BolgerUtils.Framework.Razor](BolgerUtils.Framework.Razor/Readme.md)
 * [BolgerUtils.Framework.WebForms](BolgerUtils.Framework.WebForms/Readme.md)
 
 Link to all these packages on NuGet:

@@ -8,7 +8,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>File Object Mapping</PackageTags>
     <Description>BolgerUtils.FileToObjectMapping</Description>
-    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</PackageProjectUrl>
+    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
