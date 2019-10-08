@@ -8,6 +8,9 @@ namespace Tests.BolgerUtils.Framework.Razor
 {
     public class UtilsTests
     {
+        private const string TestPath = "Templates/_Test.cshtml";
+        private FileInfo TestFileInfo { get; } = new FileInfo(TestPath);
+
         [Fact]
         public void Test_Parse()
         {
@@ -179,8 +182,14 @@ namespace Tests.BolgerUtils.Framework.Razor
             Test_ParseImplementation(expected, testModel);
         }
 
-        private void Test_ParseImplementation(string expected, TestModel model) =>
-            Assert.Equal(ExtensionUtils.RemoveRedundantWhitespace(expected),
-                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(new FileInfo("Templates/_Test.cshtml"), model)));
+        private void Test_ParseImplementation(string expected, TestModel model)
+        {
+            var expectedWithRemoveRedundantWhitespace = ExtensionUtils.RemoveRedundantWhitespace(expected);
+
+            Assert.Equal(expectedWithRemoveRedundantWhitespace,
+                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse("Templates/_Test.cshtml", model)));
+            Assert.Equal(expectedWithRemoveRedundantWhitespace,
+                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(TestFileInfo, model)));
+        }
     }
 }
