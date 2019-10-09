@@ -4,7 +4,9 @@ BolgerUtils.EnumDisplay is a .NET Standard 2.0 library which provides a means to
 
 The EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.EnumDisplay namespace is imported via:
 
-`using BolgerUtils.EnumDisplay;`
+```C#
+using BolgerUtils.EnumDisplay;
+```
 
 Specific names can be set by using the .Add & .AddAll methods or by using the BolgerUtils.EnumDisplay.AddAttribute on an enum.
 
@@ -34,7 +36,7 @@ DefaultDisplay | Enum key | string
 
 Name | Parameters
 --- | ---
-EnumDisplayUtils | `bool cacheValueOnDisplay = true, Func<Enum, string> defaultDisplay = null`
+EnumDisplayUtils | bool cacheValueOnDisplay = true, Func\<Enum, string\>  defaultDisplay = null
 
 ## Properties
 
