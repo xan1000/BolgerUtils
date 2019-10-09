@@ -55,6 +55,7 @@
     <None Include="App.config" />
     <None Include="BolgerUtils.Framework.EnumDisplay.nuspec" />
     <None Include="packages.config" />
+    <None Include="Readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

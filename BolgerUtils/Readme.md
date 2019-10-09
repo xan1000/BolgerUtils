@@ -4,7 +4,7 @@ BolgerUtils is a .NET Standard 2.0 library which provides various re-useable (an
 
 `using BolgerUtils;`
 
-# Utils class
+# Utils static class
 
 ## Constants
 
@@ -33,30 +33,173 @@ Billion | int | `1000000000`
 
 ## Methods
 
-- **public static double From(int constant, double value)**
-- **public static int FromTens(int value)**
-- **public static int FromHundreds(int value)**
-- **public static int FromThousands(int value)**
-- **public static int FromMillions(int value)**
-- **public static int FromBillions(int value)**
-- **public static T GetEnumValue<T>(int value) where T : Enum**
-- **public static DateTime Max(DateTime a, DateTime b)**
-- **public static T Max<T>(T a, T b) where T : struct, IComparable<T>**
-- **public static DateTime Min(DateTime a, DateTime b)**
-- **public static T Min<T>(T a, T b) where T : struct, IComparable<T>**
-- **public static string RandomString(int length)**
-- **public static void Swap<T>(ref T a, ref T b)**
+Name | Parameters | Returns
+--- | --- | ---
+From | int constant, double value | double
+FromTens | int value | int
+FromHundreds | int value | int
+FromThousands | int value | int
+FromMillions | int value | int
+FromBillions | int value | int
+`GetEnumValue<T> where T : Enum` | int value | T
+Max | DateTime a, DateTime b | DateTime
+`Max<T> where T : struct, IComparable<T>` | T a, T b | T
+Min | DateTime a, DateTime b | DateTime
+`Min<T> where T : struct, IComparable<T>` | T a, T b | T
+RandomString | int length | string
+`Swap<T>` | ref T a, ref T b | void
 
-# Extension methods 
+# Extension methods
 
 ## Boolean
 
-- **public static string Checked(this bool item)**
-- **public static string Disabled(this bool item)**
-- **public static string Display(this bool item, string trueDisplay, string falseDisplay = Utils.Empty)**
-- **public static string HasError(this bool item)**
-- **public static string ReadOnlyCheckbox(this bool item)**
-- **public static string Selected(this bool item)**
-- **public static string YesOrNo(this bool item)**
+Name | Parameters | Returns
+--- | --- | ---
+Checked | this bool item | string
+Disabled | this bool item | string
+Display | this bool item, string trueDisplay, string falseDisplay = Utils.Empty | string
+HasError | this bool item | string
+ReadOnlyCheckbox | this bool item | string
+Selected | this bool item | string
+YesOrNo | this bool item | string
 
-...
+## Byte
+
+Name | Parameters | Returns
+--- | --- | ---
+ToHexString | this byte[] item | string
+
+## DateTime
+
+Name | Parameters | Returns
+--- | --- | ---
+AddWeeks | this DateTime item, double weeks | DateTime
+FindDayOfWeekBackward | this DateTime item, DayOfWeek dayOfWeek | DateTime
+FindDayOfWeekForward | this DateTime item, DayOfWeek dayOfWeek | DateTime
+Yesterday | this DateTime item | DateTime
+
+## DayOfWeek
+
+Name | Parameters | Returns
+--- | --- | ---
+OrderByDayOfWeekStartingOnMonday | `this IEnumerable<DayOfWeek> source` | `IEnumerable<DayOfWeek>`
+
+## Enum
+
+Name | Parameters | Returns
+--- | --- | ---
+ToInt | this Enum item | int
+ToValueString | this Enum item | string
+
+## Generic
+
+Name | Parameters | Returns
+--- | --- | ---
+`IsContainedIn<T>` | this T item, params T[] values | bool
+`IsNull<T> where T : class` | this T item | bool
+`ScalarToList<T>` | this T item | `List<T>`
+
+## ICollection
+
+Name | Parameters | Returns
+--- | --- | ---
+`AddAll<T>` | `this ICollection<T> item, IEnumerable<T> objects` | void
+`RemoveAll<T>` | `this ICollection<T> item, IEnumerable<T> objects` | bool
+`RemoveAll<T>` | `this ICollection<T> item, Func<T, bool> predicate` | bool
+
+## IEnumerable
+
+Name | Parameters | Returns
+--- | --- | ---
+`IsEmpty<T>` | `this IEnumerable<T> source` | bool
+`NotAll<T>` | `this IEnumerable<T> source, Func<T, bool> predicate` | bool
+`NotAny<T>` | `this IEnumerable<T> source` | bool
+`NotAny<T>` | `this IEnumerable<T> source, Func<T, bool> predicate` | bool
+`NotWhere<T>` | `this IEnumerable<T> source, Func<T, bool> predicate` | `IEnumerable<T>`
+`ToListToHashSet<T>` | `this IEnumerable<T> source` | `HashSet<T>`
+
+## List
+
+Name | Parameters | Returns
+--- | --- | ---
+`ToHashSet<T>` | `this List<T> item` | `HashSet<T>`
+
+## Numbers
+
+Name | Parameters | Returns
+--- | --- | ---
+IsInRange | this int item, int min, int max | bool
+IsInRange | this decimal item, decimal min, decimal max | bool
+IsInRange | this double item, double min, double max | bool
+IsInRange | this DateTime item, DateTime min, DateTime max | bool
+`IsInRange<T> where T : struct, IComparable<T>` | this T item, T min, T max | bool
+IsNegative | this int item | bool
+IsNegative | this decimal item | bool
+IsNegative | this double item | bool
+`IsNegative<T> where T : struct, IComparable<T>` | this T item | bool
+IsPositive | this int item | bool
+IsPositive | this decimal item | bool
+IsPositive | this double item | bool
+`IsPositive<T> where T : struct, IComparable<T>` | this T item | bool
+IsZero | this int item | bool
+IsZero | this decimal item | bool
+IsZero | this double item | bool
+`IsZero<T> where T : struct, IComparable<T>` | this T item | bool
+
+## Object
+
+Name | Parameters | Returns
+--- | --- | ---
+ToDynamic | this object item | dynamic
+
+## String
+
+Name | Parameters | Returns
+--- | --- | ---
+Abbreviate | this string item, int length | string
+GetLast8Digits | this string item | string
+IsEmpty | this string item | bool
+IsInvalidDecimal | this string item | bool
+IsInvalidDouble | this string item | bool
+IsInvalidEmail | this string item | bool
+IsInvalidInt | this string item | bool
+IsInvalidMoney | this string item | bool
+IsNullOrEmpty | this string item | bool
+IsNullOrWhiteSpace | this string item | bool
+IsValidDecimal | this string item | bool
+IsValidDouble | this string item | bool
+IsValidEmail | this string item | bool
+IsValidInt | this string item | bool
+IsValidMoney | this string item | bool
+Join | `this IEnumerable<string> source, string separator` | string
+Join | `this IEnumerable<string> source, char separator` | string
+NewLineToBr | this string item | string
+Remove | this string item, string value | string
+RemoveCarriageReturn | this string item | string
+RemoveDoubleQuotation | this string item | string
+RemoveNewLine | this string item | string
+RemoveRedundantWhitespace | this string item | string
+RemoveSingleQuotation | this string item | string
+RemoveSpaceAndSingleQuotation | this string item | string
+SpaceToNbsp | this string item | string
+ToBoolean | this string item | bool
+ToDbConnectionStringBuilder | this string item | DbConnectionStringBuilder
+ToDecimal | this string item | decimal
+ToDecimalOrNull | this string item | decimal?
+ToDouble | this string item | double
+ToDoubleOrNull | this string item | double?
+ToEmptyIfNullOrWhiteSpace | this string item | string
+ToFileInfo | this string item | FileInfo
+ToInt | this string item | int
+ToIntOrNull | this string item | int?
+ToNullIfNullOrWhiteSpace | this string item | string
+Truncate | this string item, int length | string
+UpperCaseFirstLetterAndInsertSpace-BeforeEveryProceedingUpperCaseLetter | this string item | string
+
+## TimeSpan
+
+Name | Parameters | Returns
+--- | --- | ---
+ToTimeString | this TimeSpan item, string format = "h:mm tt" | string
+
+# Examples
