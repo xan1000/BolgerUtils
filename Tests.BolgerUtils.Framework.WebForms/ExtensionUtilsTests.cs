@@ -12,13 +12,13 @@ namespace Tests.BolgerUtils.Framework.WebForms
         #region DropDownList
 
         [Fact]
-        public void Test_SelectedDayOfWeekOrNull()
+        public void Test_SelectedValueToDayOfWeekOrNull()
         {
             var dropDownList = new DropDownList();
 
-            Assert.Null(dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Null(dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.Items.Add(new ListItem("--- Please select ---", string.Empty));
-            Assert.Null(dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Null(dropDownList.SelectedValueToDayOfWeekOrNull());
 
             ListItem CreateListItem(DayOfWeek dayOfWeek) =>
                 new ListItem(dayOfWeek.ToString(), ((int) dayOfWeek).ToString());
@@ -31,30 +31,30 @@ namespace Tests.BolgerUtils.Framework.WebForms
                 CreateListItem(DayOfWeek.Sunday)
             });
             dropDownList.SelectedIndex = 0;
-            Assert.Null(dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Null(dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Monday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Monday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Tuesday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Tuesday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Wednesday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Wednesday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Thursday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Thursday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Friday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Friday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Saturday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Saturday, dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex++;
-            Assert.Equal(DayOfWeek.Sunday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Sunday, dropDownList.SelectedValueToDayOfWeekOrNull());
             
             dropDownList.Items.Clear();
             dropDownList.Items.AddRange(new[]
             {
                 CreateListItem(DayOfWeek.Monday), new ListItem("Test") { Selected = true }
             });
-            Assert.Null(dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Null(dropDownList.SelectedValueToDayOfWeekOrNull());
             dropDownList.SelectedIndex--;
-            Assert.Equal(DayOfWeek.Monday, dropDownList.SelectedDayOfWeekOrNull());
+            Assert.Equal(DayOfWeek.Monday, dropDownList.SelectedValueToDayOfWeekOrNull());
         }
 
         [Fact]

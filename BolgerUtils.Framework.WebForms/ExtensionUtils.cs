@@ -12,15 +12,15 @@ namespace BolgerUtils.Framework.WebForms
     {
         #region DropDownList
 
-        public static DayOfWeek? SelectedDayOfWeekOrNull(this DropDownList item)
+        public static DayOfWeek? SelectedValueToDayOfWeekOrNull(this DropDownList item)
         {
             var value = item.SelectedValueToIntOrNull();
 
-            return value.HasValue ? (DayOfWeek?) Utils.GetEnumValue<DayOfWeek>(value.Value) : null;
+            return value.HasValue ? Utils.GetEnumValue<DayOfWeek>(value.Value) : (DayOfWeek?) null;
         }
 
         public static int? SelectedValueToIntOrNull(this DropDownList item) =>
-            int.TryParse(item.SelectedValue, out var value) ? (int?) value : null;
+            int.TryParse(item.SelectedValue, out var value) ? value : (int?) null;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace BolgerUtils.Framework.WebForms
             $"{item.Url.Scheme}://{item.ServerVariables["Http_Host"]}{(appendForwardSlash ? "/" : string.Empty)}";
 
         public static int? GetFormIntOrNull(this HttpRequest item, string name) =>
-            int.TryParse(item.GetFormValue(name), out var value) ? (int?) value : null;
+            int.TryParse(item.GetFormValue(name), out var value) ? value : (int?) null;
 
         public static string GetFormValue(this HttpRequest item, string name) => item.Form[name];
         
@@ -70,11 +70,11 @@ namespace BolgerUtils.Framework.WebForms
         #region TextBox
         
         public static int? ToIntOrNull(this TextBox item) =>
-            int.TryParse(item.Text, out var value) ? (int?) value : null;
+            int.TryParse(item.Text, out var value) ? value : (int?) null;
 
         public static TimeSpan? ToTimeSpanOrNull(this TextBox item, string format = "h:mm tt") =>
             DateTime.TryParseExact(item.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None,
-                out var dateTime) ? (TimeSpan?) dateTime.TimeOfDay : null;
+                out var dateTime) ? dateTime.TimeOfDay : (TimeSpan?) null;
 
         #endregion
     }
