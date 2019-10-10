@@ -2,7 +2,7 @@
 
 BolgerUtils.Framework.EnumDisplay is a .NET Framework 4.8 library which provides a means to display enum values with defined names. Note a default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific name is not defined.
 
-The EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.Framework.EnumDisplay namespace is imported via:
+The BolgerUtils.Framework.EnumDisplay.EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.Framework.EnumDisplay namespace is imported via:
 
 ```C#
 using BolgerUtils.Framework.EnumDisplay;
