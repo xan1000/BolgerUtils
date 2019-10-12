@@ -31,9 +31,9 @@ SpaceChar | char | ' '
 Zero | int | 0
 Ten | int | 10
 Hundred | int | 100
-Thousand | int | 1000
-Million | int | 1000000
-Billion | int | 1000000000
+Thousand | int | 1,000
+Million | int | 1,000,000
+Billion | int | 1,000,000,000
 
 ## Methods
 
