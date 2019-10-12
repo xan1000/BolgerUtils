@@ -59,17 +59,17 @@ namespace Tests.BolgerUtils.Framework.Razor.Models
 {
     public class TestModel
     {
-        public TestModel(int loopCount = 0, string text = null, bool isRawString = false)
+        public TestModel(int loopCount = 0, string text = null, bool shouldOutputRawString = false)
         {
-            IsRawString = isRawString;
             LoopCount = loopCount;
             Text = text;
+            ShouldOutputRawString = shouldOutputRawString;
         }
 
         public bool IsDisplayed => LoopCount > 0;
         public int LoopCount { get; }
         public string Text { get; }
-        public bool IsRawString { get; }
+        public bool ShouldOutputRawString { get; }
     }
 }
 ```
@@ -98,7 +98,7 @@ namespace Tests.BolgerUtils.Framework.Razor.Models
             @if(Model.IsDisplayed) {
                 <ul>
                     @for(var i = 0; i < Model.LoopCount; i++) {
-                        <li>@if(Model.IsRawString) { @Model.Text.ToRawString() } else { @Model.Text }</li>
+                        <li>@if(Model.ShouldOutputRawString) { @Model.Text.ToRawString() } else { @Model.Text }</li>
                     }
                 </ul>
             }

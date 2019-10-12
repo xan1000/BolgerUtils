@@ -184,12 +184,9 @@ namespace Tests.BolgerUtils.Framework.Razor
 
         private void Test_ParseImplementation(string expected, TestModel model)
         {
-            var expectedWithRemoveRedundantWhitespace = ExtensionUtils.RemoveRedundantWhitespace(expected);
-
-            Assert.Equal(expectedWithRemoveRedundantWhitespace,
-                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse("Templates/_Test.cshtml", model)));
-            Assert.Equal(expectedWithRemoveRedundantWhitespace,
-                ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(TestFileInfo, model)));
+            expected = ExtensionUtils.RemoveRedundantWhitespace(expected);
+            Assert.Equal(expected, ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(TestPath, model)));
+            Assert.Equal(expected, ExtensionUtils.RemoveRedundantWhitespace(Utils.Parse(TestFileInfo, model)));
         }
     }
 }
