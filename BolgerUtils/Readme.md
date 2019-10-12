@@ -2,7 +2,9 @@
 
 BolgerUtils is a .NET Standard 2.0 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the BolgerUtils.Utils class and via extension methods available when the BolgerUtils namespace is imported via:
 
-```C#
+######
+
+```csharp
 using BolgerUtils;
 ```
 
@@ -12,7 +14,7 @@ using BolgerUtils;
 
 Name | Type | Value
 --- | --- | ---
-BrElement | string | \<br /\>
+BrElement | string | <br /\>
 CarriageReturn | string | \r
 CarriageReturnChar | char | \r
 DaysPerWeek | int | 7
@@ -43,13 +45,13 @@ FromHundreds | int value | int
 FromThousands | int value | int
 FromMillions | int value | int
 FromBillions | int value | int
-GetEnumValue\<T\> where T : Enum | int value | T
+GetEnumValue<T\> where T : Enum | int value | T
 Max | DateTime a, DateTime b | DateTime
-Max\<T\> where T : struct, IComparable\<T\> | T a, T b | T
+Max<T\> where T : struct, IComparable<T\> | T a, T b | T
 Min | DateTime a, DateTime b | DateTime
-Min\<T\> where T : struct, IComparable\<T\> | T a, T b | T
+Min<T\> where T : struct, IComparable<T\> | T a, T b | T
 RandomString | int length | string
-Swap\<T\> | ref T a, ref T b | void
+Swap<T\> | ref T a, ref T b | void
 
 # Extension methods
 
@@ -84,7 +86,7 @@ Yesterday | this DateTime item | DateTime
 
 Name | Parameters | Returns
 --- | --- | ---
-OrderByDayOfWeekStartingOnMonday | this IEnumerable\<DayOfWeek\> source | IEnumerable\<DayOfWeek\>
+OrderByDayOfWeekStartingOnMonday | this IEnumerable<DayOfWeek\> source | IEnumerable<DayOfWeek\>
 
 ## Enum
 
@@ -97,34 +99,34 @@ ToValueString | this Enum item | string
 
 Name | Parameters | Returns
 --- | --- | ---
-IsContainedIn\<T\> | this T item, params T[] values | bool
-IsNull\<T\> where T : class | this T item | bool
-ScalarToList\<T\> | this T item | List\<T\>
+IsContainedIn<T\> | this T item, params T[] values | bool
+IsNull<T\> where T : class | this T item | bool
+ScalarToList<T\> | this T item | List<T\>
 
 ## ICollection
 
 Name | Parameters | Returns
 --- | --- | ---
-AddAll\<T\> | this ICollection\<T\> item, IEnumerable\<T\> objects | void
-RemoveAll\<T\> | this ICollection\<T\> item, IEnumerable\<T\> objects | bool
-RemoveAll\<T\> | this ICollection\<T\> item, Func\<T, bool\> predicate | bool
+AddAll<T\> | this ICollection<T\> item, IEnumerable<T\> objects | void
+RemoveAll<T\> | this ICollection<T\> item, IEnumerable<T\> objects | bool
+RemoveAll<T\> | this ICollection<T\> item, Func<T, bool\> predicate | bool
 
 ## IEnumerable
 
 Name | Parameters | Returns
 --- | --- | ---
-IsEmpty\<T\> | this IEnumerable\<T\> source | bool
-NotAll\<T\> | this IEnumerable\<T\> source, Func\<T, bool\> predicate | bool
-NotAny\<T\> | this IEnumerable\<T\> source | bool
-NotAny\<T\> | this IEnumerable\<T\> source, Func\<T, bool\> predicate | bool
-NotWhere\<T\> | this IEnumerable\<T\> source, Func\<T, bool\> predicate | IEnumerable\<T\>
-ToListToHashSet\<T\> | this IEnumerable\<T\> source | HashSet\<T\>
+IsEmpty<T\> | this IEnumerable<T\> source | bool
+NotAll<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
+NotAny<T\> | this IEnumerable<T\> source | bool
+NotAny<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
+NotWhere<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | IEnumerable<T\>
+ToListToHashSet<T\> | this IEnumerable<T\> source | HashSet<T\>
 
 ## List
 
 Name | Parameters | Returns
 --- | --- | ---
-ToHashSet\<T\> | this List\<T\> item | HashSet\<T\>
+ToHashSet<T\> | this List<T\> item | HashSet<T\>
 
 ## Numbers
 
@@ -134,19 +136,19 @@ IsInRange | this int item, int min, int max | bool
 IsInRange | this decimal item, decimal min, decimal max | bool
 IsInRange | this double item, double min, double max | bool
 IsInRange | this DateTime item, DateTime min, DateTime max | bool
-IsInRange\<T\> where T : struct, IComparable\<T\> | this T item, T min, T max | bool
+IsInRange<T\> where T : struct, IComparable<T\> | this T item, T min, T max | bool
 IsNegative | this int item | bool
 IsNegative | this decimal item | bool
 IsNegative | this double item | bool
-IsNegative\<T\> where T : struct, IComparable\<T\> | this T item | bool
+IsNegative<T\> where T : struct, IComparable<T\> | this T item | bool
 IsPositive | this int item | bool
 IsPositive | this decimal item | bool
 IsPositive | this double item | bool
-IsPositive\<T\> where T : struct, IComparable\<T\> | this T item | bool
+IsPositive<T\> where T : struct, IComparable<T\> | this T item | bool
 IsZero | this int item | bool
 IsZero | this decimal item | bool
 IsZero | this double item | bool
-IsZero\<T\> where T : struct, IComparable\<T\> | this T item | bool
+IsZero<T\> where T : struct, IComparable<T\> | this T item | bool
 
 ## Object
 
@@ -173,8 +175,8 @@ IsValidDouble | this string item | bool
 IsValidEmail | this string item | bool
 IsValidInt | this string item | bool
 IsValidMoney | this string item | bool
-Join | this IEnumerable\<string\> source, string separator | string
-Join | this IEnumerable\<string\> source, char separator | string
+Join | this IEnumerable<string\> source, string separator | string
+Join | this IEnumerable<string\> source, char separator | string
 NewLineToBr | this string item | string
 Remove | this string item, string value | string
 RemoveCarriageReturn | this string item | string
