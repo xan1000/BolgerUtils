@@ -2,7 +2,9 @@
 
 BolgerUtils.Framework.WebForms is a .NET Framework 4.8 library which provides various reusable (and sometimes useful) methods aimed for use in a WebForm project. This functionality comes in two forms, as static methods found in the BolgerUtils.Framework.WebForms.Utils class and via extension methods available when the BolgerUtils.Framework.WebForms namespace is imported via:
 
-```C#
+#
+
+```csharp
 using BolgerUtils.Framework.WebForms;
 ```
 
@@ -42,8 +44,8 @@ HasError | this Label item, out bool isFormInvalid, string text = null | void
 
 Name | Parameters | Returns
 --- | --- | ---
-Get\<T\> | this HttpSessionState item, string key | T
-Set\<T\> | this HttpSessionState item, string key, T value | void
+Get<T\> | this HttpSessionState item, string key | T
+Set<T\> | this HttpSessionState item, string key, T value | void
 
 ## String
 
