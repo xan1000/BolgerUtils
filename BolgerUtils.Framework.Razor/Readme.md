@@ -78,7 +78,7 @@ namespace Tests.BolgerUtils.Framework.Razor.Models
 
 ######
 
-```html
+```csharp
 @using BolgerUtils.Framework.Razor
 @using Tests.BolgerUtils.Framework.Razor.Models
 @using RazorEngine.Templating
