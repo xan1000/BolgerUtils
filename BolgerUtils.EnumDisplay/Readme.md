@@ -4,7 +4,9 @@ BolgerUtils.EnumDisplay is a .NET Standard 2.0 library which provides a means to
 
 The BolgerUtils.EnumDisplay.EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.EnumDisplay namespace is imported via:
 
-```C#
+######
+
+```csharp
 using BolgerUtils.EnumDisplay;
 ```
 
