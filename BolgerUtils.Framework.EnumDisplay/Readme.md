@@ -38,7 +38,7 @@ DefaultDisplay | Enum key | string
 
 Name | Parameters
 --- | ---
-EnumDisplayUtils | bool cacheValueOnDisplay = true, Func\<Enum, string\> defaultDisplay = null
+EnumDisplayUtils | bool cacheValueOnDisplay = true, Func<Enum, string\> defaultDisplay = null
 
 ## Properties
 
