@@ -2,7 +2,9 @@
 
 BolgerUtils.Framework.Razor is a .NET Framework 4.8 library which streamlines how to excute a Razor tempalte. If the template has been used previously then its cached compiled version is used, additionally if the template is modified whilst the program is running the change will be detected and the updated file will be used. This functionality comes in two forms, as static methods found in the BolgerUtils.Framework.Razor.Utils class and via extension methods available when the BolgerUtils.Framework.Razor namespace is imported via:
 
-```C#
+######
+
+```csharp
 using BolgerUtils.Framework.Razor;
 ```
 
@@ -12,8 +14,8 @@ using BolgerUtils.Framework.Razor;
 
 Name | Parameters | Returns
 --- | --- | ---
-Parse\<T\> where T : class | string path, T model = null, DynamicViewBag viewBag = null | string
-Parse\<T\> where T : class | FileInfo fileInfo, T model = null, DynamicViewBag viewBag = null | string
+Parse<T\> where T : class | string path, T model = null, DynamicViewBag viewBag = null | string
+Parse<T\> where T : class | FileInfo fileInfo, T model = null, DynamicViewBag viewBag = null | string
 
 # Extension methods
 
@@ -21,8 +23,8 @@ Parse\<T\> where T : class | FileInfo fileInfo, T model = null, DynamicViewBag v
 
 Name | Parameters | Returns
 --- | --- | ---
-Parse\<T\> where T : class | this IRazorEngineService item, string path, T model = null, DynamicViewBag viewBag = null | string
-Parse\<T\> where T : class | this IRazorEngineService item, FileInfo fileInfo, T model = null, DynamicViewBag viewBag = null | string
+Parse<T\> where T : class | this IRazorEngineService item, string path, T model = null, DynamicViewBag viewBag = null | string
+Parse<T\> where T : class | this IRazorEngineService item, FileInfo fileInfo, T model = null, DynamicViewBag viewBag = null | string
 
 ## String
 
@@ -38,7 +40,9 @@ You can use ToRawString() if content in the template should not be encoded and p
 
 If the template file is used in a non ASP.NET project to get cshtml syntax highlighting and editor awareness in Visual Studio you can add the inherits directive at the top of the file:
 
-```C#
+######
+
+```csharp
 @inherits TemplateBase<TestModel>
 ```
 
@@ -48,7 +52,9 @@ Replace TestModel with the model class you intend to pass to the template.
 
 Model class:
 
-```C#
+######
+
+```csharp
 namespace Tests.BolgerUtils.Framework.Razor.Models
 {
     public class TestModel
@@ -69,6 +75,8 @@ namespace Tests.BolgerUtils.Framework.Razor.Models
 ```
 
 **_Test.cshtml** template file:
+
+######
 
 ```html
 @using BolgerUtils.Framework.Razor
@@ -106,7 +114,9 @@ namespace Tests.BolgerUtils.Framework.Razor.Models
 
 Execute template:
 
-```C#
+######
+
+```csharp
 var model = new TestModel(10, "Hello World");
 var output = Utils.Parse("_Test.cshtml", model);
 ```
