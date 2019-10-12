@@ -4,7 +4,9 @@ BolgerUtils.Framework.EnumDisplay is a .NET Framework 4.8 library which provides
 
 The BolgerUtils.Framework.EnumDisplay.EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.Framework.EnumDisplay namespace is imported via:
 
-```C#
+######
+
+```csharp
 using BolgerUtils.Framework.EnumDisplay;
 ```
 
