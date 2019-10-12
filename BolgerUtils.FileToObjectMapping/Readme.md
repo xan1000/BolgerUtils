@@ -16,9 +16,9 @@ Name | Parameters | Returns
 --- | --- | ---
 Clear | void | void
 IsRegistered | string path | bool
-Load\<T\> | string path | T
-Map\<T\> | string path, Func\<string, T\> fileContentToObject | T
-Register\<T\> where T : class | string path, Func\<string, T\> fileContentToObject | void
+Load<T\> | string path | T
+Map<T\> | string path, Func<string, T\> fileContentToObject | T
+Register<T\> where T : class | string path, Func<string, T\> fileContentToObject | void
 UnMap | string path | bool
 UnRegister | string path | bool
 
@@ -29,9 +29,9 @@ UnRegister | string path | bool
 Name | Parameters | Returns
 --- | --- | ---
 IsRegistered | string path | bool
-Load\<T\> | string path | T
-Map\<T\> | string path, Func\<string, T\> fileContentToObject | T
-Register\<T\> where T : class | string path, Func\<string, T\> fileContentToObject | void
+Load<T\> | string path | T
+Map<T\> | string path, Func<string, T\> fileContentToObject | T
+Register<T\> where T : class | string path, Func<string, T\> fileContentToObject | void
 UnMap | string path | bool
 UnRegister | string path | bool
 
