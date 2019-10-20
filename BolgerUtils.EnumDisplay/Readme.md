@@ -1,6 +1,6 @@
 # BolgerUtils.EnumDisplay
 
-BolgerUtils.EnumDisplay is a .NET Standard 2.0 library which provides a means to display enum values with defined names. Note a default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific name is not defined.
+BolgerUtils.EnumDisplay is a .NET Standard 2.0 library which provides a means to display enums with defined names. A default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific enum name is not defined.
 
 The BolgerUtils.EnumDisplay.EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.EnumDisplay namespace is imported via:
 
@@ -10,7 +10,7 @@ The BolgerUtils.EnumDisplay.EnumDisplayUtils class implements this functionality
 using BolgerUtils.EnumDisplay;
 ```
 
-Specific names can be set by using the .Add & .AddAll methods or by using the BolgerUtils.EnumDisplay.AddAttribute on an enum.
+Specific enum names can be defined by using the .Add & .AddAll methods or by using the BolgerUtils.EnumDisplay.AddAttribute on an enum.
 
 # AddAttribute class inherits Attribute
 
@@ -70,6 +70,146 @@ Remove | this Enum key | bool
 
 # Remarks
 
-Note the EnumDisplayUtils.DefaultDisplay method is used if null is passed as the defaultDisplay parameter to the EnumDisplayUtils constructor.
+The EnumDisplayUtils.DefaultDisplay method is used if null is passed as the defaultDisplay parameter to the EnumDisplayUtils constructor.
 
 # Examples
+
+Consider the following enum:
+
+######
+
+```csharp
+public enum EmailSentState
+{
+    PreparingToSend,
+    Sent,
+    Error
+}
+```
+
+Calling .ToString() on the enum will return the enum's name:
+
+######
+
+```csharp
+// Output is:
+// PreparingToSend
+// PreparingToSend
+Console.WriteLine(EmailSentState.PreparingToSend);
+Console.WriteLine(EmailSentState.PreparingToSend.ToString());
+```
+
+Calling .Display() on the enum:
+
+######
+
+```csharp
+// Output is:
+// Preparing To Send
+// Sent
+// Error
+Console.WriteLine(EmailSentState.PreparingToSend.Display());
+Console.WriteLine(EmailSentState.Sent.Display());
+Console.WriteLine(EmailSentState.Error.Display());
+```
+
+Displaying a specific name for an enum using .Add:
+
+######
+
+```csharp
+EmailSentState.PreparingToSend.Add("Preparing...");
+```
+
+######
+
+```csharp
+// Output is:
+// Preparing...
+Console.WriteLine(EmailSentState.PreparingToSend.Display());
+```
+
+Displaying a specific name for an enum using AddAttribute:
+
+######
+
+```csharp
+public enum EmailSentState
+{
+    PreparingToSend,
+    [Add("Email has been sent")]
+    Sent,
+    Error
+}
+```
+
+######
+
+```csharp
+// Output is:
+// Email has been sent
+Console.WriteLine(EmailSentState.Sent.Display());
+```
+
+The .Display() method also works with variables, for example:
+
+######
+
+```csharp
+public enum EmailSentState
+{
+    PreparingToSend,
+    [Add("Email has been sent")]
+    Sent,
+    Error
+}
+```
+
+######
+
+```csharp
+EmailSentState.PreparingToSend.Add("Preparing...");
+```
+
+######
+
+```csharp
+public void SomeMethod(EmailSentState state)
+{
+    Console.WriteLine(state.Display());
+}
+```
+
+######
+
+```csharp
+// Output is:
+// Preparing...
+// Email has been sent
+// Error
+x.SomeMethod(EmailSentState.PreparingToSend);
+x.SomeMethod(EmailSentState.Sent);
+x.SomeMethod(EmailSentState.Error);
+```
+
+Note the BolgerUtils extension method .ToValueString() for an enum can be used to display its value, this method is available when the BolgerUtils namespace is imported via:
+
+######
+
+```csharp
+using BolgerUtils;
+```
+
+Calling .ToValueString() on the enum:
+
+######
+
+```csharp
+// Output is:
+// 0
+// 1
+// 2
+Console.WriteLine(EmailSentState.PreparingToSend.ToValueString());
+Console.WriteLine(EmailSentState.Sent.ToValueString());
+Console.WriteLine(EmailSentState.Error.ToValueString());
+```
