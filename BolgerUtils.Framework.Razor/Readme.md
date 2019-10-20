@@ -1,6 +1,6 @@
 # BolgerUtils.Framework.Razor
 
-BolgerUtils.Framework.Razor is a .NET Framework 4.8 library which streamlines how to excute a Razor tempalte. If the template has been used previously then its cached compiled version is used, additionally if the template is modified whilst the program is running the change will be detected and the updated file will be used. This functionality comes in two forms, as static methods found in the BolgerUtils.Framework.Razor.Utils class and by extension methods available when the BolgerUtils.Framework.Razor namespace is imported via:
+BolgerUtils.Framework.Razor is a .NET Framework 4.8 library which streamlines how to excute a Razor tempalte. If the template has been executed previously then its cached compiled version is used, additionally if the template is modified whilst the program is running the change will be detected and the updated file will be used. This functionality comes in two forms, as static methods found in the BolgerUtils.Framework.Razor.Utils class and by extension methods available when the BolgerUtils.Framework.Razor namespace is imported via:
 
 ######
 
@@ -36,7 +36,7 @@ ToRawString | this string item | IEncodedString
 
 The recommended entry point is to use the Utils.Parse methods.
 
-You can use ToRawString() if content in the template should not be encoded and printed literally.
+You can use .ToRawString() if content in the template should not be encoded and printed literally.
 
 If the template file is used in a non ASP.NET project to get cshtml syntax highlighting and editor awareness in Visual Studio you can add the inherits directive at the top of the file:
 
