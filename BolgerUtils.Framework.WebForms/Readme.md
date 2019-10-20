@@ -60,5 +60,3 @@ Name | Parameters | Returns
 --- | --- | ---
 ToIntOrNull | this TextBox item | int?
 ToTimeSpanOrNull | this TextBox item, string format = "h:mm tt" | TimeSpan?
-
-# Examples
