@@ -175,7 +175,7 @@ var accounts = FileToObjectUtils.Map("test.json", JsonConvert.DeserializeObject<
 // Bsb: 123456, Account number: 12345678
 // Owner: Alice Test
 // Balance: $100.00
-// 
+//
 // Bsb: 654321, Account number: 87654321
 // Owner: Bob Test
 // Balance: $500.95
@@ -226,7 +226,7 @@ var accounts = FileToObjectUtils.Load<List<Account>>("test.json");
 // Bsb: 123456, Account number: 12345678
 // Owner: Alice Test
 // Balance: $100.00
-// 
+//
 // Bsb: 654321, Account number: 87654321
 // Owner: Bob Test
 // Balance: $500.95
