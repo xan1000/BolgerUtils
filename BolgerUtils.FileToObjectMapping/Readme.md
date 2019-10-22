@@ -37,7 +37,7 @@ UnRegister | string path | bool
 
 # Remarks
 
-The recommended entry point is to use the FileToObjectUtils.Map, FileToObjectUtils.Register & FileToObjectUtils.Load methods.
+The recommended entry point is to use the FileToObjectUtils.Map method and/or FileToObjectUtils.Register & FileToObjectUtils.Load methods.
 
 # Examples
 
