@@ -1,6 +1,6 @@
 # BolgerUtils
 
-BolgerUtils is a .NET Standard 2.0 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the BolgerUtils.Utils class and via extension methods available when the BolgerUtils namespace is imported via:
+BolgerUtils is a .NET Standard 2.0 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the **BolgerUtils.Utils** class and via extension methods available when the **BolgerUtils** namespace is imported via:
 
 ######
 
@@ -23,7 +23,7 @@ DoubleQuoteChar | char | "
 Empty | string |
 NewLine | string | \n
 NewLineChar | char | \n
-NonBreakingSpace | string | \&nbsp;
+NonBreakingSpace | string | &nbsp;
 SingleQuote | string | '
 SingleQuoteChar | char | '
 Space | string | " "
@@ -198,7 +198,7 @@ ToInt | this string item | int
 ToIntOrNull | this string item | int?
 ToNullIfNullOrWhiteSpace | this string item | string
 Truncate | this string item, int length | string
-UpperCaseFirstLetterAndInsertSpace-BeforeEveryProceedingUpperCaseLetter | this string item | string
+UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter | this string item | string
 
 ## TimeSpan
 
@@ -206,4 +206,16 @@ Name | Parameters | Returns
 --- | --- | ---
 ToTimeString | this TimeSpan item, string format = "h:mm tt" | string
 
-# Examples
+# Remarks
+
+**Utils.Empty** exists so it can be used in a context that requires a compile time constant instead of using **""** since **string.Empty** will not work in such a case, e.g., as a default value for a parameter.
+
+**RandomString** returns a string consisting of the following characters: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+
+The **.AddAll** and **.RemoveAll** methods can be used on regular collections but are intended to be used in conjunction with EntityFramework.
+
+The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnumerable<T>** source but are intended to be used in conjunction with EntityFramework.
+
+**.ToListToHashSet<T>** can be used on any **IEnumerable<T>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList** is used to execute the query which is then immediately converted to a HashSet via **.ToHashSet**.
+
+**.ToTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
