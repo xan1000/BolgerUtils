@@ -1701,25 +1701,46 @@ Amazon
         #region TimeSpan
 
         [Fact]
-        public void Test_ToTimeString()
+        public void Test_To24HourAndMinutesString()
         {
-            Test_ToTimeStringImplementation("12:00 AM", TimeSpan.Zero);
-            Test_ToTimeStringImplementation("00:00", TimeSpan.Zero, "HH:mm");
-            Test_ToTimeStringImplementation("1:00 PM", TimeSpan.FromHours(13));
-            Test_ToTimeStringImplementation("13", TimeSpan.FromHours(13), "HH");
-            Test_ToTimeStringImplementation("12:00 AM", TimeSpan.FromDays(1));
-            Test_ToTimeStringImplementation("00:00", TimeSpan.FromDays(1), "HH:mm");
-            Test_ToTimeStringImplementation("11:59 PM", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
-            Test_ToTimeStringImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)), "HH:mm");
-            Test_ToTimeStringImplementation("10:30 AM", new TimeSpan(10, 30, 0));
-            Test_ToTimeStringImplementation("8:15 PM", new TimeSpan(20, 15, 0));
+            Test_To24HourAndMinutesStringImplementation("00:00", TimeSpan.Zero);
+            Test_To24HourAndMinutesStringImplementation("13:00", TimeSpan.FromHours(13));
+            Test_To24HourAndMinutesStringImplementation("00:00", TimeSpan.FromDays(1));
+            Test_To24HourAndMinutesStringImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
+            Test_To24HourAndMinutesStringImplementation("10:30", new TimeSpan(10, 30, 0));
+            Test_To24HourAndMinutesStringImplementation("10:30", new TimeSpan(10, 30, 30));
+            Test_To24HourAndMinutesStringImplementation("20:15", new TimeSpan(20, 15, 0));
+            Test_To24HourAndMinutesStringImplementation("20:15", new TimeSpan(20, 15, 50));
+            Test_To24HourAndMinutesStringImplementation("12:30", new TimeSpan(1, 12, 30, 0));
         }
 
-        private void Test_ToTimeStringImplementation(string expected, TimeSpan item) =>
-            Assert.Equal(expected, item.ToTimeString());
+        private void Test_To24HourAndMinutesStringImplementation(string expected, TimeSpan item) =>
+            Assert.Equal(expected, item.To24HourAndMinutesString());
 
-        private void Test_ToTimeStringImplementation(string expected, TimeSpan item, string format) =>
-            Assert.Equal(expected, item.ToTimeString(format));
+        [Fact]
+        public void Test_ToDateTimeString()
+        {
+            Test_ToDateTimeStringImplementation("12:00 AM", TimeSpan.Zero);
+            Test_ToDateTimeStringImplementation("00:00", TimeSpan.Zero, "HH:mm");
+            Test_ToDateTimeStringImplementation("1:00 PM", TimeSpan.FromHours(13));
+            Test_ToDateTimeStringImplementation("13", TimeSpan.FromHours(13), "HH");
+            Test_ToDateTimeStringImplementation("12:00 AM", TimeSpan.FromDays(1));
+            Test_ToDateTimeStringImplementation("00:00", TimeSpan.FromDays(1), "HH:mm");
+            Test_ToDateTimeStringImplementation("11:59 PM", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
+            Test_ToDateTimeStringImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)), "HH:mm");
+            Test_ToDateTimeStringImplementation("10:30 AM", new TimeSpan(10, 30, 0));
+            Test_ToDateTimeStringImplementation("10:30 AM", new TimeSpan(10, 30, 30));
+            Test_ToDateTimeStringImplementation("8:15 PM", new TimeSpan(20, 15, 0));
+            Test_ToDateTimeStringImplementation("8:15 PM", new TimeSpan(20, 15, 50));
+            Test_ToDateTimeStringImplementation("12:30 PM", new TimeSpan(1, 12, 30, 0));
+            Test_ToDateTimeStringImplementation("12:30", new TimeSpan(1, 12, 30, 0), "HH:mm");
+        }
+
+        private void Test_ToDateTimeStringImplementation(string expected, TimeSpan item) =>
+            Assert.Equal(expected, item.ToDateTimeString());
+
+        private void Test_ToDateTimeStringImplementation(string expected, TimeSpan item, string format) =>
+            Assert.Equal(expected, item.ToDateTimeString(format));
 
         #endregion
     }

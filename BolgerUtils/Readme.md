@@ -204,7 +204,8 @@ UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter | this st
 
 Name | Parameters | Returns
 --- | --- | ---
-ToTimeString | this TimeSpan item, string format = "h:mm tt" | string
+To24HourAndMinutesString | this TimeSpan item | string
+ToDateTimeString | this TimeSpan item, string format = "h:mm tt" | string
 
 # Remarks
 
@@ -218,4 +219,4 @@ The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnu
 
 **.ToListToHashSet()** can be used on any **IEnumerable<T\>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList()** is used to execute the query which is then immediately converted to a **HashSet** via **.ToHashSet()**.
 
-**.ToTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+**.ToDateTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings

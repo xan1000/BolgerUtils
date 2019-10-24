@@ -406,7 +406,9 @@ namespace BolgerUtils
 
         #region TimeSpan
 
-        public static string ToTimeString(this TimeSpan item, string format = "h:mm tt") =>
+        public static string To24HourAndMinutesString(this TimeSpan item) => item.ToString(@"hh\:mm");
+
+        public static string ToDateTimeString(this TimeSpan item, string format = "h:mm tt") =>
             DateTime.MinValue.Add(item).ToString(format);
 
         #endregion
