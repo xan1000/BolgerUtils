@@ -2,7 +2,7 @@
 
 BolgerUtils.EnumDisplay is a .NET Standard 2.0 library which provides a means to display enums with defined names. A default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific enum name is not defined.
 
-The BolgerUtils.EnumDisplay.EnumDisplayUtils class implements this functionality and extension methods on the enum type are available when the BolgerUtils.EnumDisplay namespace is imported via:
+The **BolgerUtils.EnumDisplay.EnumDisplayUtils** class implements this functionality and extension methods on the enum type are available when the **BolgerUtils.EnumDisplay** namespace is imported via:
 
 ######
 
@@ -10,7 +10,7 @@ The BolgerUtils.EnumDisplay.EnumDisplayUtils class implements this functionality
 using BolgerUtils.EnumDisplay;
 ```
 
-Specific enum names can be defined by using the .Add & .AddAll methods or by using the BolgerUtils.EnumDisplay.AddAttribute on an enum.
+Specific enum names can be defined by using the **.Add** & **.AddAll** methods or by using the **BolgerUtils.EnumDisplay.AddAttribute** on an enum.
 
 # AddAttribute class inherits Attribute
 
@@ -70,7 +70,7 @@ Remove | this Enum key | bool
 
 # Remarks
 
-The EnumDisplayUtils.DefaultDisplay method is used if null is passed as the defaultDisplay parameter to the EnumDisplayUtils constructor.
+The **EnumDisplayUtils.DefaultDisplay** method is used if null is passed as the defaultDisplay parameter to the **EnumDisplayUtils** constructor.
 
 # Examples
 
@@ -87,7 +87,7 @@ public enum EmailSentState
 }
 ```
 
-Calling .ToString() on the enum will return the enum's name:
+Calling **.ToString()** on the enum will return the enum's name:
 
 ######
 
@@ -99,7 +99,7 @@ Console.WriteLine(EmailSentState.PreparingToSend);
 Console.WriteLine(EmailSentState.PreparingToSend.ToString());
 ```
 
-Calling .Display() on the enum:
+Calling **.Display()** on the enum:
 
 ######
 
@@ -113,7 +113,7 @@ Console.WriteLine(EmailSentState.Sent.Display());
 Console.WriteLine(EmailSentState.Error.Display());
 ```
 
-Displaying a specific name for an enum using .Add:
+Displaying a specific name for an enum using **.Add**:
 
 ######
 
@@ -129,7 +129,7 @@ EmailSentState.PreparingToSend.Add("Preparing...");
 Console.WriteLine(EmailSentState.PreparingToSend.Display());
 ```
 
-Displaying a specific name for an enum using AddAttribute:
+Displaying a specific name for an enum using **AddAttribute**:
 
 ######
 
@@ -151,7 +151,7 @@ public enum EmailSentState
 Console.WriteLine(EmailSentState.Sent.Display());
 ```
 
-The .Display() method also works with variables, for example:
+The **.Display()** method also works with variables, for example:
 
 ######
 
@@ -192,7 +192,7 @@ x.SomeMethod(EmailSentState.Sent);
 x.SomeMethod(EmailSentState.Error);
 ```
 
-Note the BolgerUtils extension method .ToValueString() for an enum can be used to display its value, this method is available when the BolgerUtils namespace is imported via:
+Note the **.ToValueString()** extension method for an enum can be used to display its value, this method is available when the **BolgerUtils** namespace is imported via:
 
 ######
 
@@ -200,7 +200,7 @@ Note the BolgerUtils extension method .ToValueString() for an enum can be used t
 using BolgerUtils;
 ```
 
-Calling .ToValueString() on the enum:
+Calling **.ToValueString()** on the enum:
 
 ######
 

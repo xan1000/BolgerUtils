@@ -1,6 +1,14 @@
 # BolgerUtils.FileToObjectMapping
 
-BolgerUtils.FileToObjectMapping is a .NET Standard 2.0 library which provides a means to parse a files content and cache the result. If the file is modified the change will be detected with its updated content used. The BolgerUtils.FileToObjectMapping.FileToObject class implements this functionality and static methods within BolgerUtils.FileToObjectMapping.FileToObjectUtils are available to streamline its usage.
+BolgerUtils.FileToObjectMapping is a .NET Standard 2.0 library which provides a means to parse a files content and cache the result. If the file is modified the change will be detected with its updated content used. The **BolgerUtils.FileToObjectMapping.FileToObject** class implements this functionality and static methods from the **BolgerUtils.FileToObjectMapping.FileToObjectUtils** class are available to streamline its usage.
+
+These classes are available when the **BolgerUtils.FileToObjectMapping** namespace is imported via:
+
+######
+
+```csharp
+using BolgerUtils.FileToObjectMapping;
+```
 
 # FileToObject class
 
@@ -37,7 +45,7 @@ UnRegister | string path | bool
 
 # Remarks
 
-The recommended entry point is to use the FileToObjectUtils.Map method and/or FileToObjectUtils.Register & FileToObjectUtils.Load methods.
+The recommended entry point is to use the **FileToObjectUtils.Map** method and/or **FileToObjectUtils.Register** & **FileToObjectUtils.Load** methods.
 
 # Examples
 
@@ -85,7 +93,7 @@ Note the file is only opened and parsed if its content has changed, otherwise an
 
 ### Using Register & Load methods
 
-If you don't want to repeat the mapping logic passed as Map's 2nd parameter this can be done by using the Register & Load methods.
+If you don't want to repeat the processing logic passed as the 2nd parameter to **.Map** this can be done by using the **.Register** & **.Load** methods.
 
 ######
 
@@ -209,7 +217,7 @@ Again the file is only opened and parsed if its content has changed, otherwise a
 
 ### Using Register & Load methods
 
-Again if you don't want to repeat the mapping logic as Map's 2nd parameter this can be done by using the Register & Load methods.
+Again if you don't want to repeat the processing logic passed as the 2nd parameter to **.Map** this can be done by using the **.Register** & **.Load** methods.
 
 ######
 

@@ -1,6 +1,6 @@
 # BolgerUtils.Framework.WebForms
 
-BolgerUtils.Framework.WebForms is a .NET Framework 4.8 library which provides various reusable (and sometimes useful) methods aimed for use in a WebForm project. This functionality comes in two forms, as static methods found in the BolgerUtils.Framework.WebForms.Utils class and via extension methods available when the BolgerUtils.Framework.WebForms namespace is imported via:
+BolgerUtils.Framework.WebForms is a .NET Framework 4.8 library which provides various reusable (and sometimes useful) methods aimed for use in a WebForm project. This functionality comes in two forms, as static methods found in the **BolgerUtils.Framework.WebForms.Utils** class and via extension methods available when the **BolgerUtils.Framework.WebForms** namespace is imported via:
 
 ######
 
