@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Matthew Bolger</Authors>
-    <Version>1.9.5</Version>
+    <Version>2.0.1</Version>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>File Object Mapping</PackageTags>
-    <Description>BolgerUtils.FileToObjectMapping</Description>
+    <Description>See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</Description>
     <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="1.9.5" />
+    <PackageReference Include="BolgerUtils" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
