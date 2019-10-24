@@ -25,4 +25,4 @@ ToSqlConnectionStringBuilder | this string item | SqlConnectionStringBuilder
 
 # Remarks
 
-**.LogSql** writes the SQL EntityFramework executes to System.Diagnostics.Debug.
+**.LogSql** writes the SQL EntityFramework executes to **System.Diagnostics.Debug**.

@@ -214,8 +214,8 @@ ToTimeString | this TimeSpan item, string format = "h:mm tt" | string
 
 The **.AddAll** and **.RemoveAll** methods can be used on regular collections but are intended to be used in conjunction with EntityFramework.
 
-The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnumerable<T>** source but are intended to be used in conjunction with EntityFramework.
+The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnumerable<T\>** source but are intended to be used in conjunction with EntityFramework.
 
-**.ToListToHashSet<T>** can be used on any **IEnumerable<T>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList** is used to execute the query which is then immediately converted to a HashSet via **.ToHashSet**.
+**.ToListToHashSet()** can be used on any **IEnumerable<T\>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList()** is used to execute the query which is then immediately converted to a **HashSet** via **.ToHashSet()**.
 
 **.ToTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
