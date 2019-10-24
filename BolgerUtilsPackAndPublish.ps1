@@ -101,7 +101,7 @@ function Pack
     Write-Host "--- Packing: $($option) ---"
     Write-Host
 
-    Remove-Item "$($option).1.*.nupkg"
+    Remove-Item "$($option).*.nupkg"
 
     $csprojPath = "./$($option)/$($option).csproj"
     if($isFramework)
@@ -131,7 +131,7 @@ function Publish
     Write-Host "--- Publishing: $($option) ---"
     Write-Host
 
-    $packages = @(Get-Item "$($option).1.*.nupkg")
+    $packages = @(Get-Item "$($option).*.nupkg")
     if($packages.Length -ne 1)
     {
         throw
