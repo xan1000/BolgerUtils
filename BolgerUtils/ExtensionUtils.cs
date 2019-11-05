@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -69,6 +70,34 @@ namespace BolgerUtils
         
         public static DateTime FindDayOfWeekForward(this DateTime item, DayOfWeek dayOfWeek) =>
             item.FindDayOfWeek(dayOfWeek, true);
+
+        public static bool IsDayInFuture(this DateTime a, DateTime b) => a.Date.IsInFuture(b.Date);
+
+        public static bool IsDayInFutureOrToday(this DateTime a, DateTime b) => a.Date.IsInFutureOrNow(b.Date);
+
+        public static bool IsDayInPast(this DateTime a, DateTime b) => a.Date.IsInPast(b.Date);
+        
+        public static bool IsDayInPastOrToday(this DateTime a, DateTime b) => a.Date.IsInPastOrNow(b.Date);
+
+        public static bool IsInFuture(this DateTime a, DateTime b)
+        {
+            if(a.Kind != b.Kind)
+                throw new ArgumentException("DateTime.Kind's do not match");
+
+            return a > b;
+        }
+
+        public static bool IsInFutureOrNow(this DateTime a, DateTime b) => a.IsInFuture(b) || a == b;
+
+        public static bool IsInPast(this DateTime a, DateTime b)
+        {
+            if(a.Kind != b.Kind)
+                throw new ArgumentException("DateTime.Kind's do not match");
+
+            return a < b;
+        }
+
+        public static bool IsInPastOrNow(this DateTime a, DateTime b) => a.IsInPast(b) || a == b;
 
         public static DateTime Yesterday(this DateTime item) => item.AddDays(-1);
 
