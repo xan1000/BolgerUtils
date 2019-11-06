@@ -111,6 +111,246 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
+        public void Test_IsDayInFuture()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsDayInFutureImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsDayInFutureImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsDayInFuture(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsDayInFuture(date));
+        }
+
+        private void Test_IsDayInFutureImplementation(DateTime date)
+        {
+            Assert.False(date.IsDayInFuture(date));
+            Assert.False(date.IsDayInFuture(date.AddDays(0.1)));
+            Assert.False(date.IsDayInFuture(date.AddDays(1)));
+            Assert.False(date.IsDayInFuture(date.AddDays(5)));
+            Assert.False(date.IsDayInFuture(date.AddDays(-0.1)));
+            Assert.True(date.IsDayInFuture(date.AddDays(-1)));
+            Assert.True(date.IsDayInFuture(date.AddDays(-5)));
+            Assert.False(date.AddDays(0.1).IsDayInFuture(date));
+            Assert.True(date.AddDays(1).IsDayInFuture(date));
+            Assert.True(date.AddDays(5).IsDayInFuture(date));
+            Assert.False(date.AddDays(-0.1).IsDayInFuture(date));
+            Assert.False(date.AddDays(-1).IsDayInFuture(date));
+            Assert.False(date.AddDays(-5).IsDayInFuture(date));
+        }
+
+        [Fact]
+        public void Test_IsDayInFutureOrToday()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsDayInFutureOrTodayImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsDayInFutureOrTodayImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsDayInFutureOrToday(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsDayInFutureOrToday(date));
+        }
+
+        private void Test_IsDayInFutureOrTodayImplementation(DateTime date)
+        {
+            Assert.True(date.IsDayInFutureOrToday(date));
+            Assert.True(date.IsDayInFutureOrToday(date.AddDays(0.1)));
+            Assert.False(date.IsDayInFutureOrToday(date.AddDays(1)));
+            Assert.False(date.IsDayInFutureOrToday(date.AddDays(5)));
+            Assert.True(date.IsDayInFutureOrToday(date.AddDays(-0.1)));
+            Assert.True(date.IsDayInFutureOrToday(date.AddDays(-1)));
+            Assert.True(date.IsDayInFutureOrToday(date.AddDays(-5)));
+            Assert.True(date.AddDays(0.1).IsDayInFutureOrToday(date));
+            Assert.True(date.AddDays(1).IsDayInFutureOrToday(date));
+            Assert.True(date.AddDays(5).IsDayInFutureOrToday(date));
+            Assert.True(date.AddDays(-0.1).IsDayInFutureOrToday(date));
+            Assert.False(date.AddDays(-1).IsDayInFutureOrToday(date));
+            Assert.False(date.AddDays(-5).IsDayInFutureOrToday(date));
+        }
+
+        [Fact]
+        public void Test_IsDayInPast()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsDayInPastImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsDayInPastImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsDayInPast(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsDayInPast(date));
+        }
+
+        private void Test_IsDayInPastImplementation(DateTime date)
+        {
+            Assert.False(date.IsDayInPast(date));
+            Assert.False(date.IsDayInPast(date.AddDays(0.1)));
+            Assert.True(date.IsDayInPast(date.AddDays(1)));
+            Assert.True(date.IsDayInPast(date.AddDays(5)));
+            Assert.False(date.IsDayInPast(date.AddDays(-0.1)));
+            Assert.False(date.IsDayInPast(date.AddDays(-1)));
+            Assert.False(date.IsDayInPast(date.AddDays(-5)));
+            Assert.False(date.AddDays(0.1).IsDayInPast(date));
+            Assert.False(date.AddDays(1).IsDayInPast(date));
+            Assert.False(date.AddDays(5).IsDayInPast(date));
+            Assert.False(date.AddDays(-0.1).IsDayInPast(date));
+            Assert.True(date.AddDays(-1).IsDayInPast(date));
+            Assert.True(date.AddDays(-5).IsDayInPast(date));
+        }
+
+        [Fact]
+        public void Test_IsDayInPastOrToday()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsDayInPastOrTodayImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsDayInPastOrTodayImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsDayInPastOrToday(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsDayInPastOrToday(date));
+        }
+
+        private void Test_IsDayInPastOrTodayImplementation(DateTime date)
+        {
+            Assert.True(date.IsDayInPastOrToday(date));
+            Assert.True(date.IsDayInPastOrToday(date.AddDays(0.1)));
+            Assert.True(date.IsDayInPastOrToday(date.AddDays(1)));
+            Assert.True(date.IsDayInPastOrToday(date.AddDays(5)));
+            Assert.True(date.IsDayInPastOrToday(date.AddDays(-0.1)));
+            Assert.False(date.IsDayInPastOrToday(date.AddDays(-1)));
+            Assert.False(date.IsDayInPastOrToday(date.AddDays(-5)));
+            Assert.True(date.AddDays(0.1).IsDayInPastOrToday(date));
+            Assert.False(date.AddDays(1).IsDayInPastOrToday(date));
+            Assert.False(date.AddDays(5).IsDayInPastOrToday(date));
+            Assert.True(date.AddDays(-0.1).IsDayInPastOrToday(date));
+            Assert.True(date.AddDays(-1).IsDayInPastOrToday(date));
+            Assert.True(date.AddDays(-5).IsDayInPastOrToday(date));
+        }
+
+        [Fact]
+        public void Test_IsInFuture()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsInFutureImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsInFutureImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsInFuture(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsInFuture(date));
+        }
+
+        private void Test_IsInFutureImplementation(DateTime date)
+        {
+            Assert.False(date.IsInFuture(date));
+            Assert.False(date.IsInFuture(date.AddDays(0.1)));
+            Assert.False(date.IsInFuture(date.AddDays(1)));
+            Assert.False(date.IsInFuture(date.AddDays(5)));
+            Assert.True(date.IsInFuture(date.AddDays(-0.1)));
+            Assert.True(date.IsInFuture(date.AddDays(-1)));
+            Assert.True(date.IsInFuture(date.AddDays(-5)));
+            Assert.True(date.AddDays(0.1).IsInFuture(date));
+            Assert.True(date.AddDays(1).IsInFuture(date));
+            Assert.True(date.AddDays(5).IsInFuture(date));
+            Assert.False(date.AddDays(-0.1).IsInFuture(date));
+            Assert.False(date.AddDays(-1).IsInFuture(date));
+            Assert.False(date.AddDays(-5).IsInFuture(date));
+        }
+
+        [Fact]
+        public void Test_IsInFutureOrNow()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsInFutureOrNowImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsInFutureOrNowImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsInFutureOrNow(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsInFutureOrNow(date));
+        }
+
+        private void Test_IsInFutureOrNowImplementation(DateTime date)
+        {
+            Assert.True(date.IsInFutureOrNow(date));
+            Assert.False(date.IsInFutureOrNow(date.AddDays(0.1)));
+            Assert.False(date.IsInFutureOrNow(date.AddDays(1)));
+            Assert.False(date.IsInFutureOrNow(date.AddDays(5)));
+            Assert.True(date.IsInFutureOrNow(date.AddDays(-0.1)));
+            Assert.True(date.IsInFutureOrNow(date.AddDays(-1)));
+            Assert.True(date.IsInFutureOrNow(date.AddDays(-5)));
+            Assert.True(date.AddDays(0.1).IsInFutureOrNow(date));
+            Assert.True(date.AddDays(1).IsInFutureOrNow(date));
+            Assert.True(date.AddDays(5).IsInFutureOrNow(date));
+            Assert.False(date.AddDays(-0.1).IsInFutureOrNow(date));
+            Assert.False(date.AddDays(-1).IsInFutureOrNow(date));
+            Assert.False(date.AddDays(-5).IsInFutureOrNow(date));
+        }
+
+        [Fact]
+        public void Test_IsInPast()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsInPastImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsInPastImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsInPast(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsInPast(date));
+        }
+
+        private void Test_IsInPastImplementation(DateTime date)
+        {
+            Assert.False(date.IsInPast(date));
+            Assert.True(date.IsInPast(date.AddDays(0.1)));
+            Assert.True(date.IsInPast(date.AddDays(1)));
+            Assert.True(date.IsInPast(date.AddDays(5)));
+            Assert.False(date.IsInPast(date.AddDays(-0.1)));
+            Assert.False(date.IsInPast(date.AddDays(-1)));
+            Assert.False(date.IsInPast(date.AddDays(-5)));
+            Assert.False(date.AddDays(0.1).IsInPast(date));
+            Assert.False(date.AddDays(1).IsInPast(date));
+            Assert.False(date.AddDays(5).IsInPast(date));
+            Assert.True(date.AddDays(-0.1).IsInPast(date));
+            Assert.True(date.AddDays(-1).IsInPast(date));
+            Assert.True(date.AddDays(-5).IsInPast(date));
+        }
+        
+        [Fact]
+        public void Test_IsInPastOrNow()
+        {
+            var date = new DateTime(2019, 10, 30, 9, 30, 30);
+            Test_IsInPastOrNowImplementation(date);
+
+            var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
+            Test_IsInPastOrNowImplementation(dateUtc);
+
+            Assert.Throws<ArgumentException>(() => date.IsInPastOrNow(dateUtc));
+            Assert.Throws<ArgumentException>(() => dateUtc.IsInPastOrNow(date));
+        }
+
+        private void Test_IsInPastOrNowImplementation(DateTime date)
+        {
+            Assert.True(date.IsInPastOrNow(date));
+            Assert.True(date.IsInPastOrNow(date.AddDays(0.1)));
+            Assert.True(date.IsInPastOrNow(date.AddDays(1)));
+            Assert.True(date.IsInPastOrNow(date.AddDays(5)));
+            Assert.False(date.IsInPastOrNow(date.AddDays(-0.1)));
+            Assert.False(date.IsInPastOrNow(date.AddDays(-1)));
+            Assert.False(date.IsInPastOrNow(date.AddDays(-5)));
+            Assert.False(date.AddDays(0.1).IsInPastOrNow(date));
+            Assert.False(date.AddDays(1).IsInPastOrNow(date));
+            Assert.False(date.AddDays(5).IsInPastOrNow(date));
+            Assert.True(date.AddDays(-0.1).IsInPastOrNow(date));
+            Assert.True(date.AddDays(-1).IsInPastOrNow(date));
+            Assert.True(date.AddDays(-5).IsInPastOrNow(date));
+        }
+
+        [Fact]
         public void Test_Yesterday()
         {
             var date = DateTime.Today;
