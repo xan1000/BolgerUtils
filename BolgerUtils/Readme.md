@@ -80,6 +80,14 @@ Name | Parameters | Returns
 AddWeeks | this DateTime item, double weeks | DateTime
 FindDayOfWeekBackward | this DateTime item, DayOfWeek dayOfWeek | DateTime
 FindDayOfWeekForward | this DateTime item, DayOfWeek dayOfWeek | DateTime
+IsDayInFuture | this DateTime a, DateTime b | bool
+IsDayInFutureOrToday | this DateTime a, DateTime b | bool
+IsDayInPast | this DateTime a, DateTime b | bool
+IsDayInPastOrToday | this DateTime a, DateTime b | bool
+IsInFuture | this DateTime a, DateTime b | bool
+IsInFutureOrNow | this DateTime a, DateTime b | bool
+IsInPast | this DateTime a, DateTime b | bool
+IsInPastOrNow | this DateTime a, DateTime b | bool
 Yesterday | this DateTime item | DateTime
 
 ## DayOfWeek
