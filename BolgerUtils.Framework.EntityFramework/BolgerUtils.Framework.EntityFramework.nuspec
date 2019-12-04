@@ -11,6 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
-    <tags>utils EntityFramework</tags>
+    <tags>EntityFramework</tags>
   </metadata>
 </package>

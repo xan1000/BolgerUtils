@@ -7,10 +7,10 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <license type="expression">Apache-2.0</license>
-    <projectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</projectUrl>
+    <projectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.TimeZoneConverter/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
-    <tags>File Object Mapping</tags>
+    <tags>DateTime TimeZone TimeZoneInfo Converter</tags>
   </metadata>
 </package>

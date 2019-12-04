@@ -31,7 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.Razor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.Razor", "Tests.BolgerUtils.Framework.Razor\Tests.BolgerUtils.Framework.Razor.csproj", "{4866E5C0-6AE0-4022-B585-5314086D0A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping", "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping\Console.BolgerUtils.EnumDisplayAndFileToObjectMapping.csproj", "{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping", "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping\Console.BolgerUtils.EnumDisplayAndFileToObjectMapping.csproj", "{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.TimeZoneConverter", "BolgerUtils.TimeZoneConverter\BolgerUtils.TimeZoneConverter.csproj", "{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

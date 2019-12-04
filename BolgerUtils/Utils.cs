@@ -36,6 +36,18 @@ namespace BolgerUtils
 
         #endregion
 
+        public static List<DateTime> EachDay(DateTime startDate, DateTime endDate)
+        {
+            if(startDate > endDate)
+                throw new ArgumentException("startDate cannot be greater than endDate");
+
+            var days = new List<DateTime>((int) startDate.Subtract(endDate).TotalDays + 1);
+            for(var day = startDate; day <= endDate; day = day.AddDay())
+                days.Add(day);
+
+            return days;
+        }
+
         public static double From(int constant, double value) => constant * value;
         public static int FromTens(int value) => Ten * value;
         public static int FromHundreds(int value) => Hundred * value;

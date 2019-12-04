@@ -52,6 +52,8 @@ namespace BolgerUtils
 
         #region DateTime
         
+        public static DateTime AddDay(this DateTime item) => item.AddDays(1);
+
         public static DateTime AddWeeks(this DateTime item, double weeks) => item.AddDays(weeks * Utils.DaysPerWeek);
 
         private static DateTime FindDayOfWeek(this DateTime item, DayOfWeek dayOfWeek, bool forward)

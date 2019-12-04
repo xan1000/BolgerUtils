@@ -1,20 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Matthew Bolger</Authors>
-    <Version>2.0.2</Version>
+    <Description>See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.TimeZoneConverter/</Description>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageTags>File;Object;Mapping</PackageTags>
-    <Description>See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</Description>
-    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageTags>DateTime;TimeZone;TimeZoneInfo;Converter</PackageTags>
+    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.TimeZoneConverter/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BolgerUtils" Version="2.0.2" />
+    <PackageReference Include="BolgerUtils.EnumDisplay" Version="2.0.2" />
   </ItemGroup>
 
 </Project>
