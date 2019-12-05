@@ -39,6 +39,7 @@ Billion | int | 1,000,000,000
 
 Name | Parameters | Returns
 --- | --- | ---
+EachDay | DateTime startDate, DateTime endDate | List<DateTime>
 From | int constant, double value | double
 FromTens | int value | int
 FromHundreds | int value | int
@@ -77,6 +78,7 @@ ToHexString | this byte[] item | string
 
 Name | Parameters | Returns
 --- | --- | ---
+AddDay | this DateTime item | DateTime
 AddWeeks | this DateTime item, double weeks | DateTime
 FindDayOfWeekBackward | this DateTime item, DayOfWeek dayOfWeek | DateTime
 FindDayOfWeekForward | this DateTime item, DayOfWeek dayOfWeek | DateTime

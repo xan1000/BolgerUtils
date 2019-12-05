@@ -10,15 +10,15 @@ The **BolgerUtils.Framework.EnumDisplay.EnumDisplayUtils** class implements this
 using BolgerUtils.Framework.EnumDisplay;
 ```
 
-Specific enum names can be defined by using the **.Add** & **.AddAll** methods or by using the **BolgerUtils.Framework.EnumDisplay.AddAttribute** on an enum.
+Specific enum names can be defined by using the **.Add** & **.AddAll** methods or by using the **BolgerUtils.Framework.EnumDisplay.EnumDisplayAttribute** on an enum.
 
-# AddAttribute class inherits Attribute
+# EnumDisplayAttribute class inherits Attribute
 
 ## Constructors
 
 Name | Parameters
 --- | ---
-AddAttribute | string value
+EnumDisplayAttribute | string value
 
 ## Properties
 
@@ -129,7 +129,7 @@ EmailSentState.PreparingToSend.Add("Preparing...");
 Console.WriteLine(EmailSentState.PreparingToSend.Display());
 ```
 
-Displaying a specific name for an enum using **AddAttribute**:
+Displaying a specific name for an enum using **EnumDisplayAttribute**:
 
 ######
 
@@ -137,7 +137,7 @@ Displaying a specific name for an enum using **AddAttribute**:
 public enum EmailSentState
 {
     PreparingToSend,
-    [Add("Email has been sent")]
+    [EnumDisplay("Email has been sent")]
     Sent,
     Error
 }
@@ -159,7 +159,7 @@ The **.Display()** method also works with variables, for example:
 public enum EmailSentState
 {
     PreparingToSend,
-    [Add("Email has been sent")]
+    [EnumDisplay("Email has been sent")]
     Sent,
     Error
 }

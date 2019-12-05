@@ -30,7 +30,7 @@ namespace Console.BolgerUtils.EnumDisplayAndFileToObjectMapping
     public enum AccountType
     {
         RegularAccount = 10,
-        [Add("Savings Account (Custom)")]
+        [EnumDisplay("Savings Account (Custom)")]
         SavingsAccount = 20,
         CheckingAccount = 30
     }

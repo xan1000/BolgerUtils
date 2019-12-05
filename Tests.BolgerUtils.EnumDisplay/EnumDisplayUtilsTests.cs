@@ -11,7 +11,7 @@ namespace Tests.BolgerUtils.EnumDisplay
         Test,
         TestWithManyWords,
         TestCustomValue,
-        [Add(EnumDisplayUtilsTests.CustomAttributeValue)]
+        [EnumDisplay(EnumDisplayUtilsTests.CustomAttributeValue)]
         TestCustomValueWithAttribute
     }
 

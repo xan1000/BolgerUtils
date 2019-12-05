@@ -9,18 +9,18 @@ namespace BolgerUtils.Framework.EnumDisplay
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class AddAttribute : Attribute
+    public sealed class EnumDisplayAttribute : Attribute
     {
         public string Value { get; }
 
-        public AddAttribute(string value) => Value = value;
+        public EnumDisplayAttribute(string value) => Value = value;
     }
 
     public sealed class EnumDisplayUtils
     {
         public static string DefaultDisplay(Enum key)
         {
-            var addAttribute = key.GetAttributeOfType<AddAttribute>();
+            var addAttribute = key.GetAttributeOfType<EnumDisplayAttribute>();
 
             return addAttribute != null ? addAttribute.Value :
                 key.ToString().UpperCaseFirstLetterAndInsertSpaceBeforeEveryUpperCaseLetter();
