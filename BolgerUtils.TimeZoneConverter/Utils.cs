@@ -208,7 +208,7 @@ namespace BolgerUtils.TimeZoneConverter
             TimeZoneInfo.ConvertTimeToUtc(dateTime, sourceTimeZone);
 
         public static DateTime ConvertTimeFromTimeZoneToUtc(DateTime dateTime, string sourceTimeZoneID) =>
-            ConvertTimeFromTimeZoneToUtc(dateTime, FindSystemTimeZoneById(sourceTimeZoneID));
+            ConvertTimeFromTimeZoneToUtc(dateTime, FindSystemTimeZoneByID(sourceTimeZoneID));
 
         public static DateTime ConvertTimeFromTimeZoneToUtc(
             DateTime dateTime, SystemTimeZoneInfoID sourceTimeZoneID) =>
@@ -221,13 +221,13 @@ namespace BolgerUtils.TimeZoneConverter
             TimeZoneInfo.ConvertTimeFromUtc(dateTimeUtc, targetTimeZone);
 
         public static DateTime ConvertTimeFromUtcToTimeZone(DateTime dateTimeUtc, string targetTimeZoneID) =>
-            ConvertTimeFromUtcToTimeZone(dateTimeUtc, FindSystemTimeZoneById(targetTimeZoneID));
+            ConvertTimeFromUtcToTimeZone(dateTimeUtc, FindSystemTimeZoneByID(targetTimeZoneID));
 
         public static DateTime ConvertTimeFromUtcToTimeZone(
             DateTime dateTimeUtc, SystemTimeZoneInfoID targetTimeZoneID) =>
             ConvertTimeFromUtcToTimeZone(dateTimeUtc, targetTimeZoneID.Display());
 
-        private static TimeZoneInfo FindSystemTimeZoneById(string timeZoneID)
+        private static TimeZoneInfo FindSystemTimeZoneByID(string timeZoneID)
         {
             if(_timeZoneInfoDictionary.TryGetValue(timeZoneID, out var timeZoneInfo))
                 return timeZoneInfo;
@@ -241,7 +241,19 @@ namespace BolgerUtils.TimeZoneConverter
         public static DateTime GetTimeNowInTimeZone(TimeZoneInfo timeZone) =>
             ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, timeZone);
 
+        public static DateTime GetTimeNowInTimeZone(string timeZoneID) =>
+            GetTimeNowInTimeZone(FindSystemTimeZoneByID(timeZoneID));
+
+        public static DateTime GetTimeNowInTimeZone(SystemTimeZoneInfoID timeZoneID) =>
+            GetTimeNowInTimeZone(timeZoneID.Display());
+
         public static DateTime GetTimeTodayInTimeZone(TimeZoneInfo timeZone) => GetTimeNowInTimeZone(timeZone).Date;
+
+        public static DateTime GetTimeTodayInTimeZone(string timeZoneID) =>
+            GetTimeTodayInTimeZone(FindSystemTimeZoneByID(timeZoneID));
+
+        public static DateTime GetTimeTodayInTimeZone(SystemTimeZoneInfoID timeZoneID) =>
+            GetTimeTodayInTimeZone(timeZoneID.Display());
 
         public static DateTime ParseExactTimeFromDefaultTimeZoneToUtc(string value, string format) =>
             ParseExactTimeFromTimeZoneToUtc(value, format, DefaultTimeZone);
@@ -252,7 +264,7 @@ namespace BolgerUtils.TimeZoneConverter
                 DateTime.ParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None), sourceTimeZone);
 
         public static DateTime ParseExactTimeFromTimeZoneToUtc(string value, string format, string sourceTimeZoneID) =>
-            ParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneById(sourceTimeZoneID));
+            ParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneByID(sourceTimeZoneID));
 
         public static DateTime ParseExactTimeFromTimeZoneToUtc(
             string value, string format, SystemTimeZoneInfoID sourceTimeZoneID) =>
@@ -261,7 +273,7 @@ namespace BolgerUtils.TimeZoneConverter
         public static void SetDefaultTimeZone(TimeZoneInfo timeZone) => DefaultTimeZone = timeZone;
 
         public static void SetDefaultTimeZone(string timeZoneID) =>
-            SetDefaultTimeZone(FindSystemTimeZoneById(timeZoneID));
+            SetDefaultTimeZone(FindSystemTimeZoneByID(timeZoneID));
 
         public static void SetDefaultTimeZone(SystemTimeZoneInfoID timeZoneID) =>
             SetDefaultTimeZone(timeZoneID.Display());
@@ -281,7 +293,7 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static bool TryParseExactTimeFromTimeZoneToUtc(
             string value, string format, string sourceTimeZoneID, out DateTime result) =>
-            TryParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneById(sourceTimeZoneID), out result);
+            TryParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneByID(sourceTimeZoneID), out result);
 
         public static bool TryParseExactTimeFromTimeZoneToUtc(
             string value, string format, SystemTimeZoneInfoID sourceTimeZoneID, out DateTime result) =>
