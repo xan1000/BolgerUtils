@@ -9,13 +9,22 @@
     <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.EnumDisplay/</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>2.0.2</Version>
+    <Version>2.0.5</Version>
     <PackageTags>enum</PackageTags>
-    <FileVersion>2.0.1.0</FileVersion>
+    <FileVersion>2.0.5.0</FileVersion>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="2.0.2" />
+    <PackageReference Include="BolgerUtils" Version="2.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
