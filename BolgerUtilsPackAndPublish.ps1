@@ -9,7 +9,8 @@ Set-Variable Options -Option Constant -Value @(
     "BolgerUtils.Framework.EntityFramework",
     "BolgerUtils.Framework.EnumDisplay",
     "BolgerUtils.Framework.Razor",
-    "BolgerUtils.Framework.WebForms"
+    "BolgerUtils.Framework.WebForms",
+    "BolgerUtils.TimeZoneConverter"
 )
 
 function Main
