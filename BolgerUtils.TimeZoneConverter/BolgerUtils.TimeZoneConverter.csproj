@@ -14,8 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="2.0.2" />
-    <PackageReference Include="BolgerUtils.EnumDisplay" Version="2.0.2" />
+    <PackageReference Include="BolgerUtils" Version="2.0.5" />
+    <PackageReference Include="BolgerUtils.EnumDisplay" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>

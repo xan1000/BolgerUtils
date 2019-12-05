@@ -9,31 +9,31 @@ namespace BolgerUtils.TimeZoneConverter
     {
         // ReSharper disable IdentifierTypo
         DatelineStandardTime,
-        [Add("UTC-11")]
+        [EnumDisplay("UTC-11")]
         UTC11,
         AleutianStandardTime,
         HawaiianStandardTime,
         MarquesasStandardTime,
         AlaskanStandardTime,
-        [Add("UTC-09")]
+        [EnumDisplay("UTC-09")]
         UTC09,
-        [Add("Pacific Standard Time (Mexico)")]
+        [EnumDisplay("Pacific Standard Time (Mexico)")]
         PacificStandardTimeMexico,
-        [Add("UTC-08")]
+        [EnumDisplay("UTC-08")]
         UTC08,
         PacificStandardTime,
         UsMountainStandardTime,
-        [Add("Mountain Standard Time (Mexico)")]
+        [EnumDisplay("Mountain Standard Time (Mexico)")]
         MountainStandardTimeMexico,
         MountainStandardTime,
         CentralAmericaStandardTime,
         CentralStandardTime,
         EasterIslandStandardTime,
-        [Add("Central Standard Time (Mexico)")]
+        [EnumDisplay("Central Standard Time (Mexico)")]
         CentralStandardTimeMexico,
         CanadaCentralStandardTime,
         SaPacificStandardTime,
-        [Add("Eastern Standard Time (Mexico)")]
+        [EnumDisplay("Eastern Standard Time (Mexico)")]
         EasternStandardTimeMexico,
         EasternStandardTime,
         HaitiStandardTime,
@@ -48,7 +48,7 @@ namespace BolgerUtils.TimeZoneConverter
         PacificSaStandardTime,
         NewfoundlandStandardTime,
         TocantinsStandardTime,
-        [Add("E. South America Standard Time")]
+        [EnumDisplay("E. South America Standard Time")]
         ESouthAmericaStandardTime,
         SaEasternStandardTime,
         ArgentinaStandardTime,
@@ -57,30 +57,30 @@ namespace BolgerUtils.TimeZoneConverter
         MagallanesStandardTime,
         SaintPierreStandardTime,
         BahiaStandardTime,
-        [Add("UTC-02")]
+        [EnumDisplay("UTC-02")]
         UTC02,
-        [Add("Mid-Atlantic Standard Time")]
+        [EnumDisplay("Mid-Atlantic Standard Time")]
         MidAtlanticStandardTime,
         AzoresStandardTime,
         CapeVerdeStandardTime,
-        [Add("UTC")]
+        [EnumDisplay("UTC")]
         UTC,
         GmtStandardTime,
         GreenwichStandardTime,
         SaoTomeStandardTime,
         MoroccoStandardTime,
-        [Add("W. Europe Standard Time")]
+        [EnumDisplay("W. Europe Standard Time")]
         WEuropeStandardTime,
         CentralEuropeStandardTime,
         RomanceStandardTime,
         CentralEuropeanStandardTime,
-        [Add("W. Central Africa Standard Time")]
+        [EnumDisplay("W. Central Africa Standard Time")]
         WCentralAfricaStandardTime,
         JordanStandardTime,
         GtbStandardTime,
         MiddleEastStandardTime,
         EgyptStandardTime,
-        [Add("E. Europe Standard Time")]
+        [EnumDisplay("E. Europe Standard Time")]
         EEuropeStandardTime,
         SyriaStandardTime,
         WestBankStandardTime,
@@ -96,13 +96,13 @@ namespace BolgerUtils.TimeZoneConverter
         ArabStandardTime,
         BelarusStandardTime,
         RussianStandardTime,
-        [Add("E. Africa Standard Time")]
+        [EnumDisplay("E. Africa Standard Time")]
         EAfricaStandardTime,
         IranStandardTime,
         ArabianStandardTime,
         AstrakhanStandardTime,
         AzerbaijanStandardTime,
-        [Add("Russia Time Zone 3")]
+        [EnumDisplay("Russia Time Zone 3")]
         RussiaTimeZone3,
         MauritiusStandardTime,
         SaratovStandardTime,
@@ -123,30 +123,30 @@ namespace BolgerUtils.TimeZoneConverter
         MyanmarStandardTime,
         SeAsiaStandardTime,
         AltaiStandardTime,
-        [Add("W. Mongolia Standard Time")]
+        [EnumDisplay("W. Mongolia Standard Time")]
         WMongoliaStandardTime,
         NorthAsiaStandardTime,
-        [Add("N. Central Asia Standard Time")]
+        [EnumDisplay("N. Central Asia Standard Time")]
         NCentralAsiaStandardTime,
         TomskStandardTime,
         ChinaStandardTime,
         NorthAsiaEastStandardTime,
         SingaporeStandardTime,
-        [Add("W. Australia Standard Time")]
+        [EnumDisplay("W. Australia Standard Time")]
         WAustraliaStandardTime,
         TaipeiStandardTime,
         UlaanbaatarStandardTime,
-        [Add("Aus Central W. Standard Time")]
+        [EnumDisplay("Aus Central W. Standard Time")]
         AusCentralWStandardTime,
         TransbaikalStandardTime,
         TokyoStandardTime,
         NorthKoreaStandardTime,
         KoreaStandardTime,
         YakutskStandardTime,
-        [Add("Cen. Australia Standard Time")]
+        [EnumDisplay("Cen. Australia Standard Time")]
         CenAustraliaStandardTime,
         AusCentralStandardTime,
-        [Add("E. Australia Standard Time")]
+        [EnumDisplay("E. Australia Standard Time")]
         EAustraliaStandardTime,
         AusEasternStandardTime,
         WestPacificStandardTime,
@@ -154,21 +154,21 @@ namespace BolgerUtils.TimeZoneConverter
         VladivostokStandardTime,
         LordHoweStandardTime,
         BougainvilleStandardTime,
-        [Add("Russia Time Zone 10")]
+        [EnumDisplay("Russia Time Zone 10")]
         RussiaTimeZone10,
         MagadanStandardTime,
         NorfolkStandardTime,
         SakhalinStandardTime,
         CentralPacificStandardTime,
-        [Add("Russia Time Zone 11")]
+        [EnumDisplay("Russia Time Zone 11")]
         RussiaTimeZone11,
         NewZealandStandardTime,
-        [Add("UTC+12")]
+        [EnumDisplay("UTC+12")]
         UTC12,
         FijiStandardTime,
         KamchatkaStandardTime,
         ChathamIslandsStandardTime,
-        [Add("UTC+13")]
+        [EnumDisplay("UTC+13")]
         UTC13,
         TongaStandardTime,
         SamoaStandardTime,
