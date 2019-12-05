@@ -9,11 +9,20 @@
     <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
     <PackageTags>DateTime;TimeZone;TimeZoneInfo;Converter</PackageTags>
     <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.TimeZoneConverter/</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BolgerUtils" Version="2.0.2" />
     <PackageReference Include="BolgerUtils.EnumDisplay" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
