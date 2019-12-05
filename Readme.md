@@ -9,6 +9,7 @@ The packages available are:
 * [BolgerUtils](BolgerUtils/Readme.md)
 * [BolgerUtils.EnumDisplay](BolgerUtils.EnumDisplay/Readme.md)
 * [BolgerUtils.FileToObjectMapping](BolgerUtils.FileToObjectMapping/Readme.md)
+* [BolgerUtils.TimeZoneConverter](BolgerUtils.TimeZoneConverter/Readme.md)
 
 ### .NET Framework 4.8
 
