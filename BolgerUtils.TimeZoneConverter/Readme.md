@@ -4,147 +4,147 @@ BolgerUtils.TimeZoneConverter is a .NET Standard 2.0 library which provides...
 
 # SystemTimeZoneInfoID enum
 
-Name
+Name |
 ---
-DatelineStandardTime
-UTC11
-AleutianStandardTime
-HawaiianStandardTime
-MarquesasStandardTime
-AlaskanStandardTime
-UTC09
-PacificStandardTimeMexico
-UTC08
-PacificStandardTime
-UsMountainStandardTime
-MountainStandardTimeMexico
-MountainStandardTime
-CentralAmericaStandardTime
-CentralStandardTime
-EasterIslandStandardTime
-CentralStandardTimeMexico
-CanadaCentralStandardTime
-SaPacificStandardTime
-EasternStandardTimeMexico
-EasternStandardTime
-HaitiStandardTime
-CubaStandardTime
-UsEasternStandardTime
-TurksAndCaicosStandardTime
-ParaguayStandardTime
-AtlanticStandardTime
-VenezuelaStandardTime
-CentralBrazilianStandardTime
-SaWesternStandardTime
-PacificSaStandardTime
-NewfoundlandStandardTime
-TocantinsStandardTime
-ESouthAmericaStandardTime
-SaEasternStandardTime
-ArgentinaStandardTime
-GreenlandStandardTime
-MontevideoStandardTime
-MagallanesStandardTime
-SaintPierreStandardTime
-BahiaStandardTime
-UTC02
-MidAtlanticStandardTime
-AzoresStandardTime
-CapeVerdeStandardTime
-UTC
-GmtStandardTime
-GreenwichStandardTime
-SaoTomeStandardTime
-MoroccoStandardTime
-WEuropeStandardTime
-CentralEuropeStandardTime
-RomanceStandardTime
-CentralEuropeanStandardTime
-WCentralAfricaStandardTime
-JordanStandardTime
-GtbStandardTime
-MiddleEastStandardTime
-EgyptStandardTime
-EEuropeStandardTime
-SyriaStandardTime
-WestBankStandardTime
-SouthAfricaStandardTime
-FleStandardTime
-IsraelStandardTime
-KaliningradStandardTime
-SudanStandardTime
-LibyaStandardTime
-NamibiaStandardTime
-ArabicStandardTime
-TurkeyStandardTime
-ArabStandardTime
-BelarusStandardTime
-RussianStandardTime
-EAfricaStandardTime
-IranStandardTime
-ArabianStandardTime
-AstrakhanStandardTime
-AzerbaijanStandardTime
-RussiaTimeZone3
-MauritiusStandardTime
-SaratovStandardTime
-GeorgianStandardTime
-VolgogradStandardTime
-CaucasusStandardTime
-AfghanistanStandardTime
-WestAsiaStandardTime
-EkaterinburgStandardTime
-PakistanStandardTime
-QyzylordaStandardTime
-IndiaStandardTime
-SriLankaStandardTime
-NepalStandardTime
-CentralAsiaStandardTime
-BangladeshStandardTime
-OmskStandardTime
-MyanmarStandardTime
-SeAsiaStandardTime
-AltaiStandardTime
-WMongoliaStandardTime
-NorthAsiaStandardTime
-NCentralAsiaStandardTime
-TomskStandardTime
-ChinaStandardTime
-NorthAsiaEastStandardTime
-SingaporeStandardTime
-WAustraliaStandardTime
-TaipeiStandardTime
-UlaanbaatarStandardTime
-AusCentralWStandardTime
-TransbaikalStandardTime
-TokyoStandardTime
-NorthKoreaStandardTime
-KoreaStandardTime
-YakutskStandardTime
-CenAustraliaStandardTime
-AusCentralStandardTime
-EAustraliaStandardTime
-AusEasternStandardTime
-WestPacificStandardTime
-TasmaniaStandardTime
-VladivostokStandardTime
-LordHoweStandardTime
-BougainvilleStandardTime
-RussiaTimeZone10
-MagadanStandardTime
-NorfolkStandardTime
-SakhalinStandardTime
-CentralPacificStandardTime
-RussiaTimeZone11
-NewZealandStandardTime
-UTC12
-FijiStandardTime
-KamchatkaStandardTime
-ChathamIslandsStandardTime
-UTC13
-TongaStandardTime
-SamoaStandardTime
-LineIslandsStandardTime
+DatelineStandardTime |
+UTC11 |
+AleutianStandardTime |
+HawaiianStandardTime |
+MarquesasStandardTime |
+AlaskanStandardTime |
+UTC09 |
+PacificStandardTimeMexico |
+UTC08 |
+PacificStandardTime |
+UsMountainStandardTime |
+MountainStandardTimeMexico |
+MountainStandardTime |
+CentralAmericaStandardTime |
+CentralStandardTime |
+EasterIslandStandardTime |
+CentralStandardTimeMexico |
+CanadaCentralStandardTime |
+SaPacificStandardTime |
+EasternStandardTimeMexico |
+EasternStandardTime |
+HaitiStandardTime |
+CubaStandardTime |
+UsEasternStandardTime |
+TurksAndCaicosStandardTime |
+ParaguayStandardTime |
+AtlanticStandardTime |
+VenezuelaStandardTime |
+CentralBrazilianStandardTime |
+SaWesternStandardTime |
+PacificSaStandardTime |
+NewfoundlandStandardTime |
+TocantinsStandardTime |
+ESouthAmericaStandardTime |
+SaEasternStandardTime |
+ArgentinaStandardTime |
+GreenlandStandardTime |
+MontevideoStandardTime |
+MagallanesStandardTime |
+SaintPierreStandardTime |
+BahiaStandardTime |
+UTC02 |
+MidAtlanticStandardTime |
+AzoresStandardTime |
+CapeVerdeStandardTime |
+UTC |
+GmtStandardTime |
+GreenwichStandardTime |
+SaoTomeStandardTime |
+MoroccoStandardTime |
+WEuropeStandardTime |
+CentralEuropeStandardTime |
+RomanceStandardTime |
+CentralEuropeanStandardTime |
+WCentralAfricaStandardTime |
+JordanStandardTime |
+GtbStandardTime |
+MiddleEastStandardTime |
+EgyptStandardTime |
+EEuropeStandardTime |
+SyriaStandardTime |
+WestBankStandardTime |
+SouthAfricaStandardTime |
+FleStandardTime |
+IsraelStandardTime |
+KaliningradStandardTime |
+SudanStandardTime |
+LibyaStandardTime |
+NamibiaStandardTime |
+ArabicStandardTime |
+TurkeyStandardTime |
+ArabStandardTime |
+BelarusStandardTime |
+RussianStandardTime |
+EAfricaStandardTime |
+IranStandardTime |
+ArabianStandardTime |
+AstrakhanStandardTime |
+AzerbaijanStandardTime |
+RussiaTimeZone3 |
+MauritiusStandardTime |
+SaratovStandardTime |
+GeorgianStandardTime |
+VolgogradStandardTime |
+CaucasusStandardTime |
+AfghanistanStandardTime |
+WestAsiaStandardTime |
+EkaterinburgStandardTime |
+PakistanStandardTime |
+QyzylordaStandardTime |
+IndiaStandardTime |
+SriLankaStandardTime |
+NepalStandardTime |
+CentralAsiaStandardTime |
+BangladeshStandardTime |
+OmskStandardTime |
+MyanmarStandardTime |
+SeAsiaStandardTime |
+AltaiStandardTime |
+WMongoliaStandardTime |
+NorthAsiaStandardTime |
+NCentralAsiaStandardTime |
+TomskStandardTime |
+ChinaStandardTime |
+NorthAsiaEastStandardTime |
+SingaporeStandardTime |
+WAustraliaStandardTime |
+TaipeiStandardTime |
+UlaanbaatarStandardTime |
+AusCentralWStandardTime |
+TransbaikalStandardTime |
+TokyoStandardTime |
+NorthKoreaStandardTime |
+KoreaStandardTime |
+YakutskStandardTime |
+CenAustraliaStandardTime |
+AusCentralStandardTime |
+EAustraliaStandardTime |
+AusEasternStandardTime |
+WestPacificStandardTime |
+TasmaniaStandardTime |
+VladivostokStandardTime |
+LordHoweStandardTime |
+BougainvilleStandardTime |
+RussiaTimeZone10 |
+MagadanStandardTime |
+NorfolkStandardTime |
+SakhalinStandardTime |
+CentralPacificStandardTime |
+RussiaTimeZone11 |
+NewZealandStandardTime |
+UTC12 |
+FijiStandardTime |
+KamchatkaStandardTime |
+ChathamIslandsStandardTime |
+UTC13 |
+TongaStandardTime |
+SamoaStandardTime |
+LineIslandsStandardTime |
 
 # Utils static class
 
