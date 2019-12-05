@@ -1,9 +1,13 @@
-﻿using BolgerUtils.EnumDisplay;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using BolgerUtils.EnumDisplay;
 
 namespace BolgerUtils.TimeZoneConverter
 {
     public enum SystemTimeZoneInfoID
     {
+        // ReSharper disable IdentifierTypo
         DatelineStandardTime,
         [Add("UTC-11")]
         UTC11,
@@ -98,6 +102,7 @@ namespace BolgerUtils.TimeZoneConverter
         ArabianStandardTime,
         AstrakhanStandardTime,
         AzerbaijanStandardTime,
+        [Add("Russia Time Zone 3")]
         RussiaTimeZone3,
         MauritiusStandardTime,
         SaratovStandardTime,
@@ -149,11 +154,13 @@ namespace BolgerUtils.TimeZoneConverter
         VladivostokStandardTime,
         LordHoweStandardTime,
         BougainvilleStandardTime,
+        [Add("Russia Time Zone 10")]
         RussiaTimeZone10,
         MagadanStandardTime,
         NorfolkStandardTime,
         SakhalinStandardTime,
         CentralPacificStandardTime,
+        [Add("Russia Time Zone 11")]
         RussiaTimeZone11,
         NewZealandStandardTime,
         [Add("UTC+12")]
@@ -165,11 +172,119 @@ namespace BolgerUtils.TimeZoneConverter
         UTC13,
         TongaStandardTime,
         SamoaStandardTime,
-        LineIslandsStandardTim
+        LineIslandsStandardTime
+        // ReSharper restore IdentifierTypo
     }
 
     public static class Utils
     {
-        
+        private static readonly Dictionary<string, TimeZoneInfo> _timeZoneInfoDictionary =
+            new Dictionary<string, TimeZoneInfo>();
+
+        private static TimeZoneInfo _defaultTimeZone;
+        public static TimeZoneInfo DefaultTimeZone
+        {
+            get
+            {
+                if(_defaultTimeZone == null)
+                    throw new InvalidOperationException("The DefaultTimeZone has not been set.");
+                return _defaultTimeZone;
+            }
+            private set
+            {
+                if(_defaultTimeZone != null)
+                    throw new InvalidOperationException("The DefaultTimeZone cannot be changed once set.");
+                _defaultTimeZone = value;
+            }
+        }
+
+        public static DateTime TimeNowInDefaultTimeZone => GetTimeNowInTimeZone(DefaultTimeZone);
+        public static DateTime TimeTodayInDefaultTimeZone => GetTimeTodayInTimeZone(DefaultTimeZone);
+
+        public static DateTime ConvertTimeFromDefaultTimeZoneToUtc(DateTime dateTime) =>
+            ConvertTimeFromTimeZoneToUtc(dateTime, DefaultTimeZone);
+
+        public static DateTime ConvertTimeFromTimeZoneToUtc(DateTime dateTime, TimeZoneInfo sourceTimeZone) =>
+            TimeZoneInfo.ConvertTimeToUtc(dateTime, sourceTimeZone);
+
+        public static DateTime ConvertTimeFromTimeZoneToUtc(DateTime dateTime, string sourceTimeZoneID) =>
+            ConvertTimeFromTimeZoneToUtc(dateTime, FindSystemTimeZoneById(sourceTimeZoneID));
+
+        public static DateTime ConvertTimeFromTimeZoneToUtc(
+            DateTime dateTime, SystemTimeZoneInfoID sourceTimeZoneID) =>
+            ConvertTimeFromTimeZoneToUtc(dateTime, sourceTimeZoneID.Display());
+
+        public static DateTime ConvertTimeFromUtcToDefaultTimeZone(DateTime dateTimeUtc) =>
+            ConvertTimeFromUtcToTimeZone(dateTimeUtc, DefaultTimeZone);
+
+        public static DateTime ConvertTimeFromUtcToTimeZone(DateTime dateTimeUtc, TimeZoneInfo targetTimeZone) =>
+            TimeZoneInfo.ConvertTimeFromUtc(dateTimeUtc, targetTimeZone);
+
+        public static DateTime ConvertTimeFromUtcToTimeZone(DateTime dateTimeUtc, string targetTimeZoneID) =>
+            ConvertTimeFromUtcToTimeZone(dateTimeUtc, FindSystemTimeZoneById(targetTimeZoneID));
+
+        public static DateTime ConvertTimeFromUtcToTimeZone(
+            DateTime dateTimeUtc, SystemTimeZoneInfoID targetTimeZoneID) =>
+            ConvertTimeFromUtcToTimeZone(dateTimeUtc, targetTimeZoneID.Display());
+
+        private static TimeZoneInfo FindSystemTimeZoneById(string timeZoneID)
+        {
+            if(_timeZoneInfoDictionary.TryGetValue(timeZoneID, out var timeZoneInfo))
+                return timeZoneInfo;
+
+            timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZoneID);
+            _timeZoneInfoDictionary.Add(timeZoneID, timeZoneInfo);
+
+            return timeZoneInfo;
+        }
+
+        public static DateTime GetTimeNowInTimeZone(TimeZoneInfo timeZone) =>
+            ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, timeZone);
+
+        public static DateTime GetTimeTodayInTimeZone(TimeZoneInfo timeZone) => GetTimeNowInTimeZone(timeZone).Date;
+
+        public static DateTime ParseExactTimeFromDefaultTimeZoneToUtc(string value, string format) =>
+            ParseExactTimeFromTimeZoneToUtc(value, format, DefaultTimeZone);
+
+        public static DateTime ParseExactTimeFromTimeZoneToUtc(
+            string value, string format, TimeZoneInfo sourceTimeZone) =>
+            ConvertTimeFromTimeZoneToUtc(
+                DateTime.ParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None), sourceTimeZone);
+
+        public static DateTime ParseExactTimeFromTimeZoneToUtc(string value, string format, string sourceTimeZoneID) =>
+            ParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneById(sourceTimeZoneID));
+
+        public static DateTime ParseExactTimeFromTimeZoneToUtc(
+            string value, string format, SystemTimeZoneInfoID sourceTimeZoneID) =>
+            ParseExactTimeFromTimeZoneToUtc(value, format, sourceTimeZoneID.Display());
+
+        public static void SetDefaultTimeZone(TimeZoneInfo timeZone) => DefaultTimeZone = timeZone;
+
+        public static void SetDefaultTimeZone(string timeZoneID) =>
+            SetDefaultTimeZone(FindSystemTimeZoneById(timeZoneID));
+
+        public static void SetDefaultTimeZone(SystemTimeZoneInfoID timeZoneID) =>
+            SetDefaultTimeZone(timeZoneID.Display());
+
+        public static bool TryParseExactTimeFromDefaultTimeZoneToUtc(
+            string value, string format, out DateTime result) =>
+            TryParseExactTimeFromTimeZoneToUtc(value, format, DefaultTimeZone, out result);
+
+        public static bool TryParseExactTimeFromTimeZoneToUtc(
+            string value, string format, TimeZoneInfo sourceTimeZone, out DateTime result)
+        {
+            if(!DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                return false;
+            result = ConvertTimeFromTimeZoneToUtc(result, sourceTimeZone);
+            return true;
+        }
+
+        public static bool TryParseExactTimeFromTimeZoneToUtc(
+            string value, string format, string sourceTimeZoneID, out DateTime result) =>
+            TryParseExactTimeFromTimeZoneToUtc(value, format, FindSystemTimeZoneById(sourceTimeZoneID), out result);
+
+        public static bool TryParseExactTimeFromTimeZoneToUtc(
+            string value, string format, SystemTimeZoneInfoID sourceTimeZoneID, out DateTime result) =>
+            TryParseExactTimeFromTimeZoneToUtc(value, format, sourceTimeZoneID.Display(), out result);
     }
 }

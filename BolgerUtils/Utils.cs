@@ -39,7 +39,7 @@ namespace BolgerUtils
         public static List<DateTime> EachDay(DateTime startDate, DateTime endDate)
         {
             if(startDate > endDate)
-                throw new ArgumentException("startDate cannot be greater than endDate");
+                throw new ArgumentException("startDate cannot be greater than endDate.");
 
             var days = new List<DateTime>((int) startDate.Subtract(endDate).TotalDays + 1);
             for(var day = startDate; day <= endDate; day = day.AddDay())
@@ -59,7 +59,7 @@ namespace BolgerUtils
         {
             var enumValue = Enum.Parse(typeof(T), value.ToString());
             if(!Enum.IsDefined(typeof(T), enumValue))
-                throw new Exception();
+                throw new ArgumentException("value is not an enum of the type provided.");
 
             return (T) enumValue;
         }

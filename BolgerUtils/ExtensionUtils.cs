@@ -83,7 +83,7 @@ namespace BolgerUtils
         public static bool IsInFuture(this DateTime a, DateTime b)
         {
             if(a.Kind != b.Kind)
-                throw new ArgumentException("DateTime.Kind's do not match");
+                throw new ArgumentException("DateTime.Kind's do not match.");
 
             return a > b;
         }
@@ -93,7 +93,7 @@ namespace BolgerUtils
         public static bool IsInPast(this DateTime a, DateTime b)
         {
             if(a.Kind != b.Kind)
-                throw new ArgumentException("DateTime.Kind's do not match");
+                throw new ArgumentException("DateTime.Kind's do not match.");
 
             return a < b;
         }
@@ -195,7 +195,7 @@ namespace BolgerUtils
         public static bool IsInRange(this int item, int min, int max)
         {
             if(min > max)
-                throw new ArgumentException("min cannot be greater than max");
+                throw new ArgumentException("min cannot be greater than max.");
 
             return item >= min && item <= max;
         }
@@ -203,7 +203,7 @@ namespace BolgerUtils
         public static bool IsInRange(this decimal item, decimal min, decimal max)
         {
             if(min > max)
-                throw new ArgumentException("min cannot be greater than max");
+                throw new ArgumentException("min cannot be greater than max.");
 
             return item >= min && item <= max;
         }
@@ -211,7 +211,7 @@ namespace BolgerUtils
         public static bool IsInRange(this double item, double min, double max)
         {
             if(min > max)
-                throw new ArgumentException("min cannot be greater than max");
+                throw new ArgumentException("min cannot be greater than max.");
 
             return item >= min && item <= max;
         }
@@ -219,7 +219,7 @@ namespace BolgerUtils
         public static bool IsInRange(this DateTime item, DateTime min, DateTime max)
         {
             if(min > max)
-                throw new ArgumentException("min cannot be greater than max");
+                throw new ArgumentException("min cannot be greater than max.");
 
             return item >= min && item <= max;
         }
@@ -227,7 +227,7 @@ namespace BolgerUtils
         public static bool IsInRange<T>(this T item, T min, T max) where T : struct, IComparable<T>
         {
             if(min.CompareTo(max) > 0)
-                throw new ArgumentException("min cannot be greater than max");
+                throw new ArgumentException("min cannot be greater than max.");
 
             return item.CompareTo(min) >= 0 && item.CompareTo(max) <= 0;
         }
@@ -275,7 +275,7 @@ namespace BolgerUtils
             if(item.Length <= length)
                 return item;
             if(length <= abbreviation.Length)
-                throw new Exception();
+                throw new ArgumentException("length cannot be less than or equal to the abbreviation length.");
 
             return item.Truncate(length - abbreviation.Length) + abbreviation;
         }

@@ -29,7 +29,7 @@ namespace BolgerUtils.FileToObjectMapping
         {
             var fileInfo = path.ToFileInfo();
             if(!fileInfo.Exists)
-                throw new FileNotFoundException();
+                throw new FileNotFoundException(null, path);
 
             var key = GetKey(fileInfo);
             

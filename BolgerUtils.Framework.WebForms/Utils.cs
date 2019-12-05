@@ -10,7 +10,7 @@ namespace BolgerUtils.Framework.WebForms
         {
             var enumValue = Enum.Parse(typeof(T), value.ToString());
             if(!Enum.IsDefined(typeof(T), enumValue))
-                throw new Exception();
+                throw new ArgumentException("value is not an enum of the type provided.");
 
             return (T) enumValue;
         }
