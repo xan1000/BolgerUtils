@@ -159,17 +159,17 @@ namespace Tests.BolgerUtils
             Assert.Equal(TestType.Test2, Utils.GetEnumValue<TestType>(TestType.Test2.ToInt()));
             Assert.Equal(TestType.Test3, Utils.GetEnumValue<TestType>(TestType.Test3.ToInt()));
             Assert.NotEqual(TestType.Test1, Utils.GetEnumValue<TestType>(TestType.Test3.ToInt()));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestType>(-1));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestType>(TestType.Test1.ToInt() - 1));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestType>(TestType.Test3.ToInt() + 1));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestType>(-1));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestType>(TestType.Test1.ToInt() - 1));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestType>(TestType.Test3.ToInt() + 1));
 
             Assert.Equal(TestAnotherType.Test1, Utils.GetEnumValue<TestAnotherType>(TestAnotherType.Test1.ToInt()));
             Assert.Equal(TestAnotherType.Test2, Utils.GetEnumValue<TestAnotherType>(TestAnotherType.Test2.ToInt()));
             Assert.Equal(TestAnotherType.Test3, Utils.GetEnumValue<TestAnotherType>(TestAnotherType.Test3.ToInt()));
             Assert.NotEqual(TestAnotherType.Test1, Utils.GetEnumValue<TestAnotherType>(TestAnotherType.Test3.ToInt()));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestAnotherType>(0));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestType>(TestAnotherType.Test1.ToInt() - 1));
-            Assert.Throws<Exception>(() => Utils.GetEnumValue<TestType>(TestAnotherType.Test3.ToInt() + 1));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestAnotherType>(0));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestType>(TestAnotherType.Test1.ToInt() - 1));
+            Assert.Throws<ArgumentException>(() => Utils.GetEnumValue<TestType>(TestAnotherType.Test3.ToInt() + 1));
         }
 
         [Fact]

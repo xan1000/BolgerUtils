@@ -275,7 +275,8 @@ namespace BolgerUtils
             if(item.Length <= length)
                 return item;
             if(length <= abbreviation.Length)
-                throw new ArgumentException("length cannot be less than or equal to the abbreviation length.");
+                throw new ArgumentException("length cannot be less than or equal to the abbreviation length.",
+                    nameof(length));
 
             return item.Truncate(length - abbreviation.Length) + abbreviation;
         }

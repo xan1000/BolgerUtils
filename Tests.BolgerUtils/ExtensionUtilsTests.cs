@@ -1283,10 +1283,10 @@ namespace Tests.BolgerUtils
             const string item = "Hello";
             Assert.Equal(item, item.Abbreviate(5));
             Assert.Equal("H...", item.Abbreviate(4));
-            Assert.Throws<Exception>(() => item.Abbreviate(3));
-            Assert.Throws<Exception>(() => item.Abbreviate(2));
-            Assert.Throws<Exception>(() => item.Abbreviate(1));
-            Assert.Throws<Exception>(() => item.Abbreviate(0));
+            Assert.Throws<ArgumentException>(() => item.Abbreviate(3));
+            Assert.Throws<ArgumentException>(() => item.Abbreviate(2));
+            Assert.Throws<ArgumentException>(() => item.Abbreviate(1));
+            Assert.Throws<ArgumentException>(() => item.Abbreviate(0));
         }
 
         [Theory]
