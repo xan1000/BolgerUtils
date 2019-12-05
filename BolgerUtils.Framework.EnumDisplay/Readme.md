@@ -191,3 +191,7 @@ x.SomeMethod(EmailSentState.PreparingToSend);
 x.SomeMethod(EmailSentState.Sent);
 x.SomeMethod(EmailSentState.Error);
 ```
+
+# Attribution
+
+The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart

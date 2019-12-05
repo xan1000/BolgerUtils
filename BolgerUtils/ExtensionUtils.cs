@@ -52,8 +52,6 @@ namespace BolgerUtils
 
         #region DateTime
         
-        public static DateTime AddDay(this DateTime item) => item.AddDays(1);
-
         public static DateTime AddWeeks(this DateTime item, double weeks) => item.AddDays(weeks * Utils.DaysPerWeek);
 
         private static DateTime FindDayOfWeek(this DateTime item, DayOfWeek dayOfWeek, bool forward)
@@ -99,6 +97,8 @@ namespace BolgerUtils
         }
 
         public static bool IsInPastOrNow(this DateTime a, DateTime b) => a.IsInPast(b) || a == b;
+
+        public static DateTime Tomorrow(this DateTime item) => item.AddDays(1);
 
         public static DateTime Yesterday(this DateTime item) => item.AddDays(-1);
 

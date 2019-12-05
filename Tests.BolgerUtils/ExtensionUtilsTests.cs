@@ -72,16 +72,6 @@ namespace Tests.BolgerUtils
         #region DateTime
 
         [Fact]
-        public void Test_AddDay()
-        {
-            var date = DateTime.Today;
-            for(var i = 0; i < 10; i++, date = date.AddDays(1))
-            {
-                Assert.Equal(date.AddDays(1), date.AddDay());
-            }
-        }
-
-        [Fact]
         public void Test_AddWeeks()
         {
             var date = DateTime.Today;
@@ -361,12 +351,28 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
+        public void Test_Tomorrow()
+        {
+            var date = DateTime.Today;
+            for(var i = 0; i < 10; i++, date = date.AddDays(1))
+            {
+                var tomorrow = date.Tomorrow();
+
+                Assert.Equal(date.AddDays(1), tomorrow);
+                Assert.Equal(1, tomorrow.Subtract(date).TotalDays);
+            }
+        }
+
+        [Fact]
         public void Test_Yesterday()
         {
             var date = DateTime.Today;
             for(var i = 0; i < 10; i++, date = date.AddDays(1))
             {
-                Assert.Equal(date.AddDays(-1), date.Yesterday());
+                var yesterday = date.Yesterday();
+
+                Assert.Equal(date.AddDays(-1), yesterday);
+                Assert.Equal(-1, yesterday.Subtract(date).TotalDays);
             }
         }
 

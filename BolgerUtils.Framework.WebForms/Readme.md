@@ -60,3 +60,7 @@ Name | Parameters | Returns
 --- | --- | ---
 ToIntOrNull | this TextBox item | int?
 ToTimeSpanOrNull | this TextBox item, string format = "h:mm tt" | TimeSpan?
+
+# Attribution
+
+The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart

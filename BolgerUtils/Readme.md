@@ -230,3 +230,7 @@ The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnu
 **.ToListToHashSet()** can be used on any **IEnumerable<T\>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList()** is used to execute the query which is then immediately converted to a **HashSet** via **.ToHashSet()**.
 
 **.ToDateTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+
+# Attribution
+
+The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
