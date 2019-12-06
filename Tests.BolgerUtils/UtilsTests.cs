@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BolgerUtils;
 using Xunit;
@@ -88,6 +89,31 @@ namespace Tests.BolgerUtils
         #endregion
 
         #endregion
+
+        [Fact]
+        public void Test_EachDay()
+        {
+            var startDate = DateTime.Now.Date;
+            var endDate = startDate.AddDays(30);
+            var expectedDays = new List<DateTime>();
+            for(var currentDate = startDate; currentDate <= endDate; currentDate = currentDate.Tomorrow())
+            {
+                expectedDays.Add(currentDate);
+            }
+
+            var days = Utils.EachDay(startDate, endDate);
+            Assert.Equal(expectedDays.Count, days.Count);
+            Assert.Equal(days.Count, days.Capacity);
+            Assert.Equal(expectedDays, days);
+
+            days = Utils.EachDay(startDate, startDate);
+            Assert.Single(days);
+            Assert.Equal(days.Count, days.Capacity);
+
+            Assert.Throws<ArgumentException>(() => Utils.EachDay(endDate, startDate));
+            Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate.Tomorrow(), startDate));
+            Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate, startDate.Yesterday()));
+        }
 
         [Theory]
         [InlineData(0, 0, 0)]

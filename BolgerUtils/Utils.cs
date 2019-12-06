@@ -41,9 +41,11 @@ namespace BolgerUtils
             if(startDate > endDate)
                 throw new ArgumentException("startDate cannot be greater than endDate.");
 
-            var days = new List<DateTime>((int) startDate.Subtract(endDate).TotalDays + 1);
+            var days = new List<DateTime>((int) endDate.Subtract(startDate).TotalDays + 1);
             for(var day = startDate; day <= endDate; day = day.Tomorrow())
+            {
                 days.Add(day);
+            }
 
             return days;
         }
