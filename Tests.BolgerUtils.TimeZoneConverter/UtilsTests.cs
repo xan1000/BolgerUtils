@@ -7,7 +7,7 @@ namespace Tests.BolgerUtils.TimeZoneConverter
 {
     public class UtilsTests
     {
-        // Note .NET treats AEST (Australian Eastern Standard Time) as AEDT (Australian Eastern Daylight Time).
+        // Note .NET automatically includes daylight savings in AEST (Australian Eastern Standard Time).
         private const string AustralianEasternStandardTime = "AUS Eastern Standard Time";
         internal const SystemTimeZoneInfoID AestTimeZoneID = SystemTimeZoneInfoID.AusEasternStandardTime;
         private static readonly TimeZoneInfo AestTimeZone =
@@ -16,10 +16,31 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         internal static readonly DateTime DateTimeAest = new DateTime(2019, 12, 6, 9, 30, 0);
         internal static readonly DateTime DateTimeUtc = new DateTime(2019, 12, 5, 22, 30, 0);
 
-        //public static TimeZoneInfo DefaultTimeZone
-        //public static DateTime TimeNowInDefaultTimeZone
-        //public static DateTime TimeTodayInDefaultTimeZone
-        //public void Test_ConvertTimeFromDefaultTimeZoneToUtc()
+        [Fact]
+        public void Test_TimeNowInDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.TimeNowInDefaultTimeZone);
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone),
+                Utils.TimeNowInDefaultTimeZone, TimeSpan.FromSeconds(1));
+        }
+
+        [Fact]
+        public void Test_TimeTodayInDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.TimeTodayInDefaultTimeZone);
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
+                Utils.TimeTodayInDefaultTimeZone);
+        }
+
+        [Fact]
+        public void Test_ConvertTimeFromDefaultTimeZoneToUtc()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.ConvertTimeFromDefaultTimeZoneToUtc(DateTimeAest));
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromDefaultTimeZoneToUtc(DateTimeAest));
+        }
 
         [Fact]
         public void Test_ConvertTimeFromTimeZoneToUtc()
@@ -30,11 +51,68 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         }
 
         //ConvertTimeFromUtcToDefaultTimeZone
-        //GetTimeNowInTimeZone
-        //GetTimeTodayInTimeZone
+
+        [Fact]
+        public void Test_GetTimeNowInTimeZone()
+        {
+            var dateTimeUtc = DateTime.UtcNow;
+
+            // TODO
+            //Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone),
+            //    Utils.GetTimeNowInTimeZone(AestTimeZoneID), TimeSpan.FromSeconds(1));
+        }
+
+        [Fact]
+        public void Test_GetTimeTodayInTimeZone()
+        {
+            //Assert.Throws<InvalidOperationException>(() => Utils.TimeTodayInDefaultTimeZone);
+            //Utils.SetDefaultTimeZone(AestTimeZone);
+            //Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
+            //    Utils.TimeTodayInDefaultTimeZone);
+        }
+
         //ParseExactTimeFromDefaultTimeZoneToUtc
         //ParseExactTimeFromTimeZoneToUtc
-        //SetDefaultTimeZone
+
+        [Fact]
+        public void Test_GetTimeZone()
+        {
+            var timeZone = Utils.GetTimeZone(AustralianEasternStandardTime);
+
+            Assert.IsType<TimeZoneInfo>(timeZone);
+            Assert.Equal("AUS Eastern Standard Time", timeZone.StandardName);
+            Assert.Equal(TimeSpan.FromHours(10), timeZone.BaseUtcOffset);
+            Assert.True(timeZone.SupportsDaylightSavingTime);
+            Assert.Equal(timeZone, Utils.GetTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime));
+        }
+
+        [Fact]
+        public void Test_SetDefaultTimeZoneByTimeZone() =>
+            Test_SetDefaultTimeZoneImplementation(() => Utils.SetDefaultTimeZone(AestTimeZone));
+
+        [Fact]
+        public void Test_SetDefaultTimeZoneByTimeZoneID() => Test_SetDefaultTimeZoneImplementation(() =>
+            Utils.SetDefaultTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime));
+
+        [Fact]
+        public void Test_SetDefaultTimeZoneByTimeZoneString() =>
+            Test_SetDefaultTimeZoneImplementation(() => Utils.SetDefaultTimeZone(AustralianEasternStandardTime));
+
+        private void Test_SetDefaultTimeZoneImplementation(Action setDefaultTimeZone)
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.DefaultTimeZone);
+            Utils.SetDefaultTimeZone((TimeZoneInfo) null);
+            Assert.Throws<InvalidOperationException>(() => Utils.DefaultTimeZone);
+
+            setDefaultTimeZone();
+
+            Assert.NotNull(Utils.DefaultTimeZone);
+            Assert.Equal(AestTimeZone, Utils.DefaultTimeZone);
+            Assert.Throws<InvalidOperationException>(() => Utils.SetDefaultTimeZone(AestTimeZoneID));
+            Assert.Throws<InvalidOperationException>(() =>
+                Utils.SetDefaultTimeZone(SystemTimeZoneInfoID.EasternStandardTime));
+        }
+
         //TryParseExactTimeFromTimeZoneToUtc
 
         [Fact]

@@ -7,6 +7,7 @@ namespace BolgerUtils.TimeZoneConverter
 {
     public enum SystemTimeZoneInfoID
     {
+        // ReSharper disable UnusedMember.Global
         // ReSharper disable IdentifierTypo
         DatelineStandardTime,
         [EnumDisplay("UTC-11")]
@@ -174,6 +175,7 @@ namespace BolgerUtils.TimeZoneConverter
         SamoaStandardTime,
         LineIslandsStandardTime
         // ReSharper restore IdentifierTypo
+        // ReSharper restore UnusedMember.Global
     }
 
     public static class Utils
@@ -254,6 +256,9 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static DateTime GetTimeTodayInTimeZone(SystemTimeZoneInfoID timeZoneID) =>
             GetTimeTodayInTimeZone(timeZoneID.Display());
+
+        public static TimeZoneInfo GetTimeZone(string timeZoneID) => FindSystemTimeZoneByID(timeZoneID);
+        public static TimeZoneInfo GetTimeZone(SystemTimeZoneInfoID timeZoneID) => GetTimeZone(timeZoneID.Display());
 
         public static DateTime ParseExactTimeFromDefaultTimeZoneToUtc(string value, string format) =>
             ParseExactTimeFromTimeZoneToUtc(value, format, DefaultTimeZone);
