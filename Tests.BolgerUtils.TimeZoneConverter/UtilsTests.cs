@@ -10,29 +10,11 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         // Note .NET automatically includes daylight savings in AEST (Australian Eastern Standard Time).
         private const string AustralianEasternStandardTime = "AUS Eastern Standard Time";
         internal const SystemTimeZoneInfoID AestTimeZoneID = SystemTimeZoneInfoID.AusEasternStandardTime;
-        private static readonly TimeZoneInfo AestTimeZone =
+        internal static readonly TimeZoneInfo AestTimeZone =
             TimeZoneInfo.FindSystemTimeZoneById(AustralianEasternStandardTime);
 
         internal static readonly DateTime DateTimeAest = new DateTime(2019, 12, 6, 9, 30, 0);
         internal static readonly DateTime DateTimeUtc = new DateTime(2019, 12, 5, 22, 30, 0);
-
-        [Fact]
-        public void Test_TimeNowInDefaultTimeZone()
-        {
-            Assert.Throws<InvalidOperationException>(() => Utils.TimeNowInDefaultTimeZone);
-            Utils.SetDefaultTimeZone(AestTimeZone);
-            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone),
-                Utils.TimeNowInDefaultTimeZone, TimeSpan.FromSeconds(1));
-        }
-
-        [Fact]
-        public void Test_TimeTodayInDefaultTimeZone()
-        {
-            Assert.Throws<InvalidOperationException>(() => Utils.TimeTodayInDefaultTimeZone);
-            Utils.SetDefaultTimeZone(AestTimeZone);
-            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
-                Utils.TimeTodayInDefaultTimeZone);
-        }
 
         [Fact]
         public void Test_ConvertTimeFromDefaultTimeZoneToUtc()
@@ -50,29 +32,42 @@ namespace Tests.BolgerUtils.TimeZoneConverter
             Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromTimeZoneToUtc(DateTimeAest, AestTimeZoneID));
         }
 
-        //ConvertTimeFromUtcToDefaultTimeZone
+        [Fact]
+        public void Test_ConvertTimeFromUtcToDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.ConvertTimeFromUtcToDefaultTimeZone(DateTimeUtc));
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToDefaultTimeZone(DateTimeUtc));
+        }
+
+        [Fact]
+        public void Test_ConvertTimeFromUtcToTimeZone()
+        {
+            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AestTimeZone));
+            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AustralianEasternStandardTime));
+            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AestTimeZoneID));
+        }
 
         [Fact]
         public void Test_GetTimeNowInTimeZone()
         {
-            var dateTimeUtc = DateTime.UtcNow;
+            var dateTimeAest = Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone);
+            var precision = TimeSpan.FromSeconds(1);
 
-            // TODO
-            //Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone),
-            //    Utils.GetTimeNowInTimeZone(AestTimeZoneID), TimeSpan.FromSeconds(1));
+            Assert.Equal(dateTimeAest, Utils.GetTimeNowInTimeZone(AestTimeZone), precision);
+            Assert.Equal(dateTimeAest, Utils.GetTimeNowInTimeZone(AustralianEasternStandardTime), precision);
+            Assert.Equal(dateTimeAest, Utils.GetTimeNowInTimeZone(AestTimeZoneID), precision);
         }
 
         [Fact]
         public void Test_GetTimeTodayInTimeZone()
         {
-            //Assert.Throws<InvalidOperationException>(() => Utils.TimeTodayInDefaultTimeZone);
-            //Utils.SetDefaultTimeZone(AestTimeZone);
-            //Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
-            //    Utils.TimeTodayInDefaultTimeZone);
-        }
+            var dateTimeAest = Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date;
 
-        //ParseExactTimeFromDefaultTimeZoneToUtc
-        //ParseExactTimeFromTimeZoneToUtc
+            Assert.Equal(dateTimeAest, Utils.GetTimeTodayInTimeZone(AestTimeZone));
+            Assert.Equal(dateTimeAest, Utils.GetTimeTodayInTimeZone(AustralianEasternStandardTime));
+            Assert.Equal(dateTimeAest, Utils.GetTimeTodayInTimeZone(AestTimeZoneID));
+        }
 
         [Fact]
         public void Test_GetTimeZone()
@@ -87,18 +82,35 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         }
 
         [Fact]
-        public void Test_SetDefaultTimeZoneByTimeZone() =>
-            Test_SetDefaultTimeZoneImplementation(() => Utils.SetDefaultTimeZone(AestTimeZone));
+        public void Test_MultipleTimeZones()
+        {
+            var dateTimeNewYork = new DateTime(2019, 12, 5, 17, 30, 0);
+
+            Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromTimeZoneToUtc(DateTimeAest, AestTimeZoneID));
+            Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, "Eastern Standard Time"));
+            Assert.Equal(DateTimeUtc,
+                Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, SystemTimeZoneInfoID.EasternStandardTime));
+            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(
+                Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, SystemTimeZoneInfoID.EasternStandardTime),
+                AestTimeZoneID));
+        }
+
+        //ParseExactTimeFromDefaultTimeZoneToUtc
+        //ParseExactTimeFromTimeZoneToUtc
 
         [Fact]
-        public void Test_SetDefaultTimeZoneByTimeZoneID() => Test_SetDefaultTimeZoneImplementation(() =>
+        public void Test_SetDefaultTimeZoneByTimeZone() =>
+            Test_SetDefaultTimeZone_Implementation(() => Utils.SetDefaultTimeZone(AestTimeZone));
+
+        [Fact]
+        public void Test_SetDefaultTimeZoneByTimeZoneID() => Test_SetDefaultTimeZone_Implementation(() =>
             Utils.SetDefaultTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime));
 
         [Fact]
         public void Test_SetDefaultTimeZoneByTimeZoneString() =>
-            Test_SetDefaultTimeZoneImplementation(() => Utils.SetDefaultTimeZone(AustralianEasternStandardTime));
+            Test_SetDefaultTimeZone_Implementation(() => Utils.SetDefaultTimeZone(AustralianEasternStandardTime));
 
-        private void Test_SetDefaultTimeZoneImplementation(Action setDefaultTimeZone)
+        private void Test_SetDefaultTimeZone_Implementation(Action setDefaultTimeZone)
         {
             Assert.Throws<InvalidOperationException>(() => Utils.DefaultTimeZone);
             Utils.SetDefaultTimeZone((TimeZoneInfo) null);
@@ -116,28 +128,6 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         //TryParseExactTimeFromTimeZoneToUtc
 
         [Fact]
-        public void Test_ConvertTimeFromUtcToTimeZone()
-        {
-            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AestTimeZone));
-            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AustralianEasternStandardTime));
-            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(DateTimeUtc, AestTimeZoneID));
-        }
-
-        [Fact]
-        public void Test_MultipleTimeZones()
-        {
-            var dateTimeNewYork = new DateTime(2019, 12, 5, 17, 30, 0);
-
-            Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromTimeZoneToUtc(DateTimeAest, AestTimeZoneID));
-            Assert.Equal(DateTimeUtc, Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, "Eastern Standard Time"));
-            Assert.Equal(DateTimeUtc,
-                Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, SystemTimeZoneInfoID.EasternStandardTime));
-            Assert.Equal(DateTimeAest, Utils.ConvertTimeFromUtcToTimeZone(
-                Utils.ConvertTimeFromTimeZoneToUtc(dateTimeNewYork, SystemTimeZoneInfoID.EasternStandardTime),
-                AestTimeZoneID));
-        }
-
-        [Fact]
         public void Test_SystemTimeZoneInfoID()
         {
             var dateTimeUtc = DateTime.UtcNow;
@@ -145,6 +135,24 @@ namespace Tests.BolgerUtils.TimeZoneConverter
             {
                 Assert.IsType<DateTime>(Utils.ConvertTimeFromUtcToTimeZone(dateTimeUtc, timeZoneID));
             }
+        }
+
+        [Fact]
+        public void Test_TimeNowInDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.TimeNowInDefaultTimeZone);
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone),
+                Utils.TimeNowInDefaultTimeZone, TimeSpan.FromSeconds(1));
+        }
+
+        [Fact]
+        public void Test_TimeTodayInDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() => Utils.TimeTodayInDefaultTimeZone);
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
+                Utils.TimeTodayInDefaultTimeZone);
         }
     }
 }

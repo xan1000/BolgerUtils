@@ -6,13 +6,27 @@ namespace Tests.BolgerUtils.TimeZoneConverter
 {
     public class ExtensionUtilsTests
     {
-        //public static DateTime ConvertTimeFromDefaultTimeZoneToUtc(this DateTime dateTime)
+        [Fact]
+        public void Test_ConvertTimeFromDefaultTimeZoneToUtc()
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+                UtilsTests.DateTimeAest.ConvertTimeFromDefaultTimeZoneToUtc());
+            Utils.SetDefaultTimeZone(UtilsTests.AestTimeZone);
+            Assert.Equal(UtilsTests.DateTimeUtc, UtilsTests.DateTimeAest.ConvertTimeFromDefaultTimeZoneToUtc());
+        }
 
         [Fact]
         public void Test_ConvertTimeFromTimeZoneToUtc() => Assert.Equal(UtilsTests.DateTimeUtc,
             UtilsTests.DateTimeAest.ConvertTimeFromTimeZoneToUtc(UtilsTests.AestTimeZoneID));
 
-        //public static DateTime ConvertTimeFromUtcToDefaultTimeZone
+        [Fact]
+        public void Test_ConvertTimeFromUtcToDefaultTimeZone()
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+                UtilsTests.DateTimeUtc.ConvertTimeFromUtcToDefaultTimeZone());
+            Utils.SetDefaultTimeZone(UtilsTests.AestTimeZone);
+            Assert.Equal(UtilsTests.DateTimeAest, UtilsTests.DateTimeUtc.ConvertTimeFromUtcToDefaultTimeZone());
+        }
 
         [Fact]
         public void Test_ConvertTimeFromUtcToTimeZone() => Assert.Equal(UtilsTests.DateTimeAest,
