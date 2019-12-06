@@ -130,19 +130,19 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestAnotherType.Test, TestAnotherType.TestAnother)]
         public void Test_CacheValueOnDisplay(Enum key, Enum otherKey)
         {
-            Test_CacheValueOnDisplayImplementation(key, otherKey, true);
-            Test_CacheValueOnDisplayImplementation(key, otherKey, false);
+            Test_CacheValueOnDisplay_Implementation(key, otherKey, true);
+            Test_CacheValueOnDisplay_Implementation(key, otherKey, false);
 
             // Ensure CacheValueOnDisplay is true by default.
-            Test_CacheValueOnDisplayImplementation(key, otherKey, _enumDisplayUtils, true);
+            Test_CacheValueOnDisplay_Implementation(key, otherKey, _enumDisplayUtils, true);
         }
 
-        private void Test_CacheValueOnDisplayImplementation(Enum key, Enum otherKey, bool cacheValueOnDisplay) =>
-            Test_CacheValueOnDisplayImplementation(key, otherKey, new EnumDisplayUtils(cacheValueOnDisplay),
+        private void Test_CacheValueOnDisplay_Implementation(Enum key, Enum otherKey, bool cacheValueOnDisplay) =>
+            Test_CacheValueOnDisplay_Implementation(key, otherKey, new EnumDisplayUtils(cacheValueOnDisplay),
                 cacheValueOnDisplay);
 
         // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void Test_CacheValueOnDisplayImplementation(
+        private void Test_CacheValueOnDisplay_Implementation(
             Enum key, Enum otherKey, EnumDisplayUtils enumDisplayUtils, bool cacheValueOnDisplay)
         {
             Assert.Equal(cacheValueOnDisplay, enumDisplayUtils.CacheValueOnDisplay);
@@ -187,14 +187,14 @@ namespace Tests.BolgerUtils.EnumDisplay
         [InlineData(TestAnotherType.Test)]
         public void Test_DisplayCustomDefault(Enum key)
         {
-            Test_DisplayCustomDefaultImplementation(key, x => x.ToString().ToLower());
-            Test_DisplayCustomDefaultImplementation(key, x => x.ToString().ToUpper());
-            Test_DisplayCustomDefaultImplementation(key, x => "Constant");
-            Test_DisplayCustomDefaultImplementation(key, x => string.Empty);
-            Test_DisplayCustomDefaultImplementation(key, x => null);
+            Test_DisplayCustomDefault_Implementation(key, x => x.ToString().ToLower());
+            Test_DisplayCustomDefault_Implementation(key, x => x.ToString().ToUpper());
+            Test_DisplayCustomDefault_Implementation(key, x => "Constant");
+            Test_DisplayCustomDefault_Implementation(key, x => string.Empty);
+            Test_DisplayCustomDefault_Implementation(key, x => null);
         }
 
-        private void Test_DisplayCustomDefaultImplementation(Enum key, Func<Enum, string> defaultDisplay)
+        private void Test_DisplayCustomDefault_Implementation(Enum key, Func<Enum, string> defaultDisplay)
         {
             var enumDisplayUtils = new EnumDisplayUtils(defaultDisplay: defaultDisplay);
             enumDisplayUtils.Add(key);

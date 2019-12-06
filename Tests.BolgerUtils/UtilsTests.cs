@@ -346,17 +346,17 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_Swap()
         {
-            Test_SwapImplementation(5, 10);
-            Test_SwapImplementation(5.5, 10.10);
-            Test_SwapImplementation(5.5m, 10.10m);
-            Test_SwapImplementation("Hello", "World");
-            Test_SwapImplementation("Hello", null);
-            Test_SwapImplementation(null, "World");
-            Test_SwapImplementation("Hello", new string(new[] { 'H', 'e', 'l', 'l', 'o' } ));
-            Test_SwapImplementation(new UtilsTests(), new UtilsTests());
+            Test_Swap_Implementation(5, 10);
+            Test_Swap_Implementation(5.5, 10.10);
+            Test_Swap_Implementation(5.5m, 10.10m);
+            Test_Swap_Implementation("Hello", "World");
+            Test_Swap_Implementation("Hello", null);
+            Test_Swap_Implementation(null, "World");
+            Test_Swap_Implementation("Hello", new string(new[] { 'H', 'e', 'l', 'l', 'o' } ));
+            Test_Swap_Implementation(new UtilsTests(), new UtilsTests());
         }
 
-        private void Test_SwapImplementation<T>(T a, T b)
+        private void Test_Swap_Implementation<T>(T a, T b)
         {
             var isValueType = typeof(T).IsValueType;
             // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local

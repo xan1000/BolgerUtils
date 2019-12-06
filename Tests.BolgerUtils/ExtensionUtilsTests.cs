@@ -114,16 +114,16 @@ namespace Tests.BolgerUtils
         public void Test_IsDayInFuture()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsDayInFutureImplementation(date);
+            Test_IsDayInFuture_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsDayInFutureImplementation(dateUtc);
+            Test_IsDayInFuture_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsDayInFuture(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsDayInFuture(date));
         }
 
-        private void Test_IsDayInFutureImplementation(DateTime date)
+        private void Test_IsDayInFuture_Implementation(DateTime date)
         {
             Assert.False(date.IsDayInFuture(date));
             Assert.False(date.IsDayInFuture(date.AddDays(0.1)));
@@ -144,16 +144,16 @@ namespace Tests.BolgerUtils
         public void Test_IsDayInFutureOrToday()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsDayInFutureOrTodayImplementation(date);
+            Test_IsDayInFutureOrToday_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsDayInFutureOrTodayImplementation(dateUtc);
+            Test_IsDayInFutureOrToday_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsDayInFutureOrToday(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsDayInFutureOrToday(date));
         }
 
-        private void Test_IsDayInFutureOrTodayImplementation(DateTime date)
+        private void Test_IsDayInFutureOrToday_Implementation(DateTime date)
         {
             Assert.True(date.IsDayInFutureOrToday(date));
             Assert.True(date.IsDayInFutureOrToday(date.AddDays(0.1)));
@@ -174,16 +174,16 @@ namespace Tests.BolgerUtils
         public void Test_IsDayInPast()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsDayInPastImplementation(date);
+            Test_IsDayInPast_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsDayInPastImplementation(dateUtc);
+            Test_IsDayInPast_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsDayInPast(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsDayInPast(date));
         }
 
-        private void Test_IsDayInPastImplementation(DateTime date)
+        private void Test_IsDayInPast_Implementation(DateTime date)
         {
             Assert.False(date.IsDayInPast(date));
             Assert.False(date.IsDayInPast(date.AddDays(0.1)));
@@ -204,16 +204,16 @@ namespace Tests.BolgerUtils
         public void Test_IsDayInPastOrToday()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsDayInPastOrTodayImplementation(date);
+            Test_IsDayInPastOrToday_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsDayInPastOrTodayImplementation(dateUtc);
+            Test_IsDayInPastOrToday_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsDayInPastOrToday(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsDayInPastOrToday(date));
         }
 
-        private void Test_IsDayInPastOrTodayImplementation(DateTime date)
+        private void Test_IsDayInPastOrToday_Implementation(DateTime date)
         {
             Assert.True(date.IsDayInPastOrToday(date));
             Assert.True(date.IsDayInPastOrToday(date.AddDays(0.1)));
@@ -234,16 +234,16 @@ namespace Tests.BolgerUtils
         public void Test_IsInFuture()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsInFutureImplementation(date);
+            Test_IsInFuture_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsInFutureImplementation(dateUtc);
+            Test_IsInFuture_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsInFuture(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsInFuture(date));
         }
 
-        private void Test_IsInFutureImplementation(DateTime date)
+        private void Test_IsInFuture_Implementation(DateTime date)
         {
             Assert.False(date.IsInFuture(date));
             Assert.False(date.IsInFuture(date.AddDays(0.1)));
@@ -264,16 +264,16 @@ namespace Tests.BolgerUtils
         public void Test_IsInFutureOrNow()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsInFutureOrNowImplementation(date);
+            Test_IsInFutureOrNow_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsInFutureOrNowImplementation(dateUtc);
+            Test_IsInFutureOrNow_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsInFutureOrNow(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsInFutureOrNow(date));
         }
 
-        private void Test_IsInFutureOrNowImplementation(DateTime date)
+        private void Test_IsInFutureOrNow_Implementation(DateTime date)
         {
             Assert.True(date.IsInFutureOrNow(date));
             Assert.False(date.IsInFutureOrNow(date.AddDays(0.1)));
@@ -294,16 +294,16 @@ namespace Tests.BolgerUtils
         public void Test_IsInPast()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsInPastImplementation(date);
+            Test_IsInPast_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsInPastImplementation(dateUtc);
+            Test_IsInPast_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsInPast(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsInPast(date));
         }
 
-        private void Test_IsInPastImplementation(DateTime date)
+        private void Test_IsInPast_Implementation(DateTime date)
         {
             Assert.False(date.IsInPast(date));
             Assert.True(date.IsInPast(date.AddDays(0.1)));
@@ -324,16 +324,16 @@ namespace Tests.BolgerUtils
         public void Test_IsInPastOrNow()
         {
             var date = new DateTime(2019, 10, 30, 9, 30, 30);
-            Test_IsInPastOrNowImplementation(date);
+            Test_IsInPastOrNow_Implementation(date);
 
             var dateUtc = new DateTime(2019, 10, 30, 9, 30, 30, DateTimeKind.Utc);
-            Test_IsInPastOrNowImplementation(dateUtc);
+            Test_IsInPastOrNow_Implementation(dateUtc);
 
             Assert.Throws<ArgumentException>(() => date.IsInPastOrNow(dateUtc));
             Assert.Throws<ArgumentException>(() => dateUtc.IsInPastOrNow(date));
         }
 
-        private void Test_IsInPastOrNowImplementation(DateTime date)
+        private void Test_IsInPastOrNow_Implementation(DateTime date)
         {
             Assert.True(date.IsInPastOrNow(date));
             Assert.True(date.IsInPastOrNow(date.AddDays(0.1)));
@@ -451,18 +451,18 @@ namespace Tests.BolgerUtils
             var intValues = new[] { 2, 5, 6, 9 };
             foreach(var item in intValues)
             {
-                Test_IsContainedInImplementation(true, item, intValues);
+                Test_IsContainedIn_Implementation(true, item, intValues);
             }
-            Test_IsContainedInImplementation(false, 1, intValues);
-            Test_IsContainedInImplementation(true, 2, intValues);
-            Test_IsContainedInImplementation(false, 3, intValues);
-            Test_IsContainedInImplementation(false, 4, intValues);
-            Test_IsContainedInImplementation(true, 5, intValues);
-            Test_IsContainedInImplementation(true, 6, intValues);
-            Test_IsContainedInImplementation(false, 7, intValues);
-            Test_IsContainedInImplementation(false, 8, intValues);
-            Test_IsContainedInImplementation(true, 9, intValues);
-            Test_IsContainedInImplementation(false, 10, intValues);
+            Test_IsContainedIn_Implementation(false, 1, intValues);
+            Test_IsContainedIn_Implementation(true, 2, intValues);
+            Test_IsContainedIn_Implementation(false, 3, intValues);
+            Test_IsContainedIn_Implementation(false, 4, intValues);
+            Test_IsContainedIn_Implementation(true, 5, intValues);
+            Test_IsContainedIn_Implementation(true, 6, intValues);
+            Test_IsContainedIn_Implementation(false, 7, intValues);
+            Test_IsContainedIn_Implementation(false, 8, intValues);
+            Test_IsContainedIn_Implementation(true, 9, intValues);
+            Test_IsContainedIn_Implementation(false, 10, intValues);
 
             Assert.True(4.IsContainedIn(1, 2, 4));
             Assert.False(3.IsContainedIn(1, 2, 4));
@@ -470,18 +470,18 @@ namespace Tests.BolgerUtils
             var stringValues = new[] { "Test", "Hello", "World" };
             foreach(var item in stringValues)
             {
-                Test_IsContainedInImplementation(true, item, stringValues);
+                Test_IsContainedIn_Implementation(true, item, stringValues);
             }
-            Test_IsContainedInImplementation(true, "Test", stringValues);
-            Test_IsContainedInImplementation(true, "Hello", stringValues);
-            Test_IsContainedInImplementation(true, "World", stringValues);
-            Test_IsContainedInImplementation(false, "Bye", stringValues);
+            Test_IsContainedIn_Implementation(true, "Test", stringValues);
+            Test_IsContainedIn_Implementation(true, "Hello", stringValues);
+            Test_IsContainedIn_Implementation(true, "World", stringValues);
+            Test_IsContainedIn_Implementation(false, "Bye", stringValues);
 
             Assert.True("World".IsContainedIn("Test", "Hello", "World"));
             Assert.False("Bye".IsContainedIn("Test", "Hello", "World"));
         }
 
-        private void Test_IsContainedInImplementation<T>(bool expected, T item, T[] values)
+        private void Test_IsContainedIn_Implementation<T>(bool expected, T item, T[] values)
         {
             Assert.Equal(expected, item.IsContainedIn(values));
             if(expected)
@@ -510,27 +510,28 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_AddAll()
         {
-            Test_AddAllImplementation(new[] { 4, 5, 6 }, new List<int>(), new[] { 4, 5, 6 });
-            Test_AddAllImplementation(new[] { 1, 2, 3, 7, 8, 9, 4, 5, 6 }, new List<int> { 1, 2, 3, 7, 8, 9 },
+            Test_AddAll_Implementation(new[] { 4, 5, 6 }, new List<int>(), new[] { 4, 5, 6 });
+            Test_AddAll_Implementation(new[] { 1, 2, 3, 7, 8, 9, 4, 5, 6 }, new List<int> { 1, 2, 3, 7, 8, 9 },
                 new[] { 4, 5, 6 });
-            Test_AddAllImplementation(new int[0], new List<int>(), new int[0]);
+            Test_AddAll_Implementation(new int[0], new List<int>(), new int[0]);
 
-            Test_AddAllImplementation(new[] { "Hello" }, new List<string>(), new[] { "Hello" });
-            Test_AddAllImplementation(new[] { "Hello", "World" }, new List<string>(), new[] { "Hello", "World" });
-            Test_AddAllImplementation(new[] { "Test", "AnotherTest", "Hello", "World" },
+            Test_AddAll_Implementation(new[] { "Hello" }, new List<string>(), new[] { "Hello" });
+            Test_AddAll_Implementation(new[] { "Hello", "World" }, new List<string>(), new[] { "Hello", "World" });
+            Test_AddAll_Implementation(new[] { "Test", "AnotherTest", "Hello", "World" },
                 new List<string> { "Test", "AnotherTest" }, new[] { "Hello", "World" });
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_AddAllImplementation(new[] { utilsTests1, utilsTests2 }, new List<UtilsTests>(),
+            Test_AddAll_Implementation(new[] { utilsTests1, utilsTests2 }, new List<UtilsTests>(),
                 new[] { utilsTests1, utilsTests2 });
 
             var utilsTests3 = new UtilsTests();
-            Test_AddAllImplementation(new[] { utilsTests3, utilsTests1, utilsTests2 },
+            Test_AddAll_Implementation(new[] { utilsTests3, utilsTests1, utilsTests2 },
                 new List<UtilsTests> { utilsTests3 }, new[] { utilsTests1, utilsTests2 });
         }
 
-        private void Test_AddAllImplementation<T>(IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects)
+        private void Test_AddAll_Implementation<T>(
+            IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects)
         {
             var array = objects.ToArray();
             foreach(var x in array)
@@ -553,39 +554,39 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_RemoveAll()
         {
-            Test_RemoveAllImplementation(new int[0], new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
-            Test_RemoveAllImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 4, 5, 6 });
-            Test_RemoveAllImplementation(new[] { 1, 3, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 2, 4, 5 });
-            Test_RemoveAllImplementation(new[] { 2 }, new List<int> { 1, 2, 3 }, new[] { 1, 3 });
-            Test_RemoveAllImplementation(new int[0], new List<int>(), new int[0]);
+            Test_RemoveAll_Implementation(new int[0], new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
+            Test_RemoveAll_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 4, 5, 6 });
+            Test_RemoveAll_Implementation(new[] { 1, 3, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 2, 4, 5 });
+            Test_RemoveAll_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, new[] { 1, 3 });
+            Test_RemoveAll_Implementation(new int[0], new List<int>(), new int[0]);
 
-            Test_RemoveAllImplementation(new string[0], new List<string> { "Hello" }, new[] { "Hello" });
-            Test_RemoveAllImplementation(new[] { "World" }, new List<string> { "Hello", "World" }, new[] { "Hello" });
-            Test_RemoveAllImplementation(new string[0], new List<string> { "Hello", "World" },
+            Test_RemoveAll_Implementation(new string[0], new List<string> { "Hello" }, new[] { "Hello" });
+            Test_RemoveAll_Implementation(new[] { "World" }, new List<string> { "Hello", "World" }, new[] { "Hello" });
+            Test_RemoveAll_Implementation(new string[0], new List<string> { "Hello", "World" },
                 new[] { "Hello", "World" });
-            Test_RemoveAllImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+            Test_RemoveAll_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
                 new[] { "Hello", "World" });
-            Test_RemoveAllImplementation(new string[0], new List<string>(), new string[0]);
+            Test_RemoveAll_Implementation(new string[0], new List<string>(), new string[0]);
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
                 new[] { utilsTests1 });
-            Test_RemoveAllImplementation(new[] { utilsTests2 }, new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAll_Implementation(new[] { utilsTests2 }, new List<UtilsTests> { utilsTests1, utilsTests2 },
                 new[] { utilsTests1 });
-            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
                 new[] { utilsTests1, utilsTests2 });
 
             var utilsTests3 = new UtilsTests();
-            Test_RemoveAllImplementation(new[] { utilsTests2 },
+            Test_RemoveAll_Implementation(new[] { utilsTests2 },
                 new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 }, new[] { utilsTests1, utilsTests3 });
-            Test_RemoveAllImplementation(new UtilsTests[0], new List<UtilsTests>(), new UtilsTests[0]);
+            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests>(), new UtilsTests[0]);
 
-            Test_RemoveAllImplementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, new[] { 2, 4 }, false);
-            Test_RemoveAllImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, new[] { 4, 5, 6 }, false);
+            Test_RemoveAll_Implementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, new[] { 2, 4 }, false);
+            Test_RemoveAll_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, new[] { 4, 5, 6 }, false);
         }
 
-        private void Test_RemoveAllImplementation<T>(
+        private void Test_RemoveAll_Implementation<T>(
             IEnumerable<T> expected, ICollection<T> item, IEnumerable<T> objects, bool containsAll = true)
         {
             var array = objects.ToArray();
@@ -613,57 +614,57 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_RemoveAllPredicate()
         {
-            Test_RemoveAllPredicateImplementation(new int[0], new List<int> { 4, 5, 6 }, x => true);
-            Test_RemoveAllPredicateImplementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, x => false);
-            Test_RemoveAllPredicateImplementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
-            Test_RemoveAllPredicateImplementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
-            Test_RemoveAllPredicateImplementation(new[] { 1, 3, 5 }, new List<int> { 1, 2, 3, 4, 5, 6 },
+            Test_RemoveAllPredicate_Implementation(new int[0], new List<int> { 4, 5, 6 }, x => true);
+            Test_RemoveAllPredicate_Implementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, x => false);
+            Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
+            Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
+            Test_RemoveAllPredicate_Implementation(new[] { 1, 3, 5 }, new List<int> { 1, 2, 3, 4, 5, 6 },
                 x => x % 2 == 0);
-            Test_RemoveAllPredicateImplementation(new[] { 2, 4, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 },
+            Test_RemoveAllPredicate_Implementation(new[] { 2, 4, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 },
                 x => x % 2 == 1);
-            Test_RemoveAllPredicateImplementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x == 1 || x == 3);
-            Test_RemoveAllPredicateImplementation(new int[0], new List<int>(), x => x == 0);
+            Test_RemoveAllPredicate_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x == 1 || x == 3);
+            Test_RemoveAllPredicate_Implementation(new int[0], new List<int>(), x => x == 0);
 
-            Test_RemoveAllPredicateImplementation(new string[0], new List<string> { "Hello" }, x => true);
-            Test_RemoveAllPredicateImplementation(new[] { "Hello" }, new List<string> { "Hello" }, x => false);
-            Test_RemoveAllPredicateImplementation(new[] { "World" }, new List<string> { "Hello", "World" },
+            Test_RemoveAllPredicate_Implementation(new string[0], new List<string> { "Hello" }, x => true);
+            Test_RemoveAllPredicate_Implementation(new[] { "Hello" }, new List<string> { "Hello" }, x => false);
+            Test_RemoveAllPredicate_Implementation(new[] { "World" }, new List<string> { "Hello", "World" },
                 x => x == "Hello");
-            Test_RemoveAllPredicateImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+            Test_RemoveAllPredicate_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
                 x => x.Length == 5);
-            Test_RemoveAllPredicateImplementation(new[] { "Hello", "World" },
+            Test_RemoveAllPredicate_Implementation(new[] { "Hello", "World" },
                 new List<string> { "", "Hello", "", "", "World", "" }, x => x.IsEmpty());
-            Test_RemoveAllPredicateImplementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
+            Test_RemoveAllPredicate_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
                 x => x == "Hello" || x == "World");
-            Test_RemoveAllPredicateImplementation(new string[0], new List<string>(), x => x.IsEmpty());
+            Test_RemoveAllPredicate_Implementation(new string[0], new List<string>(), x => x.IsEmpty());
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
                 x => true);
-            Test_RemoveAllPredicateImplementation(new[] { utilsTests1 }, new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAllPredicate_Implementation(new[] { utilsTests1 }, new List<UtilsTests> { utilsTests1 },
                 x => false);
-            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 x => x == utilsTests1);
-            Test_RemoveAllPredicateImplementation(new[] { utilsTests2 },
+            Test_RemoveAllPredicate_Implementation(new[] { utilsTests2 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 new List<UtilsTests> { utilsTests1, utilsTests2 }, x => x == utilsTests1);
-            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
                 x => x == utilsTests1 || x == utilsTests2);
 
             var utilsTests3 = new UtilsTests();
-            Test_RemoveAllPredicateImplementation(new[] { utilsTests2 },
+            Test_RemoveAllPredicate_Implementation(new[] { utilsTests2 },
                 new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 x => x == utilsTests1 || x == utilsTests3);
             // ReSharper disable once ImplicitlyCapturedClosure
-            Test_RemoveAllPredicateImplementation(new UtilsTests[0], new List<UtilsTests>(), x => x == utilsTests1);
+            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests>(), x => x == utilsTests1);
 
-            Test_RemoveAllPredicateImplementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, x => x == 2 || x == 4);
-            Test_RemoveAllPredicateImplementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, x => x > 3);
+            Test_RemoveAllPredicate_Implementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, x => x == 2 || x == 4);
+            Test_RemoveAllPredicate_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, x => x > 3);
         }
 
-        private void Test_RemoveAllPredicateImplementation<T>(
+        private void Test_RemoveAllPredicate_Implementation<T>(
             IEnumerable<T> expected, ICollection<T> item,  Func<T, bool> predicate)
         {
             var list = item.Where(predicate).ToList();
@@ -691,23 +692,23 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_IEnumerable_IsEmpty()
         {
-            Test_IEnumerable_IsEmptyImplementation(false, new[] { 4, 5, 6 });
-            Test_IEnumerable_IsEmptyImplementation(true, new int[0]);
+            Test_IEnumerable_IsEmpty_Implementation(false, new[] { 4, 5, 6 });
+            Test_IEnumerable_IsEmpty_Implementation(true, new int[0]);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_IEnumerable_IsEmptyImplementation(false, list);
+            Test_IEnumerable_IsEmpty_Implementation(false, list);
 
             list.RemoveAt(0);
-            Test_IEnumerable_IsEmptyImplementation(false, list);
+            Test_IEnumerable_IsEmpty_Implementation(false, list);
 
             list.Clear();
-            Test_IEnumerable_IsEmptyImplementation(true, list);
+            Test_IEnumerable_IsEmpty_Implementation(true, list);
 
-            Test_IEnumerable_IsEmptyImplementation(false, new ExtensionUtilsTests().ScalarToList());
-            Test_IEnumerable_IsEmptyImplementation(true, new ExtensionUtilsTests[0]);
+            Test_IEnumerable_IsEmpty_Implementation(false, new ExtensionUtilsTests().ScalarToList());
+            Test_IEnumerable_IsEmpty_Implementation(true, new ExtensionUtilsTests[0]);
         }
 
-        private void Test_IEnumerable_IsEmptyImplementation<T>(bool expected, IEnumerable<T> source)
+        private void Test_IEnumerable_IsEmpty_Implementation<T>(bool expected, IEnumerable<T> source)
         {
             var array = source.ToArray();
             Assert.Equal(expected, array.IsEmpty());
@@ -717,30 +718,30 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_NotAll()
         {
-            Test_NotAllImplementation(true, new[] { 4, 5, 6 }, x => x % 2 == 0);
-            Test_NotAllImplementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
-            Test_NotAllImplementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotAllImplementation(false, new int[0], x => x % 2 == 0);
+            Test_NotAll_Implementation(true, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotAll_Implementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotAll_Implementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotAll_Implementation(false, new int[0], x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_NotAllImplementation(true, list, x => x == "Hello");
-            Test_NotAllImplementation(true, list, x => x != "Hello");
-            Test_NotAllImplementation(false, list, x => x != "Hello World");
+            Test_NotAll_Implementation(true, list, x => x == "Hello");
+            Test_NotAll_Implementation(true, list, x => x != "Hello");
+            Test_NotAll_Implementation(false, list, x => x != "Hello World");
 
             list.RemoveAt(0);
-            Test_NotAllImplementation(true, list, x => x == "Hello");
-            Test_NotAllImplementation(false, list, x => x != "Hello");
-            Test_NotAllImplementation(false, list, x => x != "Hello World");
+            Test_NotAll_Implementation(true, list, x => x == "Hello");
+            Test_NotAll_Implementation(false, list, x => x != "Hello");
+            Test_NotAll_Implementation(false, list, x => x != "Hello World");
 
             list.Clear();
-            Test_NotAllImplementation(false, list, x => x == "Hello");
+            Test_NotAll_Implementation(false, list, x => x == "Hello");
 
             list.AddRange(new[] { "Hello", "Hello", "Hello" });
-            Test_NotAllImplementation(false, list, x => x == "Hello");
-            Test_NotAllImplementation(true, list, x => x != "Hello");
+            Test_NotAll_Implementation(false, list, x => x == "Hello");
+            Test_NotAll_Implementation(true, list, x => x != "Hello");
         }
 
-        private void Test_NotAllImplementation<T>(bool expected, IEnumerable<T> source, Func<T, bool> predicate)
+        private void Test_NotAll_Implementation<T>(bool expected, IEnumerable<T> source, Func<T, bool> predicate)
         {
             var array = source.ToArray();
             Assert.Equal(expected, array.NotAll(predicate));
@@ -750,23 +751,23 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_NotAny()
         {
-            Test_NotAnyImplementation(false, new[] { 4, 5, 6 });
-            Test_NotAnyImplementation(true, new int[0]);
+            Test_NotAny_Implementation(false, new[] { 4, 5, 6 });
+            Test_NotAny_Implementation(true, new int[0]);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_NotAnyImplementation(false, list);
+            Test_NotAny_Implementation(false, list);
 
             list.RemoveAt(0);
-            Test_NotAnyImplementation(false, list);
+            Test_NotAny_Implementation(false, list);
 
             list.Clear();
-            Test_NotAnyImplementation(true, list);
+            Test_NotAny_Implementation(true, list);
 
-            Test_NotAnyImplementation(false, new ExtensionUtilsTests().ScalarToList());
-            Test_NotAnyImplementation(true, new ExtensionUtilsTests[0]);
+            Test_NotAny_Implementation(false, new ExtensionUtilsTests().ScalarToList());
+            Test_NotAny_Implementation(true, new ExtensionUtilsTests[0]);
         }
 
-        private void Test_NotAnyImplementation<T>(bool expected, IEnumerable<T> source)
+        private void Test_NotAny_Implementation<T>(bool expected, IEnumerable<T> source)
         {
             var array = source.ToArray();
             Assert.Equal(expected, array.NotAny());
@@ -776,30 +777,30 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_NotAnyPredicate()
         {
-            Test_NotAnyPredicateImplementation(false, new[] { 4, 5, 6 }, x => x % 2 == 0);
-            Test_NotAnyPredicateImplementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
-            Test_NotAnyPredicateImplementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotAnyPredicateImplementation(true, new int[0], x => x % 2 == 0);
+            Test_NotAnyPredicate_Implementation(false, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotAnyPredicate_Implementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotAnyPredicate_Implementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotAnyPredicate_Implementation(true, new int[0], x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_NotAnyPredicateImplementation(false, list, x => x == "Hello");
-            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello");
-            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello World");
+            Test_NotAnyPredicate_Implementation(false, list, x => x == "Hello");
+            Test_NotAnyPredicate_Implementation(false, list, x => x != "Hello");
+            Test_NotAnyPredicate_Implementation(false, list, x => x != "Hello World");
 
             list.RemoveAt(0);
-            Test_NotAnyPredicateImplementation(true, list, x => x == "Hello");
-            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello");
-            Test_NotAnyPredicateImplementation(false, list, x => x != "Hello World");
+            Test_NotAnyPredicate_Implementation(true, list, x => x == "Hello");
+            Test_NotAnyPredicate_Implementation(false, list, x => x != "Hello");
+            Test_NotAnyPredicate_Implementation(false, list, x => x != "Hello World");
 
             list.Clear();
-            Test_NotAnyPredicateImplementation(true, list, x => x == "Hello");
+            Test_NotAnyPredicate_Implementation(true, list, x => x == "Hello");
 
             list.AddRange(new[] { "Hello", "Hello", "Hello" });
-            Test_NotAnyPredicateImplementation(false, list, x => x == "Hello");
-            Test_NotAnyPredicateImplementation(true, list, x => x != "Hello");
+            Test_NotAnyPredicate_Implementation(false, list, x => x == "Hello");
+            Test_NotAnyPredicate_Implementation(true, list, x => x != "Hello");
         }
 
-        private void Test_NotAnyPredicateImplementation<T>(
+        private void Test_NotAnyPredicate_Implementation<T>(
             bool expected, IEnumerable<T> source, Func<T, bool> predicate)
         {
             var array = source.ToArray();
@@ -810,30 +811,30 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_NotWhere()
         {
-            Test_NotWhereImplementation(new[] { 5 }, new[] { 4, 5, 6 }, x => x % 2 == 0);
-            Test_NotWhereImplementation(new[] { 3, 5, 7 }, new[] { 3, 5, 7 }, x => x % 2 == 0);
-            Test_NotWhereImplementation(new int[0], new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotWhereImplementation(new int[0], new int[0], x => x % 2 == 0);
+            Test_NotWhere_Implementation(new[] { 5 }, new[] { 4, 5, 6 }, x => x % 2 == 0);
+            Test_NotWhere_Implementation(new[] { 3, 5, 7 }, new[] { 3, 5, 7 }, x => x % 2 == 0);
+            Test_NotWhere_Implementation(new int[0], new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotWhere_Implementation(new int[0], new int[0], x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_NotWhereImplementation(new[] { "World", "Test" }, list, x => x == "Hello");
-            Test_NotWhereImplementation(new[] { "Hello" }, list, x => x != "Hello");
-            Test_NotWhereImplementation(new string[0], list, x => x != "Hello World");
+            Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
+            Test_NotWhere_Implementation(new[] { "Hello" }, list, x => x != "Hello");
+            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello World");
 
             list.RemoveAt(0);
-            Test_NotWhereImplementation(new[] { "World", "Test" }, list, x => x == "Hello");
-            Test_NotWhereImplementation(new string[0], list, x => x != "Hello");
-            Test_NotWhereImplementation(new string[0], list, x => x != "Hello World");
+            Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
+            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello");
+            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello World");
 
             list.Clear();
-            Test_NotWhereImplementation(new string[0], list, x => x == "Hello");
+            Test_NotWhere_Implementation(new string[0], list, x => x == "Hello");
 
             list.AddRange(new[] { "Hello", "Hello", "Hello" });
-            Test_NotWhereImplementation(new string[0], list, x => x == "Hello");
-            Test_NotWhereImplementation(new[] { "Hello", "Hello", "Hello" }, list, x => x != "Hello");
+            Test_NotWhere_Implementation(new string[0], list, x => x == "Hello");
+            Test_NotWhere_Implementation(new[] { "Hello", "Hello", "Hello" }, list, x => x != "Hello");
         }
 
-        private void Test_NotWhereImplementation<T>(
+        private void Test_NotWhere_Implementation<T>(
             IEnumerable<T> expected, IEnumerable<T> source, Func<T, bool> predicate)
         {
             var array = source.ToArray();
@@ -913,71 +914,71 @@ namespace Tests.BolgerUtils
             // Zero min & max.
             var min = 0m;
             var max = 0m;
-            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 1, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -1, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 1, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -1, min, max);
 
             // Positive max.
             min = 0;
             max = 10;
-            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 1, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 5, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -1, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 1, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 5, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 10, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 11, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -1, min, max);
 
             // Negative min.
             min = -10;
             max = 0;
-            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -1, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -5, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 1, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -1, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -5, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -11, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 1, min, max);
 
             // Negative min & max.
             min = -10;
             max = -5;
-            Test_Decimal_IsInRangeImplementation(true, -5, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -4, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -5, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -11, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -4, min, max);
 
             // Negative min & positive max.
             min = -10;
             max = 10;
-            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 10, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 11, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -11, min, max);
 
             // Min is greater than max.
-            Test_Decimal_IsInRangeImplementation(null, 0, 10, 0);
-            Test_Decimal_IsInRangeImplementation(null, 0, 0, -10);
-            Test_Decimal_IsInRangeImplementation(null, 0, 10, -10);
+            Test_Decimal_IsInRange_Implementation(null, 0, 10, 0);
+            Test_Decimal_IsInRange_Implementation(null, 0, 0, -10);
+            Test_Decimal_IsInRange_Implementation(null, 0, 10, -10);
 
             // Decimal places.
             min = -10.5m;
             max = 10.5m;
-            Test_Decimal_IsInRangeImplementation(true, 0, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 0.1m, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -0.1m, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 10, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 10.1m, min, max);
-            Test_Decimal_IsInRangeImplementation(true, 10.5m, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 10.6m, min, max);
-            Test_Decimal_IsInRangeImplementation(false, 11, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -10, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -10.1m, min, max);
-            Test_Decimal_IsInRangeImplementation(true, -10.5m, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -10.6m, min, max);
-            Test_Decimal_IsInRangeImplementation(false, -11, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 0.1m, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -0.1m, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 10, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 10.1m, min, max);
+            Test_Decimal_IsInRange_Implementation(true, 10.5m, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 10.6m, min, max);
+            Test_Decimal_IsInRange_Implementation(false, 11, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10.1m, min, max);
+            Test_Decimal_IsInRange_Implementation(true, -10.5m, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -10.6m, min, max);
+            Test_Decimal_IsInRange_Implementation(false, -11, min, max);
         }
 
-        private void Test_Decimal_IsInRangeImplementation(bool? expected, decimal item, decimal min, decimal max)
+        private void Test_Decimal_IsInRange_Implementation(bool? expected, decimal item, decimal min, decimal max)
         {
             if(!expected.HasValue)
                 Assert.Throws<ArgumentException>(() => item.IsInRange(min, max));
@@ -1758,23 +1759,23 @@ Amazon
         [Fact]
         public void Test_ToDecimal()
         {
-            Test_ToDecimalImplementation(5, "5");
-            Test_ToDecimalImplementation(-5, "-5");
-            Test_ToDecimalImplementation(5.5m, "5.5");
-            Test_ToDecimalImplementation(-5.5m, "-5.5");
-            Test_ToDecimalImplementation(0.95m, "0.95");
-            Test_ToDecimalImplementation(.95m, ".95");
-            Test_ToDecimalImplementation(100, "100");
-            Test_ToDecimalImplementation(100.1m, "100.1");
-            Test_ToDecimalImplementation(0, "0");
-            Test_ToDecimalImplementation(0.0m, "0.0");
-            Test_ToDecimalImplementation(null, "a5");
-            Test_ToDecimalImplementation(null, "5a");
-            Test_ToDecimalImplementation(5, " 5");
-            Test_ToDecimalImplementation(5, "5 ");
+            Test_ToDecimal_Implementation(5, "5");
+            Test_ToDecimal_Implementation(-5, "-5");
+            Test_ToDecimal_Implementation(5.5m, "5.5");
+            Test_ToDecimal_Implementation(-5.5m, "-5.5");
+            Test_ToDecimal_Implementation(0.95m, "0.95");
+            Test_ToDecimal_Implementation(.95m, ".95");
+            Test_ToDecimal_Implementation(100, "100");
+            Test_ToDecimal_Implementation(100.1m, "100.1");
+            Test_ToDecimal_Implementation(0, "0");
+            Test_ToDecimal_Implementation(0.0m, "0.0");
+            Test_ToDecimal_Implementation(null, "a5");
+            Test_ToDecimal_Implementation(null, "5a");
+            Test_ToDecimal_Implementation(5, " 5");
+            Test_ToDecimal_Implementation(5, "5 ");
         }
 
-        private void Test_ToDecimalImplementation(decimal? expected, string item)
+        private void Test_ToDecimal_Implementation(decimal? expected, string item)
         {
             if(expected.HasValue)
                 Assert.Equal(expected.Value, item.ToDecimal());
@@ -1787,23 +1788,23 @@ Amazon
         [Fact]
         public void Test_ToDecimalOrNull()
         {
-            Test_ToDecimalOrNullImplementation(5, "5");
-            Test_ToDecimalOrNullImplementation(-5, "-5");
-            Test_ToDecimalOrNullImplementation(5.5m, "5.5");
-            Test_ToDecimalOrNullImplementation(-5.5m, "-5.5");
-            Test_ToDecimalOrNullImplementation(0.95m, "0.95");
-            Test_ToDecimalOrNullImplementation(.95m, ".95");
-            Test_ToDecimalOrNullImplementation(100, "100");
-            Test_ToDecimalOrNullImplementation(100.1m, "100.1");
-            Test_ToDecimalOrNullImplementation(0, "0");
-            Test_ToDecimalOrNullImplementation(0.0m, "0.0");
-            Test_ToDecimalOrNullImplementation(null, "a5");
-            Test_ToDecimalOrNullImplementation(null, "5a");
-            Test_ToDecimalOrNullImplementation(5, " 5");
-            Test_ToDecimalOrNullImplementation(5, "5 ");
+            Test_ToDecimalOrNull_Implementation(5, "5");
+            Test_ToDecimalOrNull_Implementation(-5, "-5");
+            Test_ToDecimalOrNull_Implementation(5.5m, "5.5");
+            Test_ToDecimalOrNull_Implementation(-5.5m, "-5.5");
+            Test_ToDecimalOrNull_Implementation(0.95m, "0.95");
+            Test_ToDecimalOrNull_Implementation(.95m, ".95");
+            Test_ToDecimalOrNull_Implementation(100, "100");
+            Test_ToDecimalOrNull_Implementation(100.1m, "100.1");
+            Test_ToDecimalOrNull_Implementation(0, "0");
+            Test_ToDecimalOrNull_Implementation(0.0m, "0.0");
+            Test_ToDecimalOrNull_Implementation(null, "a5");
+            Test_ToDecimalOrNull_Implementation(null, "5a");
+            Test_ToDecimalOrNull_Implementation(5, " 5");
+            Test_ToDecimalOrNull_Implementation(5, "5 ");
         }
 
-        private void Test_ToDecimalOrNullImplementation(decimal? expected, string item) =>
+        private void Test_ToDecimalOrNull_Implementation(decimal? expected, string item) =>
             Assert.Equal(expected, item.ToDecimalOrNull());
 
         [Theory]
@@ -1959,43 +1960,43 @@ Amazon
         [Fact]
         public void Test_To24HourAndMinutesString()
         {
-            Test_To24HourAndMinutesStringImplementation("00:00", TimeSpan.Zero);
-            Test_To24HourAndMinutesStringImplementation("13:00", TimeSpan.FromHours(13));
-            Test_To24HourAndMinutesStringImplementation("00:00", TimeSpan.FromDays(1));
-            Test_To24HourAndMinutesStringImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
-            Test_To24HourAndMinutesStringImplementation("10:30", new TimeSpan(10, 30, 0));
-            Test_To24HourAndMinutesStringImplementation("10:30", new TimeSpan(10, 30, 30));
-            Test_To24HourAndMinutesStringImplementation("20:15", new TimeSpan(20, 15, 0));
-            Test_To24HourAndMinutesStringImplementation("20:15", new TimeSpan(20, 15, 50));
-            Test_To24HourAndMinutesStringImplementation("12:30", new TimeSpan(1, 12, 30, 0));
+            Test_To24HourAndMinutesString_Implementation("00:00", TimeSpan.Zero);
+            Test_To24HourAndMinutesString_Implementation("13:00", TimeSpan.FromHours(13));
+            Test_To24HourAndMinutesString_Implementation("00:00", TimeSpan.FromDays(1));
+            Test_To24HourAndMinutesString_Implementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
+            Test_To24HourAndMinutesString_Implementation("10:30", new TimeSpan(10, 30, 0));
+            Test_To24HourAndMinutesString_Implementation("10:30", new TimeSpan(10, 30, 30));
+            Test_To24HourAndMinutesString_Implementation("20:15", new TimeSpan(20, 15, 0));
+            Test_To24HourAndMinutesString_Implementation("20:15", new TimeSpan(20, 15, 50));
+            Test_To24HourAndMinutesString_Implementation("12:30", new TimeSpan(1, 12, 30, 0));
         }
 
-        private void Test_To24HourAndMinutesStringImplementation(string expected, TimeSpan item) =>
+        private void Test_To24HourAndMinutesString_Implementation(string expected, TimeSpan item) =>
             Assert.Equal(expected, item.To24HourAndMinutesString());
 
         [Fact]
         public void Test_ToDateTimeString()
         {
-            Test_ToDateTimeStringImplementation("12:00 AM", TimeSpan.Zero);
-            Test_ToDateTimeStringImplementation("00:00", TimeSpan.Zero, "HH:mm");
-            Test_ToDateTimeStringImplementation("1:00 PM", TimeSpan.FromHours(13));
-            Test_ToDateTimeStringImplementation("13", TimeSpan.FromHours(13), "HH");
-            Test_ToDateTimeStringImplementation("12:00 AM", TimeSpan.FromDays(1));
-            Test_ToDateTimeStringImplementation("00:00", TimeSpan.FromDays(1), "HH:mm");
-            Test_ToDateTimeStringImplementation("11:59 PM", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
-            Test_ToDateTimeStringImplementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)), "HH:mm");
-            Test_ToDateTimeStringImplementation("10:30 AM", new TimeSpan(10, 30, 0));
-            Test_ToDateTimeStringImplementation("10:30 AM", new TimeSpan(10, 30, 30));
-            Test_ToDateTimeStringImplementation("8:15 PM", new TimeSpan(20, 15, 0));
-            Test_ToDateTimeStringImplementation("8:15 PM", new TimeSpan(20, 15, 50));
-            Test_ToDateTimeStringImplementation("12:30 PM", new TimeSpan(1, 12, 30, 0));
-            Test_ToDateTimeStringImplementation("12:30", new TimeSpan(1, 12, 30, 0), "HH:mm");
+            Test_ToDateTimeString_Implementation("12:00 AM", TimeSpan.Zero);
+            Test_ToDateTimeString_Implementation("00:00", TimeSpan.Zero, "HH:mm");
+            Test_ToDateTimeString_Implementation("1:00 PM", TimeSpan.FromHours(13));
+            Test_ToDateTimeString_Implementation("13", TimeSpan.FromHours(13), "HH");
+            Test_ToDateTimeString_Implementation("12:00 AM", TimeSpan.FromDays(1));
+            Test_ToDateTimeString_Implementation("00:00", TimeSpan.FromDays(1), "HH:mm");
+            Test_ToDateTimeString_Implementation("11:59 PM", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)));
+            Test_ToDateTimeString_Implementation("23:59", TimeSpan.FromDays(1).Subtract(TimeSpan.FromMinutes(1)), "HH:mm");
+            Test_ToDateTimeString_Implementation("10:30 AM", new TimeSpan(10, 30, 0));
+            Test_ToDateTimeString_Implementation("10:30 AM", new TimeSpan(10, 30, 30));
+            Test_ToDateTimeString_Implementation("8:15 PM", new TimeSpan(20, 15, 0));
+            Test_ToDateTimeString_Implementation("8:15 PM", new TimeSpan(20, 15, 50));
+            Test_ToDateTimeString_Implementation("12:30 PM", new TimeSpan(1, 12, 30, 0));
+            Test_ToDateTimeString_Implementation("12:30", new TimeSpan(1, 12, 30, 0), "HH:mm");
         }
 
-        private void Test_ToDateTimeStringImplementation(string expected, TimeSpan item) =>
+        private void Test_ToDateTimeString_Implementation(string expected, TimeSpan item) =>
             Assert.Equal(expected, item.ToDateTimeString());
 
-        private void Test_ToDateTimeStringImplementation(string expected, TimeSpan item, string format) =>
+        private void Test_ToDateTimeString_Implementation(string expected, TimeSpan item, string format) =>
             Assert.Equal(expected, item.ToDateTimeString(format));
 
         #endregion
