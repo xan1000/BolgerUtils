@@ -6,6 +6,8 @@ namespace Tests.BolgerUtils.TimeZoneConverter
 {
     public class ExtensionUtilsTests
     {
+        public ExtensionUtilsTests() => UtilsTests.ResetDefaultTimeZone();
+
         [Fact]
         public void Test_ConvertTimeFromDefaultTimeZoneToUtc()
         {
