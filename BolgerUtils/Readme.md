@@ -78,7 +78,6 @@ ToHexString | this byte[] item | string
 
 Name | Parameters | Returns
 --- | --- | ---
-AddDay | this DateTime item | DateTime
 AddWeeks | this DateTime item, double weeks | DateTime
 FindDayOfWeekBackward | this DateTime item, DayOfWeek dayOfWeek | DateTime
 FindDayOfWeekForward | this DateTime item, DayOfWeek dayOfWeek | DateTime
@@ -90,6 +89,7 @@ IsInFuture | this DateTime a, DateTime b | bool
 IsInFutureOrNow | this DateTime a, DateTime b | bool
 IsInPast | this DateTime a, DateTime b | bool
 IsInPastOrNow | this DateTime a, DateTime b | bool
+Tomorrow | this DateTime item | DateTime
 Yesterday | this DateTime item | DateTime
 
 ## DayOfWeek

@@ -172,6 +172,8 @@ GetTimeNowInTimeZone | SystemTimeZoneInfoID timeZoneID | DateTime
 GetTimeTodayInTimeZone | TimeZoneInfo timeZone | DateTime
 GetTimeTodayInTimeZone | string timeZoneID | DateTime
 GetTimeTodayInTimeZone | SystemTimeZoneInfoID timeZoneID | DateTime
+GetTimeZone | string timeZoneID | TimeZoneInfo
+GetTimeZone | SystemTimeZoneInfoID timeZoneID | TimeZoneInfo
 ParseExactTimeFromDefaultTimeZoneToUtc | string value, string format | DateTime
 ParseExactTimeFromTimeZoneToUtc | string value, string format, TimeZoneInfo sourceTimeZone | DateTime
 ParseExactTimeFromTimeZoneToUtc | string value, string format, string sourceTimeZoneID | DateTime
