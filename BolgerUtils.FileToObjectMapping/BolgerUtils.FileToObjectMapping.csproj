@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Matthew Bolger</Authors>
-    <Version>2.0.5</Version>
+    <Version>2.0.6</Version>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>File;Object;Mapping</PackageTags>
@@ -18,10 +18,11 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.co
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
+    <FileVersion>2.0.6.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="2.0.5" />
+    <PackageReference Include="BolgerUtils" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>
