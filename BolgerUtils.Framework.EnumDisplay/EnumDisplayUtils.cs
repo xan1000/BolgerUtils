@@ -95,7 +95,7 @@ namespace BolgerUtils.Framework.EnumDisplay
     internal static class Utils
     {
         // Duplicate of BolgerUtils.Utils.GetEnumValues
-        internal static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
+        internal static List<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
     }
 
     internal static class ExtensionUtils

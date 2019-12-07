@@ -106,7 +106,8 @@ namespace BolgerUtils
 
         #region DayOfWeek
 
-        public static IEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(this IEnumerable<DayOfWeek> source) =>
+        public static IOrderedEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(
+            this IEnumerable<DayOfWeek> source) =>
             source.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
 
         #endregion

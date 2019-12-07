@@ -386,7 +386,7 @@ namespace Tests.BolgerUtils
             var daysOfWeek = Utils.GetEnumValues<DayOfWeek>().OrderByDayOfWeekStartingOnMonday().ToArray();
 
             Assert.Equal(DayOfWeek.Monday, daysOfWeek[0]);
-            Assert.Equal(DayOfWeek.Sunday, daysOfWeek[daysOfWeek.Length - 1]);
+            Assert.Equal(DayOfWeek.Sunday, daysOfWeek[^1]);
             Assert.Equal(new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday,
                 DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday }, daysOfWeek);
         }

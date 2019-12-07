@@ -47,6 +47,7 @@ FromThousands | int value | int
 FromMillions | int value | int
 FromBillions | int value | int
 GetEnumValue<T\> where T : Enum | int value | T
+GetEnumValues<T\> where T : Enum | void | List<T\>
 Max | DateTime a, DateTime b | DateTime
 Max<T\> where T : struct, IComparable<T\> | T a, T b | T
 Min | DateTime a, DateTime b | DateTime
@@ -96,7 +97,7 @@ Yesterday | this DateTime item | DateTime
 
 Name | Parameters | Returns
 --- | --- | ---
-OrderByDayOfWeekStartingOnMonday | this IEnumerable<DayOfWeek\> source | IEnumerable<DayOfWeek\>
+OrderByDayOfWeekStartingOnMonday | this IEnumerable<DayOfWeek\> source | IOrderedEnumerable<DayOfWeek\>
 
 ## Enum
 

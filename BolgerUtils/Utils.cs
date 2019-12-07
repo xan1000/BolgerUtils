@@ -66,7 +66,7 @@ namespace BolgerUtils
             return (T) enumValue;
         }
 
-        public static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
+        public static List<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
 
         public static DateTime Max(DateTime a, DateTime b) => a > b ? a : b;
         public static T Max<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) > 0 ? a : b;
