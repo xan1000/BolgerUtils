@@ -10,7 +10,7 @@ using BolgerUtils.TimeZoneConverter;
 
 There is an enum **BolgerUtils.TimeZoneConverter.SystemTimeZoneInfoID** declared which can be used to identify a timezone over using its system name.
 
-Additionally a default timezone can be set to streamline converting to & from the same timezone.
+A default timezone can be set to streamline converting to & from the same timezone.
 
 # SystemTimeZoneInfoID enum
 
@@ -207,7 +207,7 @@ ConvertTimeFromUtcToTimeZone | this DateTime dateTimeUtc, SystemTimeZoneInfoID t
 
 # Remarks
 
-The static methods of the **Utils** class are all overloaded to use a timezone either by directly passing the timezone by a TimeZoneInfo instance, by a timezone's system name or via the **SystemTimeZoneInfoID** enum.
+The static methods of the **Utils** class are all overloaded to use a timezone either by directly passing the timezone as a TimeZoneInfo instance, by a timezone's system name or via the **SystemTimeZoneInfoID** enum.
 
 Note the default timezone is set globally and once set cannot be changed to another timezone - using the default timezone is intended for scenarios in which only a single target timezone is required. Attempting to perform an operation that involves the default timezone when the default timezone has not been set results in an InvalidOperationException being thrown.
 
@@ -283,7 +283,7 @@ var dateTime = Utils.ConvertTimeFromUtcToTimeZone(dateTimeUtc, SystemTimeZoneInf
 ######
 
 ```csharp
-var dateTimeToday = Utils.GetTimeNowInTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime);
+var dateTimeNow = Utils.GetTimeNowInTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
 ######
@@ -340,7 +340,7 @@ var dateTimeNow = Utils.TimeNowInDefaultTimeZone;
 var dateTimeToday = Utils.TimeTodayInDefaultTimeZone;
 ```
 
-## Using extension methods
+## Using the DateTime extension methods
 
 Extension methods on DateTime can be used for conversions, however these methods only support using the **SystemTimeZoneInfoID** enum.
 
