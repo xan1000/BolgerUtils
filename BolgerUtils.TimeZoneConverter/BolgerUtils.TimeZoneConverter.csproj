@@ -16,7 +16,7 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.co
     <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.TimeZoneConverter/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>1.0.0</Version>
+    <Version>2.0.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
