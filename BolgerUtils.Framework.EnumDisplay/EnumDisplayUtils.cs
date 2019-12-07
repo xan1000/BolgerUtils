@@ -48,10 +48,9 @@ namespace BolgerUtils.Framework.EnumDisplay
 
         public void AddAll<T>() where T : Enum
         {
-            foreach(var key in Utils.GetEnumValues<T>())
+            foreach(var key in Utils.GetEnumValues<T>().Where(x => !ContainsKey(x)))
             {
-                if(!ContainsKey(key))
-                    Add(key);
+                Add(key);
             }
         }
 

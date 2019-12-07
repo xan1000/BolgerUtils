@@ -190,12 +190,14 @@ namespace BolgerUtils.TimeZoneConverter
             {
                 if(_defaultTimeZone == null)
                     throw new InvalidOperationException("The DefaultTimeZone has not been set.");
+
                 return _defaultTimeZone;
             }
             private set
             {
                 if(_defaultTimeZone != null)
                     throw new InvalidOperationException("The DefaultTimeZone cannot be changed once set.");
+
                 _defaultTimeZone = value;
             }
         }
@@ -292,7 +294,9 @@ namespace BolgerUtils.TimeZoneConverter
         {
             if(!DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
                 return false;
+
             result = ConvertTimeFromTimeZoneToUtc(result, sourceTimeZone);
+
             return true;
         }
 
