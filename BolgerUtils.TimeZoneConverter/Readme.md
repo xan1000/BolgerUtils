@@ -386,7 +386,18 @@ var value = "06/12/2019 09:30 AM";
 var dateTimeUtc = Utils.ParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
-Additionally a TryParseExactTimeFromTimeZoneToUtc option is also available.
+Additionally the TryParseExactTimeFromTimeZoneToUtc method is also available:
+
+######
+
+```csharp
+var value = "06/12/2019 09:30 AM";
+
+if(Utils.TryParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime, out var result))
+{
+    // Parsing was successful.
+}
+```
 
 # Attribution
 
