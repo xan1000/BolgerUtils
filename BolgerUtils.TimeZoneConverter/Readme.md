@@ -233,7 +233,7 @@ Using **SystemTimeZoneInfoID** enum:
 TimeZoneInfo timeZone = Utils.GetTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
-## Convert time from timezone to UTC
+## Converting time from timezone to UTC
 
 This example shows how to use all the provided overloads, however all subsequent examples will only show using the **SystemTimeZoneInfoID** enum.
 
@@ -268,7 +268,7 @@ var dateTime = new DateTime(2019, 12, 6, 9, 30, 0);
 var dateTimeUtc = Utils.ConvertTimeFromTimeZoneToUtc(dateTime, SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
-## Convert time from UTC to timezone
+## Converting time from UTC to timezone
 
 ######
 
@@ -383,7 +383,7 @@ var dateTime = dateTimeUtc.ConvertTimeFromUtcToDefaultTimeZone();
 ```csharp
 var value = "06/12/2019 09:30 AM";
 
-var dateTime = Utils.ParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime);
+var dateTimeUtc = Utils.ParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
 Additionally a TryParseExactTimeFromTimeZoneToUtc option is also available.
