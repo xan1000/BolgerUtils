@@ -200,7 +200,7 @@ TryParseExactTimeFromTimeZoneToUtc | string value, string format, SystemTimeZone
 
 Name | Parameters | Returns
 --- | --- | ---
-ConvertTimeFromDefaultTimeZoneToUtc | this DateTime item | DateTime
+ConvertTimeFromDefaultTimeZoneToUtc | this DateTime dateTime | DateTime
 ConvertTimeFromTimeZoneToUtc | this DateTime dateTime, SystemTimeZoneInfoID sourceTimeZoneID | DateTime
 ConvertTimeFromUtcToDefaultTimeZone | this DateTime dateTimeUtc | DateTime
 ConvertTimeFromUtcToTimeZone | this DateTime dateTimeUtc, SystemTimeZoneInfoID targetTimeZoneID | DateTime
