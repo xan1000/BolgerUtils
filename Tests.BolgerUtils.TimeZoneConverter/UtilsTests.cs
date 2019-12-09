@@ -158,40 +158,6 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         }
 
         [Fact]
-        public void Test_TryParseExactTimeFromDefaultTimeZoneToUtc()
-        {
-            const string format = "dd-MM-yyyy HH:mm:ss";
-            var value = DateTimeAest.ToString(format);
-
-            Assert.Throws<InvalidOperationException>(() =>
-                Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out _));
-            Utils.SetDefaultTimeZone(AestTimeZone);
-            Assert.True(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out var result));
-            Assert.Equal(DateTimeUtc, result);
-            Assert.True(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out result));
-            Assert.NotEqual(DateTimeAest, result);
-            Assert.False(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc("test", format, out _));
-        }
-
-        [Fact]
-        public void Test_TryParseExactTimeFromTimeZoneToUtc()
-        {
-            const string format = "dd-MM-yyyy HH:mm:ss";
-            var value = DateTimeAest.ToString(format);
-
-            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZone, out var result));
-            Assert.Equal(DateTimeUtc, result);
-            Assert.True(
-                Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AustralianEasternStandardTime, out result));
-            Assert.Equal(DateTimeUtc, result);
-            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZoneID, out result));
-            Assert.Equal(DateTimeUtc, result);
-            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZone, out result));
-            Assert.NotEqual(DateTimeAest, result);
-            Assert.False(Utils.TryParseExactTimeFromTimeZoneToUtc("test", format, AestTimeZone, out _));
-        }
-
-        [Fact]
         public void Test_SystemTimeZoneInfoID()
         {
             var dateTimeUtc = DateTime.UtcNow;
@@ -217,6 +183,40 @@ namespace Tests.BolgerUtils.TimeZoneConverter
             Utils.SetDefaultTimeZone(AestTimeZone);
             Assert.Equal(Utils.ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, AestTimeZone).Date,
                 Utils.TimeTodayInDefaultTimeZone);
+        }
+
+        [Fact]
+        public void Test_TryParseExactTimeFromDefaultTimeZoneToUtc()
+        {
+            const string format = "dd-MM-yyyy HH:mm:ss";
+            var value = DateTimeAest.ToString(format);
+
+            Assert.Throws<InvalidOperationException>(() =>
+                Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out _));
+            Utils.SetDefaultTimeZone(AestTimeZone);
+            Assert.True(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out var resultUtc));
+            Assert.Equal(DateTimeUtc, resultUtc);
+            Assert.True(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc(value, format, out resultUtc));
+            Assert.NotEqual(DateTimeAest, resultUtc);
+            Assert.False(Utils.TryParseExactTimeFromDefaultTimeZoneToUtc("test", format, out _));
+        }
+
+        [Fact]
+        public void Test_TryParseExactTimeFromTimeZoneToUtc()
+        {
+            const string format = "dd-MM-yyyy HH:mm:ss";
+            var value = DateTimeAest.ToString(format);
+
+            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZone, out var resultUtc));
+            Assert.Equal(DateTimeUtc, resultUtc);
+            Assert.True(
+                Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AustralianEasternStandardTime, out resultUtc));
+            Assert.Equal(DateTimeUtc, resultUtc);
+            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZoneID, out resultUtc));
+            Assert.Equal(DateTimeUtc, resultUtc);
+            Assert.True(Utils.TryParseExactTimeFromTimeZoneToUtc(value, format, AestTimeZone, out resultUtc));
+            Assert.NotEqual(DateTimeAest, resultUtc);
+            Assert.False(Utils.TryParseExactTimeFromTimeZoneToUtc("test", format, AestTimeZone, out _));
         }
     }
 }
