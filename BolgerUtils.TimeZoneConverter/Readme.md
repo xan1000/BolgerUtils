@@ -191,10 +191,10 @@ ParseExactTimeFromTimeZoneToUtc | string value, string format, SystemTimeZoneInf
 SetDefaultTimeZone | TimeZoneInfo timeZone | void
 SetDefaultTimeZone | string timeZoneID | void
 SetDefaultTimeZone | SystemTimeZoneInfoID timeZoneID | void
-TryParseExactTimeFromDefaultTimeZoneToUtc | string value, string format, out DateTime result | bool
-TryParseExactTimeFromTimeZoneToUtc | string value, string format, TimeZoneInfo sourceTimeZone, out DateTime result | bool
-TryParseExactTimeFromTimeZoneToUtc | string value, string format, string sourceTimeZoneID, out DateTime result | bool
-TryParseExactTimeFromTimeZoneToUtc | string value, string format, SystemTimeZoneInfoID sourceTimeZoneID, out DateTime result | bool
+TryParseExactTimeFromDefaultTimeZoneToUtc | string value, string format, out DateTime resultUtc | bool
+TryParseExactTimeFromTimeZoneToUtc | string value, string format, TimeZoneInfo sourceTimeZone, out DateTime resultUtc | bool
+TryParseExactTimeFromTimeZoneToUtc | string value, string format, string sourceTimeZoneID, out DateTime resultUtc | bool
+TryParseExactTimeFromTimeZoneToUtc | string value, string format, SystemTimeZoneInfoID sourceTimeZoneID, out DateTime resultUtc | bool
 
 # Extension methods
 
@@ -393,7 +393,7 @@ Additionally the TryParseExactTimeFromTimeZoneToUtc method is also available:
 ```csharp
 var value = "06/12/2019 09:30 AM";
 
-if(Utils.TryParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime, out var result))
+if(Utils.TryParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime, out var resultUtc))
 {
     // Parsing was successful.
 }
