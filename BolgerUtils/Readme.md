@@ -222,7 +222,7 @@ ToDateTimeString | this TimeSpan item, string format = "h:mm tt" | string
 
 **Utils.Empty** exists so it can be used in a context that requires a compile time constant instead of using **""** since **string.Empty** will not work in such a case, e.g., as a default value for a parameter.
 
-**RandomString** returns a string consisting of the following characters: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+**.RandomString** returns a string consisting of the following characters: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 
 The **.AddAll** and **.RemoveAll** methods can be used on regular collections but are intended to be used in conjunction with EntityFramework.
 
