@@ -1,6 +1,6 @@
 # BolgerUtils.TimeZoneConverter
 
-BolgerUtils.TimeZoneConverter is a .NET Standard 2.0 library which provides methods to convert a DateTime from UTC to a specified timezone and vice-versa. This functionality comes in two forms, as static methods found in the **BolgerUtils.TimeZoneConverter.Utils** class and via extension methods available when the **BolgerUtils.TimeZoneConverter** namespace is imported via:
+BolgerUtils.TimeZoneConverter is a .NET Standard 2.0 library which provides methods to convert a **DateTime** from UTC to a specified timezone and vice-versa. This functionality comes in two forms, as static methods found in the **BolgerUtils.TimeZoneConverter.Utils** class and via extension methods available when the **BolgerUtils.TimeZoneConverter** namespace is imported via:
 
 ######
 
@@ -207,22 +207,22 @@ ConvertTimeFromUtcToTimeZone | this DateTime dateTimeUtc, SystemTimeZoneInfoID t
 
 # Remarks
 
-The static methods of the **Utils** class are all overloaded to use a timezone either by directly passing the timezone as a TimeZoneInfo instance, by a timezone's system name or via the **SystemTimeZoneInfoID** enum.
+The static methods of the **Utils** class are all overloaded to use a timezone either by directly passing the timezone as a **TimeZoneInfo** instance, by a timezone's system name or via the **SystemTimeZoneInfoID** enum.
 
-Note the default timezone is set globally and once set cannot be changed to another timezone - using the default timezone is intended for scenarios in which only a single target timezone is required. Attempting to perform an operation that involves the default timezone when the default timezone has not been set results in an InvalidOperationException being thrown.
+Note the default timezone is set globally and once set cannot be changed to another timezone - using the default timezone is intended for scenarios in which only a single target timezone is required. Attempting to perform an operation that involves the default timezone when the default timezone has not been set results in an **InvalidOperationException** being thrown.
 
 # Examples
 
 ## Looking up a timezone
 
-A TimeZoneInfo instance can be looked up by a timezone's system name or via the **SystemTimeZoneInfoID** enum.
+A **TimeZoneInfo** instance can be referenced by using a timezone's system name or via the **SystemTimeZoneInfoID** enum.
 
 Using timezone's system name:
 
 ######
 
 ```csharp
-TimeZoneInfo timeZone = Utils.GetTimeZone("AUS Eastern Standard Time");
+var timeZone = Utils.GetTimeZone("AUS Eastern Standard Time");
 ```
 
 Using **SystemTimeZoneInfoID** enum:
@@ -230,14 +230,14 @@ Using **SystemTimeZoneInfoID** enum:
 ######
 
 ```csharp
-TimeZoneInfo timeZone = Utils.GetTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime);
+var timeZone = Utils.GetTimeZone(SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
 ## Converting time from timezone to UTC
 
 This example shows how to use all the provided overloads, however all subsequent examples will only show using the **SystemTimeZoneInfoID** enum.
 
-Using TimeZoneInfo:
+Using **TimeZoneInfo**:
 
 ######
 
@@ -342,7 +342,7 @@ var dateTimeToday = Utils.TimeTodayInDefaultTimeZone;
 
 ## Using the DateTime extension methods
 
-Extension methods on DateTime can be used for conversions, however these methods only support using the **SystemTimeZoneInfoID** enum.
+Extension methods on **DateTime** can be used for conversions, however these methods only support using the **SystemTimeZoneInfoID** enum.
 
 ######
 
@@ -386,7 +386,7 @@ var value = "06/12/2019 09:30 AM";
 var dateTimeUtc = Utils.ParseExactTimeFromTimeZoneToUtc(value, "dd/MM/yyyy hh:mm tt", SystemTimeZoneInfoID.AusEasternStandardTime);
 ```
 
-Additionally the TryParseExactTimeFromTimeZoneToUtc method is also available:
+Additionally the **.TryParseExactTimeFromTimeZoneToUtc** method is also available:
 
 ######
 
