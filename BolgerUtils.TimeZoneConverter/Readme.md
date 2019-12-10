@@ -1,6 +1,6 @@
 # BolgerUtils.TimeZoneConverter
 
-BolgerUtils.TimeZoneConverter is a .NET Standard 2.0 library which provides methods to convert a **DateTime** from UTC to a specified timezone and vice-versa. This functionality comes in two forms, as static methods found in the **BolgerUtils.TimeZoneConverter.Utils** class and via extension methods available when the **BolgerUtils.TimeZoneConverter** namespace is imported via:
+BolgerUtils.TimeZoneConverter is a .NET Standard 2.0 library which provides methods to convert a **DateTime** from UTC to a specified timezone and vice-versa. This functionality comes in two forms, as static methods found in the **BolgerUtils.TimeZoneConverter.Utils** class and by extension methods available when the **BolgerUtils.TimeZoneConverter** namespace is imported via:
 
 ######
 

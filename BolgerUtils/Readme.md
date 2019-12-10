@@ -1,6 +1,6 @@
 # BolgerUtils
 
-BolgerUtils is a .NET Standard 2.0 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the **BolgerUtils.Utils** class and via extension methods available when the **BolgerUtils** namespace is imported via:
+BolgerUtils is a .NET Standard 2.0 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the **BolgerUtils.Utils** class and by extension methods available when the **BolgerUtils** namespace is imported via:
 
 ######
 
