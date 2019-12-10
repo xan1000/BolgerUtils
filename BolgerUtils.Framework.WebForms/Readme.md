@@ -40,6 +40,13 @@ Name | Parameters | Returns
 --- | --- | ---
 HasError | this Label item, out bool isFormInvalid, string text = null | void
 
+## ListItemCollection
+
+Name | Parameters | Returns
+--- | --- | ---
+AddRange | this ListItemCollection item, IEnumerable<ListItem> collection | void
+ToEnumerable | this ListItemCollection item | IEnumerable<ListItem>
+
 ## Session
 
 Name | Parameters | Returns
@@ -60,6 +67,10 @@ Name | Parameters | Returns
 --- | --- | ---
 ToIntOrNull | this TextBox item | int?
 ToTimeSpanOrNull | this TextBox item, string format = "h:mm tt" | TimeSpan?
+
+# Remarks
+
+The **.AddRange** and **.ToEnumerable()** methods are intended to be in conjunction with the Items property of a DropDownList, CheckBoxList, etc...
 
 # Attribution
 

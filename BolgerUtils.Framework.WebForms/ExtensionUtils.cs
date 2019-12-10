@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.SessionState;
@@ -47,6 +49,22 @@ namespace BolgerUtils.Framework.WebForms
                 item.Text = text;
             item.Visible = isFormInvalid = true;
         }
+
+        #endregion
+
+        #region ListItemCollection
+
+        // This method is intended to be in conjunction with the Items property of a DropDownList, CheckBoxList, etc...
+        public static void AddRange(this ListItemCollection item, IEnumerable<ListItem> collection)
+        {
+            foreach(var x in collection)
+            {
+                item.Add(x);
+            }
+        }
+
+        // This method is intended to be in conjunction with the Items property of a DropDownList, CheckBoxList, etc...
+        public static IEnumerable<ListItem> ToEnumerable(this ListItemCollection item) => item.Cast<ListItem>();
 
         #endregion
 

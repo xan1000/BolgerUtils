@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using BolgerUtils.Framework.WebForms;
@@ -137,6 +139,73 @@ namespace Tests.BolgerUtils.Framework.WebForms
             Assert.Equal("Test", label.Text);
         }
 
+        #endregion
+
+        #region ListItemCollection
+
+        [Fact]
+        public static void Test_AddRange()
+        {
+            var listItemCollection = new ListItemCollection();
+
+            var listItem1 = new ListItem("Hello");
+            var listItem2 = new ListItem("Hello", "World");
+            var listItem3 = new ListItem("Test", "Test");
+            var list = new List<ListItem> { listItem1, listItem2, listItem3 };
+
+            var listItem4 = new ListItem("Missing");
+
+            Assert.Empty(listItemCollection);
+
+            listItemCollection.AddRange(list);
+            Assert.Equal(list.Count, listItemCollection.Count);
+            foreach(var x in list)
+            {
+                Assert.True(listItemCollection.Contains(x));
+            }
+            Assert.False(listItemCollection.Contains(listItem4));
+            
+            listItemCollection.Add(listItem4);
+            Assert.Equal(list.Count + 1, listItemCollection.Count);
+            foreach(var x in list)
+            {
+                Assert.True(listItemCollection.Contains(x));
+            }
+            Assert.True(listItemCollection.Contains(listItem4));
+        }
+
+        [Fact]
+        public static void Test_ToEnumerable()
+        {
+            var listItemCollection = new ListItemCollection();
+
+            Assert.Empty(listItemCollection);
+            Test_ToEnumerable_Implementation(listItemCollection);
+
+            listItemCollection.AddRange(new[]
+                { new ListItem("Hello"), new ListItem("Hello", "World"), new ListItem("Test", "Test") });
+            Test_ToEnumerable_Implementation(listItemCollection);
+
+            listItemCollection.Add(new ListItem("Extra"));
+            Test_ToEnumerable_Implementation(listItemCollection);
+
+            Assert.Equal(2, listItemCollection.ToEnumerable().Count(x => x.Text == "Hello"));
+            Assert.Equal(1, listItemCollection.ToEnumerable().Count(x => x.Value == "Extra"));
+            Assert.Equal(0, listItemCollection.ToEnumerable().Count(x => x.Value == "Missing"));
+            Assert.Equal(2, listItemCollection.ToEnumerable().Count(x => x.Text.Contains('t')));
+        }
+
+        private static void Test_ToEnumerable_Implementation(ListItemCollection listItemCollection)
+        {
+            var enumerable = listItemCollection.ToEnumerable();
+
+            Assert.IsAssignableFrom<IEnumerable<ListItem>>(enumerable);
+            foreach(var x in enumerable)
+            {
+                Assert.IsType<ListItem>(x);
+            }
+        }
+        
         #endregion
 
         #region Session
