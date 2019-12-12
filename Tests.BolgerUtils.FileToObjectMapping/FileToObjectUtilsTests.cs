@@ -263,10 +263,9 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             var fileToObjectTimeSpan = stopwatch.Elapsed;
 
             const int columnLength = -19;
-            string ToString(double value) => $"{Math.Round(value, 2):N}";
+            static string ToString(double value) => $"{Math.Round(value, 2):N}";
             void Display(string title, TimeSpan timeSpan) =>
                 _output.WriteLine($"{title,columnLength}: {ToString(timeSpan.TotalSeconds)}s");
-
 
             Display("Raw Time", rawTimeSpan);
             Display("File to Object Time", fileToObjectTimeSpan);
