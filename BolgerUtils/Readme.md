@@ -39,6 +39,7 @@ Billion | int | 1,000,000,000
 
 Name | Parameters | Returns
 --- | --- | ---
+EachDay | DateTime startDate, int daysForward | List<DateTime>
 EachDay | DateTime startDate, DateTime endDate | List<DateTime>
 From | int constant, double value | double
 FromTens | int value | int

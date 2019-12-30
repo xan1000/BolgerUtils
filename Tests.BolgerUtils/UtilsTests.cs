@@ -90,6 +90,8 @@ namespace Tests.BolgerUtils
 
         #endregion
 
+        #region Methods
+
         [Fact]
         public void Test_EachDay()
         {
@@ -106,13 +108,23 @@ namespace Tests.BolgerUtils
             Assert.Equal(days.Count, days.Capacity);
             Assert.Equal(expectedDays, days);
 
+            days = Utils.EachDay(startDate, (int) endDate.Subtract(startDate).TotalDays);
+            Assert.Equal(expectedDays.Count, days.Count);
+            Assert.Equal(days.Count, days.Capacity);
+            Assert.Equal(expectedDays, days);
+
             days = Utils.EachDay(startDate, startDate);
+            Assert.Single(days);
+            Assert.Equal(days.Count, days.Capacity);
+
+            days = Utils.EachDay(startDate, 0);
             Assert.Single(days);
             Assert.Equal(days.Count, days.Capacity);
 
             Assert.Throws<ArgumentException>(() => Utils.EachDay(endDate, startDate));
             Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate.Tomorrow(), startDate));
             Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate, startDate.Yesterday()));
+            Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate, -1));
         }
 
         [Theory]
@@ -428,5 +440,7 @@ namespace Tests.BolgerUtils
             AssertNotEqual(b, originalB);
             AssertEqual(b, originalA);
         }
+
+        #endregion
     }
 }

@@ -36,6 +36,11 @@ namespace BolgerUtils
 
         #endregion
 
+        #region Methods
+
+        public static List<DateTime> EachDay(DateTime startDate, int daysForward) =>
+            EachDay(startDate, startDate.AddDays(daysForward));
+
         public static List<DateTime> EachDay(DateTime startDate, DateTime endDate)
         {
             if(startDate > endDate)
@@ -97,5 +102,7 @@ namespace BolgerUtils
             a = b;
             b = temp;
         }
+
+        #endregion
     }
 }
