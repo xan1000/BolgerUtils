@@ -16,7 +16,7 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.co
     <PackageTags>utils</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>2.0.7</Version>
+    <Version>2.0.7.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
