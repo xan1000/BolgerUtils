@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.Common;
 using System.Dynamic;
 using System.IO;
@@ -109,6 +110,23 @@ namespace BolgerUtils
         public static IOrderedEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(
             this IEnumerable<DayOfWeek> source) =>
             source.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
+
+        #endregion
+
+        #region DbCommand
+
+        public static Func<DbCommand, DbDataAdapter> CreateDataAdapter { get; set; }
+
+        public static DataTable ToDataTable(this DbCommand command)
+        {
+            if(CreateDataAdapter == null)
+                throw new InvalidOperationException("Must set the ExtensionUtils.CreateDataAdapter property.");
+
+            var table = new DataTable();
+            CreateDataAdapter(command).Fill(table);
+
+            return table;
+        }
 
         #endregion
 

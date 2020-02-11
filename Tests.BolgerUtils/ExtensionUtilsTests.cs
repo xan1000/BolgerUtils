@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
 using BolgerUtils;
+using Microsoft.Data.SqlClient;
 using Xunit;
 
 namespace Tests.BolgerUtils
@@ -389,6 +391,53 @@ namespace Tests.BolgerUtils
             Assert.Equal(DayOfWeek.Sunday, daysOfWeek[^1]);
             Assert.Equal(new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday,
                 DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday }, daysOfWeek);
+        }
+
+        #endregion
+
+        #region DbCommand
+
+        [Fact]
+        public void Test_ToDataTable()
+        {
+            try
+            {
+                lock(UtilsTests.CreateConnectionLock)
+                {
+                    Utils.ConnectionString = UtilsTests.ConnectionString;
+                    Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
+
+                    // CreateCommand with CreateConnection block.
+                    {
+                        using var connection = Utils.CreateConnection();
+                        using var command = connection.CreateCommand();
+                        command.CommandText = "select * from Animal";
+                        Assert.Throws<InvalidOperationException>(command.ToDataTable);
+
+                        ExtensionUtils.CreateDataAdapter = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
+                        var dataTable = command.ToDataTable();
+                        Assert.IsType<DataTable>(dataTable);
+                        Assert.Equal(3, dataTable.Rows.Count);
+                    }
+
+                    // CreateCommand with CreateConnection<T> block.
+                    {
+                        using var sqlConnection = Utils.CreateConnection<SqlConnection>();
+                        using var sqlCommand = sqlConnection.CreateCommand();
+                        sqlCommand.CommandText = "select * from Animal";
+
+                        var dataTable = sqlCommand.ToDataTable();
+                        Assert.IsType<DataTable>(dataTable);
+                        Assert.Equal(3, dataTable.Rows.Count);
+                    }
+                }
+            }
+            finally
+            {
+                // Test cleanup.
+                Utils.ConnectionString = null;
+                Utils.CreateConnectionFunc = null;
+            }
         }
 
         #endregion

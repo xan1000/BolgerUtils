@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using BolgerUtils;
+using Microsoft.Data.SqlClient;
 using Xunit;
 
 namespace Tests.BolgerUtils
@@ -91,6 +94,85 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region Methods
+
+        internal const string ConnectionString = @"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True";
+        internal static readonly object CreateConnectionLock = new object();
+
+        [Fact]
+        public void Test_CreateConnection()
+        {
+            lock(CreateConnectionLock)
+            {
+                try
+                {
+                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection);
+
+                    Utils.ConnectionString = ConnectionString;
+                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection);
+
+                    Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
+
+                    // CreateConnection block.
+                    {
+                        using var connection = Utils.CreateConnection();
+                        Assert.IsAssignableFrom<DbConnection>(connection);
+                        Assert.Equal(ConnectionState.Closed, connection.State);
+                    }
+
+                    // CreateConnection<T> block.
+                    {
+                        using var sqlConnection = Utils.CreateConnection<SqlConnection>();
+                        Assert.IsAssignableFrom<DbConnection>(sqlConnection);
+                        Assert.IsType<SqlConnection>(sqlConnection);
+                        Assert.Equal(ConnectionState.Closed, sqlConnection.State);
+                    }
+                }
+                finally
+                {
+                    // Test cleanup.
+                    Utils.ConnectionString = null;
+                    Utils.CreateConnectionFunc = null;
+                }
+            }
+        }
+
+        [Fact]
+        public void Test_CreateAndOpenConnection()
+        {
+            lock(CreateConnectionLock)
+            {
+                try
+                {
+                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection);
+
+                    Utils.ConnectionString = ConnectionString;
+                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection);
+
+                    Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
+
+                    // CreateAndOpenConnection block.
+                    {
+                        using var connection = Utils.CreateAndOpenConnection();
+                        Assert.IsAssignableFrom<DbConnection>(connection);
+                        Assert.Equal(ConnectionState.Open, connection.State);
+                    }
+
+                    // CreateAndOpenConnection<T> block.
+                    {
+                        using var sqlConnection = Utils.CreateAndOpenConnection<SqlConnection>();
+                        Assert.IsAssignableFrom<DbConnection>(sqlConnection);
+                        Assert.IsType<SqlConnection>(sqlConnection);
+                        Assert.Equal(ConnectionState.Open, sqlConnection.State);
+                    }
+                }
+                finally
+                {
+                    // Test cleanup.
+                    Utils.ConnectionString = null;
+                    Utils.CreateConnectionFunc = null;
+                }
+            }
+        }
 
         [Fact]
         public void Test_EachDay()

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace BolgerUtils
 {
@@ -37,6 +39,31 @@ namespace BolgerUtils
         #endregion
 
         #region Methods
+
+        public static string ConnectionString { get; set; }
+        public static Func<string, DbConnection> CreateConnectionFunc { get; set; }
+
+        public static DbConnection CreateConnection() => CreateConnection<DbConnection>();
+
+        public static T CreateConnection<T>() where T : DbConnection
+        {
+            if(ConnectionString == null)
+                throw new InvalidOperationException("Must set the Utils.ConnectionString property.");
+            if(CreateConnectionFunc == null)
+                throw new InvalidOperationException("Must set the Utils.CreateConnectionFunc property.");
+
+            return (T) CreateConnectionFunc(ConnectionString);
+        }
+
+        public static DbConnection CreateAndOpenConnection() => CreateAndOpenConnection<DbConnection>();
+
+        public static T CreateAndOpenConnection<T>() where T : DbConnection
+        {
+            var connection = CreateConnection<T>();
+            connection.Open();
+
+            return connection;
+        }
 
         public static List<DateTime> EachDay(DateTime startDate, int daysForward) =>
             EachDay(startDate, startDate.AddDays(daysForward));
