@@ -1400,6 +1400,19 @@ namespace Tests.BolgerUtils
             Assert.Equal(item.Y, itemDynamic.Y);
         }
 
+        [Theory]
+        [InlineData("Test")]
+        [InlineData(10)]
+        [InlineData(null)]
+        public void Test_ToDbNullIfNull(object item)
+        {
+            var result = item.ToDbNullIfNull();
+            if(item != null)
+                Assert.Same(item, result);
+            else
+                Assert.Equal(DBNull.Value, result);
+        }
+
         #endregion
 
         #region String

@@ -274,6 +274,8 @@ namespace BolgerUtils
             return (ExpandoObject) expando;
         }
 
+        public static object ToDbNullIfNull(this object item) => item ?? DBNull.Value;
+
         #endregion
 
         #region String
