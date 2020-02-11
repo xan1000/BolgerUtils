@@ -123,6 +123,8 @@ namespace BolgerUtils
             return new string(stringChars);
         }
 
+        public static T Self<T>(T item) => item;
+
         public static void Swap<T>(ref T a, ref T b)
         {
             var temp = a;

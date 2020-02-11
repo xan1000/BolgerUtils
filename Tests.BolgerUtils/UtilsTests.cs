@@ -464,6 +464,31 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
+        public void Test_Self()
+        {
+            const string testString = "Hello World";
+            Assert.Same(testString, Utils.Self(testString));
+
+            const int testInt = 5;
+            Assert.Equal(testInt, Utils.Self(testInt));
+
+            const decimal testDecimal = 5m;
+            Assert.Equal(testDecimal, Utils.Self(testDecimal));
+
+            const decimal testDouble = 5m;
+            Assert.Equal(testDouble, Utils.Self(testDouble));
+
+            var testObject = new object();
+            Assert.Same(testObject, Utils.Self(testObject));
+
+            var testStringArray = new[] { "Hello", "World", "Test" };
+            Assert.Equal(testStringArray.Select(x => x), testStringArray.Select(Utils.Self));
+
+            var testIntArray = new[] { 1, 2, 3, 5, 10 };
+            Assert.Equal(testIntArray.Select(x => x), testIntArray.Select(Utils.Self));
+        }
+
+        [Fact]
         public void Test_Swap()
         {
             Test_Swap_Implementation(5, 10);
