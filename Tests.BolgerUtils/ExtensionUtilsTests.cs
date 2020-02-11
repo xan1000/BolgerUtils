@@ -866,6 +866,135 @@ namespace Tests.BolgerUtils
 
         #region Numbers
 
+        [Fact]
+        public void Test_Decimal_HasMoreThanNDecimalPlaces()
+        {
+            // 0 decimal place.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 0m, 0);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 0m, 1);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 0m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1m, 0);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(true, 1.1m, 0);
+
+            // 1 decimal place.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1m, 1);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1.1m, 1);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(true, 1.15m, 1);
+
+            // 2 decimal places.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1.1m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1.15m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(true, 1.155m, 2);
+
+            // 3 decimal places.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, 1.155m, 3);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(true, 1.1551m, 3);
+
+            // Negative values, 2 decimal places.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, -1m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, -1.1m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(false, -1.15m, 2);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(true, -1.155m, 2);
+
+            // Negative n.
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(null, 1m, -1);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(null, 1.1m, -10);
+            Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(null, 1.55m, -20);
+        }
+
+        private void Test_Decimal_HasMoreThanNDecimalPlaces_Implementation(bool? expected, decimal item, int n)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanNDecimalPlaces(n));
+            else
+                Assert.Equal(expected.Value, item.HasMoreThanNDecimalPlaces(n));
+        }
+
+        [Fact]
+        public void Test_Decimal_HasMoreThanTwoDecimalPlaces()
+        {
+            // 0 decimal place.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 0m);
+
+            // 2 decimal places.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.15m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, 1.155m);
+
+            // Negative values, 2 decimal places.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.15m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, -1.155m);
+        }
+
+        private void Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(bool? expected, decimal item)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanTwoDecimalPlaces());
+            else
+                Assert.Equal(expected.Value, item.HasMoreThanTwoDecimalPlaces());
+        }
+
+        [Theory]
+        // 0 decimal place.
+        [InlineData(false, 0d, 0)]
+        [InlineData(false, 0d, 1)]
+        [InlineData(false, 0d, 2)]
+        [InlineData(false, 1d, 0)]
+        [InlineData(true, 1.1d, 0)]
+        // 1 decimal place.
+        [InlineData(false, 1d, 1)]
+        [InlineData(false, 1.1d, 1)]
+        [InlineData(true, 1.15d, 1)]
+        // 2 decimal places.
+        [InlineData(false, 1d, 2)]
+        [InlineData(false, 1.1d, 2)]
+        [InlineData(false, 1.15d, 2)]
+        [InlineData(true, 1.155d, 2)]
+        // 3 decimal places.
+        [InlineData(false, 1.155d, 3)]
+        [InlineData(true, 1.1551d, 3)]
+        // Negative values, 2 decimal places.
+        [InlineData(false, -1d, 2)]
+        [InlineData(false, -1.1d, 2)]
+        [InlineData(false, -1.15d, 2)]
+        [InlineData(true, -1.155d, 2)]
+        // Negative n.
+        [InlineData(null, 1d, -1)]
+        [InlineData(null, 1.1d, -10)]
+        [InlineData(null, 1.55d, -20)]
+        public void Test_Double_HasMoreThanNDecimalPlaces(bool? expected, double item, int n)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanNDecimalPlaces(n));
+            else
+                Assert.Equal(expected.Value, item.HasMoreThanNDecimalPlaces(n));
+        }
+
+        [Theory]
+        // 0 decimal place.
+        [InlineData(false, 0d)]
+        // 2 decimal places.
+        [InlineData(false, 1d)]
+        [InlineData(false, 1.1d)]
+        [InlineData(false, 1.15d)]
+        [InlineData(true, 1.155d)]
+        // Negative values, 2 decimal places.
+        [InlineData(false, -1d)]
+        [InlineData(false, -1.1d)]
+        [InlineData(false, -1.15d)]
+        [InlineData(true, -1.155d)]
+        public void Test_Double_HasMoreThanTwoDecimalPlaces(bool? expected, double item)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanTwoDecimalPlaces());
+            else
+                Assert.Equal(expected.Value, item.HasMoreThanTwoDecimalPlaces());
+        }
+
         [Theory]
         // Zero min & max.
         [InlineData(true, 0, 0, 0)]

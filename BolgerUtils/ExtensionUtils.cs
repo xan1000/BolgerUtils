@@ -193,6 +193,15 @@ namespace BolgerUtils
 
         #region Numbers
 
+        public static bool HasMoreThanNDecimalPlaces(this decimal item, int n) => decimal.Round(item, n) != item;
+
+        public static bool HasMoreThanTwoDecimalPlaces(this decimal item) => item.HasMoreThanNDecimalPlaces(2);
+
+        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        public static bool HasMoreThanNDecimalPlaces(this double item, int n) => Math.Round(item, n) != item;
+
+        public static bool HasMoreThanTwoDecimalPlaces(this double item) => item.HasMoreThanNDecimalPlaces(2);
+
         public static bool IsInRange(this int item, int min, int max)
         {
             if(min > max)
