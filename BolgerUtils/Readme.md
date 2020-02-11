@@ -35,10 +35,22 @@ Thousand | int | 1,000
 Million | int | 1,000,000
 Billion | int | 1,000,000,000
 
+## Properties
+
+Name | Type | Operations
+--- | --- | ---
+ConnectionString | string | get, set
+CreateConnectionFunc | Func<string, DbConnection\> | get, set
+CreateDataAdapter | Func<DbCommand, DbDataAdapter\> | get, set
+
 ## Methods
 
 Name | Parameters | Returns
 --- | --- | ---
+CreateAndOpenConnection | void | DbConnection
+CreateAndOpenConnection<T\> where T : DbConnection | void | T
+CreateConnection | void | DbConnection
+CreateConnection<T\> where T : DbConnection | void | T
 EachDay | DateTime startDate, int daysForward | List<DateTime>
 EachDay | DateTime startDate, DateTime endDate | List<DateTime>
 From | int constant, double value | double
@@ -100,6 +112,12 @@ Name | Parameters | Returns
 --- | --- | ---
 OrderByDayOfWeekStartingOnMonday | this IEnumerable<DayOfWeek\> source | IOrderedEnumerable<DayOfWeek\>
 
+## DbCommand
+
+Name | Parameters | Returns
+--- | --- | ---
+ToDataTable | this DbCommand item | DataTable
+
 ## Enum
 
 Name | Parameters | Returns
@@ -144,6 +162,10 @@ ToHashSet<T\> | this List<T\> item | HashSet<T\>
 
 Name | Parameters | Returns
 --- | --- | ---
+HasMoreThanNDecimalPlaces | this decimal item, int n | bool
+HasMoreThanNDecimalPlaces | this double item, int n | bool
+HasMoreThanTwoDecimalPlaces | this decimal item | bool
+HasMoreThanTwoDecimalPlaces | this double item | bool
 IsInRange | this int item, int min, int max | bool
 IsInRange | this decimal item, decimal min, decimal max | bool
 IsInRange | this double item, double min, double max | bool

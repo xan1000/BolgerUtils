@@ -414,7 +414,7 @@ namespace Tests.BolgerUtils
                         command.CommandText = "select * from Animal";
                         Assert.Throws<InvalidOperationException>(command.ToDataTable);
 
-                        ExtensionUtils.CreateDataAdapter = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
+                        Utils.CreateDataAdapter = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
                         var dataTable = command.ToDataTable();
                         Assert.IsType<DataTable>(dataTable);
                         Assert.Equal(3, dataTable.Rows.Count);
@@ -960,33 +960,6 @@ namespace Tests.BolgerUtils
                 Assert.Equal(expected.Value, item.HasMoreThanNDecimalPlaces(n));
         }
 
-        [Fact]
-        public void Test_Decimal_HasMoreThanTwoDecimalPlaces()
-        {
-            // 0 decimal place.
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 0m);
-
-            // 2 decimal places.
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.1m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.15m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, 1.155m);
-
-            // Negative values, 2 decimal places.
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.1m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.15m);
-            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, -1.155m);
-        }
-
-        private void Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(bool? expected, decimal item)
-        {
-            if(!expected.HasValue)
-                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanTwoDecimalPlaces());
-            else
-                Assert.Equal(expected.Value, item.HasMoreThanTwoDecimalPlaces());
-        }
-
         [Theory]
         // 0 decimal place.
         [InlineData(false, 0d, 0)]
@@ -1021,6 +994,33 @@ namespace Tests.BolgerUtils
                 Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanNDecimalPlaces(n));
             else
                 Assert.Equal(expected.Value, item.HasMoreThanNDecimalPlaces(n));
+        }
+
+        [Fact]
+        public void Test_Decimal_HasMoreThanTwoDecimalPlaces()
+        {
+            // 0 decimal place.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 0m);
+
+            // 2 decimal places.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, 1.15m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, 1.155m);
+
+            // Negative values, 2 decimal places.
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.1m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(false, -1.15m);
+            Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(true, -1.155m);
+        }
+
+        private void Test_Decimal_HasMoreThanTwoDecimalPlaces_Implementation(bool? expected, decimal item)
+        {
+            if(!expected.HasValue)
+                Assert.Throws<ArgumentOutOfRangeException>(() => item.HasMoreThanTwoDecimalPlaces());
+            else
+                Assert.Equal(expected.Value, item.HasMoreThanTwoDecimalPlaces());
         }
 
         [Theory]

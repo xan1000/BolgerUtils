@@ -42,6 +42,17 @@ namespace BolgerUtils
 
         public static string ConnectionString { get; set; }
         public static Func<string, DbConnection> CreateConnectionFunc { get; set; }
+        public static Func<DbCommand, DbDataAdapter> CreateDataAdapter { get; set; }
+
+        public static DbConnection CreateAndOpenConnection() => CreateAndOpenConnection<DbConnection>();
+
+        public static T CreateAndOpenConnection<T>() where T : DbConnection
+        {
+            var connection = CreateConnection<T>();
+            connection.Open();
+
+            return connection;
+        }
 
         public static DbConnection CreateConnection() => CreateConnection<DbConnection>();
 
@@ -53,16 +64,6 @@ namespace BolgerUtils
                 throw new InvalidOperationException("Must set the Utils.CreateConnectionFunc property.");
 
             return (T) CreateConnectionFunc(ConnectionString);
-        }
-
-        public static DbConnection CreateAndOpenConnection() => CreateAndOpenConnection<DbConnection>();
-
-        public static T CreateAndOpenConnection<T>() where T : DbConnection
-        {
-            var connection = CreateConnection<T>();
-            connection.Open();
-
-            return connection;
         }
 
         public static List<DateTime> EachDay(DateTime startDate, int daysForward) =>

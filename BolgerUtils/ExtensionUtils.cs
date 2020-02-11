@@ -115,17 +115,18 @@ namespace BolgerUtils
 
         #region DbCommand
 
-        public static Func<DbCommand, DbDataAdapter> CreateDataAdapter { get; set; }
-
-        public static DataTable ToDataTable(this DbCommand command)
+        public static DataTable ToDataTable(this DbCommand item)
         {
-            if(CreateDataAdapter == null)
-                throw new InvalidOperationException("Must set the ExtensionUtils.CreateDataAdapter property.");
+            if(Utils.CreateDataAdapter == null)
+                throw new InvalidOperationException("Must set the Utils.CreateDataAdapter property.");
 
-            var table = new DataTable();
-            CreateDataAdapter(command).Fill(table);
-
-            return table;
+            using(var adapter = Utils.CreateDataAdapter(item))
+            {
+                var table = new DataTable();
+                adapter.Fill(table);
+                
+                return table;
+            }
         }
 
         #endregion
@@ -213,10 +214,10 @@ namespace BolgerUtils
 
         public static bool HasMoreThanNDecimalPlaces(this decimal item, int n) => decimal.Round(item, n) != item;
 
-        public static bool HasMoreThanTwoDecimalPlaces(this decimal item) => item.HasMoreThanNDecimalPlaces(2);
-
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         public static bool HasMoreThanNDecimalPlaces(this double item, int n) => Math.Round(item, n) != item;
+
+        public static bool HasMoreThanTwoDecimalPlaces(this decimal item) => item.HasMoreThanNDecimalPlaces(2);
 
         public static bool HasMoreThanTwoDecimalPlaces(this double item) => item.HasMoreThanNDecimalPlaces(2);
 
