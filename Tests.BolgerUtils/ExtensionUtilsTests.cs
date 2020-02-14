@@ -892,6 +892,26 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
+        public void ToIEnumerableEmptyIfNull()
+        {
+            var intArray = new[] { 1, 2, 3, 5, 10 };
+            Assert.Equal(intArray, intArray.ToIEnumerableEmptyIfNull());
+
+            intArray = null;
+            Assert.NotNull(intArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(new int[0], intArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(Enumerable.Empty<int>(), intArray.ToIEnumerableEmptyIfNull());
+
+            var stringArray = new[] { "Hello", "World", "Test" };
+            Assert.Equal(stringArray, stringArray.ToIEnumerableEmptyIfNull());
+
+            stringArray = null;
+            Assert.NotNull(stringArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(new string[0], stringArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(Enumerable.Empty<string>(), stringArray.ToIEnumerableEmptyIfNull());
+        }
+
+        [Fact]
         public void Test_ToListToHashSet()
         {
             Assert.IsType<HashSet<int>>(new[] { 4, 5, 6 }.ToListToHashSet());

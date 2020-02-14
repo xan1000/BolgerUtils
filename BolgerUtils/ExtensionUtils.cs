@@ -199,6 +199,9 @@ namespace BolgerUtils
         public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
             source.Where(x => !predicate(x));
 
+        public static IEnumerable<T> ToIEnumerableEmptyIfNull<T>(this IEnumerable<T> source) =>
+            source ?? Enumerable.Empty<T>();
+
         // Note this extension method is usually used in conjunction with EF.
         public static HashSet<T> ToListToHashSet<T>(this IEnumerable<T> source) => source.ToList().ToHashSet();
 
