@@ -436,6 +436,8 @@ namespace BolgerUtils
         public static decimal? ToDecimalOrNull(this string item) =>
             decimal.TryParse(item, out var x) ? x : (decimal?) null;
 
+        public static DirectoryInfo ToDirectoryInfo(this string item) => new DirectoryInfo(item);
+
         public static double ToDouble(this string item) => double.Parse(item);
 
         public static double? ToDoubleOrNull(this string item) =>
@@ -451,6 +453,8 @@ namespace BolgerUtils
         public static int? ToIntOrNull(this string item) => int.TryParse(item, out var x) ? x : (int?) null;
 
         public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
+
+        public static Uri ToUri(this string item) => new Uri(item);
 
         public static string Truncate(this string item, int length) =>
             item.Length <= length ? item : item.Substring(0, Math.Min(item.Length, length));

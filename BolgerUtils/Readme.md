@@ -225,6 +225,7 @@ ToBoolean | this string item | bool
 ToDbConnectionStringBuilder | this string item | DbConnectionStringBuilder
 ToDecimal | this string item | decimal
 ToDecimalOrNull | this string item | decimal?
+ToDirectoryInfo | this string item | DirectoryInfo
 ToDouble | this string item | double
 ToDoubleOrNull | this string item | double?
 ToEmptyIfNullOrWhiteSpace | this string item | string
@@ -232,6 +233,7 @@ ToFileInfo | this string item | FileInfo
 ToInt | this string item | int
 ToIntOrNull | this string item | int?
 ToNullIfNullOrWhiteSpace | this string item | string
+ToUri | this string item | Uri
 Truncate | this string item, int length | string
 UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter | this string item | string
 

@@ -2053,6 +2053,11 @@ Amazon
             Assert.Equal(expected, item.ToDecimalOrNull());
 
         [Theory]
+        [InlineData("Directory")]
+        [InlineData("Directory/SubDirectory")]
+        public void Test_ToDirectoryInfo(string item) => Assert.IsType<DirectoryInfo>(item.ToDirectoryInfo());
+
+        [Theory]
         [InlineData(5, "5")]
         [InlineData(-5, "-5")]
         [InlineData(5.5, "5.5")]
@@ -2161,6 +2166,14 @@ Amazon
         [InlineData(" Test ", " Test ")]
         public void Test_ToNullIfNullOrWhiteSpace(string expected, string item) =>
             Assert.Equal(expected, item.ToNullIfNullOrWhiteSpace());
+
+        [Theory]
+        [InlineData("http://example.com")]
+        [InlineData("https://example.com")]
+        [InlineData("https://example.com/page")]
+        [InlineData("https://example.com/page?variable=value")]
+        [InlineData("https://example.com/directory/page?a=1&b=2")]
+        public void Test_ToUri(string item) => Assert.IsType<Uri>(item.ToUri());
 
         [Theory]
         [InlineData("", "", 0)]
