@@ -132,6 +132,7 @@ Name | Parameters | Returns
 IsContainedIn<T\> | this T item, params T[] values | bool
 IsNull<T\> where T : class | this T item | bool
 ScalarToList<T\> | this T item | List<T\>
+ToStringIfNull<T\> where T : class | this T item, string stringIfNull = "(null)" | string
 
 ## ICollection
 

@@ -552,6 +552,40 @@ namespace Tests.BolgerUtils
             Assert.IsType<List<ExtensionUtilsTests>>(new ExtensionUtilsTests().ScalarToList());
         }
 
+        [Fact]
+        public void Test_ToStringIfNull()
+        {
+            const string stringIfNullDefaultValue = "(null)";
+
+            var s = "Hello World";
+            Test_ToStringIfNull_Implementation(s, s);
+            Test_ToStringIfNull_Implementation(s, s, "Test");
+            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null));
+
+            s = null;
+            // ReSharper disable ExpressionIsAlwaysNull
+            Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, s);
+            Test_ToStringIfNull_Implementation("Test", s, "Test");
+            // ReSharper restore ExpressionIsAlwaysNull
+            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null));
+
+            var t = new ExtensionUtilsTests();
+            Test_ToStringIfNull_Implementation(t.ToString(), t);
+            Test_ToStringIfNull_Implementation(t.ToString(), t, "Test");
+            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null));
+
+            t = null;
+            // ReSharper disable ExpressionIsAlwaysNull
+            Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, t);
+            Test_ToStringIfNull_Implementation("Test", t, "Test");
+            // ReSharper restore ExpressionIsAlwaysNull
+            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null));
+        }
+
+        private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string stringIfNull = null)
+            where T : class =>
+            Assert.Equal(expected, stringIfNull == null ? item.ToStringIfNull() : item.ToStringIfNull(stringIfNull));
+
         #endregion
 
         #region ICollection

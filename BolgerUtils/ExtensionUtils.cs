@@ -147,6 +147,14 @@ namespace BolgerUtils
 
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
+        public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)") where T : class
+        {
+            if(stringIfNull == null)
+                throw new ArgumentException("stringIfNull cannot null.");
+
+            return item != null ? item.ToString() : stringIfNull;
+        }
+
         #endregion
 
         #region ICollection
