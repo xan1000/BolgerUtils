@@ -70,7 +70,7 @@ ToTimeSpanOrNull | this TextBox item, string format = "h:mm tt" | TimeSpan?
 
 # Remarks
 
-The **.AddRange** and **.ToEnumerable()** methods are intended to be in conjunction with the Items property of a DropDownList, CheckBoxList, etc...
+The **.AddRange** and **.ToEnumerable** methods are intended to be used in conjunction with the Items property of a DropDownList, CheckBoxList, etc...
 
 # Attribution
 

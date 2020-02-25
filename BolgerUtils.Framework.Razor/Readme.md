@@ -36,7 +36,7 @@ ToRawString | this string item | IEncodedString
 
 The recommended entry point is to use the **Utils.Parse** methods.
 
-You can use **.ToRawString()** if content in the template should not be encoded and printed literally.
+You can use **.ToRawString** if content in the template should not be encoded and printed literally.
 
 If the template file is used in a non ASP.NET project to get cshtml syntax highlighting and editor awareness in Visual Studio you can add the **@inherits** directive at the top of the file:
 

@@ -87,7 +87,7 @@ public enum EmailSentState
 }
 ```
 
-Calling **.ToString()** on the enum will return the enum's name:
+Calling **.ToString** on the enum will return the enum's name:
 
 ######
 
@@ -99,7 +99,7 @@ Console.WriteLine(EmailSentState.PreparingToSend);
 Console.WriteLine(EmailSentState.PreparingToSend.ToString());
 ```
 
-Calling **.Display()** on the enum:
+Calling **.Display** on the enum:
 
 ######
 
@@ -151,7 +151,7 @@ public enum EmailSentState
 Console.WriteLine(EmailSentState.Sent.Display());
 ```
 
-The **.Display()** method also works with variables, for example:
+The **.Display** method also works with variables, for example:
 
 ######
 
