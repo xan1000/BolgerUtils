@@ -53,6 +53,7 @@ CreateConnection | void | DbConnection
 CreateConnection<T\> where T : DbConnection | void | T
 EachDay | DateTime startDate, int daysForward | List<DateTime>
 EachDay | DateTime startDate, DateTime endDate | List<DateTime>
+ExecuteTryCatch | Action action | Exception
 From | int constant, double value | double
 FromTens | int value | int
 FromHundreds | int value | int

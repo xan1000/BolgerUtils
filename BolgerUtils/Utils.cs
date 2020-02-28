@@ -82,6 +82,19 @@ namespace BolgerUtils
             return days;
         }
 
+        public static Exception ExecuteTryCatch(Action action)
+        {
+            try
+            {
+                action.Invoke();
+                return null;
+            }
+            catch(Exception e)
+            {
+                return e;
+            }
+        }
+
         public static double From(int constant, double value) => constant * value;
         public static int FromTens(int value) => Ten * value;
         public static int FromHundreds(int value) => Hundred * value;

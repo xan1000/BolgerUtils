@@ -209,6 +209,41 @@ namespace Tests.BolgerUtils
             Assert.Throws<ArgumentException>(() => Utils.EachDay(startDate, -1));
         }
 
+        [Fact]
+        public void Test_ExecuteTryCatch()
+        {
+            var i = 0;
+            Assert.Null(Utils.ExecuteTryCatch(() => i = 5));
+            Assert.Equal(5, i);
+
+            Assert.NotNull(Utils.ExecuteTryCatch(() => throw new Exception()));
+
+            var e = new Exception();
+            // ReSharper disable once AccessToModifiedClosure
+            Assert.Same(e, Utils.ExecuteTryCatch(() => throw e));
+
+            const string s = "Hello World";
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            e = Utils.ExecuteTryCatch(() => s.Substring(-1));
+            Assert.NotNull(e);
+            Assert.IsType<ArgumentOutOfRangeException>(e);
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            e = Utils.ExecuteTryCatch(() => s.Substring(s.Length + 1));
+            Assert.NotNull(e);
+            Assert.IsType<ArgumentOutOfRangeException>(e);
+
+            // ReSharper disable once UnusedVariable
+            e = Utils.ExecuteTryCatch(() => { var c = s[-1]; });
+            Assert.NotNull(e);
+            Assert.IsType<IndexOutOfRangeException>(e);
+
+            // ReSharper disable once UnusedVariable
+            e = Utils.ExecuteTryCatch(() => { var c = s[s.Length]; });
+            Assert.NotNull(e);
+            Assert.IsType<IndexOutOfRangeException>(e);
+        }
+
         [Theory]
         [InlineData(0, 0, 0)]
         [InlineData(0, 0, 10)]
