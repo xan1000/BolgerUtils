@@ -55,6 +55,7 @@ EachDay | DateTime startDate, int daysForward | List<DateTime\>
 EachDay | DateTime startDate, DateTime endDate | List<DateTime\>
 ExecuteTryCatch | Action action | Exception
 ExecuteTryCatchAsync | Func<Task\> func | Task<Exception\>
+ExecuteTryCatchAsync<T\> | Func<Task<T\>\> func | Task<Exception\>
 From | int constant, double value | double
 FromTens | int value | int
 FromHundreds | int value | int

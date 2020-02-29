@@ -109,6 +109,19 @@ namespace BolgerUtils
             }
         }
 
+        public static async Task<Exception> ExecuteTryCatchAsync<T>(Func<Task<T>> func)
+        {
+            try
+            {
+                await func();
+                return null;
+            }
+            catch(Exception e)
+            {
+                return e;
+            }
+        }
+
         public static double From(int constant, double value) => constant * value;
         public static int FromTens(int value) => Ten * value;
         public static int FromHundreds(int value) => Hundred * value;

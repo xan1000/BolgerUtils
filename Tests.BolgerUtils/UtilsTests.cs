@@ -248,47 +248,110 @@ namespace Tests.BolgerUtils
         [Fact]
         public async Task Test_ExecuteTryCatchAsync()
         {
-            var i = 0;
-            Assert.Null(await Utils.ExecuteTryCatchAsync(async () =>
+            // ExecuteTryCatchAsync Task.
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                i = 5;
-                await Task.Delay(TimeSpan.FromSeconds(1));
-            }));
-            Assert.Equal(5, i);
+                var i = 0;
+                Assert.Null(await Utils.ExecuteTryCatchAsync(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    i = 5;
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                }));
+                Assert.Equal(5, i);
 
-            // Disable async with no await warning.
-            #pragma warning disable 1998
-            i = 0;
-            Assert.Null(await Utils.ExecuteTryCatchAsync(async () => i = 5));
-            Assert.Equal(5, i);
-            Assert.NotNull(await Utils.ExecuteTryCatchAsync(async () => throw new Exception()));
+                // Disable async with no await warning.
+                #pragma warning disable 1998
+                i = 0;
+                Assert.Null(await Utils.ExecuteTryCatchAsync(async () => { i = 5; }));
+                Assert.Equal(5, i);
+                Assert.NotNull(await Utils.ExecuteTryCatchAsync(async () => throw new Exception()));
 
-            var e = new Exception();
-            // ReSharper disable once AccessToModifiedClosure
-            Assert.Same(e, await Utils.ExecuteTryCatchAsync(async () => throw e));
+                var e = new Exception();
+                // ReSharper disable once AccessToModifiedClosure
+                Assert.Same(e, await Utils.ExecuteTryCatchAsync(async () => throw e));
 
-            const string s = "Hello World";
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            e = await Utils.ExecuteTryCatchAsync(async () => s.Substring(-1));
-            Assert.NotNull(e);
-            Assert.IsType<ArgumentOutOfRangeException>(e);
+                const string s = "Hello World";
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                e = await Utils.ExecuteTryCatchAsync(async () => { s.Substring(-1); });
+                Assert.NotNull(e);
+                Assert.IsType<ArgumentOutOfRangeException>(e);
 
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            e = await Utils.ExecuteTryCatchAsync(async () => s.Substring(s.Length + 1));
-            Assert.NotNull(e);
-            Assert.IsType<ArgumentOutOfRangeException>(e);
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                e = await Utils.ExecuteTryCatchAsync(async () => { s.Substring(s.Length + 1); });
+                Assert.NotNull(e);
+                Assert.IsType<ArgumentOutOfRangeException>(e);
 
-            // ReSharper disable once UnusedVariable
-            e = await Utils.ExecuteTryCatchAsync(async () => { var c = s[-1]; });
-            Assert.NotNull(e);
-            Assert.IsType<IndexOutOfRangeException>(e);
+                // ReSharper disable once UnusedVariable
+                e = await Utils.ExecuteTryCatchAsync(async () => { var c = s[-1]; });
+                Assert.NotNull(e);
+                Assert.IsType<IndexOutOfRangeException>(e);
 
-            // ReSharper disable once UnusedVariable
-            e = await Utils.ExecuteTryCatchAsync(async () => { var c = s[s.Length]; });
-            Assert.NotNull(e);
-            Assert.IsType<IndexOutOfRangeException>(e);
-            #pragma warning restore 1998
+                // ReSharper disable once UnusedVariable
+                e = await Utils.ExecuteTryCatchAsync(async () => { var c = s[s.Length]; });
+                Assert.NotNull(e);
+                Assert.IsType<IndexOutOfRangeException>(e);
+                #pragma warning restore 1998
+            }
+
+            // ExecuteTryCatchAsync Task<T>.
+            {
+                var i = 0;
+                Assert.Null(await Utils.ExecuteTryCatchAsync(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    i = 5;
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    return i;
+                }));
+                Assert.Equal(5, i);
+
+                // Disable async with no await warning.
+                #pragma warning disable 1998
+                i = 0;
+                Assert.Null(await Utils.ExecuteTryCatchAsync(async () => i = 5));
+                Assert.Equal(5, i);
+                Assert.NotNull(await Utils.ExecuteTryCatchAsync(async () =>
+                {
+                    throw new Exception();
+
+                    #pragma warning disable 162
+                    return Utils.Empty;
+                    #pragma warning restore 162
+                }));
+
+                var e = new Exception();
+                // ReSharper disable once AccessToModifiedClosure
+                Assert.Same(e, await Utils.ExecuteTryCatchAsync(async () =>
+                {
+                    throw e;
+
+                    #pragma warning disable 162
+                    return Utils.Empty;
+                    #pragma warning restore 162
+                }));
+
+                const string s = "Hello World";
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                e = await Utils.ExecuteTryCatchAsync(async () => s.Substring(-1));
+                Assert.NotNull(e);
+                Assert.IsType<ArgumentOutOfRangeException>(e);
+
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                e = await Utils.ExecuteTryCatchAsync(async () => s.Substring(s.Length + 1));
+                Assert.NotNull(e);
+                Assert.IsType<ArgumentOutOfRangeException>(e);
+
+                // ReSharper disable once UnusedVariable
+                e = await Utils.ExecuteTryCatchAsync(async () => s[-1]);
+                Assert.NotNull(e);
+                Assert.IsType<IndexOutOfRangeException>(e);
+
+                // ReSharper disable once UnusedVariable
+                e = await Utils.ExecuteTryCatchAsync(async () => s[s.Length]);
+                Assert.NotNull(e);
+                Assert.IsType<IndexOutOfRangeException>(e);
+                #pragma warning restore 1998
+            }
         }
 
         [Theory]
