@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BolgerUtils
 {
@@ -86,7 +87,20 @@ namespace BolgerUtils
         {
             try
             {
-                action.Invoke();
+                action();
+                return null;
+            }
+            catch(Exception e)
+            {
+                return e;
+            }
+        }
+
+        public static async Task<Exception> ExecuteTryCatchAsync(Func<Task> func)
+        {
+            try
+            {
+                await func();
                 return null;
             }
             catch(Exception e)
