@@ -16,11 +16,11 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.co
     <RepositoryUrl>https://github.com/xan1000/BolgerUtils</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>2.0.7.3</Version>
+    <Version>2.0.7.9</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="2.0.7.8" />
+    <PackageReference Include="BolgerUtils" Version="2.0.7.9" />
   </ItemGroup>
 
   <ItemGroup>
