@@ -257,4 +257,6 @@ var accounts = FileToObjectUtils.Load<List<Account>>("test.json");
 
 # Attribution
 
-The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
+The BolgerUtils icon is attributed to Bernadette O'Keefe:
+
+https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart

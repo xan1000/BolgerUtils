@@ -264,4 +264,6 @@ The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnu
 
 # Attribution
 
-The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
+The BolgerUtils icon is attributed to Bernadette O'Keefe:
+
+https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart

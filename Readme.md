@@ -24,4 +24,6 @@ https://www.nuget.org/profiles/xan1000
 
 # Attribution
 
-The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
+The BolgerUtils icon is attributed to Bernadette O'Keefe:
+
+https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
