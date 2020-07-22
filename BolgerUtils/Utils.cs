@@ -83,7 +83,7 @@ namespace BolgerUtils
             return days;
         }
 
-        public static Exception ExecuteTryCatch(Action action)
+        public static Exception ExecuteWithTryCatch(Action action)
         {
             try
             {
@@ -96,7 +96,19 @@ namespace BolgerUtils
             }
         }
 
-        public static async Task<Exception> ExecuteTryCatchAsync(Func<Task> func)
+        public static Result<T> ExecuteWithTryCatch<T>(Func<T> func)
+        {
+            try
+            {
+                return new Result<T>(func());
+            }
+            catch(Exception e)
+            {
+                return new Result<T>(e);
+            }
+        }
+
+        public static async Task<Exception> ExecuteWithTryCatchAsync(Func<Task> func)
         {
             try
             {
@@ -109,16 +121,15 @@ namespace BolgerUtils
             }
         }
 
-        public static async Task<Exception> ExecuteTryCatchAsync<T>(Func<Task<T>> func)
+        public static async Task<Result<T>> ExecuteWithTryCatchAsync<T>(Func<Task<T>> func)
         {
             try
             {
-                await func();
-                return null;
+                return new Result<T>(await func());
             }
             catch(Exception e)
             {
-                return e;
+                return new Result<T>(e);
             }
         }
 
