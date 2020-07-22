@@ -13,12 +13,9 @@ Set-Variable Options -Option Constant -Value @(
     "BolgerUtils.TimeZoneConverter"
 )
 
-function Main
-{
-    while($true)
-    {
-        for($i = 0; $i -lt $Options.length; $i++)
-        {
+function Main {
+    while($true) {
+        for($i = 0; $i -lt $Options.length; $i++) {
             Write-Host "$($i + 1)    -> $($Options[$i])"
         }
         Write-Host "Quit"
@@ -26,14 +23,12 @@ function Main
 
         $input = SelectAnOption
 
-        if($input -ieq "quit")
-        {
+        if($input -ieq "quit") {
             return
         }
 
         $index = 0
-        if(!([int]::TryParse($input, [ref] $index)) -or $index -lt 1 -or $index -gt $Options.length)
-        {
+        if(!([int]::TryParse($input, [ref] $index)) -or $index -lt 1 -or $index -gt $Options.length) {
             InvalidInput
             continue
         }
@@ -44,8 +39,7 @@ function Main
     }
 }
 
-function MenuOption
-{
+function MenuOption {
     param(
         [Parameter(Mandatory=$true)]
         [string] $option,
@@ -53,10 +47,7 @@ function MenuOption
         [bool] $isFramework
     )
 
-    $isFramework
-
-    while($true)
-    {
+    while($true) {
         Write-Host "--- $($option) ---"
         Write-Host "1    -> Pack"
         Write-Host "2    -> Publish"
@@ -65,33 +56,27 @@ function MenuOption
 
         $input = SelectAnOption
 
-        if($input -eq "1")
-        {
+        if($input -eq "1") {
             Pack $option $isFramework
 
             $input = SelectAnOption "Publish $($option) package now (yes)? "
-            if($input -ieq "yes")
-            {
+            if($input -ieq "yes") {
                 Publish $option $isFramework $false
             }
         }
-        elseif($input -eq "2")
-        {
+        elseif($input -eq "2") {
             Publish $option $isFramework
         }
-        elseif($input -ieq "back")
-        {
+        elseif($input -ieq "back") {
             return
         }
-        else
-        {
+        else {
             InvalidInput
         }
     }
 }
 
-function Pack
-{
+function Pack {
     param(
         [Parameter(Mandatory=$true)]
         [string] $option,
@@ -105,22 +90,19 @@ function Pack
     Remove-Item "$($option).*.nupkg"
 
     $csprojPath = "./$($option)/$($option).csproj"
-    if($isFramework)
-    {
+    if($isFramework) {
         # https://stackoverflow.com/a/6338047
         # https://stackoverflow.com/a/1674950
         Invoke-Expression "& '$($MsBuildPath)' ./BolgerUtils.sln /t:$($option.Replace([char] '.', [char] '_'))"
         nuget pack $csprojPath -IncludeReferencedProjects
     }
-    else
-    {
+    else {
         dotnet pack $csprojPath -o (Get-Location).Path
     }
     Write-Host
 }
 
-function Publish
-{
+function Publish {
     param(
         [Parameter(Mandatory=$true)]
         [string] $option,
@@ -133,27 +115,22 @@ function Publish
     Write-Host
 
     $packages = @(Get-Item "$($option).*.nupkg")
-    if($packages.Length -ne 1)
-    {
+    if($packages.Length -ne 1) {
         throw
     }
 
     $packageName = $packages[0].Name
-    if($shouldConfirm)
-    {
+    if($shouldConfirm) {
         $input = SelectAnOption "Are you sure you want to publish the $($packageName) package (yes)? "
-        if($input -ine "yes")
-        {
+        if($input -ine "yes") {
             exit
         }
     }
 
-    if($isFramework)
-    {
+    if($isFramework) {
         nuget push $packageName $ApiKey -Source $NuGetSource
     }
-    else
-    {
+    else {
         dotnet nuget push $packageName -k $ApiKey -s $NuGetSource
     }
     Remove-Item $packageName
@@ -161,9 +138,10 @@ function Publish
     exit
 }
 
-function SelectAnOption
-{
-    param([string] $prompt = "Select an option: ")
+function SelectAnOption {
+    param(
+        [string] $prompt = "Select an option: "
+    )
 
     Write-Host -NoNewline $prompt
     $input = Read-Host
@@ -172,8 +150,7 @@ function SelectAnOption
     return $input
 }
 
-function InvalidInput
-{
+function InvalidInput {
     Write-Host "Invalid input."
     Write-Host
 }
