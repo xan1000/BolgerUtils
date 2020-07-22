@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Matthew Bolger</Authors>
-    <Description>See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils/
+    <Description>See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils
 
 - Attribution -
 
@@ -11,8 +11,8 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.co
 </Description>
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils/</PackageProjectUrl>
-    <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xan1000/BolgerUtils</RepositoryUrl>
     <PackageTags>utils</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />

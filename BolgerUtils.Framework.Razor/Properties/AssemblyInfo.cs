@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BolgerUtils.Framework.Razor")]
-[assembly: AssemblyDescription(@"See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.Framework.Razor/
+[assembly: AssemblyDescription(@"See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.Framework.Razor
 
 - Attribution -
 

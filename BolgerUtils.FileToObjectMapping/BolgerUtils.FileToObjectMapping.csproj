@@ -6,14 +6,14 @@
     <Copyright>Copyright ©  2019</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>File;Object;Mapping</PackageTags>
-    <Description>See https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/
+    <Description>See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.FileToObjectMapping
 
 - Attribution -
 
 The BolgerUtils icon is attributed to Bernadette O'Keefe: https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
 </Description>
-    <PackageProjectUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/BolgerUtils.FileToObjectMapping/</PackageProjectUrl>
-    <RepositoryUrl>https://bitbucket.org/xan1000/bolgerutils/src/master/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.FileToObjectMapping</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xan1000/BolgerUtils</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
     <Version>2.0.7.3</Version>
