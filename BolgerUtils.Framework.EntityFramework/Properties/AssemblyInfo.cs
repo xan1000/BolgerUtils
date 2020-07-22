@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BolgerUtils.Framework.EntityFramework")]
-[assembly: AssemblyDescription(@"See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.FileToObjectMapping
+[assembly: AssemblyDescription(@"See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.Framework.EntityFramework
 
 - Attribution -
 
