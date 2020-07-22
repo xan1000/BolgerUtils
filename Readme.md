@@ -6,17 +6,17 @@ The packages available are:
 
 ### .NET Standard 2.0
 
-* [BolgerUtils](BolgerUtils/Readme.md)
-* [BolgerUtils.EnumDisplay](BolgerUtils.EnumDisplay/Readme.md)
-* [BolgerUtils.FileToObjectMapping](BolgerUtils.FileToObjectMapping/Readme.md)
-* [BolgerUtils.TimeZoneConverter](BolgerUtils.TimeZoneConverter/Readme.md)
+* [BolgerUtils](BolgerUtils)
+* [BolgerUtils.EnumDisplay](BolgerUtils.EnumDisplay)
+* [BolgerUtils.FileToObjectMapping](BolgerUtils.FileToObjectMapping)
+* [BolgerUtils.TimeZoneConverter](BolgerUtils.TimeZoneConverter)
 
 ### .NET Framework 4.8
 
-* [BolgerUtils.Framework.EntityFramework](BolgerUtils.Framework.EntityFramework/Readme.md)
-* [BolgerUtils.Framework.EnumDisplay](BolgerUtils.Framework.EnumDisplay/Readme.md)
-* [BolgerUtils.Framework.Razor](BolgerUtils.Framework.Razor/Readme.md)
-* [BolgerUtils.Framework.WebForms](BolgerUtils.Framework.WebForms/Readme.md)
+* [BolgerUtils.Framework.EntityFramework](BolgerUtils.Framework.EntityFramework)
+* [BolgerUtils.Framework.EnumDisplay](BolgerUtils.Framework.EnumDisplay)
+* [BolgerUtils.Framework.Razor](BolgerUtils.Framework.Razor)
+* [BolgerUtils.Framework.WebForms](BolgerUtils.Framework.WebForms)
 
 Link to all these packages on NuGet:
 
