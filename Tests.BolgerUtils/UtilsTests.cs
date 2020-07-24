@@ -245,15 +245,18 @@ namespace Tests.BolgerUtils
             // ExecuteWithTryCatch Func<T>
             {
                 var result = Utils.ExecuteWithTryCatch(() => s.Substring(0, h.Length));
+                Assert.True(result.HasReturnValue);
                 Assert.Equal(h, result.ReturnValue);
                 Assert.Null(result.Exception);
 
                 result = Utils.ExecuteWithTryCatch(() => s.Substring(-1));
+                Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
 
                 result = Utils.ExecuteWithTryCatch(() => s.Substring(s.Length + 1));
+                Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
@@ -316,6 +319,7 @@ namespace Tests.BolgerUtils
 
                     return substring;
                 });
+                Assert.True(result.HasReturnValue);
                 Assert.Equal(h, result.ReturnValue);
                 Assert.Null(result.Exception);
 
@@ -323,11 +327,13 @@ namespace Tests.BolgerUtils
                 #pragma warning disable 1998
 
                 result = await Utils.ExecuteWithTryCatchAsync(async () => s.Substring(-1));
+                Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
 
                 result = await Utils.ExecuteWithTryCatchAsync(async () => s.Substring(s.Length + 1));
+                Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);

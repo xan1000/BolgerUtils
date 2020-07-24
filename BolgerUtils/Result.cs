@@ -9,6 +9,7 @@ namespace BolgerUtils
         public Result(T returnValue) => _returnValue = returnValue;
         public Result(Exception exception) => Exception = exception;
 
+        public bool HasReturnValue => Exception == null;
         public T ReturnValue
         {
             get
