@@ -22,8 +22,8 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="3.0.0" />
-    <PackageReference Include="BolgerUtils.EnumDisplay" Version="3.0.0" />
+    <PackageReference Include="BolgerUtils" Version="3.0.0.1" />
+    <PackageReference Include="BolgerUtils.EnumDisplay" Version="3.0.0.1" />
     <PackageReference Include="TimeZoneConverter" Version="3.2.0" />
   </ItemGroup>
 
