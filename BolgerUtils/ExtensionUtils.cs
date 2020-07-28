@@ -120,13 +120,11 @@ namespace BolgerUtils
             if(Utils.CreateDataAdapter == null)
                 throw new InvalidOperationException("Must set the Utils.CreateDataAdapter property.");
 
-            using(var adapter = Utils.CreateDataAdapter(item))
-            {
-                var table = new DataTable();
-                adapter.Fill(table);
+            using var adapter = Utils.CreateDataAdapter(item);
+            var table = new DataTable();
+            adapter.Fill(table);
 
-                return table;
-            }
+            return table;
         }
 
         #endregion

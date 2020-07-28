@@ -36,8 +36,7 @@ namespace BolgerUtils.EnumDisplay
 
         public void Add(Enum key, string value = null)
         {
-            if(value == null)
-                value = _defaultDisplay(key);
+            value ??= _defaultDisplay(key);
 
             _dictionary.Add(key, value);
         }

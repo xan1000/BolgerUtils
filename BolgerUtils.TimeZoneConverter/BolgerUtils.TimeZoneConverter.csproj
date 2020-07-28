@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Matthew Bolger</Authors>
     <Description>See https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.TimeZoneConverter
 
