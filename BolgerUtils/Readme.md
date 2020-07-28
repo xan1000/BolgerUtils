@@ -233,6 +233,7 @@ ToInt | this string item | int
 ToIntOrNull | this string item | int?
 ToNullIfNullOrWhiteSpace | this string item | string
 ToUri | this string item | Uri
+TrimStartOnAllLines | this string item | string
 Truncate | this string item, int length | string
 UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter | this string item | string
 
