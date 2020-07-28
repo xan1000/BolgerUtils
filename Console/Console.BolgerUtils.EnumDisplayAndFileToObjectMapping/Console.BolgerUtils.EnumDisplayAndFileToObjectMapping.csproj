@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BolgerUtils.EnumDisplay\BolgerUtils.EnumDisplay.csproj" />
-    <ProjectReference Include="..\BolgerUtils.FileToObjectMapping\BolgerUtils.FileToObjectMapping.csproj" />
+    <ProjectReference Include="..\..\BolgerUtils.EnumDisplay\BolgerUtils.EnumDisplay.csproj" />
+    <ProjectReference Include="..\..\BolgerUtils.FileToObjectMapping\BolgerUtils.FileToObjectMapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>
