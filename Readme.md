@@ -4,19 +4,12 @@ BolgerUtils contains miscellaneous utilities available in various .NET NuGet pac
 
 The packages available are:
 
-### .NET Standard 2.0
+### .NET Standard 2.1
 
 * [BolgerUtils](BolgerUtils)
 * [BolgerUtils.EnumDisplay](BolgerUtils.EnumDisplay)
 * [BolgerUtils.FileToObjectMapping](BolgerUtils.FileToObjectMapping)
 * [BolgerUtils.TimeZoneConverter](BolgerUtils.TimeZoneConverter)
-
-### .NET Framework 4.8
-
-* [BolgerUtils.Framework.EntityFramework](BolgerUtils.Framework.EntityFramework)
-* [BolgerUtils.Framework.EnumDisplay](BolgerUtils.Framework.EnumDisplay)
-* [BolgerUtils.Framework.Razor](BolgerUtils.Framework.Razor)
-* [BolgerUtils.Framework.WebForms](BolgerUtils.Framework.WebForms)
 
 Link to all these packages on NuGet:
 
