@@ -6,10 +6,6 @@ Set-Variable Options -Option Constant -Value @(
     "BolgerUtils",
     "BolgerUtils.EnumDisplay",
     "BolgerUtils.FileToObjectMapping",
-    "BolgerUtils.Framework.EntityFramework",
-    "BolgerUtils.Framework.EnumDisplay",
-    "BolgerUtils.Framework.Razor",
-    "BolgerUtils.Framework.WebForms",
     "BolgerUtils.TimeZoneConverter"
 )
 
@@ -35,16 +31,14 @@ function Main {
         
         $index--
         $option = $Options[$index]
-        MenuOption $option $option.Contains(".Framework.")
+        MenuOption $option
     }
 }
 
 function MenuOption {
     param(
         [Parameter(Mandatory=$true)]
-        [string] $option,
-        [Parameter(Mandatory=$true)]
-        [bool] $isFramework
+        [string] $option
     )
 
     while($true) {
@@ -57,15 +51,15 @@ function MenuOption {
         $input = SelectAnOption
 
         if($input -eq "1") {
-            Pack $option $isFramework
+            Pack $option
 
             $input = SelectAnOption "Publish $($option) package now (yes)? "
             if($input -ieq "yes") {
-                Publish $option $isFramework $false
+                Publish $option $false
             }
         }
         elseif($input -eq "2") {
-            Publish $option $isFramework
+            Publish $option
         }
         elseif($input -ieq "back") {
             return
@@ -79,9 +73,7 @@ function MenuOption {
 function Pack {
     param(
         [Parameter(Mandatory=$true)]
-        [string] $option,
-        [Parameter(Mandatory=$true)]
-        [bool] $isFramework
+        [string] $option
     )
 
     Write-Host "--- Packing: $($option) ---"
@@ -90,15 +82,9 @@ function Pack {
     Remove-Item "$($option).*.nupkg"
 
     $csprojPath = "./$($option)/$($option).csproj"
-    if($isFramework) {
-        # https://stackoverflow.com/a/6338047
-        # https://stackoverflow.com/a/1674950
-        Invoke-Expression "& '$($MsBuildPath)' ./BolgerUtils.sln /t:$($option.Replace([char] '.', [char] '_'))"
-        nuget pack $csprojPath -IncludeReferencedProjects
-    }
-    else {
-        dotnet pack $csprojPath -o (Get-Location).Path
-    }
+
+    dotnet pack $csprojPath -o (Get-Location).Path
+    
     Write-Host
 }
 
@@ -106,8 +92,6 @@ function Publish {
     param(
         [Parameter(Mandatory=$true)]
         [string] $option,
-        [Parameter(Mandatory=$true)]
-        [bool] $isFramework,
         [bool] $shouldConfirm = $true
     )
 
@@ -126,13 +110,9 @@ function Publish {
             exit
         }
     }
+    
+    dotnet nuget push $packageName -k $ApiKey -s $NuGetSource
 
-    if($isFramework) {
-        nuget push $packageName $ApiKey -Source $NuGetSource
-    }
-    else {
-        dotnet nuget push $packageName -k $ApiKey -s $NuGetSource
-    }
     Remove-Item $packageName
     Write-Host
     exit
