@@ -124,7 +124,7 @@ namespace BolgerUtils
             {
                 var table = new DataTable();
                 adapter.Fill(table);
-                
+
                 return table;
             }
         }
@@ -451,6 +451,18 @@ namespace BolgerUtils
         public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
 
         public static Uri ToUri(this string item) => new Uri(item);
+
+        public static string TrimStartOnAllLines(this string item)
+        {
+            var lines = item.Split(new[] { Utils.NewLineChar }, StringSplitOptions.RemoveEmptyEntries);
+
+            for(var i = 0; i < lines.Length; i++)
+            {
+                lines[i] = lines[i].TrimStart();
+            }
+
+            return lines.Join(Utils.NewLineChar);
+        }
 
         public static string Truncate(this string item, int length) =>
             item.Length <= length ? item : item.Substring(0, Math.Min(item.Length, length));
