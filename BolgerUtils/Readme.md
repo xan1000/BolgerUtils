@@ -155,13 +155,6 @@ NotAll<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
 NotAny<T\> | this IEnumerable<T\> source | bool
 NotAny<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
 NotWhere<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | IEnumerable<T\>
-ToListToHashSet<T\> | this IEnumerable<T\> source | HashSet<T\>
-
-## List
-
-Name | Parameters | Returns
---- | --- | ---
-ToHashSet<T\> | this List<T\> item | HashSet<T\>
 
 ## Numbers
 
@@ -257,8 +250,6 @@ ToDateTimeString | this TimeSpan item, string format = "h:mm tt" | string
 The **.AddAll** and **.RemoveAll** methods can be used on regular collections but are intended to be used in conjunction with EntityFramework.
 
 The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnumerable<T\>** source but are intended to be used in conjunction with EntityFramework.
-
-**.ToListToHashSet** can be used on any **IEnumerable<T\>** source but is intended to be used in conjunction with EntityFramework, i.e., **.ToList** is used to execute the query which is then immediately converted to a **HashSet** via **.ToHashSet**.
 
 **.ToDateTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
 

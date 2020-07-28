@@ -926,43 +926,23 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
-        public void ToIEnumerableEmptyIfNull()
+        public void ToEnumerableEmptyIfNull()
         {
             var intArray = new[] { 1, 2, 3, 5, 10 };
-            Assert.Equal(intArray, intArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(intArray, intArray.ToEnumerableEmptyIfNull());
 
             intArray = null;
-            Assert.NotNull(intArray.ToIEnumerableEmptyIfNull());
-            Assert.Equal(new int[0], intArray.ToIEnumerableEmptyIfNull());
-            Assert.Equal(Enumerable.Empty<int>(), intArray.ToIEnumerableEmptyIfNull());
+            Assert.NotNull(intArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(new int[0], intArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(Enumerable.Empty<int>(), intArray.ToEnumerableEmptyIfNull());
 
             var stringArray = new[] { "Hello", "World", "Test" };
-            Assert.Equal(stringArray, stringArray.ToIEnumerableEmptyIfNull());
+            Assert.Equal(stringArray, stringArray.ToEnumerableEmptyIfNull());
 
             stringArray = null;
-            Assert.NotNull(stringArray.ToIEnumerableEmptyIfNull());
-            Assert.Equal(new string[0], stringArray.ToIEnumerableEmptyIfNull());
-            Assert.Equal(Enumerable.Empty<string>(), stringArray.ToIEnumerableEmptyIfNull());
-        }
-
-        [Fact]
-        public void Test_ToListToHashSet()
-        {
-            Assert.IsType<HashSet<int>>(new[] { 4, 5, 6 }.ToListToHashSet());
-            Assert.IsType<HashSet<string>>(new[] { "Hello", "World", "Test" }.ToListToHashSet());
-            Assert.IsType<HashSet<ExtensionUtilsTests>>(new ExtensionUtilsTests().ScalarToList().ToListToHashSet());
-        }
-
-        #endregion
-
-        #region List
-
-        [Fact]
-        public void Test_ToHashSet()
-        {
-            Assert.IsType<HashSet<int>>(new List<int>().ToHashSet());
-            Assert.IsType<HashSet<string>>(new List<string>().ToHashSet());
-            Assert.IsType<HashSet<ExtensionUtilsTests>>(new List<ExtensionUtilsTests>().ToHashSet());
+            Assert.NotNull(stringArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(new string[0], stringArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(Enumerable.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
         }
 
         #endregion
