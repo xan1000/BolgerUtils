@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.WebForms", "BolgerUtils.Framework.WebForms\BolgerUtils.Framework.WebForms.csproj", "{D8487E8C-E435-4E4A-BE27-9E9FD5B6D7A7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BolgerUtils.FileToObjectMapping", "BolgerUtils.FileToObjectMapping\BolgerUtils.FileToObjectMapping.csproj", "{3D9EC0E8-E66E-4CD7-A8B4-CBA9E66C6162}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.BolgerUtils.EnumDisplay", "Tests.BolgerUtils.EnumDisplay\Tests.BolgerUtils.EnumDisplay.csproj", "{E8AB9D64-CE32-4294-BC34-3C92E10753BD}"
@@ -15,27 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BolgerUtils.EnumDisplay", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console.BolgerUtils", "Console.BolgerUtils\Console.BolgerUtils.csproj", "{8765D985-B46B-4A54-A62D-1120BD2A9FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.EnumDisplay", "BolgerUtils.Framework.EnumDisplay\BolgerUtils.Framework.EnumDisplay.csproj", "{D0500142-5000-493D-AD74-119EFE04EE65}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.BolgerUtils", "Tests.BolgerUtils\Tests.BolgerUtils.csproj", "{45A45C39-FF74-4546-AE0E-C3EE7BCB2C84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.WebForms", "Tests.BolgerUtils.Framework.WebForms\Tests.BolgerUtils.Framework.WebForms.csproj", "{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.BolgerUtils.FileToObjectMapping", "Tests.BolgerUtils.FileToObjectMapping\Tests.BolgerUtils.FileToObjectMapping.csproj", "{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.EntityFramework", "BolgerUtils.Framework.EntityFramework\BolgerUtils.Framework.EntityFramework.csproj", "{B7E35F94-8B32-4098-8ACC-B3AF68A8E209}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.EntityFramework", "Tests.BolgerUtils.Framework.EntityFramework\Tests.BolgerUtils.Framework.EntityFramework.csproj", "{C5E1FA8C-D538-4D91-9115-A3F8167F74AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BolgerUtils.Framework.Razor", "BolgerUtils.Framework.Razor\BolgerUtils.Framework.Razor.csproj", "{A5C7794C-7675-4C1B-B18C-C8B23BDB5F87}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.Framework.Razor", "Tests.BolgerUtils.Framework.Razor\Tests.BolgerUtils.Framework.Razor.csproj", "{4866E5C0-6AE0-4022-B585-5314086D0A7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping", "Console.BolgerUtils.EnumDisplayAndFileToObjectMapping\Console.BolgerUtils.EnumDisplayAndFileToObjectMapping.csproj", "{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BolgerUtils.TimeZoneConverter", "BolgerUtils.TimeZoneConverter\BolgerUtils.TimeZoneConverter.csproj", "{A40FFD9A-1842-46D1-8DC3-A135D5EC894D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.BolgerUtils.TimeZoneConverter", "Tests.BolgerUtils.TimeZoneConverter\Tests.BolgerUtils.TimeZoneConverter.csproj", "{B1655939-74A9-40C0-98E1-24A475457333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.BolgerUtils.TimeZoneConverter", "Tests.BolgerUtils.TimeZoneConverter\Tests.BolgerUtils.TimeZoneConverter.csproj", "{B1655939-74A9-40C0-98E1-24A475457333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D8487E8C-E435-4E4A-BE27-9E9FD5B6D7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8487E8C-E435-4E4A-BE27-9E9FD5B6D7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8487E8C-E435-4E4A-BE27-9E9FD5B6D7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8487E8C-E435-4E4A-BE27-9E9FD5B6D7A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D9EC0E8-E66E-4CD7-A8B4-CBA9E66C6162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D9EC0E8-E66E-4CD7-A8B4-CBA9E66C6162}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D9EC0E8-E66E-4CD7-A8B4-CBA9E66C6162}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,38 +49,14 @@ Global
 		{8765D985-B46B-4A54-A62D-1120BD2A9FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8765D985-B46B-4A54-A62D-1120BD2A9FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8765D985-B46B-4A54-A62D-1120BD2A9FD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0500142-5000-493D-AD74-119EFE04EE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0500142-5000-493D-AD74-119EFE04EE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0500142-5000-493D-AD74-119EFE04EE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0500142-5000-493D-AD74-119EFE04EE65}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45A45C39-FF74-4546-AE0E-C3EE7BCB2C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{45A45C39-FF74-4546-AE0E-C3EE7BCB2C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A45C39-FF74-4546-AE0E-C3EE7BCB2C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A45C39-FF74-4546-AE0E-C3EE7BCB2C84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{036E01EB-80CE-49DF-B5E3-087F5D1ACA5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D3CD465-1ECA-4F5D-93E7-029B54C7BAC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7E35F94-8B32-4098-8ACC-B3AF68A8E209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7E35F94-8B32-4098-8ACC-B3AF68A8E209}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7E35F94-8B32-4098-8ACC-B3AF68A8E209}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7E35F94-8B32-4098-8ACC-B3AF68A8E209}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5E1FA8C-D538-4D91-9115-A3F8167F74AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5E1FA8C-D538-4D91-9115-A3F8167F74AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5E1FA8C-D538-4D91-9115-A3F8167F74AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5E1FA8C-D538-4D91-9115-A3F8167F74AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5C7794C-7675-4C1B-B18C-C8B23BDB5F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5C7794C-7675-4C1B-B18C-C8B23BDB5F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5C7794C-7675-4C1B-B18C-C8B23BDB5F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5C7794C-7675-4C1B-B18C-C8B23BDB5F87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4866E5C0-6AE0-4022-B585-5314086D0A7E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A1F6954-895C-44FA-BBDE-0B0C475BE1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU

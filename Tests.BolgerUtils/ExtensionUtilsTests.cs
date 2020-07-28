@@ -2165,6 +2165,28 @@ Amazon
         [InlineData("https://example.com/directory/page?a=1&b=2")]
         public void Test_ToUri(string item) => Assert.IsType<Uri>(item.ToUri());
 
+        [Fact]
+        public void Test_TrimStartOnAllLines()
+        {
+            const string input =
+                @"Web Service and Database Example
+                ================================
+                1. Display People
+                2. Quit
+                
+                Enter an option: ";
+
+            var expected =
+                $"Web Service and Database Example{Environment.NewLine}" +
+                $"================================{Environment.NewLine}" +
+                $"1. Display People{Environment.NewLine}" +
+                $"2. Quit{Environment.NewLine}" +
+                "\n" +
+                "Enter an option: ";
+
+            Assert.Equal(expected, input.TrimStartOnAllLines());
+        }
+
         [Theory]
         [InlineData("", "", 0)]
         [InlineData("Hello", "Hello", 5)]
