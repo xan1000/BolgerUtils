@@ -155,6 +155,8 @@ NotAll<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
 NotAny<T\> | this IEnumerable<T\> source | bool
 NotAny<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | bool
 NotWhere<T\> | this IEnumerable<T\> source, Func<T, bool\> predicate | IEnumerable<T\>
+ToEnumerableEmptyIfNull<T\> | this IEnumerable<T\> source | IEnumerable<T\>
+Yield<T\> | this T item | IEnumerable<T\>
 
 ## Numbers
 

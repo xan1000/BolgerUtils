@@ -926,7 +926,7 @@ namespace Tests.BolgerUtils
         }
 
         [Fact]
-        public void ToEnumerableEmptyIfNull()
+        public void Test_ToEnumerableEmptyIfNull()
         {
             var intArray = new[] { 1, 2, 3, 5, 10 };
             Assert.Equal(intArray, intArray.ToEnumerableEmptyIfNull());
@@ -943,6 +943,16 @@ namespace Tests.BolgerUtils
             Assert.NotNull(stringArray.ToEnumerableEmptyIfNull());
             Assert.Equal(new string[0], stringArray.ToEnumerableEmptyIfNull());
             Assert.Equal(Enumerable.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
+        }
+
+        [Fact]
+        public void Test_Yield()
+        {
+            const int i = 10;
+            var enumerable = Assert.IsAssignableFrom<IEnumerable<int>>(i.Yield());
+            var array = enumerable.ToArray();
+            Assert.Single(array);
+            Assert.Equal(i, array.First());
         }
 
         #endregion

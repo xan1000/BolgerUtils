@@ -210,6 +210,11 @@ namespace BolgerUtils
         public static IEnumerable<T> ToEnumerableEmptyIfNull<T>(this IEnumerable<T> source) =>
             source ?? Enumerable.Empty<T>();
 
+        public static IEnumerable<T> Yield<T>(this T item)
+        {
+            yield return item;
+        }
+
         #endregion
 
         #region Numbers
