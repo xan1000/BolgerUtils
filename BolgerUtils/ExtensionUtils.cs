@@ -109,6 +109,7 @@ namespace BolgerUtils
 
         public static IOrderedEnumerable<DayOfWeek> OrderByDayOfWeekStartingOnMonday(
             this IEnumerable<DayOfWeek> source) =>
+            // ReSharper disable once UselessBinaryOperation
             source.OrderBy(x => x == DayOfWeek.Sunday ? x + Utils.DaysPerWeek : x);
 
         #endregion

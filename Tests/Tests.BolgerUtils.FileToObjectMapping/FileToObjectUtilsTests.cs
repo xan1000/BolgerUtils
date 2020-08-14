@@ -263,9 +263,9 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             var fileToObjectTimeSpan = stopwatch.Elapsed;
 
             const int columnLength = -19;
-            static string ToString(double value) => $"{Math.Round(value, 2):N}";
+            static string ToPercentageString(double value) => $"{Math.Round(value, 2):N}";
             void Display(string title, TimeSpan timeSpan) =>
-                _output.WriteLine($"{title,columnLength}: {ToString(timeSpan.TotalSeconds)}s");
+                _output.WriteLine($"{title,columnLength}: {ToPercentageString(timeSpan.TotalSeconds)}s");
 
             Display("Raw Time", rawTimeSpan);
             Display("File to Object Time", fileToObjectTimeSpan);
@@ -275,8 +275,8 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Display("Difference", rawTimeSpan.Subtract(fileToObjectTimeSpan));
 
             var percentage = fileToObjectTimeSpan.TotalSeconds / rawTimeSpan.TotalSeconds * 100;
-            _output.WriteLine($"{"Percentage Runtime",columnLength}: {ToString(percentage)}%");
-            _output.WriteLine($"{"Percentage Faster",columnLength}: {ToString(100 / percentage * 100)}%");
+            _output.WriteLine($"{"Percentage Runtime",columnLength}: {ToPercentageString(percentage)}%");
+            _output.WriteLine($"{"Percentage Faster",columnLength}: {ToPercentageString(100 / percentage * 100)}%");
         }
 
         [Fact]
