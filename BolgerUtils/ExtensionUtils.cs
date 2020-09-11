@@ -19,7 +19,7 @@ namespace BolgerUtils
         public static string Checked(this bool item) => item.Display("checked");
 
         public static string Disabled(this bool item) => item.Display("disabled");
-        
+
         public static string Display(this bool item, string trueDisplay, string falseDisplay = Utils.Empty) =>
             item ? trueDisplay : falseDisplay;
 
@@ -52,7 +52,7 @@ namespace BolgerUtils
         #endregion
 
         #region DateTime
-        
+
         public static DateTime AddWeeks(this DateTime item, double weeks) => item.AddDays(weeks * Utils.DaysPerWeek);
 
         private static DateTime FindDayOfWeek(this DateTime item, DayOfWeek dayOfWeek, bool forward)
@@ -64,10 +64,10 @@ namespace BolgerUtils
             }
             return item;
         }
-        
+
         public static DateTime FindDayOfWeekBackward(this DateTime item, DayOfWeek dayOfWeek) =>
             item.FindDayOfWeek(dayOfWeek, false);
-        
+
         public static DateTime FindDayOfWeekForward(this DateTime item, DayOfWeek dayOfWeek) =>
             item.FindDayOfWeek(dayOfWeek, true);
 
@@ -76,7 +76,7 @@ namespace BolgerUtils
         public static bool IsDayInFutureOrToday(this DateTime a, DateTime b) => a.Date.IsInFutureOrNow(b.Date);
 
         public static bool IsDayInPast(this DateTime a, DateTime b) => a.Date.IsInPast(b.Date);
-        
+
         public static bool IsDayInPastOrToday(this DateTime a, DateTime b) => a.Date.IsInPastOrNow(b.Date);
 
         public static bool IsInFuture(this DateTime a, DateTime b)
@@ -131,7 +131,7 @@ namespace BolgerUtils
         #endregion
 
         #region Enum
-        
+
         public static int ToInt(this Enum item) => Convert.ToInt32(item);
 
         public static string ToValueString(this Enum item) => item.ToInt().ToString();
@@ -141,7 +141,7 @@ namespace BolgerUtils
         #region Generic
 
         public static bool IsContainedIn<T>(this T item, params T[] values) => values.Contains(item);
-        
+
         public static bool IsNull<T>(this T item) where T : class  => item == null;
 
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
@@ -198,7 +198,7 @@ namespace BolgerUtils
         public static bool IsEmpty<T>(this IEnumerable<T> source) => source.NotAny();
 
         public static bool NotAll<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.All(predicate);
-        
+
         public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any();
 
         public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
@@ -338,7 +338,7 @@ namespace BolgerUtils
         public static bool IsInvalidMoney(this string item) => !item.IsValidMoney();
 
         public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
-        
+
         public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
 
         public static bool IsValidDecimal(this string item) => double.TryParse(item, out _);

@@ -69,7 +69,7 @@ namespace Tests.BolgerUtils
 
         [Fact]
         public void Test_SpaceChar() => Assert.Equal(' ', Utils.SpaceChar);
-        
+
         #region Numbers
 
         [Fact]

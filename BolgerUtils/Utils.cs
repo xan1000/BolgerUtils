@@ -153,10 +153,10 @@ namespace BolgerUtils
 
         public static DateTime Max(DateTime a, DateTime b) => a > b ? a : b;
         public static T Max<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) > 0 ? a : b;
-        
+
         public static DateTime Min(DateTime a, DateTime b) => a < b ? a : b;
         public static T Min<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) < 0 ? a : b;
-        
+
         public static string RandomString(int length)
         {
             // ReSharper disable StringLiteralTypo

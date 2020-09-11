@@ -61,7 +61,7 @@ namespace Tests.BolgerUtils
         #endregion
 
         #region Byte
-        
+
         [Theory]
         [InlineData("", new byte[0])]
         [InlineData("0123456789ABCDEF", new byte[] { 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF })]
@@ -321,7 +321,7 @@ namespace Tests.BolgerUtils
             Assert.True(date.AddDays(-1).IsInPast(date));
             Assert.True(date.AddDays(-5).IsInPast(date));
         }
-        
+
         [Fact]
         public void Test_IsInPastOrNow()
         {
@@ -1572,7 +1572,7 @@ namespace Tests.BolgerUtils
         [InlineData(false, " 5")]
         [InlineData(false, "5 ")]
         public void Test_IsInvalidInt(bool expected, string item) => Assert.Equal(expected, item.IsInvalidInt());
-        
+
         [Theory]
         [InlineData(true, "test")]
         [InlineData(false, "5")]
@@ -1591,7 +1591,7 @@ namespace Tests.BolgerUtils
         [InlineData(false, "5 ")]
         public void Test_IsInvalidDecimal(bool expected, string item) =>
             Assert.Equal(expected, item.IsInvalidDecimal());
-        
+
         [Theory]
         [InlineData(true, "test")]
         [InlineData(false, "5")]
@@ -1676,7 +1676,7 @@ namespace Tests.BolgerUtils
         [InlineData(true, " 5")]
         [InlineData(true, "5 ")]
         public void Test_IsValidInt(bool expected, string item) => Assert.Equal(expected, item.IsValidInt());
-        
+
         [Theory]
         [InlineData(false , "test")]
         [InlineData(true, "5")]
@@ -1694,7 +1694,7 @@ namespace Tests.BolgerUtils
         [InlineData(true, " 5")]
         [InlineData(true, "5 ")]
         public void Test_IsValidDecimal(bool expected, string item) => Assert.Equal(expected, item.IsValidDecimal());
-        
+
         [Theory]
         [InlineData(false, "test")]
         [InlineData(true, "5")]
@@ -1840,14 +1840,14 @@ namespace Tests.BolgerUtils
             <h2><em>A list of fictional books.</em></h2>
             <strong>   by   John   Smith   </strong>
         </header>
-        
+
         <div id='content'>
             <img src='books.gif' alt='Book'   />
-            
+
             <p>
                 List of book series:
             </p>
-            
+
             <ol>
                 <li>Lord of the Rings</li>
                 <li>Harry Potter</li>
@@ -1856,7 +1856,7 @@ namespace Tests.BolgerUtils
                 </li>
             </ol>
         </div>
-        
+
         <footer>
             <p>
                 Find these books on
@@ -1918,7 +1918,7 @@ Amazon
 
             Assert.Equal(expected, item.RemoveRedundantWhitespace());
         }
-        
+
         [Theory]
         [InlineData("Hello", "Hello")]
         [InlineData(@"""Hello""", @"""Hello""")]
@@ -2173,7 +2173,7 @@ Amazon
                 ================================
                 1. Display People
                 2. Quit
-                
+
                 Enter an option: ";
 
             var expected =

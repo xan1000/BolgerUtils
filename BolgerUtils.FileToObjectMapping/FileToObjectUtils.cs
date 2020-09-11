@@ -24,7 +24,7 @@ namespace BolgerUtils.FileToObjectMapping
         public bool IsRegistered(string path) => _fileContentToObjectDictionary.ContainsKey(GetKey(path));
 
         public T Load<T>(string path) => (T) Map(path, _fileContentToObjectDictionary[GetKey(path)]);
-        
+
         public T Map<T>(string path, Func<string, T> fileContentToObject)
         {
             var fileInfo = path.ToFileInfo();
@@ -32,7 +32,7 @@ namespace BolgerUtils.FileToObjectMapping
                 throw new FileNotFoundException(null, path);
 
             var key = GetKey(fileInfo);
-            
+
             // ReSharper disable once InvertIf
             if(!_fileInfoAndValueDictionary.TryGetValue(key, out var tuple) ||
                 tuple.fileInfo.LastWriteTimeUtc != fileInfo.LastWriteTimeUtc)
@@ -62,10 +62,10 @@ namespace BolgerUtils.FileToObjectMapping
         public static bool IsRegistered(string path) => FileToObject.IsRegistered(path);
 
         public static T Load<T>(string path) => FileToObject.Load<T>(path);
-        
+
         public static T Map<T>(string path, Func<string, T> fileContentToObject) =>
             FileToObject.Map(path, fileContentToObject);
-        
+
         public static void Register<T>(string path, Func<string, T> fileContentToObject) where T : class =>
             FileToObject.Register(path, fileContentToObject);
 
