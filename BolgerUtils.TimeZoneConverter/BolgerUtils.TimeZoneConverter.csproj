@@ -17,12 +17,12 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
     <PackageProjectUrl>https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.TimeZoneConverter</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>3.0.0.1</Version>
+    <Version>3.0.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="3.0.0.1" />
-    <PackageReference Include="BolgerUtils.EnumDisplay" Version="3.0.0.1" />
+    <PackageReference Include="BolgerUtils" Version="3.0.0.3" />
+    <PackageReference Include="BolgerUtils.EnumDisplay" Version="3.0.0.3" />
     <PackageReference Include="TimeZoneConverter" Version="3.3.0" />
   </ItemGroup>
 
