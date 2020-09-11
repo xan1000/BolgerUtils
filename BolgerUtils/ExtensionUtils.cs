@@ -53,7 +53,7 @@ namespace BolgerUtils
 
         #region DateTime
 
-        public static DateTime AddWeeks(this DateTime item, double weeks) => item.AddDays(weeks * Utils.DaysPerWeek);
+        public static DateTime AddWeeks(this DateTime item, double weeks) => item.Add(Utils.FromWeeks(weeks));
 
         private static DateTime FindDayOfWeek(this DateTime item, DayOfWeek dayOfWeek, bool forward)
         {
@@ -118,10 +118,10 @@ namespace BolgerUtils
 
         public static DataTable ToDataTable(this DbCommand item)
         {
-            if(Utils.CreateDataAdapter == null)
-                throw new InvalidOperationException("Must set the Utils.CreateDataAdapter property.");
+            if(Utils.CreateDataAdapterFunc == null)
+                throw new InvalidOperationException("Must set the Utils.CreateDataAdapterFunc property.");
 
-            using var adapter = Utils.CreateDataAdapter(item);
+            using var adapter = Utils.CreateDataAdapterFunc(item);
             var table = new DataTable();
             adapter.Fill(table);
 

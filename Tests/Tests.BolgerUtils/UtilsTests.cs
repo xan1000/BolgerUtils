@@ -50,6 +50,9 @@ namespace Tests.BolgerUtils
         public void Test_Empty() => Assert.Equal(string.Empty, Utils.Empty);
 
         [Fact]
+        public void Test_MonthsPerYear() => Assert.Equal(12, Utils.MonthsPerYear);
+
+        [Fact]
         public void Test_NewLine() => Assert.Equal("\n", Utils.NewLine);
 
         [Fact]
@@ -69,6 +72,9 @@ namespace Tests.BolgerUtils
 
         [Fact]
         public void Test_SpaceChar() => Assert.Equal(' ', Utils.SpaceChar);
+
+        [Fact]
+        public void Test_WeekTimeSpan() => Assert.Equal(TimeSpan.FromDays(7), Utils.WeekTimeSpan);
 
         #region Numbers
 
@@ -376,7 +382,7 @@ namespace Tests.BolgerUtils
         [InlineData(1000, 10)]
         [InlineData(1500, 15)]
         [InlineData(-1500, -15)]
-        public void FromHundreds(int expected, int value) => Assert.Equal(expected, Utils.FromHundreds(value));
+        public void Test_FromHundreds(int expected, int value) => Assert.Equal(expected, Utils.FromHundreds(value));
 
         [Theory]
         [InlineData(0, 0)]
@@ -386,7 +392,7 @@ namespace Tests.BolgerUtils
         [InlineData(10000, 10)]
         [InlineData(15000, 15)]
         [InlineData(-15000, -15)]
-        public void FromThousands(int expected, int value) => Assert.Equal(expected, Utils.FromThousands(value));
+        public void Test_FromThousands(int expected, int value) => Assert.Equal(expected, Utils.FromThousands(value));
 
         [Theory]
         [InlineData(0, 0)]
@@ -396,14 +402,26 @@ namespace Tests.BolgerUtils
         [InlineData(10000000, 10)]
         [InlineData(15000000, 15)]
         [InlineData(-15000000, -15)]
-        public void FromMillions(int expected, int value) => Assert.Equal(expected, Utils.FromMillions(value));
+        public void Test_FromMillions(int expected, int value) => Assert.Equal(expected, Utils.FromMillions(value));
 
         [Theory]
         [InlineData(0, 0)]
         [InlineData(1000000000, 1)]
         [InlineData(2000000000, 2)]
         [InlineData(-2000000000, -2)]
-        public void FromBillions(int expected, int value) => Assert.Equal(expected, Utils.FromBillions(value));
+        public void Test_FromBillions(int expected, int value) => Assert.Equal(expected, Utils.FromBillions(value));
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(7, 1)]
+        [InlineData(14, 2)]
+        [InlineData(21, 3)]
+        [InlineData(28, 4)]
+        [InlineData(35, 5)]
+        [InlineData(3.5, 0.5)]
+        [InlineData(10.5, 1.5)]
+        public void Test_FromWeeks(double expectedDays, double weeks) =>
+            Assert.Equal(TimeSpan.FromDays(expectedDays), Utils.FromWeeks(weeks));
 
         [Fact]
         public void Test_GetEnumValue()

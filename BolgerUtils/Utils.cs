@@ -17,6 +17,7 @@ namespace BolgerUtils
         public const string DoubleQuote = @"""";
         public const char DoubleQuoteChar = '"';
         public const string Empty = "";
+        public const int MonthsPerYear = 12;
         public const string NewLine = "\n";
         public const char NewLineChar = '\n';
         public const string NonBreakingSpace = "&nbsp;";
@@ -24,6 +25,7 @@ namespace BolgerUtils
         public const char SingleQuoteChar = '\'';
         public const string Space = " ";
         public const char SpaceChar = ' ';
+        public static readonly TimeSpan WeekTimeSpan = FromWeeks(1);
 
         #region Numbers
 
@@ -42,7 +44,7 @@ namespace BolgerUtils
 
         public static string ConnectionString { get; set; }
         public static Func<string, DbConnection> CreateConnectionFunc { get; set; }
-        public static Func<DbCommand, DbDataAdapter> CreateDataAdapter { get; set; }
+        public static Func<DbCommand, DbDataAdapter> CreateDataAdapterFunc { get; set; }
 
         public static DbConnection CreateAndOpenConnection() => CreateAndOpenConnection<DbConnection>();
 
@@ -139,6 +141,8 @@ namespace BolgerUtils
         public static int FromThousands(int value) => Thousand * value;
         public static int FromMillions(int value) => Million * value;
         public static int FromBillions(int value) => Billion * value;
+
+        public static TimeSpan FromWeeks(double weeks) => TimeSpan.FromDays(weeks * DaysPerWeek);
 
         public static T GetEnumValue<T>(int value) where T : Enum
         {

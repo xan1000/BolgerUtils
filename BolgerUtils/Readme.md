@@ -21,6 +21,7 @@ DaysPerWeek | int | 7
 DoubleQuote | string | "
 DoubleQuoteChar | char | "
 Empty | string |
+MonthsPerYear | int | 12
 NewLine | string | \n
 NewLineChar | char | \n
 NonBreakingSpace | string | &nbsp;
@@ -28,6 +29,7 @@ SingleQuote | string | '
 SingleQuoteChar | char | '
 Space | string | " "
 SpaceChar | char | ' '
+WeekTimeSpan | TimeSpan | FromWeeks(1)
 Zero | int | 0
 Ten | int | 10
 Hundred | int | 100
@@ -41,7 +43,7 @@ Name | Type | Operations
 --- | --- | ---
 ConnectionString | string | get, set
 CreateConnectionFunc | Func<string, DbConnection\> | get, set
-CreateDataAdapter | Func<DbCommand, DbDataAdapter\> | get, set
+CreateDataAdapterFunc | Func<DbCommand, DbDataAdapter\> | get, set
 
 ## Methods
 
@@ -63,6 +65,7 @@ FromHundreds | int value | int
 FromThousands | int value | int
 FromMillions | int value | int
 FromBillions | int value | int
+FromWeeks | double weeks | TimeSpan
 GetEnumValue<T\> where T : Enum | int value | T
 GetEnumValues<T\> where T : Enum | void | List<T\>
 Max | DateTime a, DateTime b | DateTime

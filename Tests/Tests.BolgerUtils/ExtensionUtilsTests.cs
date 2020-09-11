@@ -414,7 +414,7 @@ namespace Tests.BolgerUtils
                         command.CommandText = "select * from Animal";
                         Assert.Throws<InvalidOperationException>(command.ToDataTable);
 
-                        Utils.CreateDataAdapter = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
+                        Utils.CreateDataAdapterFunc = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
                         var dataTable = command.ToDataTable();
                         Assert.IsType<DataTable>(dataTable);
                         Assert.Equal(3, dataTable.Rows.Count);
