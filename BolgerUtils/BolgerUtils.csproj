@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Matthew Bolger</Authors>
@@ -18,7 +17,7 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
     <PackageTags>utils</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>3.0.0.1</Version>
+    <Version>3.0.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,5 +26,4 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
