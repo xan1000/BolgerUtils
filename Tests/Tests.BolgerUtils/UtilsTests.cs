@@ -50,6 +50,9 @@ namespace Tests.BolgerUtils
         public void Test_Empty() => Assert.Equal(string.Empty, Utils.Empty);
 
         [Fact]
+        public void Test_Localhost() => Assert.Equal("localhost", Utils.Localhost);
+
+        [Fact]
         public void Test_MonthsPerYear() => Assert.Equal(12, Utils.MonthsPerYear);
 
         [Fact]
@@ -95,6 +98,31 @@ namespace Tests.BolgerUtils
 
         [Fact]
         public void Test_Billion() => Assert.Equal(1000000000, Utils.Billion);
+
+        #endregion
+
+        #region Characters
+
+        [Fact]
+        public void Test_UppercaseCharacters() =>
+            // ReSharper disable once StringLiteralTypo
+            Assert.Equal("ABCDEFGHIJKLMNOPQRSTUVWXYZ", Utils.UppercaseCharacters);
+
+        [Fact]
+        public void Test_LowercaseCharacters() =>
+            // ReSharper disable once StringLiteralTypo
+            Assert.Equal("abcdefghijklmnopqrstuvwxyz", Utils.LowercaseCharacters);
+
+        [Fact]
+        public void Test_DigitCharacters() =>
+            Assert.Equal("0123456789", Utils.DigitCharacters);
+
+        [Fact]
+        public void Test_UppercaseLowercaseAndDigitCharacters() =>
+            // ReSharper disable StringLiteralTypo
+            Assert.Equal("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+                Utils.UppercaseLowercaseAndDigitCharacters);
+            // ReSharper restore StringLiteralTypo
 
         #endregion
 
@@ -599,19 +627,32 @@ namespace Tests.BolgerUtils
         public void Test_Min(float expected, float a, float b) => Assert.Equal(expected, Utils.Min(a, b));
 
         [Theory]
-        [InlineData(5)]
-        [InlineData(10)]
-        public void Test_RandomString(int length)
+        [InlineData(Utils.UppercaseCharacters)]
+        [InlineData(Utils.LowercaseCharacters)]
+        [InlineData(Utils.DigitCharacters)]
+        [InlineData(Utils.UppercaseLowercaseAndDigitCharacters)]
+        [InlineData("test")]
+        public void Test_RandomString(string characters)
         {
-            for(var i = 0; i < 10; i++)
-            {
-                var randomString1 = Utils.RandomString(length);
-                var randomString2 = Utils.RandomString(length);
+            const int baseLength = 10;
 
-                Assert.Equal(length, randomString1.Length);
-                Assert.Equal(length, randomString2.Length);
+            for(var i = 1; i < 10; i++)
+            {
+                var length = baseLength * i;
+                var randomString1 = Utils.RandomString(length, characters);
+                var randomString2 = Utils.RandomString(length, characters);
+
+                Test_RandomString_Implementation(characters, length, randomString1);
+                Test_RandomString_Implementation(characters, length, randomString2);
                 Assert.NotEqual(randomString1, randomString2);
             }
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void Test_RandomString_Implementation(string characters, int length, string randomString)
+        {
+            Assert.Equal(length, randomString.Length);
+            Assert.True(randomString.All(characters.Contains));
         }
 
         [Fact]

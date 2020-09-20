@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BolgerUtils
@@ -17,6 +18,7 @@ namespace BolgerUtils
         public const string DoubleQuote = @"""";
         public const char DoubleQuoteChar = '"';
         public const string Empty = "";
+        public const string Localhost = "localhost";
         public const int MonthsPerYear = 12;
         public const string NewLine = "\n";
         public const char NewLineChar = '\n';
@@ -35,6 +37,16 @@ namespace BolgerUtils
         public const int Thousand = 1000;
         public const int Million = 1000000;
         public const int Billion = 1000000000;
+
+        #endregion
+
+        #region Characters
+
+        public const string UppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public const string LowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+        public const string DigitCharacters = "0123456789";
+        public const string UppercaseLowercaseAndDigitCharacters =
+            UppercaseCharacters + LowercaseCharacters + DigitCharacters;
 
         #endregion
 
@@ -161,21 +173,17 @@ namespace BolgerUtils
         public static DateTime Min(DateTime a, DateTime b) => a < b ? a : b;
         public static T Min<T>(T a, T b) where T : struct, IComparable<T> => a.CompareTo(b) < 0 ? a : b;
 
-        public static string RandomString(int length)
+        public static string RandomString(int length, string characters = UppercaseLowercaseAndDigitCharacters)
         {
-            // ReSharper disable StringLiteralTypo
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            // ReSharper restore StringLiteralTypo
-
-            var stringChars = new char[length];
+            var stringBuilder = new StringBuilder(length, length);
             var random = new Random();
 
-            for(var i = 0; i < stringChars.Length; i++)
+            for(var i = 0; i < length; i++)
             {
-                stringChars[i] = chars[random.Next(chars.Length)];
+                stringBuilder.Append(characters[random.Next(characters.Length)]);
             }
 
-            return new string(stringChars);
+            return stringBuilder.ToString();
         }
 
         public static T Self<T>(T item) => item;

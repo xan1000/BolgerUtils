@@ -21,6 +21,7 @@ DaysPerWeek | int | 7
 DoubleQuote | string | "
 DoubleQuoteChar | char | "
 Empty | string |
+Localhost | string | localhost
 MonthsPerYear | int | 12
 NewLine | string | \n
 NewLineChar | char | \n
@@ -30,12 +31,22 @@ SingleQuoteChar | char | '
 Space | string | " "
 SpaceChar | char | ' '
 WeekTimeSpan | TimeSpan | FromWeeks(1)
+
+## Numbers
+
 Zero | int | 0
 Ten | int | 10
 Hundred | int | 100
 Thousand | int | 1,000
 Million | int | 1,000,000
 Billion | int | 1,000,000,000
+
+## Characters
+
+UppercaseCharacters | string | ABCDEFGHIJKLMNOPQRSTUVWXYZ
+LowercaseCharacters | string | abcdefghijklmnopqrstuvwxyz
+DigitCharacters | string | 0123456789
+UppercaseLowercaseAndDigitCharacters | string | ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 
 ## Properties
 
@@ -72,7 +83,7 @@ Max | DateTime a, DateTime b | DateTime
 Max<T\> where T : struct, IComparable<T\> | T a, T b | T
 Min | DateTime a, DateTime b | DateTime
 Min<T\> where T : struct, IComparable<T\> | T a, T b | T
-RandomString | int length | string
+RandomString | int length, string characters = UppercaseLowercaseAndDigitCharacters | string
 Swap<T\> | ref T a, ref T b | void
 
 # Extension methods
