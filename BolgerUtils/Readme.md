@@ -34,6 +34,8 @@ WeekTimeSpan | TimeSpan | FromWeeks(1)
 
 ## Numbers
 
+Name | Type | Value
+--- | --- | ---
 Zero | int | 0
 Ten | int | 10
 Hundred | int | 100
@@ -43,6 +45,8 @@ Billion | int | 1,000,000,000
 
 ## Characters
 
+Name | Type | Value
+--- | --- | ---
 UppercaseCharacters | string | ABCDEFGHIJKLMNOPQRSTUVWXYZ
 LowercaseCharacters | string | abcdefghijklmnopqrstuvwxyz
 DigitCharacters | string | 0123456789
