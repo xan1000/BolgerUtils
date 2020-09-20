@@ -25,7 +25,7 @@ Localhost | string | localhost
 MonthsPerYear | int | 12
 NewLine | string | \n
 NewLineChar | char | \n
-NonBreakingSpace | string | &nbsp;
+NonBreakingSpace | string | \&nbsp;
 SingleQuote | string | '
 SingleQuoteChar | char | '
 Space | string | " "
