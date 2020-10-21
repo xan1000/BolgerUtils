@@ -1,7 +1,5 @@
 Set-Variable ApiKey -Option Constant -Value (Get-Content -Raw ../ApiKey.txt)
 Set-Variable NuGetSource -Option Constant -Value "https://api.nuget.org/v3/index.json"
-Set-Variable MsBuildPath -Option Constant -Value `
-    "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe"
 Set-Variable Options -Option Constant -Value @(
     "BolgerUtils",
     "BolgerUtils.EnumDisplay",
