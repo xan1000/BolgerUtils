@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BolgerUtils;
 using Microsoft.Data.SqlClient;
-using Microsoft.VisualBasic.CompilerServices;
 using Xunit;
 using Utils = BolgerUtils.Utils;
 
@@ -132,7 +131,8 @@ namespace Tests.BolgerUtils
 
         #region Methods
 
-        internal const string ConnectionString = @"Server=.\SQLEXPRESS;Database=Test;Trusted_Connection=True";
+        internal const string ConnectionString =
+            @"Server=.\SQLEXPRESS;Database=BolgerUtilsTests;Trusted_Connection=True";
         internal static readonly object CreateConnectionLock = new object();
 
         [Fact]
