@@ -149,7 +149,7 @@ namespace BolgerUtils
         public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)") where T : class
         {
             if(stringIfNull == null)
-                throw new ArgumentException("stringIfNull cannot null.");
+                throw new ArgumentException("stringIfNull cannot null.", nameof(stringIfNull));
 
             return item != null ? item.ToString() : stringIfNull;
         }
