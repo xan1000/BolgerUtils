@@ -17,7 +17,7 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
     <PackageTags>utils</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <Version>3.0.0.4</Version>
+    <Version>3.0.0.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
