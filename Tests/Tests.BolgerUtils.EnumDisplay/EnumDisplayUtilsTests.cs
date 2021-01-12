@@ -26,7 +26,7 @@ namespace Tests.BolgerUtils.EnumDisplay
     {
         public const string CustomAttributeValue = "Custom Attribute";
 
-        private readonly EnumDisplayUtils _enumDisplayUtils = new EnumDisplayUtils();
+        private readonly EnumDisplayUtils _enumDisplayUtils = new();
 
         [Fact]
         public void Test_AddAll()
@@ -189,9 +189,9 @@ namespace Tests.BolgerUtils.EnumDisplay
         {
             Test_DisplayCustomDefault_Implementation(key, x => x.ToString().ToLower());
             Test_DisplayCustomDefault_Implementation(key, x => x.ToString().ToUpper());
-            Test_DisplayCustomDefault_Implementation(key, x => "Constant");
-            Test_DisplayCustomDefault_Implementation(key, x => string.Empty);
-            Test_DisplayCustomDefault_Implementation(key, x => null);
+            Test_DisplayCustomDefault_Implementation(key, _ => "Constant");
+            Test_DisplayCustomDefault_Implementation(key, _ => string.Empty);
+            Test_DisplayCustomDefault_Implementation(key, _ => null);
         }
 
         private void Test_DisplayCustomDefault_Implementation(Enum key, Func<Enum, string> defaultDisplay)

@@ -36,7 +36,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         public const string TextFilePath = "test.txt";
         public const string JsonFilePath = "accounts.json";
 
-        private readonly FileToObject _fileToObject = new FileToObject();
+        private readonly FileToObject _fileToObject = new();
 
         public Func<string, string> TextFileToObject { get; } = x => x;
         public Func<string, List<Account>> JsonFileToObject { get; }= JsonConvert.DeserializeObject<List<Account>>;
@@ -55,9 +55,9 @@ namespace Tests.BolgerUtils.FileToObjectMapping
 
         private void CreateJsonFile() => UpdateJsonFileContent(new List<Account>
             {
-                new Account("1234 5678", "Test 1", 500.50m),
-                new Account("9876 5432", "Test 2", 1000),
-                new Account("4444 4444", "Test 3", 0)
+                new("1234 5678", "Test 1", 500.50m),
+                new("9876 5432", "Test 2", 1000),
+                new("4444 4444", "Test 3", 0)
             });
 
         private void CreateTextFile()
@@ -334,7 +334,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
         private const string TextFilePath = FileToObjectTests.TextFilePath;
         private const string JsonFilePath = FileToObjectTests.JsonFilePath;
 
-        private readonly FileToObjectTests _fileToObjectTests = new FileToObjectTests();
+        private readonly FileToObjectTests _fileToObjectTests = new();
 
         private Func<string, string> TextFileToObject { get; }
         private Func<string, List<Account>> JsonFileToObject { get; }

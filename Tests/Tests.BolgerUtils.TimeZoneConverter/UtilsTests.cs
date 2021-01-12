@@ -14,8 +14,8 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         internal static readonly TimeZoneInfo AestTimeZone =
             TimeZoneInfo.FindSystemTimeZoneById(AustralianEasternStandardTime);
 
-        internal static readonly DateTime DateTimeAest = new DateTime(2019, 12, 6, 9, 30, 0);
-        internal static readonly DateTime DateTimeUtc = new DateTime(2019, 12, 5, 22, 30, 0);
+        internal static readonly DateTime DateTimeAest = new(2019, 12, 6, 9, 30, 0);
+        internal static readonly DateTime DateTimeUtc = new(2019, 12, 5, 22, 30, 0);
 
         // Hack to reset the remembered value of a purposely static variable to a clean state for each test.
         internal static void ResetDefaultTimeZone() => typeof(Utils).

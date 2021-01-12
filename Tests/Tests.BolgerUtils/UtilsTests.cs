@@ -133,7 +133,7 @@ namespace Tests.BolgerUtils
 
         internal const string ConnectionString =
             @"Server=.\SQLEXPRESS;Database=BolgerUtilsTests;Trusted_Connection=True";
-        internal static readonly object CreateConnectionLock = new object();
+        internal static readonly object CreateConnectionLock = new();
 
         [Fact]
         public void Test_CreateAndOpenConnection()

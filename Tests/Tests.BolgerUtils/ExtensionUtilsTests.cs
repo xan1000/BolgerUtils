@@ -697,8 +697,8 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_RemoveAllPredicate()
         {
-            Test_RemoveAllPredicate_Implementation(new int[0], new List<int> { 4, 5, 6 }, x => true);
-            Test_RemoveAllPredicate_Implementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, x => false);
+            Test_RemoveAllPredicate_Implementation(new int[0], new List<int> { 4, 5, 6 }, _ => true);
+            Test_RemoveAllPredicate_Implementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, _ => false);
             Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
             Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
             Test_RemoveAllPredicate_Implementation(new[] { 1, 3, 5 }, new List<int> { 1, 2, 3, 4, 5, 6 },
@@ -708,8 +708,8 @@ namespace Tests.BolgerUtils
             Test_RemoveAllPredicate_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x == 1 || x == 3);
             Test_RemoveAllPredicate_Implementation(new int[0], new List<int>(), x => x == 0);
 
-            Test_RemoveAllPredicate_Implementation(new string[0], new List<string> { "Hello" }, x => true);
-            Test_RemoveAllPredicate_Implementation(new[] { "Hello" }, new List<string> { "Hello" }, x => false);
+            Test_RemoveAllPredicate_Implementation(new string[0], new List<string> { "Hello" }, _ => true);
+            Test_RemoveAllPredicate_Implementation(new[] { "Hello" }, new List<string> { "Hello" }, _ => false);
             Test_RemoveAllPredicate_Implementation(new[] { "World" }, new List<string> { "Hello", "World" },
                 x => x == "Hello");
             Test_RemoveAllPredicate_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
@@ -723,9 +723,9 @@ namespace Tests.BolgerUtils
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
             Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
-                x => true);
+                _ => true);
             Test_RemoveAllPredicate_Implementation(new[] { utilsTests1 }, new List<UtilsTests> { utilsTests1 },
-                x => false);
+                _ => false);
             Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 x => x == utilsTests1);
