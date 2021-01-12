@@ -6,7 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using BolgerUtils;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.CompilerServices;
 using Xunit;
+using Utils = BolgerUtils.Utils;
 
 namespace Tests.BolgerUtils
 {
@@ -654,6 +656,72 @@ namespace Tests.BolgerUtils
             Assert.Equal(length, randomString.Length);
             Assert.True(randomString.All(characters.Contains));
         }
+
+        [Fact]
+        public void Test_RoundDown()
+        {
+            Test_RoundDown_Implementation(4m, 4.125m, 0);
+            Test_RoundDown_Implementation(4.1m, 4.125m, 1);
+            Test_RoundDown_Implementation(4.12m, 4.125m, 2);
+            Test_RoundDown_Implementation(4.12m, 4.1299m, 2);
+            Test_RoundDown_Implementation(4.12m, 4.1255m, 2);
+            Test_RoundDown_Implementation(4.12m, 4.1201m, 2);
+            Test_RoundDown_Implementation(4.12m, 4.1200m, 2);
+            Test_RoundDown_Implementation(4.124m, 4.1247859m, 3);
+            Test_RoundDown_Implementation(4.1247m, 4.1247859m, 4);
+            Test_RoundDown_Implementation(4.1247m, 4.1247001m, 4);
+            Test_RoundDown_Implementation(4.1247m, 4.1247000m, 4);
+            Test_RoundDown_Implementation(decimal.MaxValue, decimal.MaxValue, 0);
+            Test_RoundDown_Implementation(decimal.MinValue, decimal.MinValue, 0);
+
+            TestFact_RoundDown_Implementation<ArgumentException>(4.125m, -1);
+            TestFact_RoundDown_Implementation<ArgumentException>(4.125m, -5);
+            TestFact_RoundDown_Implementation<ArgumentException>(4.125m, int.MinValue);
+            TestFact_RoundDown_Implementation<OverflowException>(4.125m, int.MaxValue);
+            TestFact_RoundDown_Implementation<OverflowException>(decimal.MaxValue, 2);
+            TestFact_RoundDown_Implementation<OverflowException>(decimal.MaxValue, 1);
+            TestFact_RoundDown_Implementation<OverflowException>(decimal.MinValue, 2);
+            TestFact_RoundDown_Implementation<OverflowException>(decimal.MinValue, 1);
+        }
+
+        private void Test_RoundDown_Implementation(decimal expected, decimal value, int decimals) =>
+            Assert.Equal(expected, Utils.RoundDown(value, decimals));
+
+        private void TestFact_RoundDown_Implementation<T>(decimal value, int decimals) where T : Exception =>
+            Assert.Throws<T>(() => Utils.RoundDown(value, decimals));
+
+        [Fact]
+        public void Test_RoundUp()
+        {
+            TestFact_RoundUp_Implementation(5m, 4.125m, 0);
+            TestFact_RoundUp_Implementation(4.2m, 4.125m, 1);
+            TestFact_RoundUp_Implementation(4.13m, 4.125m, 2);
+            TestFact_RoundUp_Implementation(4.13m, 4.1299m, 2);
+            TestFact_RoundUp_Implementation(4.13m, 4.1255m, 2);
+            TestFact_RoundUp_Implementation(4.13m, 4.1201m, 2);
+            TestFact_RoundUp_Implementation(4.12m, 4.1200m, 2);
+            TestFact_RoundUp_Implementation(4.125m, 4.1247859m, 3);
+            TestFact_RoundUp_Implementation(4.1248m, 4.1247859m, 4);
+            TestFact_RoundUp_Implementation(4.1248m, 4.1247001m, 4);
+            TestFact_RoundUp_Implementation(4.1247m, 4.1247000m, 4);
+            TestFact_RoundUp_Implementation(decimal.MaxValue, decimal.MaxValue, 0);
+            TestFact_RoundUp_Implementation(decimal.MinValue, decimal.MinValue, 0);
+
+            TestFact_RoundUp_Implementation<ArgumentException>(4.125m, -1);
+            TestFact_RoundUp_Implementation<ArgumentException>(4.125m, -5);
+            TestFact_RoundUp_Implementation<ArgumentException>(4.125m, int.MinValue);
+            TestFact_RoundUp_Implementation<OverflowException>(4.125m, int.MaxValue);
+            TestFact_RoundUp_Implementation<OverflowException>(decimal.MaxValue, 2);
+            TestFact_RoundUp_Implementation<OverflowException>(decimal.MaxValue, 1);
+            TestFact_RoundUp_Implementation<OverflowException>(decimal.MinValue, 2);
+            TestFact_RoundUp_Implementation<OverflowException>(decimal.MinValue, 1);
+        }
+
+        private void TestFact_RoundUp_Implementation(decimal expected, decimal value, int decimals) =>
+            Assert.Equal(expected, Utils.RoundUp(value, decimals));
+
+        private void TestFact_RoundUp_Implementation<T>(decimal value, int decimals) where T : Exception =>
+            Assert.Throws<T>(() => Utils.RoundUp(value, decimals));
 
         [Fact]
         public void Test_Self()

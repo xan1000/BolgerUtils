@@ -187,24 +187,24 @@ namespace BolgerUtils
         }
 
         // https://stackoverflow.com/questions/7075201/rounding-up-to-2-decimal-places-in-c-sharp
-        public static decimal RoundDown(decimal item, int decimals)
+        public static decimal RoundDown(decimal value, int decimals)
         {
             if(decimals < 0)
                 throw new ArgumentException("Decimals cannot be negative.", nameof(decimals));
-
+            
             var multiplier = (decimal) Math.Pow(10, decimals);
 
-            return Math.Floor(item * multiplier) / multiplier;
+            return Math.Floor(value * multiplier) / multiplier;
         }
         
-        public static decimal RoundUp(decimal item, int decimals)
+        public static decimal RoundUp(decimal value, int decimals)
         {
             if(decimals < 0)
                 throw new ArgumentException("Decimals cannot be negative.", nameof(decimals));
 
             var multiplier = (decimal) Math.Pow(10, decimals);
 
-            return Math.Ceiling(item * multiplier) / multiplier;
+            return Math.Ceiling(value * multiplier) / multiplier;
         }
 
         public static T Self<T>(T item) => item;
