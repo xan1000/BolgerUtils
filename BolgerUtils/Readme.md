@@ -88,6 +88,8 @@ Max<T\> where T : struct, IComparable<T\> | T a, T b | T
 Min | DateTime a, DateTime b | DateTime
 Min<T\> where T : struct, IComparable<T\> | T a, T b | T
 RandomString | int length, string characters = UppercaseLowercaseAndDigitCharacters | string
+RoundDown | decimal value, int decimals | decimal
+RoundUp | decimal value, int decimals | decimal
 Swap<T\> | ref T a, ref T b | void
 
 # Extension methods
