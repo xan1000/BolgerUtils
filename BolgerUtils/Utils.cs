@@ -58,8 +58,6 @@ namespace BolgerUtils
         public static Func<string, DbConnection> CreateConnectionFunc { get; set; }
         public static Func<DbCommand, DbDataAdapter> CreateDataAdapterFunc { get; set; }
 
-        public static DbConnection CreateAndOpenConnection() => CreateAndOpenConnection<DbConnection>();
-
         public static T CreateAndOpenConnection<T>() where T : DbConnection
         {
             var connection = CreateConnection<T>();
@@ -68,12 +66,26 @@ namespace BolgerUtils
             return connection;
         }
 
-        public static DbConnection CreateConnection() => CreateConnection<DbConnection>();
+        public static T CreateAndOpenConnection<T>(string connectionString) where T : DbConnection
+        {
+            var connection = CreateConnection<T>(connectionString);
+            connection.Open();
+
+            return connection;
+        }
 
         public static T CreateConnection<T>() where T : DbConnection
         {
             if(ConnectionString == null)
                 throw new InvalidOperationException("Must set the Utils.ConnectionString property.");
+
+            return CreateConnection<T>(ConnectionString);
+        }
+
+        public static T CreateConnection<T>(string connectionString) where T : DbConnection
+        {
+            if(connectionString == null)
+                throw new ArgumentException("connectionString cannot be null", nameof(connectionString));
             if(CreateConnectionFunc == null)
                 throw new InvalidOperationException("Must set the Utils.CreateConnectionFunc property.");
 

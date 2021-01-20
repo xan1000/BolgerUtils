@@ -142,26 +142,33 @@ namespace Tests.BolgerUtils
             {
                 try
                 {
-                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection);
+                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection<SqlConnection>);
+                    Assert.Throws<ArgumentException>(() => Utils.CreateAndOpenConnection<SqlConnection>(null));
 
+                    // Set Utils.ConnectionString.
                     Utils.ConnectionString = ConnectionString;
-                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection);
 
+                    Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection<SqlConnection>);
+                    Assert.Throws<InvalidOperationException>(
+                        () => Utils.CreateAndOpenConnection<SqlConnection>(ConnectionString));
+
+                    // Set Utils.CreateConnectionFunc.
                     Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
 
-                    // CreateAndOpenConnection block.
+                    // CreateAndOpenConnection<T> block.
+                    using(var connection = Utils.CreateAndOpenConnection<SqlConnection>())
                     {
-                        using var connection = Utils.CreateAndOpenConnection();
                         Assert.IsAssignableFrom<DbConnection>(connection);
+                        Assert.IsType<SqlConnection>(connection);
                         Assert.Equal(ConnectionState.Open, connection.State);
                     }
 
-                    // CreateAndOpenConnection<T> block.
+                    // CreateAndOpenConnection<T>(connectionString) block.
+                    using(var connection = Utils.CreateAndOpenConnection<SqlConnection>(ConnectionString))
                     {
-                        using var sqlConnection = Utils.CreateAndOpenConnection<SqlConnection>();
-                        Assert.IsAssignableFrom<DbConnection>(sqlConnection);
-                        Assert.IsType<SqlConnection>(sqlConnection);
-                        Assert.Equal(ConnectionState.Open, sqlConnection.State);
+                        Assert.IsAssignableFrom<DbConnection>(connection);
+                        Assert.IsType<SqlConnection>(connection);
+                        Assert.Equal(ConnectionState.Open, connection.State);
                     }
                 }
                 finally
@@ -180,26 +187,32 @@ namespace Tests.BolgerUtils
             {
                 try
                 {
-                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection);
+                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection<SqlConnection>);
+                    Assert.Throws<ArgumentException>(() => Utils.CreateConnection<SqlConnection>(null));
 
+                    // Set Utils.ConnectionString.
                     Utils.ConnectionString = ConnectionString;
-                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection);
 
+                    Assert.Throws<InvalidOperationException>(Utils.CreateConnection<SqlConnection>);
+                    Assert.Throws<InvalidOperationException>(
+                        () => Utils.CreateConnection<SqlConnection>(ConnectionString));
+
+                    // Set Utils.CreateConnectionFunc.
                     Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
 
-                    // CreateConnection block.
+                    // CreateConnection<T> block.
+                    using(var connection = Utils.CreateConnection<SqlConnection>())
                     {
-                        using var connection = Utils.CreateConnection();
                         Assert.IsAssignableFrom<DbConnection>(connection);
                         Assert.Equal(ConnectionState.Closed, connection.State);
                     }
 
-                    // CreateConnection<T> block.
+                    // CreateConnection<T>(connectionString) block.
+                    using(var connection = Utils.CreateConnection<SqlConnection>(ConnectionString))
                     {
-                        using var sqlConnection = Utils.CreateConnection<SqlConnection>();
-                        Assert.IsAssignableFrom<DbConnection>(sqlConnection);
-                        Assert.IsType<SqlConnection>(sqlConnection);
-                        Assert.Equal(ConnectionState.Closed, sqlConnection.State);
+                        Assert.IsAssignableFrom<DbConnection>(connection);
+                        Assert.IsType<SqlConnection>(connection);
+                        Assert.Equal(ConnectionState.Closed, connection.State);
                     }
                 }
                 finally

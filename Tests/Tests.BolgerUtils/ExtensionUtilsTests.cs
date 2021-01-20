@@ -400,43 +400,33 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_ToDataTable()
         {
-            try
+            lock(UtilsTests.CreateConnectionLock)
             {
-                lock(UtilsTests.CreateConnectionLock)
+                try
                 {
                     Utils.ConnectionString = UtilsTests.ConnectionString;
                     Utils.CreateConnectionFunc = connectionString => new SqlConnection(connectionString);
 
-                    // CreateCommand with CreateConnection block.
-                    {
-                        using var connection = Utils.CreateConnection();
-                        using var command = connection.CreateCommand();
-                        command.CommandText = "select * from Animal";
-                        Assert.Throws<InvalidOperationException>(command.ToDataTable);
+                    using var connection = Utils.CreateConnection<SqlConnection>();
+                    using var command = connection.CreateCommand();
+                    command.CommandText = "select * from Animal";
 
-                        Utils.CreateDataAdapterFunc = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
-                        var dataTable = command.ToDataTable();
-                        Assert.IsType<DataTable>(dataTable);
-                        Assert.Equal(3, dataTable.Rows.Count);
-                    }
+                    Assert.Throws<InvalidOperationException>(command.ToDataTable);
 
-                    // CreateCommand with CreateConnection<T> block.
-                    {
-                        using var sqlConnection = Utils.CreateConnection<SqlConnection>();
-                        using var sqlCommand = sqlConnection.CreateCommand();
-                        sqlCommand.CommandText = "select * from Animal";
+                    // Set Utils.CreateDataAdapterFunc.
+                    Utils.CreateDataAdapterFunc = dbCommand => new SqlDataAdapter((SqlCommand) dbCommand);
 
-                        var dataTable = sqlCommand.ToDataTable();
-                        Assert.IsType<DataTable>(dataTable);
-                        Assert.Equal(3, dataTable.Rows.Count);
-                    }
+                    using var table = command.ToDataTable();
+                    Assert.IsType<DataTable>(table);
+                    Assert.Equal(3, table.Rows.Count);
                 }
-            }
-            finally
-            {
-                // Test cleanup.
-                Utils.ConnectionString = null;
-                Utils.CreateConnectionFunc = null;
+                finally
+                {
+                    // Test cleanup.
+                    Utils.ConnectionString = null;
+                    Utils.CreateConnectionFunc = null;
+                    Utils.CreateDataAdapterFunc = null;
+                }
             }
         }
 
