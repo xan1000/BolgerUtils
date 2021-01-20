@@ -64,10 +64,10 @@ CreateDataAdapterFunc | Func<DbCommand, DbDataAdapter\> | get, set
 
 Name | Parameters | Returns
 --- | --- | ---
-CreateAndOpenConnection | void | DbConnection
 CreateAndOpenConnection<T\> where T : DbConnection | void | T
-CreateConnection | void | DbConnection
+CreateAndOpenConnection<T\> where T : DbConnection | string connectionString | T
 CreateConnection<T\> where T : DbConnection | void | T
+CreateConnection<T\> where T : DbConnection | string connectionString | T
 EachDay | DateTime startDate, int daysForward | List<DateTime\>
 EachDay | DateTime startDate, DateTime endDate | List<DateTime\>
 ExecuteWithTryCatch | Action action | Exception
