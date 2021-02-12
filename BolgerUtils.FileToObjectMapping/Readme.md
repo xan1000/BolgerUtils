@@ -1,6 +1,6 @@
 # BolgerUtils.FileToObjectMapping
 
-BolgerUtils.FileToObjectMapping is a .NET Standard 2.0 library which provides a means to parse a files content and cache the result. If the file is modified the change will be detected with its updated content used. The **BolgerUtils.FileToObjectMapping.FileToObject** class implements this functionality and static methods from the **BolgerUtils.FileToObjectMapping.FileToObjectUtils** class are available to streamline its usage.
+BolgerUtils.FileToObjectMapping is a .NET Standard 2.1 library which provides a means to parse a files content and cache the result. If the file is modified the change will be detected with its updated content used. The **BolgerUtils.FileToObjectMapping.FileToObject** class implements this functionality and static methods from the **BolgerUtils.FileToObjectMapping.FileToObjectUtils** class are available to streamline its usage.
 
 These classes are available when the **BolgerUtils.FileToObjectMapping** namespace is imported via:
 
