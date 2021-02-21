@@ -82,6 +82,7 @@ namespace BolgerUtils
             return CreateConnection<T>(ConnectionString);
         }
 
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Global
         public static T CreateConnection<T>(string connectionString) where T : DbConnection
         {
             if(connectionString == null)
