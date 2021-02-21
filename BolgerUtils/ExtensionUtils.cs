@@ -142,14 +142,14 @@ namespace BolgerUtils
 
         public static bool IsContainedIn<T>(this T item, params T[] values) => values.Contains(item);
 
-        public static bool IsNull<T>(this T item) where T : class  => item == null;
+        public static bool IsNull<T>(this T item) => item == null;
 
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
-        public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)") where T : class
+        public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)")
         {
             if(stringIfNull == null)
-                throw new ArgumentException("stringIfNull cannot null.", nameof(stringIfNull));
+                throw new ArgumentException("stringIfNull cannot be null.", nameof(stringIfNull));
 
             return item != null ? item.ToString() : stringIfNull;
         }
@@ -202,6 +202,8 @@ namespace BolgerUtils
         public static bool NotAny<T>(this IEnumerable<T> source) => !source.Any();
 
         public static bool NotAny<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
+
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T> source) => source.Where(x => x != null);
 
         public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
             source.Where(x => !predicate(x));

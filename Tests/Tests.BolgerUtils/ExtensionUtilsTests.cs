@@ -532,7 +532,28 @@ namespace Tests.BolgerUtils
         [Theory]
         [InlineData(true, null)]
         [InlineData(false, "Test")]
-        public void Test_IsNull<T>(bool expected, T item) where T : class => Assert.Equal(expected, item.IsNull());
+        [InlineData(false, 1)]
+        [InlineData(false, 1.0)]
+        public void Test_IsNull<T>(bool expected, T item) => Assert.Equal(expected, item.IsNull());
+
+        [Fact]
+        public void TestFact_IsNull()
+        {
+            int? i = null;
+            Assert.True(i.IsNull());
+            i = 1;
+            Assert.False(i.IsNull());
+
+            decimal? dec = null;
+            Assert.True(dec.IsNull());
+            dec = 1;
+            Assert.False(dec.IsNull());
+            
+            double? d = null;
+            Assert.True(d.IsNull());
+            d = 1;
+            Assert.False(d.IsNull());
+        }
 
         [Fact]
         public void Test_ScalarToList()
@@ -547,6 +568,7 @@ namespace Tests.BolgerUtils
         {
             const string stringIfNullDefaultValue = "(null)";
 
+            // Test class.
             var s = "Hello World";
             Test_ToStringIfNull_Implementation(s, s);
             Test_ToStringIfNull_Implementation(s, s, "Test");
@@ -570,10 +592,22 @@ namespace Tests.BolgerUtils
             Test_ToStringIfNull_Implementation("Test", t, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
             Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null));
+
+            // Test struct.
+            int? i = 10;
+            Test_ToStringIfNull_Implementation(i.ToString(), i);
+            Test_ToStringIfNull_Implementation(i.ToString(), i, "Test");
+            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null));
+
+            i = null;
+            // ReSharper disable ExpressionIsAlwaysNull
+            Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, i);
+            Test_ToStringIfNull_Implementation("Test", i, "Test");
+            // ReSharper restore ExpressionIsAlwaysNull
+            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null));
         }
 
-        private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string stringIfNull = null)
-            where T : class =>
+        private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string stringIfNull = null) =>
             Assert.Equal(expected, stringIfNull == null ? item.ToStringIfNull() : item.ToStringIfNull(stringIfNull));
 
         #endregion
@@ -880,6 +914,19 @@ namespace Tests.BolgerUtils
             Assert.Equal(expected, array.NotAny(predicate));
             Assert.Equal(!array.Any(predicate), array.NotAny(predicate));
         }
+
+        [Fact]
+        public void Test_NotNull()
+        {
+            Test_NotNull_Implementation(new[] { "Hello", null, "World", null });
+            Test_NotNull_Implementation(new[] { "Hello", "World" });
+            Test_NotNull_Implementation(new[] { 1, 2, 3 });
+            Test_NotNull_Implementation(new int?[] { 1, null, 2, null, 3, null });
+            Test_NotNull_Implementation(new object[] { 1, "Hello", 2, null, 3, "World", null });
+        }
+
+        private void Test_NotNull_Implementation<T>(IEnumerable<T> source) =>
+            Assert.DoesNotContain(source.NotNull(), x => x.IsNull());
 
         [Fact]
         public void Test_NotWhere()
