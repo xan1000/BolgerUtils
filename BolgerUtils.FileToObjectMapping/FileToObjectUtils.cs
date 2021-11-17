@@ -71,5 +71,9 @@ namespace BolgerUtils.FileToObjectMapping
 
         public static bool UnMap(string path) => FileToObject.UnMap(path);
         public static bool UnRegister(string path) => FileToObject.UnRegister(path);
+
+        // Source code origin:
+        // https://github.com/xan1000/BolgerUtils/blob/master/BolgerUtils/ExtensionUtils.cs
+        internal static FileInfo ToFileInfo(this string item) => new FileInfo(item);
     }
 }
