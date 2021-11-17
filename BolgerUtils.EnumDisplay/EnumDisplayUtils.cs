@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace BolgerUtils.EnumDisplay
 {
@@ -43,7 +44,9 @@ namespace BolgerUtils.EnumDisplay
 
         public void AddAll<T>() where T : Enum
         {
-            foreach(var key in Utils.GetEnumValues<T>().Where(key => !ContainsKey(key)))
+            // Source code origin:
+            // https://github.com/xan1000/BolgerUtils/blob/master/BolgerUtils/Utils.cs -> GetEnumValue
+            foreach(var key in Enum.GetValues(typeof(T)).Cast<T>().Where(key => !ContainsKey(key)))
             {
                 Add(key);
             }
@@ -84,5 +87,27 @@ namespace BolgerUtils.EnumDisplay
         public static bool ContainsKey(this Enum key) => EnumDisplayUtils.ContainsKey(key);
         public static string Display(this Enum key) => EnumDisplayUtils.Display(key);
         public static bool Remove(this Enum key) => EnumDisplayUtils.Remove(key);
+
+        // Source code origin:
+        // https://github.com/xan1000/BolgerUtils/blob/master/BolgerUtils/ExtensionUtils.cs ->
+        // UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter
+        internal static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(this string item)
+        {
+            var stringBuilder = new StringBuilder(item);
+
+            if(char.IsLower(stringBuilder[0]))
+                stringBuilder[0] = char.ToUpper(stringBuilder[0]);
+
+            for(var i = 1; i < stringBuilder.Length; i++)
+            {
+                if(char.IsUpper(stringBuilder[i]))
+                {
+                    stringBuilder.Insert(i, ' ');
+                    i++;
+                }
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }

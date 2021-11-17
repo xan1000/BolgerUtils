@@ -21,10 +21,6 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BolgerUtils" Version="3.0.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
