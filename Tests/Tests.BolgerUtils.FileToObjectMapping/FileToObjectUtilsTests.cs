@@ -149,7 +149,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Equal(TextFileContent, _fileToObject.Map(TextFilePath, TextFileToObject));
             Assert.IsType<string>(_fileToObject.Map(TextFilePath, TextFileToObject));
 
-            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
+            var content = TextFileContent[TextFileContent.IndexOf(Utils.NewLineChar)..];
             Assert.NotEqual(content, _fileToObject.Map(TextFilePath, TextFileToObject));
 
             var list = JsonFileContent.ToList();
@@ -300,7 +300,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Equal(TextFileContent, _fileToObject.Load<string>(TextFilePath));
             Assert.IsType<string>(_fileToObject.Load<string>(TextFilePath));
 
-            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
+            var content = TextFileContent[TextFileContent.IndexOf(Utils.NewLineChar)..];
             Assert.NotEqual(content, _fileToObject.Load<string>(TextFilePath));
 
             var list = JsonFileContent.ToList();
@@ -394,7 +394,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Equal(TextFileContent, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
             Assert.IsType<string>(FileToObjectUtils.Map(TextFilePath, TextFileToObject));
 
-            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
+            var content = TextFileContent[TextFileContent.IndexOf(Utils.NewLineChar)..];
             Assert.NotEqual(content, FileToObjectUtils.Map(TextFilePath, TextFileToObject));
 
             var list = JsonFileContent.ToList();
@@ -426,7 +426,7 @@ namespace Tests.BolgerUtils.FileToObjectMapping
             Assert.Equal(TextFileContent, FileToObjectUtils.Load<string>(TextFilePath));
             Assert.IsType<string>(FileToObjectUtils.Load<string>(TextFilePath));
 
-            var content = TextFileContent.Substring(TextFileContent.IndexOf(Utils.NewLineChar));
+            var content = TextFileContent[TextFileContent.IndexOf(Utils.NewLineChar)..];
             Assert.NotEqual(content, FileToObjectUtils.Load<string>(TextFilePath));
 
             var list = JsonFileContent.ToList();

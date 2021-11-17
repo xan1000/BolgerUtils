@@ -222,12 +222,7 @@ namespace BolgerUtils
 
         public static T Self<T>(T item) => item;
 
-        public static void Swap<T>(ref T a, ref T b)
-        {
-            var temp = a;
-            a = b;
-            b = temp;
-        }
+        public static void Swap<T>(ref T a, ref T b) => (a, b) = (b, a);
 
         #endregion
     }

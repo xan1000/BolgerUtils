@@ -31,6 +31,7 @@ namespace BolgerUtils.TimeZoneConverter
 
             for(var i = 1; i < stringBuilder.Length; i++)
             {
+                // ReSharper disable once InvertIf
                 if(char.IsUpper(stringBuilder[i]))
                 {
                     stringBuilder.Insert(i, ' ');

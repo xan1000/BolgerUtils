@@ -293,18 +293,19 @@ namespace Tests.BolgerUtils
 
             // ExecuteWithTryCatch Func<T>
             {
-                var result = Utils.ExecuteWithTryCatch(() => s.Substring(0, h.Length));
+                var result = Utils.ExecuteWithTryCatch(() => s[..h.Length]);
                 Assert.True(result.HasReturnValue);
                 Assert.Equal(h, result.ReturnValue);
                 Assert.Null(result.Exception);
 
-                result = Utils.ExecuteWithTryCatch(() => s.Substring(-1));
+                // ReSharper disable once NegativeIndex
+                result = Utils.ExecuteWithTryCatch(() => s[-1..]);
                 Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
 
-                result = Utils.ExecuteWithTryCatch(() => s.Substring(s.Length + 1));
+                result = Utils.ExecuteWithTryCatch(() => s[(s.Length + 1)..]);
                 Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
@@ -363,7 +364,7 @@ namespace Tests.BolgerUtils
                 var result = await Utils.ExecuteWithTryCatchAsync(async () =>
                 {
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    var substring = s.Substring(0, h.Length);
+                    var substring = s[..h.Length];
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
                     return substring;
@@ -375,13 +376,14 @@ namespace Tests.BolgerUtils
                 // Disable async with no await warning.
                 #pragma warning disable 1998
 
-                result = await Utils.ExecuteWithTryCatchAsync(async () => s.Substring(-1));
+                // ReSharper disable once NegativeIndex
+                result = await Utils.ExecuteWithTryCatchAsync(async () => s[-1..]);
                 Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);
                 Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
 
-                result = await Utils.ExecuteWithTryCatchAsync(async () => s.Substring(s.Length + 1));
+                result = await Utils.ExecuteWithTryCatchAsync(async () => s[(s.Length + 1)..]);
                 Assert.False(result.HasReturnValue);
                 Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
                 Assert.NotNull(result.Exception);

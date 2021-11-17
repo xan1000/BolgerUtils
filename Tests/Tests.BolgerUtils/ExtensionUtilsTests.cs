@@ -539,6 +539,7 @@ namespace Tests.BolgerUtils
         [Fact]
         public void TestFact_IsNull()
         {
+            // ReSharper disable ExpressionIsAlwaysNull
             int? i = null;
             Assert.True(i.IsNull());
             i = 1;
@@ -553,6 +554,7 @@ namespace Tests.BolgerUtils
             Assert.True(d.IsNull());
             d = 1;
             Assert.False(d.IsNull());
+            // ReSharper restore ExpressionIsAlwaysNull
         }
 
         [Fact]
@@ -620,7 +622,7 @@ namespace Tests.BolgerUtils
             Test_AddAll_Implementation(new[] { 4, 5, 6 }, new List<int>(), new[] { 4, 5, 6 });
             Test_AddAll_Implementation(new[] { 1, 2, 3, 7, 8, 9, 4, 5, 6 }, new List<int> { 1, 2, 3, 7, 8, 9 },
                 new[] { 4, 5, 6 });
-            Test_AddAll_Implementation(new int[0], new List<int>(), new int[0]);
+            Test_AddAll_Implementation(Array.Empty<int>(), new List<int>(), Array.Empty<int>());
 
             Test_AddAll_Implementation(new[] { "Hello" }, new List<string>(), new[] { "Hello" });
             Test_AddAll_Implementation(new[] { "Hello", "World" }, new List<string>(), new[] { "Hello", "World" });
@@ -661,33 +663,33 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_RemoveAll()
         {
-            Test_RemoveAll_Implementation(new int[0], new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
+            Test_RemoveAll_Implementation(Array.Empty<int>(), new List<int> { 4, 5, 6 }, new[] { 4, 5, 6 });
             Test_RemoveAll_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 4, 5, 6 });
             Test_RemoveAll_Implementation(new[] { 1, 3, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 }, new[] { 2, 4, 5 });
             Test_RemoveAll_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, new[] { 1, 3 });
-            Test_RemoveAll_Implementation(new int[0], new List<int>(), new int[0]);
+            Test_RemoveAll_Implementation(Array.Empty<int>(), new List<int>(), Array.Empty<int>());
 
-            Test_RemoveAll_Implementation(new string[0], new List<string> { "Hello" }, new[] { "Hello" });
+            Test_RemoveAll_Implementation(Array.Empty<string>(), new List<string> { "Hello" }, new[] { "Hello" });
             Test_RemoveAll_Implementation(new[] { "World" }, new List<string> { "Hello", "World" }, new[] { "Hello" });
-            Test_RemoveAll_Implementation(new string[0], new List<string> { "Hello", "World" },
+            Test_RemoveAll_Implementation(Array.Empty<string>(), new List<string> { "Hello", "World" },
                 new[] { "Hello", "World" });
             Test_RemoveAll_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
                 new[] { "Hello", "World" });
-            Test_RemoveAll_Implementation(new string[0], new List<string>(), new string[0]);
+            Test_RemoveAll_Implementation(Array.Empty<string>(), new List<string>(), Array.Empty<string>());
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAll_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests> { utilsTests1 },
                 new[] { utilsTests1 });
             Test_RemoveAll_Implementation(new[] { utilsTests2 }, new List<UtilsTests> { utilsTests1, utilsTests2 },
                 new[] { utilsTests1 });
-            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAll_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests> { utilsTests1, utilsTests2 },
                 new[] { utilsTests1, utilsTests2 });
 
             var utilsTests3 = new UtilsTests();
             Test_RemoveAll_Implementation(new[] { utilsTests2 },
                 new List<UtilsTests> { utilsTests1, utilsTests2, utilsTests3 }, new[] { utilsTests1, utilsTests3 });
-            Test_RemoveAll_Implementation(new UtilsTests[0], new List<UtilsTests>(), new UtilsTests[0]);
+            Test_RemoveAll_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests>(), Array.Empty<UtilsTests>());
 
             Test_RemoveAll_Implementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, new[] { 2, 4 }, false);
             Test_RemoveAll_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, new[] { 4, 5, 6 }, false);
@@ -721,7 +723,7 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_RemoveAllPredicate()
         {
-            Test_RemoveAllPredicate_Implementation(new int[0], new List<int> { 4, 5, 6 }, _ => true);
+            Test_RemoveAllPredicate_Implementation(Array.Empty<int>(), new List<int> { 4, 5, 6 }, _ => true);
             Test_RemoveAllPredicate_Implementation(new[] { 4, 5, 6 }, new List<int> { 4, 5, 6 }, _ => false);
             Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
             Test_RemoveAllPredicate_Implementation(new[] { 4, 6 }, new List<int> { 4, 5, 6 }, x => x == 5);
@@ -729,10 +731,10 @@ namespace Tests.BolgerUtils
                 x => x % 2 == 0);
             Test_RemoveAllPredicate_Implementation(new[] { 2, 4, 6 }, new List<int> { 1, 2, 3, 4, 5, 6 },
                 x => x % 2 == 1);
-            Test_RemoveAllPredicate_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x == 1 || x == 3);
-            Test_RemoveAllPredicate_Implementation(new int[0], new List<int>(), x => x == 0);
+            Test_RemoveAllPredicate_Implementation(new[] { 2 }, new List<int> { 1, 2, 3 }, x => x is 1 or 3);
+            Test_RemoveAllPredicate_Implementation(Array.Empty<int>(), new List<int>(), x => x == 0);
 
-            Test_RemoveAllPredicate_Implementation(new string[0], new List<string> { "Hello" }, _ => true);
+            Test_RemoveAllPredicate_Implementation(Array.Empty<string>(), new List<string> { "Hello" }, _ => true);
             Test_RemoveAllPredicate_Implementation(new[] { "Hello" }, new List<string> { "Hello" }, _ => false);
             Test_RemoveAllPredicate_Implementation(new[] { "World" }, new List<string> { "Hello", "World" },
                 x => x == "Hello");
@@ -741,22 +743,22 @@ namespace Tests.BolgerUtils
             Test_RemoveAllPredicate_Implementation(new[] { "Hello", "World" },
                 new List<string> { "", "Hello", "", "", "World", "" }, x => x.IsEmpty());
             Test_RemoveAllPredicate_Implementation(new[] { "Test" }, new List<string> { "Hello", "Test", "World" },
-                x => x == "Hello" || x == "World");
-            Test_RemoveAllPredicate_Implementation(new string[0], new List<string>(), x => x.IsEmpty());
+                x => x is "Hello" or "World");
+            Test_RemoveAllPredicate_Implementation(Array.Empty<string>(), new List<string>(), x => x.IsEmpty());
 
             var utilsTests1 = new UtilsTests();
             var utilsTests2 = new UtilsTests();
-            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAllPredicate_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests> { utilsTests1 },
                 _ => true);
             Test_RemoveAllPredicate_Implementation(new[] { utilsTests1 }, new List<UtilsTests> { utilsTests1 },
                 _ => false);
-            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1 },
+            Test_RemoveAllPredicate_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests> { utilsTests1 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 x => x == utilsTests1);
             Test_RemoveAllPredicate_Implementation(new[] { utilsTests2 },
                 // ReSharper disable once ImplicitlyCapturedClosure
                 new List<UtilsTests> { utilsTests1, utilsTests2 }, x => x == utilsTests1);
-            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests> { utilsTests1, utilsTests2 },
+            Test_RemoveAllPredicate_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests> { utilsTests1, utilsTests2 },
                 x => x == utilsTests1 || x == utilsTests2);
 
             var utilsTests3 = new UtilsTests();
@@ -765,9 +767,9 @@ namespace Tests.BolgerUtils
                 // ReSharper disable once ImplicitlyCapturedClosure
                 x => x == utilsTests1 || x == utilsTests3);
             // ReSharper disable once ImplicitlyCapturedClosure
-            Test_RemoveAllPredicate_Implementation(new UtilsTests[0], new List<UtilsTests>(), x => x == utilsTests1);
+            Test_RemoveAllPredicate_Implementation(Array.Empty<UtilsTests>(), new List<UtilsTests>(), x => x == utilsTests1);
 
-            Test_RemoveAllPredicate_Implementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, x => x == 2 || x == 4);
+            Test_RemoveAllPredicate_Implementation(new[] { 1, 3 }, new List<int> { 1, 2, 3 }, x => x is 2 or 4);
             Test_RemoveAllPredicate_Implementation(new[] { 1, 2, 3 }, new List<int> { 1, 2, 3 }, x => x > 3);
         }
 
@@ -800,7 +802,7 @@ namespace Tests.BolgerUtils
         public void Test_IEnumerable_IsEmpty()
         {
             Test_IEnumerable_IsEmpty_Implementation(false, new[] { 4, 5, 6 });
-            Test_IEnumerable_IsEmpty_Implementation(true, new int[0]);
+            Test_IEnumerable_IsEmpty_Implementation(true, Array.Empty<int>());
 
             var list = new List<string> { "Hello", "World", "Test" };
             Test_IEnumerable_IsEmpty_Implementation(false, list);
@@ -812,7 +814,7 @@ namespace Tests.BolgerUtils
             Test_IEnumerable_IsEmpty_Implementation(true, list);
 
             Test_IEnumerable_IsEmpty_Implementation(false, new ExtensionUtilsTests().ScalarToList());
-            Test_IEnumerable_IsEmpty_Implementation(true, new ExtensionUtilsTests[0]);
+            Test_IEnumerable_IsEmpty_Implementation(true, Array.Empty<ExtensionUtilsTests>());
         }
 
         private void Test_IEnumerable_IsEmpty_Implementation<T>(bool expected, IEnumerable<T> source)
@@ -828,7 +830,7 @@ namespace Tests.BolgerUtils
             Test_NotAll_Implementation(true, new[] { 4, 5, 6 }, x => x % 2 == 0);
             Test_NotAll_Implementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
             Test_NotAll_Implementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotAll_Implementation(false, new int[0], x => x % 2 == 0);
+            Test_NotAll_Implementation(false, Array.Empty<int>(), x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
             Test_NotAll_Implementation(true, list, x => x == "Hello");
@@ -859,7 +861,7 @@ namespace Tests.BolgerUtils
         public void Test_NotAny()
         {
             Test_NotAny_Implementation(false, new[] { 4, 5, 6 });
-            Test_NotAny_Implementation(true, new int[0]);
+            Test_NotAny_Implementation(true, Array.Empty<int>());
 
             var list = new List<string> { "Hello", "World", "Test" };
             Test_NotAny_Implementation(false, list);
@@ -871,7 +873,7 @@ namespace Tests.BolgerUtils
             Test_NotAny_Implementation(true, list);
 
             Test_NotAny_Implementation(false, new ExtensionUtilsTests().ScalarToList());
-            Test_NotAny_Implementation(true, new ExtensionUtilsTests[0]);
+            Test_NotAny_Implementation(true, Array.Empty<ExtensionUtilsTests>());
         }
 
         private void Test_NotAny_Implementation<T>(bool expected, IEnumerable<T> source)
@@ -887,7 +889,7 @@ namespace Tests.BolgerUtils
             Test_NotAnyPredicate_Implementation(false, new[] { 4, 5, 6 }, x => x % 2 == 0);
             Test_NotAnyPredicate_Implementation(true, new[] { 3, 5, 7 }, x => x % 2 == 0);
             Test_NotAnyPredicate_Implementation(false, new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotAnyPredicate_Implementation(true, new int[0], x => x % 2 == 0);
+            Test_NotAnyPredicate_Implementation(true, Array.Empty<int>(), x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
             Test_NotAnyPredicate_Implementation(false, list, x => x == "Hello");
@@ -933,24 +935,24 @@ namespace Tests.BolgerUtils
         {
             Test_NotWhere_Implementation(new[] { 5 }, new[] { 4, 5, 6 }, x => x % 2 == 0);
             Test_NotWhere_Implementation(new[] { 3, 5, 7 }, new[] { 3, 5, 7 }, x => x % 2 == 0);
-            Test_NotWhere_Implementation(new int[0], new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotWhere_Implementation(new int[0], new int[0], x => x % 2 == 0);
+            Test_NotWhere_Implementation(Array.Empty<int>(), new[] { 4, 6, 8 }, x => x % 2 == 0);
+            Test_NotWhere_Implementation(Array.Empty<int>(), Array.Empty<int>(), x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
             Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
             Test_NotWhere_Implementation(new[] { "Hello" }, list, x => x != "Hello");
-            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello World");
+            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello World");
 
             list.RemoveAt(0);
             Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
-            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello");
-            Test_NotWhere_Implementation(new string[0], list, x => x != "Hello World");
+            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello");
+            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello World");
 
             list.Clear();
-            Test_NotWhere_Implementation(new string[0], list, x => x == "Hello");
+            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x == "Hello");
 
             list.AddRange(new[] { "Hello", "Hello", "Hello" });
-            Test_NotWhere_Implementation(new string[0], list, x => x == "Hello");
+            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x == "Hello");
             Test_NotWhere_Implementation(new[] { "Hello", "Hello", "Hello" }, list, x => x != "Hello");
         }
 
@@ -965,12 +967,13 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_ToEnumerableEmptyIfNull()
         {
+            // ReSharper disable ExpressionIsAlwaysNull
             var intArray = new[] { 1, 2, 3, 5, 10 };
             Assert.Equal(intArray, intArray.ToEnumerableEmptyIfNull());
 
             intArray = null;
             Assert.NotNull(intArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(new int[0], intArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(Array.Empty<int>(), intArray.ToEnumerableEmptyIfNull());
             Assert.Equal(Enumerable.Empty<int>(), intArray.ToEnumerableEmptyIfNull());
 
             var stringArray = new[] { "Hello", "World", "Test" };
@@ -978,8 +981,9 @@ namespace Tests.BolgerUtils
 
             stringArray = null;
             Assert.NotNull(stringArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(new string[0], stringArray.ToEnumerableEmptyIfNull());
+            Assert.Equal(Array.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
             Assert.Equal(Enumerable.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
+            // ReSharper restore ExpressionIsAlwaysNull
         }
 
         [Fact]

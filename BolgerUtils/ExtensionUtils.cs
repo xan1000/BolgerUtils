@@ -335,7 +335,7 @@ namespace BolgerUtils
         {
             var digits = new string(item.Where(char.IsDigit).ToArray());
 
-            return digits.Length < 8 ? null : digits.Substring(digits.Length - 8);
+            return digits.Length < 8 ? null : digits[^8..];
         }
 
         public static bool IsEmpty(this string item) => item.Length == 0;
@@ -476,7 +476,7 @@ namespace BolgerUtils
         }
 
         public static string Truncate(this string item, int length) =>
-            item.Length <= length ? item : item.Substring(0, Math.Min(item.Length, length));
+            item.Length <= length ? item : item[..Math.Min(item.Length, length)];
 
         public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(this string item)
         {
