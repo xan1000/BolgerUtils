@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using BolgerUtils.EnumDisplay;
 using TimeZoneConverter;
 
 namespace BolgerUtils.TimeZoneConverter
@@ -11,31 +10,24 @@ namespace BolgerUtils.TimeZoneConverter
         // ReSharper disable UnusedMember.Global
         // ReSharper disable IdentifierTypo
         DatelineStandardTime,
-        [EnumDisplay("UTC-11")]
         UTC11,
         AleutianStandardTime,
         HawaiianStandardTime,
         MarquesasStandardTime,
         AlaskanStandardTime,
-        [EnumDisplay("UTC-09")]
         UTC09,
-        [EnumDisplay("Pacific Standard Time (Mexico)")]
         PacificStandardTimeMexico,
-        [EnumDisplay("UTC-08")]
         UTC08,
         PacificStandardTime,
         UsMountainStandardTime,
-        [EnumDisplay("Mountain Standard Time (Mexico)")]
         MountainStandardTimeMexico,
         MountainStandardTime,
         CentralAmericaStandardTime,
         CentralStandardTime,
         EasterIslandStandardTime,
-        [EnumDisplay("Central Standard Time (Mexico)")]
         CentralStandardTimeMexico,
         CanadaCentralStandardTime,
         SaPacificStandardTime,
-        [EnumDisplay("Eastern Standard Time (Mexico)")]
         EasternStandardTimeMexico,
         EasternStandardTime,
         HaitiStandardTime,
@@ -50,7 +42,6 @@ namespace BolgerUtils.TimeZoneConverter
         PacificSaStandardTime,
         NewfoundlandStandardTime,
         TocantinsStandardTime,
-        [EnumDisplay("E. South America Standard Time")]
         ESouthAmericaStandardTime,
         SaEasternStandardTime,
         ArgentinaStandardTime,
@@ -59,30 +50,24 @@ namespace BolgerUtils.TimeZoneConverter
         MagallanesStandardTime,
         SaintPierreStandardTime,
         BahiaStandardTime,
-        [EnumDisplay("UTC-02")]
         UTC02,
-        [EnumDisplay("Mid-Atlantic Standard Time")]
         MidAtlanticStandardTime,
         AzoresStandardTime,
         CapeVerdeStandardTime,
-        [EnumDisplay("UTC")]
         UTC,
         GmtStandardTime,
         GreenwichStandardTime,
         SaoTomeStandardTime,
         MoroccoStandardTime,
-        [EnumDisplay("W. Europe Standard Time")]
         WEuropeStandardTime,
         CentralEuropeStandardTime,
         RomanceStandardTime,
         CentralEuropeanStandardTime,
-        [EnumDisplay("W. Central Africa Standard Time")]
         WCentralAfricaStandardTime,
         JordanStandardTime,
         GtbStandardTime,
         MiddleEastStandardTime,
         EgyptStandardTime,
-        [EnumDisplay("E. Europe Standard Time")]
         EEuropeStandardTime,
         SyriaStandardTime,
         WestBankStandardTime,
@@ -98,13 +83,11 @@ namespace BolgerUtils.TimeZoneConverter
         ArabStandardTime,
         BelarusStandardTime,
         RussianStandardTime,
-        [EnumDisplay("E. Africa Standard Time")]
         EAfricaStandardTime,
         IranStandardTime,
         ArabianStandardTime,
         AstrakhanStandardTime,
         AzerbaijanStandardTime,
-        [EnumDisplay("Russia Time Zone 3")]
         RussiaTimeZone3,
         MauritiusStandardTime,
         SaratovStandardTime,
@@ -125,30 +108,24 @@ namespace BolgerUtils.TimeZoneConverter
         MyanmarStandardTime,
         SeAsiaStandardTime,
         AltaiStandardTime,
-        [EnumDisplay("W. Mongolia Standard Time")]
         WMongoliaStandardTime,
         NorthAsiaStandardTime,
-        [EnumDisplay("N. Central Asia Standard Time")]
         NCentralAsiaStandardTime,
         TomskStandardTime,
         ChinaStandardTime,
         NorthAsiaEastStandardTime,
         SingaporeStandardTime,
-        [EnumDisplay("W. Australia Standard Time")]
         WAustraliaStandardTime,
         TaipeiStandardTime,
         UlaanbaatarStandardTime,
-        [EnumDisplay("Aus Central W. Standard Time")]
         AusCentralWStandardTime,
         TransbaikalStandardTime,
         TokyoStandardTime,
         NorthKoreaStandardTime,
         KoreaStandardTime,
         YakutskStandardTime,
-        [EnumDisplay("Cen. Australia Standard Time")]
         CenAustraliaStandardTime,
         AusCentralStandardTime,
-        [EnumDisplay("E. Australia Standard Time")]
         EAustraliaStandardTime,
         AusEasternStandardTime,
         WestPacificStandardTime,
@@ -156,21 +133,17 @@ namespace BolgerUtils.TimeZoneConverter
         VladivostokStandardTime,
         LordHoweStandardTime,
         BougainvilleStandardTime,
-        [EnumDisplay("Russia Time Zone 10")]
         RussiaTimeZone10,
         MagadanStandardTime,
         NorfolkStandardTime,
         SakhalinStandardTime,
         CentralPacificStandardTime,
-        [EnumDisplay("Russia Time Zone 11")]
         RussiaTimeZone11,
         NewZealandStandardTime,
-        [EnumDisplay("UTC+12")]
         UTC12,
         FijiStandardTime,
         KamchatkaStandardTime,
         ChathamIslandsStandardTime,
-        [EnumDisplay("UTC+13")]
         UTC13,
         TongaStandardTime,
         SamoaStandardTime,
@@ -181,7 +154,42 @@ namespace BolgerUtils.TimeZoneConverter
 
     public static class Utils
     {
-        private static readonly Dictionary<string, TimeZoneInfo> _timeZoneInfoDictionary =
+        private static readonly Dictionary<SystemTimeZoneInfoID, string> _systemTimeZoneInfoIDToTimeZoneID =
+            new Dictionary<SystemTimeZoneInfoID, string>
+            {
+                { SystemTimeZoneInfoID.UTC11, "UTC-11" },
+                { SystemTimeZoneInfoID.UTC09, "UTC-09" },
+                { SystemTimeZoneInfoID.PacificStandardTimeMexico, "Pacific Standard Time (Mexico)" },
+                { SystemTimeZoneInfoID.UTC08, "UTC-08" },
+                { SystemTimeZoneInfoID.MountainStandardTimeMexico, "Mountain Standard Time (Mexico)" },
+                { SystemTimeZoneInfoID.CentralStandardTimeMexico, "Central Standard Time (Mexico)" },
+                { SystemTimeZoneInfoID.EasternStandardTimeMexico, "Eastern Standard Time (Mexico)" },
+                { SystemTimeZoneInfoID.ESouthAmericaStandardTime, "E. South America Standard Time" },
+                { SystemTimeZoneInfoID.UTC02, "UTC-02" },
+                { SystemTimeZoneInfoID.MidAtlanticStandardTime, "Mid-Atlantic Standard Time" },
+                { SystemTimeZoneInfoID.UTC, "UTC" },
+                { SystemTimeZoneInfoID.WEuropeStandardTime, "W. Europe Standard Time" },
+                { SystemTimeZoneInfoID.WCentralAfricaStandardTime, "W. Central Africa Standard Time" },
+                { SystemTimeZoneInfoID.EEuropeStandardTime, "E. Europe Standard Time" },
+                { SystemTimeZoneInfoID.EAfricaStandardTime, "E. Africa Standard Time" },
+                { SystemTimeZoneInfoID.RussiaTimeZone3, "Russia Time Zone 3" },
+                { SystemTimeZoneInfoID.WMongoliaStandardTime, "W. Mongolia Standard Time" },
+                { SystemTimeZoneInfoID.NCentralAsiaStandardTime, "N. Central Asia Standard Time" },
+                { SystemTimeZoneInfoID.WAustraliaStandardTime, "W. Australia Standard Time" },
+                { SystemTimeZoneInfoID.AusCentralWStandardTime, "Aus Central W. Standard Time" },
+                { SystemTimeZoneInfoID.CenAustraliaStandardTime, "Cen. Australia Standard Time" },
+                { SystemTimeZoneInfoID.EAustraliaStandardTime, "E. Australia Standard Time" },
+                { SystemTimeZoneInfoID.RussiaTimeZone10, "Russia Time Zone 10" },
+                { SystemTimeZoneInfoID.RussiaTimeZone11, "Russia Time Zone 11" },
+                { SystemTimeZoneInfoID.UTC12, "UTC+12" },
+                { SystemTimeZoneInfoID.UTC13, "UTC+13" }
+            };
+
+        private static string GetTimeZoneID(SystemTimeZoneInfoID timeZoneInfoID) =>
+            _systemTimeZoneInfoIDToTimeZoneID.TryGetValue(timeZoneInfoID, out var timeZoneID) ? timeZoneID :
+                timeZoneInfoID.ToString().UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter();
+
+        private static readonly Dictionary<string, TimeZoneInfo> _timeZoneInfoDictionaryCache =
             new Dictionary<string, TimeZoneInfo>();
 
         private static TimeZoneInfo _defaultTimeZone;
@@ -217,7 +225,7 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static DateTime ConvertTimeFromTimeZoneToUtc(
             DateTime dateTime, SystemTimeZoneInfoID sourceTimeZoneID) =>
-            ConvertTimeFromTimeZoneToUtc(dateTime, sourceTimeZoneID.Display());
+            ConvertTimeFromTimeZoneToUtc(dateTime, GetTimeZoneID(sourceTimeZoneID));
 
         public static DateTime ConvertTimeFromUtcToDefaultTimeZone(DateTime dateTimeUtc) =>
             ConvertTimeFromUtcToTimeZone(dateTimeUtc, DefaultTimeZone);
@@ -230,7 +238,7 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static DateTime ConvertTimeFromUtcToTimeZone(
             DateTime dateTimeUtc, SystemTimeZoneInfoID targetTimeZoneID) =>
-            ConvertTimeFromUtcToTimeZone(dateTimeUtc, targetTimeZoneID.Display());
+            ConvertTimeFromUtcToTimeZone(dateTimeUtc, GetTimeZoneID(targetTimeZoneID));
 
         public static DateTime GetTimeNowInTimeZone(TimeZoneInfo timeZone) =>
             ConvertTimeFromUtcToTimeZone(DateTime.UtcNow, timeZone);
@@ -239,7 +247,7 @@ namespace BolgerUtils.TimeZoneConverter
             GetTimeNowInTimeZone(GetTimeZoneInfo(timeZoneID));
 
         public static DateTime GetTimeNowInTimeZone(SystemTimeZoneInfoID timeZoneID) =>
-            GetTimeNowInTimeZone(timeZoneID.Display());
+            GetTimeNowInTimeZone(GetTimeZoneID(timeZoneID));
 
         public static DateTime GetTimeTodayInTimeZone(TimeZoneInfo timeZone) => GetTimeNowInTimeZone(timeZone).Date;
 
@@ -247,18 +255,20 @@ namespace BolgerUtils.TimeZoneConverter
             GetTimeTodayInTimeZone(GetTimeZoneInfo(timeZoneID));
 
         public static DateTime GetTimeTodayInTimeZone(SystemTimeZoneInfoID timeZoneID) =>
-            GetTimeTodayInTimeZone(timeZoneID.Display());
+            GetTimeTodayInTimeZone(GetTimeZoneID(timeZoneID));
 
         public static TimeZoneInfo GetTimeZone(string timeZoneID) => GetTimeZoneInfo(timeZoneID);
-        public static TimeZoneInfo GetTimeZone(SystemTimeZoneInfoID timeZoneID) => GetTimeZone(timeZoneID.Display());
+
+        public static TimeZoneInfo GetTimeZone(SystemTimeZoneInfoID timeZoneID) =>
+            GetTimeZone(GetTimeZoneID(timeZoneID));
 
         private static TimeZoneInfo GetTimeZoneInfo(string timeZoneID)
         {
-            if(_timeZoneInfoDictionary.TryGetValue(timeZoneID, out var timeZoneInfo))
+            if(_timeZoneInfoDictionaryCache.TryGetValue(timeZoneID, out var timeZoneInfo))
                 return timeZoneInfo;
 
             timeZoneInfo = TZConvert.GetTimeZoneInfo(timeZoneID);
-            _timeZoneInfoDictionary.Add(timeZoneID, timeZoneInfo);
+            _timeZoneInfoDictionaryCache.Add(timeZoneID, timeZoneInfo);
 
             return timeZoneInfo;
         }
@@ -276,7 +286,7 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static DateTime ParseExactTimeFromTimeZoneToUtc(
             string value, string format, SystemTimeZoneInfoID sourceTimeZoneID) =>
-            ParseExactTimeFromTimeZoneToUtc(value, format, sourceTimeZoneID.Display());
+            ParseExactTimeFromTimeZoneToUtc(value, format, GetTimeZoneID(sourceTimeZoneID));
 
         public static void SetDefaultTimeZone(TimeZoneInfo timeZone) => DefaultTimeZone = timeZone;
 
@@ -284,7 +294,7 @@ namespace BolgerUtils.TimeZoneConverter
             SetDefaultTimeZone(GetTimeZoneInfo(timeZoneID));
 
         public static void SetDefaultTimeZone(SystemTimeZoneInfoID timeZoneID) =>
-            SetDefaultTimeZone(timeZoneID.Display());
+            SetDefaultTimeZone(GetTimeZoneID(timeZoneID));
 
         public static bool TryParseExactTimeFromDefaultTimeZoneToUtc(
             string value, string format, out DateTime resultUtc) =>
@@ -308,6 +318,6 @@ namespace BolgerUtils.TimeZoneConverter
 
         public static bool TryParseExactTimeFromTimeZoneToUtc(
             string value, string format, SystemTimeZoneInfoID sourceTimeZoneID, out DateTime resultUtc) =>
-            TryParseExactTimeFromTimeZoneToUtc(value, format, sourceTimeZoneID.Display(), out resultUtc);
+            TryParseExactTimeFromTimeZoneToUtc(value, format, GetTimeZoneID(sourceTimeZoneID), out resultUtc);
     }
 }

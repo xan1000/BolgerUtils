@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace BolgerUtils.TimeZoneConverter
 {
@@ -17,5 +18,27 @@ namespace BolgerUtils.TimeZoneConverter
         public static DateTime ConvertTimeFromUtcToTimeZone(
             this DateTime dateTimeUtc, SystemTimeZoneInfoID targetTimeZoneID) =>
             Utils.ConvertTimeFromUtcToTimeZone(dateTimeUtc, targetTimeZoneID);
+
+        // Source code origin:
+        // https://github.com/xan1000/BolgerUtils/blob/master/BolgerUtils/ExtensionUtils.cs ->
+        // UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter
+        internal static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(this string item)
+        {
+            var stringBuilder = new StringBuilder(item);
+
+            if(char.IsLower(stringBuilder[0]))
+                stringBuilder[0] = char.ToUpper(stringBuilder[0]);
+
+            for(var i = 1; i < stringBuilder.Length; i++)
+            {
+                if(char.IsUpper(stringBuilder[i]))
+                {
+                    stringBuilder.Insert(i, ' ');
+                    i++;
+                }
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }
