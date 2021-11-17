@@ -11,7 +11,7 @@ The BolgerUtils icon is attributed to Bernadette O'Keefe:
 https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
 </Description>
     <Copyright>Copyright ©  2019</Copyright>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xan1000/BolgerUtils</RepositoryUrl>
     <PackageTags>DateTime;TimeZone;TimeZoneInfo;Converter</PackageTags>
     <PackageProjectUrl>https://github.com/xan1000/BolgerUtils/tree/master/BolgerUtils.TimeZoneConverter</PackageProjectUrl>
@@ -28,6 +28,10 @@ https://svg-clipart.com/sign/RsnsoX2-man-carrying-a-big-bag-of-money-clipart
 
   <ItemGroup>
     <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="../LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
