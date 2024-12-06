@@ -48,7 +48,11 @@ namespace Tests.BolgerUtils
         public void Test_DoubleQuoteChar() => Assert.Equal('"', Utils.DoubleQuoteChar);
 
         [Fact]
+#pragma warning disable IDE0079
+#pragma warning disable xUnit2000
         public void Test_Empty() => Assert.Equal(string.Empty, Utils.Empty);
+#pragma warning restore xUnit2000
+#pragma warning restore IDE0079
 
         [Fact]
         public void Test_Localhost() => Assert.Equal("localhost", Utils.Localhost);
@@ -666,7 +670,7 @@ namespace Tests.BolgerUtils
         }
 
         // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void Test_RandomString_Implementation(string characters, int length, string randomString)
+        private static void Test_RandomString_Implementation(string characters, int length, string randomString)
         {
             Assert.Equal(length, randomString.Length);
             Assert.True(randomString.All(characters.Contains));
@@ -699,11 +703,15 @@ namespace Tests.BolgerUtils
             TestFact_RoundDown_Implementation<OverflowException>(decimal.MinValue, 1);
         }
 
-        private void Test_RoundDown_Implementation(decimal expected, decimal value, int decimals) =>
+        private static void Test_RoundDown_Implementation(decimal expected, decimal value, int decimals)
+        {
             Assert.Equal(expected, Utils.RoundDown(value, decimals));
+        }
 
-        private void TestFact_RoundDown_Implementation<T>(decimal value, int decimals) where T : Exception =>
+        private static void TestFact_RoundDown_Implementation<T>(decimal value, int decimals) where T : Exception
+        {
             Assert.Throws<T>(() => Utils.RoundDown(value, decimals));
+        }
 
         [Fact]
         public void Test_RoundUp()
@@ -732,11 +740,15 @@ namespace Tests.BolgerUtils
             TestFact_RoundUp_Implementation<OverflowException>(decimal.MinValue, 1);
         }
 
-        private void TestFact_RoundUp_Implementation(decimal expected, decimal value, int decimals) =>
+        private static void TestFact_RoundUp_Implementation(decimal expected, decimal value, int decimals)
+        {
             Assert.Equal(expected, Utils.RoundUp(value, decimals));
+        }
 
-        private void TestFact_RoundUp_Implementation<T>(decimal value, int decimals) where T : Exception =>
+        private static void TestFact_RoundUp_Implementation<T>(decimal value, int decimals) where T : Exception
+        {
             Assert.Throws<T>(() => Utils.RoundUp(value, decimals));
+        }
 
         [Fact]
         public void Test_Self()
@@ -772,39 +784,17 @@ namespace Tests.BolgerUtils
             Test_Swap_Implementation("Hello", "World");
             Test_Swap_Implementation("Hello", null);
             Test_Swap_Implementation(null, "World");
-            Test_Swap_Implementation("Hello", new string(new[] { 'H', 'e', 'l', 'l', 'o' } ));
+#pragma warning disable IDE0079
+#pragma warning disable CA1861
+            Test_Swap_Implementation("Hello", new string(['H', 'e', 'l', 'l', 'o']));
+#pragma warning restore CA1861
+#pragma warning restore IDE0079
             Test_Swap_Implementation(new UtilsTests(), new UtilsTests());
         }
 
-        private void Test_Swap_Implementation<T>(T a, T b)
+        private static void Test_Swap_Implementation<T>(T a, T b)
         {
             var isValueType = typeof(T).IsValueType;
-            // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
-            void AssertNotEqual(T x, T y)
-            // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
-            {
-                if(isValueType)
-                    Assert.NotEqual(x, y);
-                else
-                {
-                    // ReSharper disable RedundantCast
-                    Assert.NotSame((object) x, (object) y);
-                    // ReSharper restore RedundantCast
-                }
-            }
-            // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
-            void AssertEqual(T x, T y)
-            // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Local
-            {
-                if(isValueType)
-                    Assert.Equal(x, y);
-                else
-                {
-                    // ReSharper disable RedundantCast
-                    Assert.Same((object) x, (object) y);
-                    // ReSharper restore RedundantCast
-                }
-            }
 
             var originalA = a;
             var originalB = b;
@@ -821,6 +811,32 @@ namespace Tests.BolgerUtils
             AssertEqual(a, originalB);
             AssertNotEqual(b, originalB);
             AssertEqual(b, originalA);
+
+            return;
+
+            void AssertNotEqual(T x, T y)
+            {
+                if(isValueType)
+                    Assert.NotEqual(x, y);
+                else
+#pragma warning disable IDE0079
+#pragma warning disable xUnit2005
+                    Assert.NotSame(x, y);
+#pragma warning restore xUnit2005
+#pragma warning restore IDE0079
+            }
+
+            void AssertEqual(T x, T y)
+            {
+                if(isValueType)
+                    Assert.Equal(x, y);
+                else
+#pragma warning disable IDE0079
+#pragma warning disable xUnit2005
+                    Assert.Same(x, y);
+#pragma warning restore xUnit2005
+#pragma warning restore IDE0079
+            }
         }
 
         #endregion
