@@ -4,7 +4,7 @@ BolgerUtils contains miscellaneous utilities available in various .NET NuGet pac
 
 The packages available are:
 
-### .NET Standard 2.1
+### .NET Standard 2.1, .NET 8.0, .NET 9.0
 
 * [BolgerUtils](BolgerUtils)
 * [BolgerUtils.EnumDisplay](BolgerUtils.EnumDisplay)

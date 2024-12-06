@@ -1,6 +1,6 @@
 # BolgerUtils.EnumDisplay
 
-BolgerUtils.EnumDisplay is a .NET Standard 2.1 library which provides a means to display enums with defined names. A default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific enum name is not defined.
+BolgerUtils.EnumDisplay is a .NET library which provides a means to display enums with defined names. A default behaviour of upper casing the enum name and inserting a space before every proceeding upper case letter is used when a specific enum name is not defined.
 
 The **BolgerUtils.EnumDisplay.EnumDisplayUtils** class implements this functionality and extension methods on the enum type are available when the **BolgerUtils.EnumDisplay** namespace is imported via:
 

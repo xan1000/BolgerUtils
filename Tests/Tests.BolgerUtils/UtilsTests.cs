@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using BolgerUtils;
 using Microsoft.Data.SqlClient;
@@ -136,13 +137,13 @@ namespace Tests.BolgerUtils
         #region Methods
 
         internal const string ConnectionString =
-            @"Server=.\SQLEXPRESS;Database=BolgerUtilsTests;Trusted_Connection=True";
-        internal static readonly object CreateConnectionLock = new();
+            @"Server=.\SQLEXPRESS;Database=BolgerUtilsTests;Trusted_Connection=True;Encrypt=False";
+        internal static readonly Lock s_createConnectionLock = new();
 
         [Fact]
         public void Test_CreateAndOpenConnection()
         {
-            lock(CreateConnectionLock)
+            lock(s_createConnectionLock)
             {
                 try
                 {
@@ -187,7 +188,7 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_CreateConnection()
         {
-            lock(CreateConnectionLock)
+            lock(s_createConnectionLock)
             {
                 try
                 {

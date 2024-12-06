@@ -400,7 +400,7 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_ToDataTable()
         {
-            lock(UtilsTests.CreateConnectionLock)
+            lock(UtilsTests.s_createConnectionLock)
             {
                 try
                 {
@@ -1651,8 +1651,10 @@ namespace Tests.BolgerUtils
         [InlineData("Hello W...", "Hello World", 10)]
         [InlineData("HelloWo...", "HelloWorldTest", 10)]
         [InlineData("Hello World", "Hello World", 11)]
-        public void Test_Abbreviate(string expected, string item, int length) =>
+        public void Test_Abbreviate(string expected, string item, int length)
+        {
             Assert.Equal(expected, item.Abbreviate(length));
+        }
 
         [Fact]
         public void TestFact_Abbreviate()
@@ -1724,8 +1726,10 @@ namespace Tests.BolgerUtils
         [InlineData(true, "5a")]
         [InlineData(false, " 5")]
         [InlineData(false, "5 ")]
-        public void Test_IsInvalidDecimal(bool expected, string item) =>
+        public void Test_IsInvalidDecimal(bool expected, string item)
+        {
             Assert.Equal(expected, item.IsInvalidDecimal());
+        }
 
         [Theory]
         [InlineData(true, "test")]
@@ -2183,20 +2187,20 @@ Amazon
         public void Test_ToDirectoryInfo(string item) => Assert.IsType<DirectoryInfo>(item.ToDirectoryInfo());
 
         [Theory]
-        [InlineData(5, "5")]
-        [InlineData(-5, "-5")]
+        [InlineData(5d, "5")]
+        [InlineData(-5d, "-5")]
         [InlineData(5.5, "5.5")]
         [InlineData(-5.5, "-5.5")]
         [InlineData(0.95, "0.95")]
         [InlineData(.95, ".95")]
-        [InlineData(100, "100")]
+        [InlineData(100d, "100")]
         [InlineData(100.1, "100.1")]
-        [InlineData(0, "0")]
+        [InlineData(0d, "0")]
         [InlineData(0.0, "0.0")]
         [InlineData(null, "a5")]
         [InlineData(null, "5a")]
-        [InlineData(5, " 5")]
-        [InlineData(5, "5 ")]
+        [InlineData(5d, " 5")]
+        [InlineData(5d, "5 ")]
         public void Test_ToDouble(double? expected, string item)
         {
             if(expected.HasValue)
@@ -2208,22 +2212,24 @@ Amazon
         }
 
         [Theory]
-        [InlineData(5, "5")]
-        [InlineData(-5, "-5")]
+        [InlineData(5d, "5")]
+        [InlineData(-5d, "-5")]
         [InlineData(5.5, "5.5")]
         [InlineData(-5.5, "-5.5")]
         [InlineData(0.95, "0.95")]
         [InlineData(.95, ".95")]
-        [InlineData(100, "100")]
+        [InlineData(100d, "100")]
         [InlineData(100.1, "100.1")]
-        [InlineData(0, "0")]
+        [InlineData(0d, "0")]
         [InlineData(0.0, "0.0")]
         [InlineData(null, "a5")]
         [InlineData(null, "5a")]
-        [InlineData(5, " 5")]
-        [InlineData(5, "5 ")]
-        public void Test_ToDoubleOrNull(double? expected, string item) =>
+        [InlineData(5d, " 5")]
+        [InlineData(5d, "5 ")]
+        public void Test_ToDoubleOrNull(double? expected, string item)
+        {
             Assert.Equal(expected, item.ToDoubleOrNull());
+        }
 
         [Theory]
         [InlineData("", "")]
@@ -2232,8 +2238,10 @@ Amazon
         [InlineData("", null)]
         [InlineData("Test", "Test")]
         [InlineData(" Test ", " Test ")]
-        public void Test_ToEmptyIfNullOrWhiteSpace(string expected, string item) =>
+        public void Test_ToEmptyIfNullOrWhiteSpace(string expected, string item)
+        {
             Assert.Equal(expected, item.ToEmptyIfNullOrWhiteSpace());
+        }
 
         [Theory]
         [InlineData("Test.txt")]
@@ -2289,8 +2297,10 @@ Amazon
         [InlineData(null, null)]
         [InlineData("Test", "Test")]
         [InlineData(" Test ", " Test ")]
-        public void Test_ToNullIfNullOrWhiteSpace(string expected, string item) =>
+        public void Test_ToNullIfNullOrWhiteSpace(string expected, string item)
+        {
             Assert.Equal(expected, item.ToNullIfNullOrWhiteSpace());
+        }
 
         [Theory]
         [InlineData("http://example.com")]
@@ -2344,8 +2354,10 @@ Amazon
         [InlineData("He", "Hello World", 2)]
         [InlineData("H", "Hello World", 1)]
         [InlineData("", "Hello World", 0)]
-        public void Test_Truncate(string expected, string item, int length) =>
+        public void Test_Truncate(string expected, string item, int length)
+        {
             Assert.Equal(expected, item.Truncate(length));
+        }
 
         [Theory]
         [InlineData("Hello", "hello")]
@@ -2355,8 +2367,10 @@ Amazon
         [InlineData("Hello World Test", "HelloWorldTest")]
         [InlineData(" hello ", " hello ")]
         public void Test_UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(
-            string expected, string item) =>
+            string expected, string item)
+        {
             Assert.Equal(expected, item.UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter());
+        }
 
         #endregion
 

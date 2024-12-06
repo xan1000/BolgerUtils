@@ -1,6 +1,6 @@
 # BolgerUtils
 
-BolgerUtils is a .NET Standard 2.1 library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the **BolgerUtils.Utils** class and by extension methods available when the **BolgerUtils** namespace is imported via:
+BolgerUtils is a .NET library which provides various reusable (and sometimes useful) methods. This functionality comes in two forms, as static constants & methods found in the **BolgerUtils.Utils** class and by extension methods available when the **BolgerUtils** namespace is imported via:
 
 ######
 
@@ -274,7 +274,7 @@ The **.AddAll** and **.RemoveAll** methods can be used on regular collections bu
 
 The **.NotAll**, **.NotAny** and **.NotWhere** methods can be used on any **IEnumerable<T\>** source but are intended to be used in conjunction with EntityFramework.
 
-**.ToDateTimeString** uses **DateTime** format strings, see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+**.ToDateTimeString** uses **DateTime** format strings, see: https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
 
 # Attribution
 
