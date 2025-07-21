@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Console/">
+    <Project Path="Console/Console.BolgerUtils.EnumDisplayAndFileToObjectMapping/Console.BolgerUtils.EnumDisplayAndFileToObjectMapping.csproj" />
+    <Project Path="Console/Console.BolgerUtils/Console.BolgerUtils.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Tests.BolgerUtils.EnumDisplay/Tests.BolgerUtils.EnumDisplay.csproj" />
+    <Project Path="Tests/Tests.BolgerUtils.FileToObjectMapping/Tests.BolgerUtils.FileToObjectMapping.csproj" />
+    <Project Path="Tests/Tests.BolgerUtils.TimeZoneConverter/Tests.BolgerUtils.TimeZoneConverter.csproj" />
+    <Project Path="Tests/Tests.BolgerUtils/Tests.BolgerUtils.csproj" />
+  </Folder>
+  <Project Path="BolgerUtils.EnumDisplay/BolgerUtils.EnumDisplay.csproj" />
+  <Project Path="BolgerUtils.FileToObjectMapping/BolgerUtils.FileToObjectMapping.csproj" />
+  <Project Path="BolgerUtils.TimeZoneConverter/BolgerUtils.TimeZoneConverter.csproj" />
+  <Project Path="BolgerUtils/BolgerUtils.csproj" />
+</Solution>
