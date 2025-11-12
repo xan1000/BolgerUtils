@@ -43,7 +43,7 @@ namespace BolgerUtils
             var hexString = new StringBuilder(item.Length * hexadecimalCharactersPerByte);
             foreach(var x in item)
             {
-                hexString.AppendFormat("{0:X2}", x);
+                hexString.Append($"{x:X2}");
             }
 
             return hexString.ToString();
@@ -144,6 +144,7 @@ namespace BolgerUtils
 
         public static bool IsNull<T>(this T item) => item == null;
 
+        // ReSharper disable once UseCollectionExpression
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
         public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)")
@@ -440,6 +441,7 @@ namespace BolgerUtils
 
         public static decimal ToDecimal(this string item) => decimal.Parse(item);
 
+        // ReSharper disable once RedundantCast
         public static decimal? ToDecimalOrNull(this string item) =>
             decimal.TryParse(item, out var x) ? x : (decimal?) null;
 
@@ -447,6 +449,7 @@ namespace BolgerUtils
 
         public static double ToDouble(this string item) => double.Parse(item);
 
+        // ReSharper disable once RedundantCast
         public static double? ToDoubleOrNull(this string item) =>
             double.TryParse(item, out var x) ? x : (double?) null;
 
@@ -457,6 +460,7 @@ namespace BolgerUtils
 
         public static int ToInt(this string item) => int.Parse(item);
 
+        // ReSharper disable once RedundantCast
         public static int? ToIntOrNull(this string item) => int.TryParse(item, out var x) ? x : (int?) null;
 
         public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
