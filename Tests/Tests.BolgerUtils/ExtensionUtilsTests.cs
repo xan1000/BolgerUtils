@@ -574,39 +574,39 @@ namespace Tests.BolgerUtils
             var s = "Hello World";
             Test_ToStringIfNull_Implementation(s, s);
             Test_ToStringIfNull_Implementation(s, s, "Test");
-            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => s.ToStringIfNull(null!));
 
             s = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, s);
             Test_ToStringIfNull_Implementation("Test", s, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => s.ToStringIfNull(null!));
 
             var t = new ExtensionUtilsTests();
             Test_ToStringIfNull_Implementation(t.ToString()!, t);
             Test_ToStringIfNull_Implementation(t.ToString()!, t, "Test");
-            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => t.ToStringIfNull(null!));
 
             t = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, t);
             Test_ToStringIfNull_Implementation("Test", t, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => t.ToStringIfNull(null!));
 
             // Test struct.
             int? i = 10;
             Test_ToStringIfNull_Implementation(i.ToString()!, i);
             Test_ToStringIfNull_Implementation(i.ToString()!, i, "Test");
-            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => i.ToStringIfNull(null!));
 
             i = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, i);
             Test_ToStringIfNull_Implementation("Test", i, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null!));
+            Assert.Throws<ArgumentNullException>(() => i.ToStringIfNull(null!));
         }
 
         private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string? stringIfNull = null)
