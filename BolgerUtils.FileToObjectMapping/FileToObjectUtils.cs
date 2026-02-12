@@ -6,9 +6,11 @@ namespace BolgerUtils.FileToObjectMapping
 {
     public sealed class FileToObject
     {
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         private readonly Dictionary<string, Func<string, object>> _fileContentToObjectDictionary =
             new Dictionary<string, Func<string, object>>();
 
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         private readonly Dictionary<string, (FileInfo fileInfo, object? value)> _fileInfoAndValueDictionary =
             new Dictionary<string, (FileInfo, object?)>();
 

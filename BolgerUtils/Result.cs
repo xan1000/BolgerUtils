@@ -4,6 +4,7 @@ namespace BolgerUtils
 {
     public class Result<T>
     {
+        // ReSharper disable once ReplaceWithFieldKeyword
         private readonly T _returnValue;
 
         public Result(T returnValue)

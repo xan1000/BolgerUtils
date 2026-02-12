@@ -192,6 +192,7 @@ namespace BolgerUtils.TimeZoneConverter
         private static readonly Dictionary<string, TimeZoneInfo> _timeZoneInfoDictionaryCache =
             new Dictionary<string, TimeZoneInfo>();
 
+        // ReSharper disable once ReplaceWithFieldKeyword
         private static TimeZoneInfo? _defaultTimeZone;
         public static TimeZoneInfo DefaultTimeZone
         {

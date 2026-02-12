@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using BolgerUtils.EnumDisplay;
+﻿using BolgerUtils.EnumDisplay;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
 using static System.Console;
@@ -70,6 +67,7 @@ public static class ProgramEnumDisplay
 public class Person
 {
     // ReSharper disable UnusedAutoPropertyAccessor.Global
+    // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
     public string Name { get; set; } = null!;
     public int Age { get; set; }
     // ReSharper restore UnusedAutoPropertyAccessor.Global
@@ -79,6 +77,7 @@ public class Person
 public class Account
 {
     // ReSharper disable UnusedAutoPropertyAccessor.Global
+    // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
     public string AccountNumber { get; set; } = null!;
     public double Balance { get; set; }
     // ReSharper restore UnusedAutoPropertyAccessor.Global

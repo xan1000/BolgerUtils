@@ -147,6 +147,7 @@ namespace BolgerUtils
         public static bool IsNull<T>(this T item) => item == null;
 
         // ReSharper disable once UseCollectionExpression
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
 
         public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)")
@@ -215,9 +216,8 @@ namespace BolgerUtils
 
         public static IEnumerable<T> ToEnumerableEmptyIfNull<T>(this IEnumerable<T>? source)
         {
-#pragma warning disable IDE0301
+            // ReSharper disable once UseCollectionExpression
             return source ?? Enumerable.Empty<T>();
-#pragma warning restore IDE0301
         }
 
         public static IEnumerable<T> Yield<T>(this T item)
