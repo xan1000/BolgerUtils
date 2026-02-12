@@ -145,7 +145,7 @@ namespace Tests.BolgerUtils.TimeZoneConverter
         private void Test_SetDefaultTimeZone_Implementation(Action setDefaultTimeZone)
         {
             Assert.Throws<InvalidOperationException>(() => Utils.DefaultTimeZone);
-            Utils.SetDefaultTimeZone((TimeZoneInfo) null);
+            Utils.SetDefaultTimeZone((TimeZoneInfo) null!);
             Assert.Throws<InvalidOperationException>(() => Utils.DefaultTimeZone);
 
             setDefaultTimeZone();

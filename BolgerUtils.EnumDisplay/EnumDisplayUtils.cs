@@ -28,14 +28,14 @@ namespace BolgerUtils.EnumDisplay
         private readonly Dictionary<Enum, string> _dictionary = new Dictionary<Enum, string>();
         private readonly Func<Enum, string> _defaultDisplay = DefaultDisplay;
 
-        public EnumDisplayUtils(bool cacheValueOnDisplay = true, Func<Enum, string> defaultDisplay = null)
+        public EnumDisplayUtils(bool cacheValueOnDisplay = true, Func<Enum, string>? defaultDisplay = null)
         {
             CacheValueOnDisplay = cacheValueOnDisplay;
             if(defaultDisplay != null)
                 _defaultDisplay = defaultDisplay;
         }
 
-        public void Add(Enum key, string value = null)
+        public void Add(Enum key, string? value = null)
         {
             value ??= _defaultDisplay(key);
 
@@ -73,7 +73,7 @@ namespace BolgerUtils.EnumDisplay
     public static class EnumDisplayExtensionUtils
     {
         // https://stackoverflow.com/a/9276348
-        internal static T GetAttributeOfType<T>(this Enum key) where T : Attribute
+        internal static T? GetAttributeOfType<T>(this Enum key) where T : Attribute
         {
             var memberInfo = key.GetType().GetMember(key.ToString());
             var attributes = memberInfo[0].GetCustomAttributes(typeof(T), false);
@@ -83,7 +83,7 @@ namespace BolgerUtils.EnumDisplay
 
         public static EnumDisplayUtils EnumDisplayUtils { get; } = new EnumDisplayUtils();
 
-        public static void Add(this Enum key, string value = null) => EnumDisplayUtils.Add(key, value);
+        public static void Add(this Enum key, string? value = null) => EnumDisplayUtils.Add(key, value);
         public static bool ContainsKey(this Enum key) => EnumDisplayUtils.ContainsKey(key);
         public static string Display(this Enum key) => EnumDisplayUtils.Display(key);
         public static bool Remove(this Enum key) => EnumDisplayUtils.Remove(key);

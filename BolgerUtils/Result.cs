@@ -13,6 +13,7 @@ namespace BolgerUtils
 
         public Result(Exception exception)
         {
+            _returnValue = default!;
             Exception = exception;
         }
 
@@ -21,6 +22,7 @@ namespace BolgerUtils
         {
             get
             {
+                // ReSharper disable once ConvertIfStatementToReturnStatement
                 if(Exception != null)
                     throw new InvalidOperationException($"{nameof(Exception)} is not null");
 
@@ -28,6 +30,6 @@ namespace BolgerUtils
             }
         }
 
-        public Exception Exception { get; }
+        public Exception? Exception { get; }
     }
 }

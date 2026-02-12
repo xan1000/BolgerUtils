@@ -574,43 +574,45 @@ namespace Tests.BolgerUtils
             var s = "Hello World";
             Test_ToStringIfNull_Implementation(s, s);
             Test_ToStringIfNull_Implementation(s, s, "Test");
-            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null));
+            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null!));
 
             s = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, s);
             Test_ToStringIfNull_Implementation("Test", s, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null));
+            Assert.Throws<ArgumentException>(() => s.ToStringIfNull(null!));
 
             var t = new ExtensionUtilsTests();
-            Test_ToStringIfNull_Implementation(t.ToString(), t);
-            Test_ToStringIfNull_Implementation(t.ToString(), t, "Test");
-            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null));
+            Test_ToStringIfNull_Implementation(t.ToString()!, t);
+            Test_ToStringIfNull_Implementation(t.ToString()!, t, "Test");
+            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null!));
 
             t = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, t);
             Test_ToStringIfNull_Implementation("Test", t, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null));
+            Assert.Throws<ArgumentException>(() => t.ToStringIfNull(null!));
 
             // Test struct.
             int? i = 10;
-            Test_ToStringIfNull_Implementation(i.ToString(), i);
-            Test_ToStringIfNull_Implementation(i.ToString(), i, "Test");
-            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null));
+            Test_ToStringIfNull_Implementation(i.ToString()!, i);
+            Test_ToStringIfNull_Implementation(i.ToString()!, i, "Test");
+            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null!));
 
             i = null;
             // ReSharper disable ExpressionIsAlwaysNull
             Test_ToStringIfNull_Implementation(stringIfNullDefaultValue, i);
             Test_ToStringIfNull_Implementation("Test", i, "Test");
             // ReSharper restore ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null));
+            Assert.Throws<ArgumentException>(() => i.ToStringIfNull(null!));
         }
 
-        private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string stringIfNull = null) =>
+        private void Test_ToStringIfNull_Implementation<T>(string expected, T item, string? stringIfNull = null)
+        {
             Assert.Equal(expected, stringIfNull == null ? item.ToStringIfNull() : item.ToStringIfNull(stringIfNull));
+        }
 
         #endregion
 
@@ -920,40 +922,42 @@ namespace Tests.BolgerUtils
         [Fact]
         public void Test_NotNull()
         {
-            Test_NotNull_Implementation(new[] { "Hello", null, "World", null });
-            Test_NotNull_Implementation(new[] { "Hello", "World" });
-            Test_NotNull_Implementation(new[] { 1, 2, 3 });
+            Test_NotNull_Implementation(["Hello", null, "World", null]);
+            Test_NotNull_Implementation(["Hello", "World"]);
+            Test_NotNull_Implementation([1, 2, 3]);
             Test_NotNull_Implementation(new int?[] { 1, null, 2, null, 3, null });
-            Test_NotNull_Implementation(new object[] { 1, "Hello", 2, null, 3, "World", null });
+            Test_NotNull_Implementation(new object?[] { 1, "Hello", 2, null, 3, "World", null });
         }
 
-        private void Test_NotNull_Implementation<T>(IEnumerable<T> source) =>
+        private void Test_NotNull_Implementation<T>(IEnumerable<T> source)
+        {
             Assert.DoesNotContain(source.NotNull(), x => x.IsNull());
+        }
 
         [Fact]
         public void Test_NotWhere()
         {
-            Test_NotWhere_Implementation(new[] { 5 }, new[] { 4, 5, 6 }, x => x % 2 == 0);
-            Test_NotWhere_Implementation(new[] { 3, 5, 7 }, new[] { 3, 5, 7 }, x => x % 2 == 0);
-            Test_NotWhere_Implementation(Array.Empty<int>(), new[] { 4, 6, 8 }, x => x % 2 == 0);
-            Test_NotWhere_Implementation(Array.Empty<int>(), Array.Empty<int>(), x => x % 2 == 0);
+            Test_NotWhere_Implementation([5], [4, 5, 6], x => x % 2 == 0);
+            Test_NotWhere_Implementation([3, 5, 7], [3, 5, 7], x => x % 2 == 0);
+            Test_NotWhere_Implementation([], [4, 6, 8], x => x % 2 == 0);
+            Test_NotWhere_Implementation([], Array.Empty<int>(), x => x % 2 == 0);
 
             var list = new List<string> { "Hello", "World", "Test" };
-            Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
-            Test_NotWhere_Implementation(new[] { "Hello" }, list, x => x != "Hello");
-            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello World");
+            Test_NotWhere_Implementation(["World", "Test"], list, x => x == "Hello");
+            Test_NotWhere_Implementation(["Hello"], list, x => x != "Hello");
+            Test_NotWhere_Implementation([], list, x => x != "Hello World");
 
             list.RemoveAt(0);
-            Test_NotWhere_Implementation(new[] { "World", "Test" }, list, x => x == "Hello");
-            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello");
-            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x != "Hello World");
+            Test_NotWhere_Implementation(["World", "Test"], list, x => x == "Hello");
+            Test_NotWhere_Implementation([], list, x => x != "Hello");
+            Test_NotWhere_Implementation([], list, x => x != "Hello World");
 
             list.Clear();
-            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x == "Hello");
+            Test_NotWhere_Implementation([], list, x => x == "Hello");
 
-            list.AddRange(new[] { "Hello", "Hello", "Hello" });
-            Test_NotWhere_Implementation(Array.Empty<string>(), list, x => x == "Hello");
-            Test_NotWhere_Implementation(new[] { "Hello", "Hello", "Hello" }, list, x => x != "Hello");
+            list.AddRange(["Hello", "Hello", "Hello"]);
+            Test_NotWhere_Implementation([], list, x => x == "Hello");
+            Test_NotWhere_Implementation(["Hello", "Hello", "Hello"], list, x => x != "Hello");
         }
 
         private void Test_NotWhere_Implementation<T>(
@@ -973,16 +977,16 @@ namespace Tests.BolgerUtils
 
             intArray = null;
             Assert.NotNull(intArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(Array.Empty<int>(), intArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(Enumerable.Empty<int>(), intArray.ToEnumerableEmptyIfNull());
+            Assert.Equal([], intArray.ToEnumerableEmptyIfNull());
+            Assert.Equal([], intArray.ToEnumerableEmptyIfNull());
 
             var stringArray = new[] { "Hello", "World", "Test" };
             Assert.Equal(stringArray, stringArray.ToEnumerableEmptyIfNull());
 
             stringArray = null;
             Assert.NotNull(stringArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(Array.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
-            Assert.Equal(Enumerable.Empty<string>(), stringArray.ToEnumerableEmptyIfNull());
+            Assert.Equal([], stringArray.ToEnumerableEmptyIfNull());
+            Assert.Equal([], stringArray.ToEnumerableEmptyIfNull());
             // ReSharper restore ExpressionIsAlwaysNull
         }
 
@@ -1632,7 +1636,7 @@ namespace Tests.BolgerUtils
         [InlineData("Test")]
         [InlineData(10)]
         [InlineData(null)]
-        public void Test_ToDbNullIfNull(object item)
+        public void Test_ToDbNullIfNull(object? item)
         {
             var result = item.ToDbNullIfNull();
             if(item != null)
@@ -1677,7 +1681,7 @@ namespace Tests.BolgerUtils
         [InlineData("12345678", "A 12 B 34 C 56 D 78 E")]
         [InlineData("12345678", "A 0 B 4 C 1 D 2 E 3 F 4 G 5 H 6 I 7 J 8")]
         [InlineData(null, "A 1 B 2 C 3 D 4 E 5 F 6 G 7 H")]
-        public void Test_GetLast8Digits(string expected, string item) => Assert.Equal(expected, item.GetLast8Digits());
+        public void Test_GetLast8Digits(string? expected, string item) => Assert.Equal(expected, item.GetLast8Digits());
 
         [Theory]
         [InlineData(true, "")]
@@ -1685,7 +1689,7 @@ namespace Tests.BolgerUtils
         public void Test_IsEmpty(bool expected, string item) => Assert.Equal(expected, item.IsEmpty());
 
         [Fact]
-        public void TestFact_IsEmpty() => Assert.Throws<NullReferenceException>(() => ((string) null).IsEmpty());
+        public void TestFact_IsEmpty() => Assert.Throws<NullReferenceException>(() => ((string) null!).IsEmpty());
 
         [Theory]
         [InlineData(true, "test")]
@@ -1774,7 +1778,7 @@ namespace Tests.BolgerUtils
         [InlineData(true, null)]
         [InlineData(false, "Test")]
         [InlineData(false, " Test ")]
-        public void Test_IsNullOrEmpty(bool expected, string item)
+        public void Test_IsNullOrEmpty(bool expected, string? item)
         {
             Assert.Equal(expected, item.IsNullOrEmpty());
             Assert.Equal(string.IsNullOrEmpty(item), item.IsNullOrEmpty());
@@ -1787,7 +1791,7 @@ namespace Tests.BolgerUtils
         [InlineData(true, null)]
         [InlineData(false, "Test")]
         [InlineData(false, " Test ")]
-        public void Test_IsNullOrWhiteSpace(bool expected, string item)
+        public void Test_IsNullOrWhiteSpace(bool expected, string? item)
         {
             Assert.Equal(expected, item.IsNullOrWhiteSpace());
             Assert.Equal(string.IsNullOrWhiteSpace(item), item.IsNullOrWhiteSpace());
@@ -2121,7 +2125,7 @@ Amazon
         public void TestFact_ToBoolean()
         {
             Assert.Throws<FormatException>(() => "abc".ToBoolean());
-            Assert.Throws<ArgumentNullException>(() => ((string) null).ToBoolean());
+            Assert.Throws<ArgumentNullException>(() => ((string) null!).ToBoolean());
         }
 
         [Theory]
@@ -2238,7 +2242,7 @@ Amazon
         [InlineData("", null)]
         [InlineData("Test", "Test")]
         [InlineData(" Test ", " Test ")]
-        public void Test_ToEmptyIfNullOrWhiteSpace(string expected, string item)
+        public void Test_ToEmptyIfNullOrWhiteSpace(string expected, string? item)
         {
             Assert.Equal(expected, item.ToEmptyIfNullOrWhiteSpace());
         }
@@ -2297,7 +2301,7 @@ Amazon
         [InlineData(null, null)]
         [InlineData("Test", "Test")]
         [InlineData(" Test ", " Test ")]
-        public void Test_ToNullIfNullOrWhiteSpace(string expected, string item)
+        public void Test_ToNullIfNullOrWhiteSpace(string? expected, string? item)
         {
             Assert.Equal(expected, item.ToNullIfNullOrWhiteSpace());
         }

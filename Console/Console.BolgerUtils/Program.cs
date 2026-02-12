@@ -1,12 +1,11 @@
 ﻿using static System.Console;
 
-namespace Console.BolgerUtils
+namespace Console.BolgerUtils;
+
+public static class Program
 {
-    public static class Program
+    private static void Main()
     {
-        private static void Main()
-        {
-            WriteLine("--- Console.BolgerUtils ---");
-        }
+        WriteLine("--- Console.BolgerUtils ---");
     }
 }

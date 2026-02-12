@@ -8,8 +8,9 @@ namespace BolgerUtils.FileToObjectMapping
     {
         private readonly Dictionary<string, Func<string, object>> _fileContentToObjectDictionary =
             new Dictionary<string, Func<string, object>>();
-        private readonly Dictionary<string, (FileInfo fileInfo, object value)> _fileInfoAndValueDictionary =
-            new Dictionary<string, (FileInfo, object)>();
+
+        private readonly Dictionary<string, (FileInfo fileInfo, object? value)> _fileInfoAndValueDictionary =
+            new Dictionary<string, (FileInfo, object?)>();
 
         public void Clear()
         {
@@ -39,7 +40,7 @@ namespace BolgerUtils.FileToObjectMapping
                 // Add new key+value OR update existing value.
                 _fileInfoAndValueDictionary[key] = (fileInfo, fileContentToObject(File.ReadAllText(fileInfo.FullName)));
 
-            return (T) _fileInfoAndValueDictionary[key].value;
+            return (T) _fileInfoAndValueDictionary[key].value!;
         }
 
         public void Register<T>(string path, Func<string, T> fileContentToObject) where T : class =>
@@ -57,20 +58,26 @@ namespace BolgerUtils.FileToObjectMapping
 
     public static class FileToObjectUtils
     {
-        public static FileToObject FileToObject { get; } = new FileToObject();
+        private static readonly FileToObject s_fileToObject = new FileToObject();
 
-        public static bool IsRegistered(string path) => FileToObject.IsRegistered(path);
+        public static void Clear() => s_fileToObject.Clear();
 
-        public static T Load<T>(string path) => FileToObject.Load<T>(path);
+        public static bool IsRegistered(string path) => s_fileToObject.IsRegistered(path);
 
-        public static T Map<T>(string path, Func<string, T> fileContentToObject) =>
-            FileToObject.Map(path, fileContentToObject);
+        public static T Load<T>(string path) => s_fileToObject.Load<T>(path);
 
-        public static void Register<T>(string path, Func<string, T> fileContentToObject) where T : class =>
-            FileToObject.Register(path, fileContentToObject);
+        public static T Map<T>(string path, Func<string, T> fileContentToObject)
+        {
+            return s_fileToObject.Map(path, fileContentToObject);
+        }
 
-        public static bool UnMap(string path) => FileToObject.UnMap(path);
-        public static bool UnRegister(string path) => FileToObject.UnRegister(path);
+        public static void Register<T>(string path, Func<string, T> fileContentToObject) where T : class
+        {
+            s_fileToObject.Register(path, fileContentToObject);
+        }
+
+        public static bool UnMap(string path) => s_fileToObject.UnMap(path);
+        public static bool UnRegister(string path) => s_fileToObject.UnRegister(path);
 
         // Source code origin:
         // https://github.com/xan1000/BolgerUtils/blob/master/BolgerUtils/ExtensionUtils.cs

@@ -148,7 +148,7 @@ namespace Tests.BolgerUtils
                 try
                 {
                     Assert.Throws<InvalidOperationException>(Utils.CreateAndOpenConnection<SqlConnection>);
-                    Assert.Throws<ArgumentException>(() => Utils.CreateAndOpenConnection<SqlConnection>(null));
+                    Assert.Throws<ArgumentNullException>(() => Utils.CreateAndOpenConnection<SqlConnection>(null!));
 
                     // Set Utils.ConnectionString.
                     Utils.ConnectionString = ConnectionString;
@@ -193,7 +193,7 @@ namespace Tests.BolgerUtils
                 try
                 {
                     Assert.Throws<InvalidOperationException>(Utils.CreateConnection<SqlConnection>);
-                    Assert.Throws<ArgumentException>(() => Utils.CreateConnection<SqlConnection>(null));
+                    Assert.Throws<ArgumentNullException>(() => Utils.CreateConnection<SqlConnection>(null!));
 
                     // Set Utils.ConnectionString.
                     Utils.ConnectionString = ConnectionString;

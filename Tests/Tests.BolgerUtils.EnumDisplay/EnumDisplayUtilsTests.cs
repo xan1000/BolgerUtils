@@ -191,7 +191,7 @@ namespace Tests.BolgerUtils.EnumDisplay
             Test_DisplayCustomDefault_Implementation(key, x => x.ToString().ToUpper());
             Test_DisplayCustomDefault_Implementation(key, _ => "Constant");
             Test_DisplayCustomDefault_Implementation(key, _ => string.Empty);
-            Test_DisplayCustomDefault_Implementation(key, _ => null);
+            Test_DisplayCustomDefault_Implementation(key, _ => null!);
         }
 
         private void Test_DisplayCustomDefault_Implementation(Enum key, Func<Enum, string> defaultDisplay)

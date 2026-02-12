@@ -20,7 +20,7 @@ public class Account(string accountNumber, string ownerName, decimal balance) : 
     public decimal Balance { get; } = balance;
     // ReSharper restore MemberCanBePrivate.Global
 
-    public bool Equals(Account account)
+    public bool Equals(Account? account)
     {
         return account != null &&
             AccountNumber == account.AccountNumber && OwnerName == account.OwnerName && Balance == account.Balance;
@@ -35,48 +35,44 @@ public class FileToObjectTests
     private readonly FileToObject _fileToObject = new();
 
     public Func<string, string> TextFileToObject { get; } = x => x;
-    public Func<string, List<Account>> JsonFileToObject { get; }= JsonConvert.DeserializeObject<List<Account>>;
+    public Func<string, List<Account>> JsonFileToObject { get; } =
+        json => JsonConvert.DeserializeObject<List<Account>>(json)!;
 
     public string TextFileContent { get; private set; }
     public List<Account> JsonFileContent { get; private set; }
 
     private readonly ITestOutputHelper _output;
 
-    public FileToObjectTests(ITestOutputHelper output = null)
+    public FileToObjectTests(ITestOutputHelper output)
     {
         _output = output;
-        CreateTextFile();
-        CreateJsonFile();
-    }
 
-    private void CreateJsonFile() =>
-        UpdateJsonFileContent([
-            new Account("1234 5678", "Test 1", 500.50m),
-            new Account("9876 5432", "Test 2", 1000),
-            new Account("4444 4444", "Test 3", 0)
-        ]);
-
-    private void CreateTextFile()
-    {
-        const string content =
+        TextFileContent =
             "Line 1\n" +
             "Line 2\n" +
             "Line 3\n\n" +
             "Hello   World";
+        UpdateTextFileContent(TextFileContent);
 
-        UpdateTextFileContent(content);
-    }
-
-    private void UpdateJsonFileContent(List<Account> content)
-    {
-        JsonFileContent = content;
-        File.WriteAllText(JsonFilePath, JsonConvert.SerializeObject(JsonFileContent));
+        JsonFileContent =
+        [
+            new Account("1234 5678", "Test 1", 500.50m),
+            new Account("9876 5432", "Test 2", 1000),
+            new Account("4444 4444", "Test 3", 0)
+        ];
+        UpdateJsonFileContent(JsonFileContent);
     }
 
     private void UpdateTextFileContent(string content)
     {
         TextFileContent = content;
         File.WriteAllText(TextFilePath, TextFileContent);
+    }
+
+    private void UpdateJsonFileContent(List<Account> content)
+    {
+        JsonFileContent = content;
+        File.WriteAllText(JsonFilePath, JsonConvert.SerializeObject(JsonFileContent));
     }
 
     [Fact]
@@ -335,7 +331,7 @@ public class FileToObjectUtilsTests
     private const string TextFilePath = FileToObjectTests.TextFilePath;
     private const string JsonFilePath = FileToObjectTests.JsonFilePath;
 
-    private readonly FileToObjectTests _fileToObjectTests = new();
+    private readonly FileToObjectTests _fileToObjectTests = new FileToObjectTests(null!);
 
     private Func<string, string> TextFileToObject { get; }
     private Func<string, List<Account>> JsonFileToObject { get; }
@@ -347,7 +343,7 @@ public class FileToObjectUtilsTests
     {
         TextFileToObject = _fileToObjectTests.TextFileToObject;
         JsonFileToObject = _fileToObjectTests.JsonFileToObject;
-        FileToObjectUtils.FileToObject.Clear();
+        FileToObjectUtils.Clear();
     }
 
     [Fact]

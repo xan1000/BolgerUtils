@@ -10,6 +10,8 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// ReSharper disable ConvertToExtensionBlock
+
 namespace BolgerUtils
 {
     public static class ExtensionUtils
@@ -150,9 +152,9 @@ namespace BolgerUtils
         public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)")
         {
             if(stringIfNull == null)
-                throw new ArgumentException("stringIfNull cannot be null.", nameof(stringIfNull));
+                throw new ArgumentNullException(nameof(stringIfNull));
 
-            return item != null ? item.ToString() : stringIfNull;
+            return item?.ToString() ?? stringIfNull;
         }
 
         #endregion
@@ -206,11 +208,17 @@ namespace BolgerUtils
 
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T> source) => source.Where(x => x != null);
 
-        public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate) =>
-            source.Where(x => !predicate(x));
+        public static IEnumerable<T> NotWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            return source.Where(x => !predicate(x));
+        }
 
-        public static IEnumerable<T> ToEnumerableEmptyIfNull<T>(this IEnumerable<T> source) =>
-            source ?? Enumerable.Empty<T>();
+        public static IEnumerable<T> ToEnumerableEmptyIfNull<T>(this IEnumerable<T>? source)
+        {
+#pragma warning disable IDE0301
+            return source ?? Enumerable.Empty<T>();
+#pragma warning restore IDE0301
+        }
 
         public static IEnumerable<T> Yield<T>(this T item)
         {
@@ -303,17 +311,17 @@ namespace BolgerUtils
 
         public static dynamic ToDynamic(this object item)
         {
-            IDictionary<string, object> expando = new ExpandoObject();
+            IDictionary<string, object?> expando = new ExpandoObject();
 
             foreach(PropertyDescriptor property in TypeDescriptor.GetProperties(item.GetType()))
             {
-                expando.Add(property.Name, property.GetValue(item));
+                expando[property.Name] = property.GetValue(item);
             }
 
             return (ExpandoObject) expando;
         }
 
-        public static object ToDbNullIfNull(this object item) => item ?? DBNull.Value;
+        public static object ToDbNullIfNull(this object? item) => item ?? DBNull.Value;
 
         #endregion
 
@@ -332,7 +340,7 @@ namespace BolgerUtils
             return item.Truncate(length - abbreviation.Length) + abbreviation;
         }
 
-        public static string GetLast8Digits(this string item)
+        public static string? GetLast8Digits(this string item)
         {
             var digits = new string(item.Where(char.IsDigit).ToArray());
 
@@ -351,9 +359,9 @@ namespace BolgerUtils
 
         public static bool IsInvalidMoney(this string item) => !item.IsValidMoney();
 
-        public static bool IsNullOrEmpty(this string item) => string.IsNullOrEmpty(item);
+        public static bool IsNullOrEmpty(this string? item) => string.IsNullOrEmpty(item);
 
-        public static bool IsNullOrWhiteSpace(this string item) => string.IsNullOrWhiteSpace(item);
+        public static bool IsNullOrWhiteSpace(this string? item) => string.IsNullOrWhiteSpace(item);
 
         public static bool IsValidDecimal(this string item) => double.TryParse(item, out _);
 
@@ -361,7 +369,7 @@ namespace BolgerUtils
 
         public static bool IsValidEmail(this string item)
         {
-            MailAddress mailAddress = null;
+            MailAddress? mailAddress = null;
             try
             {
                 mailAddress = new MailAddress(item);
@@ -375,7 +383,8 @@ namespace BolgerUtils
 
         public static bool IsValidInt(this string item) => int.TryParse(item, out _);
 
-        private static readonly Regex _moneyRegex = new Regex(@"^\d+(\.\d{1,2})?$");
+        private static readonly Regex _moneyRegex =
+            new Regex(@"^\d+(\.\d{1,2})?$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         public static bool IsValidMoney(this string item) => _moneyRegex.IsMatch(item) && decimal.Parse(item) >= 0;
 
         public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
@@ -442,19 +451,25 @@ namespace BolgerUtils
         public static decimal ToDecimal(this string item) => decimal.Parse(item);
 
         // ReSharper disable once RedundantCast
-        public static decimal? ToDecimalOrNull(this string item) =>
-            decimal.TryParse(item, out var x) ? x : (decimal?) null;
+        public static decimal? ToDecimalOrNull(this string item)
+        {
+            return decimal.TryParse(item, out var x) ? x : (decimal?) null;
+        }
 
         public static DirectoryInfo ToDirectoryInfo(this string item) => new DirectoryInfo(item);
 
         public static double ToDouble(this string item) => double.Parse(item);
 
         // ReSharper disable once RedundantCast
-        public static double? ToDoubleOrNull(this string item) =>
-            double.TryParse(item, out var x) ? x : (double?) null;
+        public static double? ToDoubleOrNull(this string item)
+        {
+            return double.TryParse(item, out var x) ? x : (double?) null;
+        }
 
-        public static string ToEmptyIfNullOrWhiteSpace(this string item) =>
-            item.IsNullOrWhiteSpace() ? string.Empty : item;
+        public static string ToEmptyIfNullOrWhiteSpace(this string? item)
+        {
+            return string.IsNullOrWhiteSpace(item) ? string.Empty : item;
+        }
 
         public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
 
@@ -463,13 +478,13 @@ namespace BolgerUtils
         // ReSharper disable once RedundantCast
         public static int? ToIntOrNull(this string item) => int.TryParse(item, out var x) ? x : (int?) null;
 
-        public static string ToNullIfNullOrWhiteSpace(this string item) => item.IsNullOrWhiteSpace() ? null : item;
+        public static string? ToNullIfNullOrWhiteSpace(this string? item) => item.IsNullOrWhiteSpace() ? null : item;
 
         public static Uri ToUri(this string item) => new Uri(item);
 
         public static string TrimStartOnAllLines(this string item)
         {
-            var lines = item.Split(new[] { Utils.NewLineChar }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = item.Split(Utils.NewLineChar, StringSplitOptions.RemoveEmptyEntries);
 
             for(var i = 0; i < lines.Length; i++)
             {
@@ -479,8 +494,10 @@ namespace BolgerUtils
             return lines.Join(Utils.NewLineChar);
         }
 
-        public static string Truncate(this string item, int length) =>
-            item.Length <= length ? item : item[..Math.Min(item.Length, length)];
+        public static string Truncate(this string item, int length)
+        {
+            return item.Length <= length ? item : item[..Math.Min(item.Length, length)];
+        }
 
         public static string UpperCaseFirstLetterAndInsertSpaceBeforeEveryProceedingUpperCaseLetter(this string item)
         {

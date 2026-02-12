@@ -54,9 +54,9 @@ namespace BolgerUtils
 
         #region Methods
 
-        public static string ConnectionString { get; set; }
-        public static Func<string, DbConnection> CreateConnectionFunc { get; set; }
-        public static Func<DbCommand, DbDataAdapter> CreateDataAdapterFunc { get; set; }
+        public static string? ConnectionString { get; set; }
+        public static Func<string, DbConnection>? CreateConnectionFunc { get; set; }
+        public static Func<DbCommand, DbDataAdapter>? CreateDataAdapterFunc { get; set; }
 
         public static T CreateAndOpenConnection<T>() where T : DbConnection
         {
@@ -76,6 +76,7 @@ namespace BolgerUtils
 
         public static T CreateConnection<T>() where T : DbConnection
         {
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if(ConnectionString == null)
                 throw new InvalidOperationException("Must set the Utils.ConnectionString property.");
 
@@ -86,11 +87,11 @@ namespace BolgerUtils
         public static T CreateConnection<T>(string connectionString) where T : DbConnection
         {
             if(connectionString == null)
-                throw new ArgumentException("connectionString cannot be null", nameof(connectionString));
+                throw new ArgumentNullException(nameof(connectionString));
             if(CreateConnectionFunc == null)
                 throw new InvalidOperationException("Must set the Utils.CreateConnectionFunc property.");
 
-            return (T) CreateConnectionFunc(ConnectionString);
+            return (T) CreateConnectionFunc(connectionString);
         }
 
         public static List<DateTime> EachDay(DateTime startDate, int daysForward) =>
@@ -110,7 +111,7 @@ namespace BolgerUtils
             return days;
         }
 
-        public static Exception ExecuteWithTryCatch(Action action)
+        public static Exception? ExecuteWithTryCatch(Action action)
         {
             try
             {
@@ -135,7 +136,7 @@ namespace BolgerUtils
             }
         }
 
-        public static async Task<Exception> ExecuteWithTryCatchAsync(Func<Task> func)
+        public static async Task<Exception?> ExecuteWithTryCatchAsync(Func<Task> func)
         {
             try
             {

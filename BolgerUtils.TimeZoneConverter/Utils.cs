@@ -192,11 +192,12 @@ namespace BolgerUtils.TimeZoneConverter
         private static readonly Dictionary<string, TimeZoneInfo> _timeZoneInfoDictionaryCache =
             new Dictionary<string, TimeZoneInfo>();
 
-        private static TimeZoneInfo _defaultTimeZone;
+        private static TimeZoneInfo? _defaultTimeZone;
         public static TimeZoneInfo DefaultTimeZone
         {
             get
             {
+                // ReSharper disable once ConvertIfStatementToReturnStatement
                 if(_defaultTimeZone == null)
                     throw new InvalidOperationException("The DefaultTimeZone has not been set.");
 
