@@ -383,6 +383,7 @@ namespace BolgerUtils
 
         public static bool IsValidInt(this string item) => int.TryParse(item, out _);
 
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         private static readonly Regex _moneyRegex =
             new Regex(@"^\d+(\.\d{1,2})?$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         public static bool IsValidMoney(this string item) => _moneyRegex.IsMatch(item) && decimal.Parse(item) >= 0;
@@ -438,15 +439,19 @@ namespace BolgerUtils
 
         public static string RemoveSpace(this string item) => item.Remove(Utils.Space);
 
-        public static string RemoveSpaceAndSingleQuotation(this string item) =>
-            item.RemoveSpace().RemoveSingleQuotation();
+        public static string RemoveSpaceAndSingleQuotation(this string item)
+        {
+            return item.RemoveSpace().RemoveSingleQuotation();
+        }
 
         public static string SpaceToNbsp(this string item) => item.Replace(Utils.Space, Utils.NonBreakingSpace);
 
         public static bool ToBoolean(this string item) => bool.Parse(item);
 
-        public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item) =>
-            new DbConnectionStringBuilder { ConnectionString = item };
+        public static DbConnectionStringBuilder ToDbConnectionStringBuilder(this string item)
+        {
+            return new DbConnectionStringBuilder { ConnectionString = item };
+        }
 
         public static decimal ToDecimal(this string item) => decimal.Parse(item);
 
@@ -456,6 +461,7 @@ namespace BolgerUtils
             return decimal.TryParse(item, out var x) ? x : (decimal?) null;
         }
 
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         public static DirectoryInfo ToDirectoryInfo(this string item) => new DirectoryInfo(item);
 
         public static double ToDouble(this string item) => double.Parse(item);
@@ -471,6 +477,7 @@ namespace BolgerUtils
             return string.IsNullOrWhiteSpace(item) ? string.Empty : item;
         }
 
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         public static FileInfo ToFileInfo(this string item) => new FileInfo(item);
 
         public static int ToInt(this string item) => int.Parse(item);
@@ -480,6 +487,7 @@ namespace BolgerUtils
 
         public static string? ToNullIfNullOrWhiteSpace(this string? item) => item.IsNullOrWhiteSpace() ? null : item;
 
+        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
         public static Uri ToUri(this string item) => new Uri(item);
 
         public static string TrimStartOnAllLines(this string item)
