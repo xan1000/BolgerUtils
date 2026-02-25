@@ -322,74 +322,99 @@ public class UtilsTests
         // ExecuteWithTryCatchAsync Func<Task>.
         {
             var i = 0;
-            Assert.Null(await Utils.ExecuteWithTryCatchAsync(async () =>
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                i = 5;
-                await Task.Delay(TimeSpan.FromSeconds(1));
-            }));
+            Assert.Null(
+                await Utils.ExecuteWithTryCatchAsync(
+                    async () =>
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(1));
+                        i = 5;
+                        await Task.Delay(TimeSpan.FromSeconds(1));
+                    }
+                )
+            );
             Assert.Equal(5, i);
-
-            // Disable async with no await warning.
-#pragma warning disable 1998
 
             i = 0;
-            Assert.Null(await Utils.ExecuteWithTryCatchAsync(async () => { i = 5; }));
+            Assert.Null(
+                await Utils.ExecuteWithTryCatchAsync(
+                    () =>
+                    {
+                        i = 5;
+                        return Task.CompletedTask;
+                    }
+                )
+            );
             Assert.Equal(5, i);
 
-            Assert.NotNull(await Utils.ExecuteWithTryCatchAsync(async () => throw new Exception()));
+            Assert.NotNull(await Utils.ExecuteWithTryCatchAsync(() => throw new Exception()));
 
             var throwException = new Exception();
-            Assert.Same(throwException, await Utils.ExecuteWithTryCatchAsync(async () => throw throwException));
+            Assert.Same(
+                throwException,
+                await Utils.ExecuteWithTryCatchAsync(() => throw throwException)
+            );
 
             // ReSharper disable once UnusedVariable
-            var e = await Utils.ExecuteWithTryCatchAsync(async () => { var c = s[0]; });
+            var e = await Utils.ExecuteWithTryCatchAsync(
+                () =>
+                {
+                    var c = s[0];
+                    return Task.CompletedTask;
+                }
+            );
             Assert.Null(e);
 
             // ReSharper disable once UnusedVariable
-            e = await Utils.ExecuteWithTryCatchAsync(async () => { var c = s[-1]; });
+            e = await Utils.ExecuteWithTryCatchAsync(
+                () =>
+                {
+                    var c = s[-1];
+                    return Task.CompletedTask;
+                }
+            );
             Assert.NotNull(e);
             Assert.IsType<IndexOutOfRangeException>(e);
 
             // ReSharper disable once UnusedVariable
-            e = await Utils.ExecuteWithTryCatchAsync(async () => { var c = s[s.Length]; });
+            e = await Utils.ExecuteWithTryCatchAsync(
+                () =>
+                {
+                    var c = s[s.Length]; 
+                    return Task.CompletedTask;
+                }
+            );
             Assert.NotNull(e);
             Assert.IsType<IndexOutOfRangeException>(e);
-
-#pragma warning restore 1998
         }
 
         // ExecuteWithTryCatchAsync Func<Task<T>>.
         {
-            var result = await Utils.ExecuteWithTryCatchAsync(async () =>
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                var substring = s[..h.Length];
-                await Task.Delay(TimeSpan.FromSeconds(1));
+            var result = await Utils.ExecuteWithTryCatchAsync(
+                async () =>
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    var substring = s[..h.Length];
+                    await Task.Delay(TimeSpan.FromSeconds(1));
 
-                return substring;
-            });
+                    return substring;
+                }
+            );
             Assert.True(result.HasReturnValue);
             Assert.Equal(h, result.ReturnValue);
             Assert.Null(result.Exception);
 
-            // Disable async with no await warning.
-#pragma warning disable 1998
-
             // ReSharper disable once NegativeIndex
-            result = await Utils.ExecuteWithTryCatchAsync(async () => s[-1..]);
+            result = await Utils.ExecuteWithTryCatchAsync(() => Task.FromResult(s[-1..]));
             Assert.False(result.HasReturnValue);
             Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
             Assert.NotNull(result.Exception);
             Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
 
-            result = await Utils.ExecuteWithTryCatchAsync(async () => s[(s.Length + 1)..]);
+            result = await Utils.ExecuteWithTryCatchAsync(() => Task.FromResult(s[(s.Length + 1)..]));
             Assert.False(result.HasReturnValue);
             Assert.Throws<InvalidOperationException>(() => result.ReturnValue);
             Assert.NotNull(result.Exception);
             Assert.IsType<ArgumentOutOfRangeException>(result.Exception);
-
-#pragma warning restore 1998
         }
     }
 
