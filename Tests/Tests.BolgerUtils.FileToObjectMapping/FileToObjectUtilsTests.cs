@@ -3,7 +3,6 @@ using BolgerUtils;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
 using Xunit;
-using Xunit.Abstractions;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace Tests.BolgerUtils.FileToObjectMapping;
