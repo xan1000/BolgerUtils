@@ -17,7 +17,8 @@ public class Account(string accountNumber, string ownerName, decimal balance) : 
 
     public bool Equals(Account? account)
     {
-        return account != null &&
+        return
+            account != null &&
             AccountNumber == account.AccountNumber && OwnerName == account.OwnerName && Balance == account.Balance;
     }
 }
