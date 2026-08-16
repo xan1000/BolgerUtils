@@ -1,8 +1,10 @@
-﻿using System.Reflection;
-using BolgerUtils.TimeZoneConverter;
+﻿using BolgerUtils.TimeZoneConverter;
+using System.Reflection;
 using Xunit;
+using Xunit.Sdk;
+using Xunit.v3;
 
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: Parallelization(Mode = ParallelMode.None)]
 namespace Tests.BolgerUtils.TimeZoneConverter;
 
 public class UtilsTests

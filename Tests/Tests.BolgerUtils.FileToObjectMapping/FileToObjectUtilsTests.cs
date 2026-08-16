@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
-using BolgerUtils;
+﻿using BolgerUtils;
 using BolgerUtils.FileToObjectMapping;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using Xunit;
+using Xunit.Sdk;
+using Xunit.v3;
 
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: Parallelization(Mode = ParallelMode.None)]
 namespace Tests.BolgerUtils.FileToObjectMapping;
 
 public class Account(string accountNumber, string ownerName, decimal balance) : IEquatable<Account>
