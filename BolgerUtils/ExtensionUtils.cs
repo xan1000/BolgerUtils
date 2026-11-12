@@ -146,9 +146,12 @@ namespace BolgerUtils
 
         public static bool IsNull<T>(this T item) => item == null;
 
-        // ReSharper disable once UseCollectionExpression
-        // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
-        public static List<T> ScalarToList<T>(this T item) => new List<T>(1) { item };
+        public static List<T> ScalarToList<T>(this T item)
+        {
+#pragma warning disable IDE0028
+            return new List<T>(1) { item };
+#pragma warning restore IDE0028
+        }
 
         public static string ToStringIfNull<T>(this T item, string stringIfNull = "(null)")
         {
@@ -216,8 +219,9 @@ namespace BolgerUtils
 
         public static IEnumerable<T> ToEnumerableEmptyIfNull<T>(this IEnumerable<T>? source)
         {
-            // ReSharper disable once UseCollectionExpression
+#pragma warning disable IDE0301
             return source ?? Enumerable.Empty<T>();
+#pragma warning restore IDE0301
         }
 
         public static IEnumerable<T> Yield<T>(this T item)
@@ -458,7 +462,9 @@ namespace BolgerUtils
         // ReSharper disable once RedundantCast
         public static decimal? ToDecimalOrNull(this string item)
         {
+#pragma warning disable IDE0004
             return decimal.TryParse(item, out var x) ? x : (decimal?) null;
+#pragma warning restore IDE0004
         }
 
         // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
@@ -469,7 +475,9 @@ namespace BolgerUtils
         // ReSharper disable once RedundantCast
         public static double? ToDoubleOrNull(this string item)
         {
+#pragma warning disable IDE0004
             return double.TryParse(item, out var x) ? x : (double?) null;
+#pragma warning restore IDE0004
         }
 
         public static string ToEmptyIfNullOrWhiteSpace(this string? item)
@@ -483,7 +491,12 @@ namespace BolgerUtils
         public static int ToInt(this string item) => int.Parse(item);
 
         // ReSharper disable once RedundantCast
-        public static int? ToIntOrNull(this string item) => int.TryParse(item, out var x) ? x : (int?) null;
+        public static int? ToIntOrNull(this string item)
+        {
+#pragma warning disable IDE0004
+            return int.TryParse(item, out var x) ? x : (int?) null;
+#pragma warning restore IDE0004
+        }
 
         public static string? ToNullIfNullOrWhiteSpace(this string? item) => item.IsNullOrWhiteSpace() ? null : item;
 
